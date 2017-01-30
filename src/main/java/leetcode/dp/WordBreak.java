@@ -2,6 +2,7 @@ package leetcode.dp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -86,16 +87,14 @@ public class WordBreak {
 		for (int i = 1; i <= n; i++) {
 			for (int j = 0; j < i; j++) {
 				String substr = s.substring(j, i);
-				if (wordDict.contains(substr)) {
+				if (dp[j] != null  && wordDict.contains(substr)) {
 					if (dp[i] == null) dp[i] = new ArrayList<String>();
 					dp[i].add(substr);
 				}
 			}
 		}
 		
-		//Stream.of(dp).forEach(System.out::println);
 		if (dp[n] == null) return result;
-		
 		dfs(dp, s.length(), result, new ArrayList<>());
 		
 		return result;
@@ -108,6 +107,7 @@ public class WordBreak {
 				str += " " + backtrack.get(i);
 			}
 			result.add(str);
+			return;
 		}
 		
 		for (String last : dp[end]) {
@@ -117,11 +117,19 @@ public class WordBreak {
 		}
 	}
 	
+	
+	
 	public static void main(String[] arg) {
 		WordBreak w = new WordBreak();
 		
-		String s = "catsanddog";
-		List<String> wordDict = Arrays.asList("cat", "cats", "and", "sand", "dog");
+		//String s = "catsanddog";
+		//List<String> wordDict = Arrays.asList("cat", "cats", "and", "sand", "dog");
+		
+		String s = "aaaaaaa";
+		List<String> wordDict = Arrays.asList("aaaa","aa");
+		
+		//String s = "a";
+		//List<String> wordDict = Arrays.asList("a");
 		
 		List<String> result = w.wordBreakII(s, wordDict);
 		System.out.println(result);	

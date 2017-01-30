@@ -7,15 +7,27 @@ public class SubArray {
 	 * which has the largest sum. For example, given the array [-2,1,-3,4,-1,2,1,-5,4], 
 	 * the contiguous subarray [4,-1,2,1] has the largest sum = 6. 
 	 */
+	public int maxSubArray_withDPArray(int[] nums) {
+		int n = nums.length;
+		
+		int[][] dp = new int[n][2];
+		dp[0][0] = nums[0];
+		dp[0][1] = nums[0];
+		for (int i = 1; i < n; i++) {
+			dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1]);
+			dp[i][1] = Math.max(dp[i-1][1] + nums[i], nums[i]);
+		}
+
+		return Math.max(dp[n-1][0], dp[n-1][1]);
+	}
 	
 	// DP Kandane's algorithm  O(n)
 	// https://en.wikipedia.org/wiki/Maximum_subarray_problem
 	public int maxSubArray(int[] nums) {
-        int result = nums[0], sum = result;
+        int result = nums[0], resultWithCurrent = result;
         for (int i = 1; i < nums.length; i++) {
-        	sum = Math.max(nums[i] + sum, nums[i]);
-        	result = Math.max(sum,  result);
-        	
+        	resultWithCurrent = Math.max(nums[i] + resultWithCurrent, nums[i]);
+        	result = Math.max(resultWithCurrent,  result);
         }
 		return result;
     }
@@ -82,6 +94,26 @@ public class SubArray {
 		return minLen == Integer.MAX_VALUE ? 0 : minLen;
     }
 	
+	/**
+	 *  Find the contiguous subarray within an array (containing at least one number) 
+	 *  which has the largest product.For example, given the array [2,3,-2,4],
+	 *  the contiguous subarray [2,3] has the largest product = 6.
+	 */
+	public int maxProduct(int[] nums) {
+        int result = nums[0], max = nums[0], min = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+        	if (nums[i] < 0) {
+        		int temp = max;
+        		max = min;
+        		min = temp;
+        	}
+        	
+        	max = Math.max(nums[i], nums[i] * max);
+        	min = Math.min(nums[i], nums[i] * min);
+        	result = Math.max(result, max);
+        }
+        return result;
+    }
 	
 	public static void  main(String[] args) {
 		SubArray s = new SubArray();
