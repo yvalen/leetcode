@@ -20,7 +20,7 @@ public class BinaryTreeInOrder {
 	 * 		c) Go to step 3.
 	 * 5) If current is NULL and stack is empty then we are done.
 	 */
-	public List<Integer> inorderTraversalIterative(TreeNode root) {
+	public static List<Integer> inorderTraversalIterative(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         Stack<TreeNode> nodeStack = new Stack<>();
         TreeNode node = root;
@@ -56,6 +56,7 @@ public class BinaryTreeInOrder {
 	 * A binary tree is threaded by making all right child pointers that would normally be null point 
 	 * to the inorder successor of the node (if it exists), and all left child pointers that would 
 	 * normally be null point to the inorder predecessor of the node.
+	 * http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html
 	 */
 	public List<Integer> inorderMorrisTraversal(TreeNode root) {
 		List<Integer> result = new ArrayList<>();
