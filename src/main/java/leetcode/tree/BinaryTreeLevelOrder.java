@@ -90,40 +90,33 @@ public class BinaryTreeLevelOrder {
         if (root == null) {
             return result;
         }
-		
-		Stack<TreeNode> s1 = new Stack<>();
-		Stack<TreeNode> s2 = new Stack<>();
-		s1.push(root);
-		List<Integer> level = new ArrayList<>();
-		while (!s1.isEmpty() || !s2.isEmpty()) {
-			while (!s1.isEmpty()) {
-				TreeNode current = s1.pop();
-				level.add(current.val);
-				if (current.left != null) s2.push(current.left);
-				if (current.right != null) s2.push(current.right);
-			}
-
-			if (!level.isEmpty()) {
-				result.add(new ArrayList<>(level));
-				level.clear();
-			}
-			
-			while (!s2.isEmpty()) {
-				TreeNode current = s2.pop();
-				level.add(current.val);
-				if (current.right != null) s1.push(current.right);
-				if (current.left != null) s1.push(current.left);
-			}
-			
-			if (!level.isEmpty()) {
-				result.add(new ArrayList<>(level));
-				level.clear();
-			}
-		}
-		
-		return result;
         
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        boolean leftToRight = true;
+        while (!q.isEmpty()) {
+        	int size = q.size();
+        	LinkedList<Integer> level = new LinkedList<>();
+        	for (int i = 0; i < size; i++) {
+        		TreeNode node = q.poll();
+        		if (leftToRight) {
+        			level.addLast(node.val);
+        		}
+        		else {
+        			level.addFirst(node.val);
+        		}
+        		if (node.left != null) {
+        			q.offer(node.left);
+        		}
+        		if (node.right != null) {
+        			q.offer(node.right);
+        		}
+        	}
+        	leftToRight = !leftToRight;
+        	result.add(level);
+        }
+        
+        return result;
     }
-	
 
 }

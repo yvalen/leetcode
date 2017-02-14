@@ -43,6 +43,37 @@ public class BinaryTreePath {
         }
 	}
 	
+	
+	// Complexity: O(n + e), n is the number of nodes, and e is the number of edges, e = n-1 here, so its O(n))
+	public List<String> binaryTreePaths_backtrack(TreeNode root) {
+        List<String> paths = new LinkedList<>();
+        StringBuilder sb = new StringBuilder();
+        binaryTreePaths_backtrack_helper(root, paths, sb);
+        return paths;
+	}
+	
+	private void binaryTreePaths_backtrack_helper(TreeNode root, List<String> paths, StringBuilder sb) {
+		if (root == null) return;
+		
+		// record the length of StringBuilder before appending anything to it
+		int len = sb.length();
+		
+		sb.append(root.val);
+		if (root.left == null && root.right == null) {
+			paths.add(sb.toString());
+		}
+		else {
+			// only append -> for non leaf node
+			sb.append("->");
+			binaryTreePaths_backtrack_helper(root.left, paths, sb);
+			binaryTreePaths_backtrack_helper(root.right, paths, sb);
+		}
+		// set the length back after recursion
+		sb.setLength(len);
+	}
+	
+	
+	
 	/**
 	 * Binary tree path, less optimal, create a list for every recursion
 	 */
@@ -69,51 +100,7 @@ public class BinaryTreePath {
         return paths;
     }
 	
-	/**
-	 * Given a binary tree and a sum determine if the tree has a root-to-leaf path 
-	 * such that adding up all the values along the path equals the given sum. 
-	 * (EASY)
-	 */
-	public boolean hasPathSum(TreeNode root, int sum) {
-		if (root == null) return false;
-		
-		if (root.left == null && root.right == null) {
-			return root.val == sum;
-		}
-		
-		return (hasPathSum(root.left, sum-root.val) || hasPathSum(root.right, sum-root.val));
-    }
 	
-	/**
-	 * Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
-	 * (MEDIUM)
-	 */
-	public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<List<Integer>> result = new LinkedList<>();
-        if (root == null) return result;
-        
-        Stack<Integer> path = new Stack<>();
-        pathSumHelper(root, sum, path, result);
-        
-        return result;
-    }
 	
-	private void pathSumHelper(TreeNode root, int sum, Stack<Integer> path, List<List<Integer>> result) {
-		if (root == null) return;
-		
-		path.push(root.val);
-		if (root.left == null && root.right == null && sum == root.val) {
-			result.add(new ArrayList<Integer>(path));
-		}
 	
-		if (root.left != null) {
-			pathSumHelper(root.left, sum-root.val, path, result);
-		}
-		
-		if (root.right != null) {
-			pathSumHelper(root.right, sum-root.val, path, result);
-		}
-		
-		path.pop();
-	}
 }

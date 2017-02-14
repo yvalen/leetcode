@@ -3,7 +3,6 @@ package leetcode.tree;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Stack;
 
 // http://articles.leetcode.com/binary-tree-post-order-traversal/
