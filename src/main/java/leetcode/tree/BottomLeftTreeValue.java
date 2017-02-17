@@ -39,9 +39,23 @@ public class BottomLeftTreeValue {
     }
 
 	public int findBottomLeftValue_dfs(TreeNode root) {
-		int result = root.val;
-		return result;
+		maxDepth = Integer.MIN_VALUE;
+		findBottomLeftValue_dfs_helper(root, 1);
+		return ans;
     }
 	
+	private void findBottomLeftValue_dfs_helper(TreeNode root, int depth) {
+		if (root == null) return;
+		
+		if (maxDepth < depth) {
+			ans = root.val;
+			maxDepth = depth;		
+		}
+		findBottomLeftValue_dfs_helper(root.left, depth + 1);
+		findBottomLeftValue_dfs_helper(root.right, depth + 1);
+    }
+	
+	private int ans; 
+	private int maxDepth; // tracks the maximum height of the tree
 	
 }
