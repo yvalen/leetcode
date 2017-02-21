@@ -28,7 +28,7 @@ public class ValidateBST {
 			}
 			else {
 				current = nodeStack.pop();
-				if (prev != null && prev.val > current.val) return false;
+				if (prev != null && prev.val >= current.val) return false;
 				prev = current;
 				current = current.right;
 			}

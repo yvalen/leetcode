@@ -1,5 +1,11 @@
 package leetcode.dp;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
+import leetcode.tree.SerializationBFS;
+import leetcode.tree.TreeNode;
+
 // 0-1 knapsack problem explanation:
 // https://www.quora.com/Whats-an-intuitive-explanation-for-the-0-1-knapsack-problem-in-data-structures-and-algorithms
 
@@ -50,7 +56,6 @@ public class HouseRobber {
 		return curr;
     }
 	
-	// https://discuss.leetcode.com/topic/14375/simple-ac-solution-in-java-in-o-n-with-explanation
 	public int rob(int[] nums) {
 		if (nums == null || nums.length == 0) return 0;
 		
@@ -72,6 +77,7 @@ public class HouseRobber {
 	 * Given a list of non-negative integers representing the amount of money of each house, determine the maximum 
 	 * amount of money you can rob tonight without alerting the police.
 	 */
+	// https://discuss.leetcode.com/topic/14375/simple-ac-solution-in-java-in-o-n-with-explanation
 	public int robCircle(int[] nums) {
 		if (nums == null || nums.length == 0) return 0;
 		
@@ -90,4 +96,53 @@ public class HouseRobber {
 		}
 		return Math.max(prevYes, prevNo);
     }
+	
+	/*
+	 *  The thief has found himself a new place for his thievery again. There is only one entrance 
+	 *  to this area, called the "root." Besides the root, each house has one and only one parent house. 
+	 *  After a tour, the smart thief realized that "all houses in this place forms a binary tree". 
+	 *  It will automatically contact the police if two directly-linked houses were broken into on the same night.
+	 *  Determine the maximum amount of money the thief can rob tonight without alerting the police.
+	 *  Example 1:
+	 *       3
+	 *      / \
+	 *     2   3
+	 *      \   \ 
+	 *       3   1
+	 * Maximum amount of money the thief can rob = 3 + 3 + 1 = 7.
+	 * Example 2:
+	 *      3
+	 *     / \
+	 *    4   5
+	 *   / \   \ 
+	 *  1   3   1
+	 * Maximum amount of money the thief can rob = 4 + 5 = 9. 
+	 */
+	public int robTree(TreeNode root) {
+		int[] result = robTreeHelper(root);
+		return Integer.max(result[0], result[1]);
+	}
+	
+	// first element of the returned array contains the value if root is not robbed
+	// second element of the returned array contains the value if root is robbed
+	private int[] robTreeHelper(TreeNode root) {
+		int[] result = new int[2];
+		if (root == null) return result;
+		
+		int[] left = robTreeHelper(root.left);
+		int[] right = robTreeHelper(root.right);
+		// root is not robbed, choose the max value from the result of left and right
+		result[0] = Integer.max(left[0],  left[1]) + Integer.max(right[0], right[1]);
+		// root is robbed, left and right cannot be robbed
+		result[1] = root.val + left[0] + right[0];
+		return result;
+	}
+	
+	public static void main(String[] args) {
+		HouseRobber h = new HouseRobber();
+		TreeNode root = SerializationBFS.deserialize("2,1,3,null,4");
+		System.out.println(h.robTree(root));
+		
+		
+	}
 }

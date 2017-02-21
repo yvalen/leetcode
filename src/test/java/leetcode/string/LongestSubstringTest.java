@@ -22,7 +22,7 @@ public class LongestSubstringTest {
 	private static final int TEST_LENGTH_6 = 2;
 	private static final int TEST_LENGTH_7 = 3;
 	
-	private LongestSubstring longestSubstring = new LongestSubstring();	
+	private LongestNonReaptingSubstring longestSubstring = new LongestNonReaptingSubstring();	
 	
 	@Ignore
 	@Test

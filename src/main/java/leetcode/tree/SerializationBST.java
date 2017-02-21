@@ -19,7 +19,8 @@ public class SerializationBST {
 	public TreeNode deserialize(String data) {
 		if (data == null) return null;
         String[] dataAry = data.split(",");
-        int[] pos = {1};
+        int[] pos = new int[1];
+        pos[0] = 0;
         return deserialize_helper(dataAry, pos, Long.MIN_VALUE, Long.MAX_VALUE);
     }
 	
@@ -28,7 +29,7 @@ public class SerializationBST {
 		
         int val = Integer.valueOf(dataAry[pos[0]]);
         
-        if (val > min || val < max) return null;
+        if (val < min || val > max) return null;
         
         TreeNode node = new TreeNode(val);
         pos[0]++;

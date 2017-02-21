@@ -14,12 +14,12 @@ import java.util.Set;
  * 	Note that the answer must be a substring, "pwke" is a subsequence and not a substring
  * 
  */
-public class LongestSubstring {
+public class LongestNonReaptingSubstring {
 	
 	// time complexity: O(2n) when all characters are same, 
 	//  each character will be visited twice by i and j
 	// space complexity: O(min(k, m)), set size bounded by 
-	// 	the size of the string and the size of the charset/alphabet mmm.
+	// 	the size of the string and the size of the charset/alphabet.
 	public int lengthOfLongestSubstring_withSet(String s) {
         if (s == null || s.isEmpty()) return 0;
         
@@ -44,16 +44,16 @@ public class LongestSubstring {
 	public int lengthOfLongestSubstring_withMap(String s) {
         if (s == null || s.isEmpty()) return 0;
         
-        Map<Character, Integer> map = new HashMap<>(); // character to index map
-        int len = 0, start = 0, end = 0;
-        for (int i = 0; i < s.length(); i++) {
-        	char c = s.charAt(i);
-        	if (map.containsKey(c) && start <= map.get(c)) {
-        		start = map.get(c) + 1;
+        // character to index map
+        Map<Character, Integer> map = new HashMap<>(); 
+        int len = 0;
+        for (int i = 0, j = 0; j < s.length(); j++) {
+        	char c = s.charAt(j);
+        	if (map.containsKey(c)) {
+        		i = Integer.max(map.get(c)+1, i);
         	}
-        	map.put(c, i);
-        	end = i;
-        	len = Integer.max(len, end-start+1);
+        	map.put(c, j);
+        	len = Integer.max(len, j-i+1);
         }
   
         return len;

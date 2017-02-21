@@ -1,14 +1,12 @@
 package leetcode.list;
 
-public class LinkListMedium {
-	
-	
-	/**
-	 * Given a list, rotate the list to the right by k places, where k is non-negative.
-	 * For example:
-	 * Given 1->2->3->4->5->NULL and k = 2,
-	 * return 4->5->1->2->3->NULL.
-	 */
+/**
+ * Given a list, rotate the list to the right by k places, where k is non-negative.
+ * For example:
+ * Given 1->2->3->4->5->NULL and k = 2,
+ * return 4->5->1->2->3->NULL.
+ */
+public class RotateRight {
 	public ListNode rotateRight(ListNode head, int k) {
 		ListNode p1 = head, p2 = head;
 		for (int i = 0; i < k && p1 != null; i++) {

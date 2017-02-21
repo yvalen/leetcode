@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SerializationBFS {
-	public String serialize(TreeNode root) {
+	public static String serialize(TreeNode root) {
 		if (root == null) return null;
 		
         StringBuilder sb = new StringBuilder();
@@ -28,7 +28,7 @@ public class SerializationBFS {
         return sb.toString();
 	}
 
-	public TreeNode deserialize(String data) {
+	public static TreeNode deserialize(String data) {
 		if (data == null) return null;
 		
 		String[] vals = data.split(",");
