@@ -66,6 +66,8 @@ public class LongestPalindrome {
 	 * One possible longest palindromic subsequence is "bbbb".
 	 * Example 2: Input: "cbbd" Output: 2
 	 * One possible longest palindromic subsequence is "bb". 
+	 * 
+	 * http://algorithms.tutorialhorizon.com/longest-palindromic-subsequence/
 	 */
 	public int longestPalindromeSubseq(String s) {
 		if (s == null || s.isEmpty()) return 0;
