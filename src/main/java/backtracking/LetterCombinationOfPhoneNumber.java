@@ -34,23 +34,20 @@ public class LetterCombinationOfPhoneNumber {
 	// BFS, use top element's length to determine the level of traversal, 
 	public List<String> letterCombinations_iterative(String digits) {
 		if (digits == null || digits.isEmpty()) return Collections.emptyList();
-        List<String> result = new ArrayList<>();     
-        
-        LinkedList<String> list = new LinkedList<>();
-        list.add("");
+       
+        LinkedList<String> result = new LinkedList<>();
+        result.add("");
         for (int i = 0; i < digits.length(); i++) {
         	String key = KEYS[Character.getNumericValue(digits.charAt(i))];
-        	while (list.peek().length() == i) {
-        		String s = list.remove();
+        	while (result.peek().length() == i) {
+        		String s = result.remove();
         		for (int j = 0; j < key.length(); j++) {
-        			list.add(s + key.charAt(j));	
+        			result.add(s + key.charAt(j));	
         		}
         	}
         }
         
-        
-        
-        return list;
+        return result;
     }
 	
 	public static void main(String[] args) {
