@@ -38,7 +38,7 @@ public class AddBinary {
 					result[0] = result[0] == 1 ? 0 : 1;
 					carry = result[0] == 0;
 				}
-				carry = (carry || temp);
+				
 			}
 		}
 		
