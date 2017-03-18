@@ -92,8 +92,8 @@ public class ValidSudoku {
 				// For a given block, you can traverse the whole block using just j.
 				// But because j is just 0 to 9, it will stay only in the first block. 
 				// To increment block, use i. To move horizontally to next block, use % again : ColIndex = 3 * i%3 
-				// (Multiply by 3 so that the next block is after 3 columns. ie 0,0 is start of first block, second block is 0,3 (not 0,1);
-				// Similarly, to move to next block vertically, use / and multiply by 3 as explained above. Hope this helps.
+				// (Multiply by 3 so that the next block is after 3 columns. i.e. 0,0 is start of first block, second block is 0,3 (not 0,1);
+				// Similarly, to move to next block vertically, use / and multiply by 3 as explained above.
 				int x = 3 * (i / 3) + (j / 3);
 				int y = 3 * (i % 3) + (j % 3);
 				System.out.println("i=" + i + " j="+ j + " x=" + x + " y=" + y);

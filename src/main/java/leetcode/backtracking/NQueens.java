@@ -25,7 +25,7 @@ public class NQueens {
 	 * 	 ".Q.."]
 	 * ]
 	 */
-	public List<List<String>> solveNQueens(int n) {
+	public List<List<String>> solveNQueens_withTwoDArray(int n) {
 		List<List<String>> result = new ArrayList<>();
 		char[][] board = new char[n][n];
 		for (int i = 0; i < board.length; i++) {
@@ -80,7 +80,6 @@ public class NQueens {
 				sb.append(board[i][j]);
 			}
 			result.add(sb.toString());
-			sb.setLength(0);
 		}
 		return result;
 	}
@@ -205,9 +204,9 @@ public class NQueens {
 	public static void main(String[] args) {
 		NQueens nq = new NQueens();
 		
-		//System.out.println(nq.solveNQueens(4));
+		System.out.println(nq.solveNQueens_withTwoDArray(4));
 		
-		System.out.println(nq.totalNQueens_withBooleanArrays(4));
+		//System.out.println(nq.totalNQueens_withBooleanArrays(4));
 		
 	}
 }
