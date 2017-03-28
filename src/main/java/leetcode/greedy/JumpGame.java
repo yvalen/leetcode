@@ -117,6 +117,23 @@ public class JumpGame {
 		return dp[0];
     }
 	
+	public int jump_greedy(int nums[]) {
+		int result = 0, currentEnd = 0, currentFurthest = 0;
+		for (int i = 0; i < nums.length - 1; i++) {
+			// currentFurthest is the farthest point that all points before currentEnd can reach
+			currentFurthest = Integer.max(currentFurthest,  i + nums[i]);
+			if  (currentFurthest >= nums.length - 1) {
+				result++;
+				break;
+			}
+			if (i == currentEnd) {
+				// trigger another jump, update currentEnd
+				result++;
+				currentEnd = currentFurthest;
+			}
+		}
+		return result;
+	}
 	
 	public static void main(String[] args) {
 		JumpGame j = new JumpGame();

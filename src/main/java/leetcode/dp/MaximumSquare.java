@@ -45,12 +45,7 @@ public class MaximumSquare {
 				}
 			}
 		}
-		
-		// find out the square which could include first row and first column
-		//for (int i = 0; i < m; i++) {
-		//	for (int j = 0; )
-		//}
-			
+	
 		return max * max;
     }
 	
