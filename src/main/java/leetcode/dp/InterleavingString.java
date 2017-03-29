@@ -74,7 +74,7 @@ public class InterleavingString {
 						dp[j] = true;
 					}
 					else if (i == 0) {
-						dp[j] = dp[j-1] && s2.charAt(j-1) == s3.charAt(j)-1;
+						dp[j] = dp[j-1] && s2.charAt(j-1) == s3.charAt(j-1);
 					}
 					else if (j == 0) {
 						dp[j] = dp[j] && s1.charAt(i-1) == s3.charAt(i -1); 
