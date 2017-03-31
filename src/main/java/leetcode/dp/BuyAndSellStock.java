@@ -1,8 +1,9 @@
 package leetcode.dp;
 
+import java.util.Arrays;
+
 public class BuyAndSellStock {
 
-	
 	/**
 	 * Say you have an array for which the ith element is the price of a given stock on day i.
 	 * If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), 
@@ -52,11 +53,33 @@ public class BuyAndSellStock {
 	public int maxProfit3(int[] prices) {
 		if (prices == null || prices.length == 0) return 0;
 		
-		int profit = 0;
-		for (int i = 1; i < prices.length; i++) {
-			profit += Math.max(prices[i]-prices[i-1], 0);
+		// First assume that we have no money, so buy1 means that we have to borrow money from others, 
+		// we want to borrow less so that we have to make our balance as max as we can(because this is negative).
+		// sell1 means we decide to sell the stock, after selling it we have price[i] money and we have to give back 
+		// the money we owed, so we have price[i] - |buy1| = prices[i ] + buy1, we want to make this max.
+		// buy2 means we want to buy another stock, we already have sell1 money, so after buying stock2 we have 
+		// buy2 = sell1 - price[i] money left, we want more money left, so we make it max
+		// sell2 means we want to sell stock2, we can have price[i] money after selling it, and we have buy2 money left before, 
+		// so sell2 = buy2 + prices[i], we make this max.
+		// So sell2 is the most money we can have.
+		
+		// buy1 and sell1 are for the first transaction, buy2 and sell2 are for the second transaction.
+		// Transition relation:
+		// buy1[i] = max( - prices[i], buy1[i - 1])
+		// sell1[i] = max(buy1[i - 1] + price[i], sell1[i - 1])
+		// buy2[i] = max( sell1[i -1] - prices[i], buy2[i - 1])
+		// sell2[i] = max(buy2[i - 1] + price[i], sell2[i - 1])
+
+		int buy1 = Integer.MIN_VALUE, buy2 = Integer.MIN_VALUE;
+		int sell1 = 0, sell2 = 0;
+		for (int price : prices) {
+			sell2 = Integer.max(sell2, buy2+price);
+			buy2 = Integer.max(buy2, sell1 - price);
+			sell1 = Integer.max(sell1, buy1+price);
+			buy1 = Integer.max(buy1, -price);
 		}
-		return profit;
+		
+		return sell2;
     }
 	
 	/**
@@ -121,17 +144,20 @@ public class BuyAndSellStock {
 
 		// balance - the balance with at most j transactions with item 0 to i
 	    // profit - the profit with at most j transactions with item 0 to i
-		int[] balance = new int[k+1];
-		int[] profit = new int[k+1];
-
+		
+		// Every trade has once sell and once buy.Buy goes first and sell goes after buy.
+		// So the sell result is dependent on the buy,and the buy is dependent on the sell in last trade(j-1th)
+		int[] buy = new int[k+1];
+		int[] sell = new int[k+1];
+		Arrays.fill(buy, Integer.MIN_VALUE);
 		for (int i = 0; i < prices.length; i++) {
 			for (int j = 1; j <= k; j++) {
-				balance[j] = Integer.max(balance[j], profit[j-1] - prices[i]); // whether to buy at prices[i]
-				profit[j] = Integer.max(profit[j], balance[j]+prices[i]);   // whether to sell at prices[i]
+				sell[j] = Integer.max(sell[j], buy[j] + prices[i]);   // whether to sell at prices[i]
+				buy[j] = Integer.max(buy[j], sell[j-1] - prices[i]); // whether to buy at prices[i]
 			}
 		}
 		
-		return profit[k];
+		return sell[k];
     }
 	
 	
