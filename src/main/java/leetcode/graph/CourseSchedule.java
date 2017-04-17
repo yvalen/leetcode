@@ -60,6 +60,7 @@ public class CourseSchedule {
 	 * 
 	 * This problem can be converted to finding if a graph contains a cycle. 
 	 */
+	// Time Complexity: O(V+E)
 	public boolean canFinish_bfs(int numCourses, int[][] prerequisites) {
         if (numCourses == 0 || prerequisites == null || 
         		prerequisites.length == 0 || prerequisites[0].length == 0) {
@@ -109,7 +110,53 @@ public class CourseSchedule {
 		}
 		return graph;
 	}
+	
+	// DFS, starts at every node in the graph which corresponds to a course and traverses all the courses (nodes) that can be 
+	// taken subsequently. If we ever encounter the a course we have already visited , then we know there is a cycle. 
+	// Time complexity: O(V+E^2)
+	// O(E) solution: https://discuss.leetcode.com/topic/28672/o-e-solution-dfs-based
+	public boolean canFinish_dfs(int numCourses, int[][] prerequisites) {
+        if (numCourses == 0 || prerequisites == null || 
+        		prerequisites.length == 0 || prerequisites[0].length == 0) {
+        	return true;
+        }
+        
+        // build graph
+        List<List<Integer>> graph = new ArrayList<>(numCourses);
+        for (int i = 0; i < numCourses; i++) {
+        	graph.add(new ArrayList<>());
+        }
+        for (int i = 0; i < prerequisites.length; i++) {
+        	graph.get(prerequisites[i][1]).add(prerequisites[i][0]);
+        }
+        
+        boolean[] visited = new boolean[numCourses];  // true when all edges have been processed	
+        boolean[] visiting = new boolean[numCourses]; // true while its edges are being processed
+        
+        for (int i = 0; i < numCourses; i++) {
+        	if (!dfs(graph, visited, visiting, i)) {
+        		return false;
+        	}
+        }
+        
+        return true;
+	}
 
+	private boolean dfs(List<List<Integer>> graph, boolean[] visited, boolean[] visiting, int course) {
+		if (visiting[course]) return false;
+		
+		if (!visited[course]) {
+			visiting[course] = true;
+			List<Integer> dependencies = graph.get(course);
+			for (Integer d : dependencies) {
+				if (!dfs(graph, visited, visiting, d)) return false;
+			}
+			visiting[course] = false;
+			visited[course] = true;
+		}
+		
+		return true;
+	}
 
 	
 	//
@@ -122,7 +169,7 @@ public class CourseSchedule {
 	 * to finish all courses. There may be multiple correct orders, you just need to return one of them. If it is impossible 
 	 * to finish all courses, return an empty array
 	 */
-	public int[] findOrder(int numCourses, int[][] prerequisites) {
+	public int[] findOrder_bfs(int numCourses, int[][] prerequisites) {
 		int[] result = new int[numCourses];
 		
 		int[] prereqCount = new int[numCourses];
@@ -145,15 +192,49 @@ public class CourseSchedule {
 		return idx == numCourses ? result : new int[0];
     }
 	
+	public int[] findOrder_dfs(int numCourses, int[][] prerequisites) {
+		// build graph
+		List<List<Integer>> graph = new ArrayList<>(numCourses);
+		for (int i = 0; i < numCourses; i++) {
+			graph.add(new ArrayList<>());
+		}
+		for (int[] prereq : prerequisites) {
+			graph.get(prereq[1]).add(prereq[0]);
+		}
+		
+		// store the status of the node in the traversal
+		// 0 - not visited, 1 - being processed with its edges, 2 - done processing all its edges 
+		int[] visitStatus = new int[numCourses];
+		LinkedList<Integer> result = new LinkedList<>();
+		for (int i = 0; i < numCourses; i++) {
+			if (!findOrder_dfsHelper(i, visitStatus, graph, result)) return new int[0];
+		}
+		
+		return result.stream().mapToInt(Integer::valueOf).toArray();
+	}
+	
+	private boolean findOrder_dfsHelper(int course, int[] visitStatus, List<List<Integer>> graph, LinkedList<Integer> result) {
+		if (visitStatus[course] == 1) return false;
+		if (visitStatus[course] == 2) return true;
+		
+		visitStatus[course] = 1;
+		for (Integer d : graph.get(course)) {
+			if (!findOrder_dfsHelper(d, visitStatus, graph, result)) return false;
+		}
+		visitStatus[course] = 2;
+		result.addFirst(course);
+		return true;
+	}
+			
 	
 	public static void main(String[] args) {
 		CourseSchedule cs = new CourseSchedule();
 		int numCourses = 2;
-		int[][] prerequisites = {};
-		//int[][] prerequisites = {
-		//		{1, 0},
-				//{0, 1}
-		//};
+		//int[][] prerequisites = {};
+		int[][] prerequisites = {
+				{1, 0},
+				{0, 1}
+		};
 		/*
 		int numCourses = 4;
 		int[][] prerequisites = {
@@ -163,8 +244,8 @@ public class CourseSchedule {
 				{3, 2}
 		};
 		*/
-		//System.out.println(cs.canFinish_bfs(numCourses, prerequisites));
-		ArrayUtil.printArray(cs.findOrder(numCourses, prerequisites));
+		System.out.println(cs.canFinish_dfs(numCourses, prerequisites));
+		//ArrayUtil.printArray(cs.findOrder(numCourses, prerequisites));
 	}
 	
 }
