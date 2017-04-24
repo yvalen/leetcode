@@ -61,50 +61,70 @@ public class WordSearch {
 	 * 	['i','f','l','v']
 	 * ]
 	 * Return ["eat","oath"].
-	 * Note: You may assume that all inputs are consist of lowercase letters a-z. 
+	 * Note: You may assume that all inputs are consist of lower case letters a-z. 
 	 */
+	// DFS + backtrack + trie
+	private static class TrieNode {
+		private String word; // trie node stores the word
+		private TrieNode[] next = new TrieNode[26];
+	}
+	
+	private TrieNode buildTrie(String[] words) {
+		TrieNode root = new TrieNode();
+		for (String word : words) {
+			TrieNode node = root; // one node per word starting from root
+			for (char c : word.toCharArray()) {
+				int idx = c - 'a';
+				if (node.next[idx] == null) node.next[idx] = new TrieNode();
+				node = node.next[idx];
+			}
+			node.word = word; // store the word in the last node
+		}
+		return root;
+	}
+	
 	public List<String> findWords(char[][] board, String[] words) {
 		if (board == null || board.length == 0 || board[0].length == 0 || 
 				words ==  null || words.length == 0) {
 			return Collections.emptyList();
 		}
-			
+		
+		TrieNode trie = buildTrie(words);
+		
 		List<String> result = new ArrayList<>();
-		Set<String> wordSet = Stream.of(words).collect(Collectors.toSet());
-		for (String word : wordSet) {
-			//System.out.println("check word " + word);
-			boolean found = false;
-			for (int i = 0; i < board.length && !found; i++) {
-				for (int j = 0; j < board[0].length && !found; j++) {
-					if (findWords_helper(board, word, result, i, j, 0)) {
-							found = true;
-					}
-				}
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++) {
+				findWords_helper(board, i, j, trie, result);
 			}
 		}
 		return result;
     }
 	
-	private boolean findWords_helper(char[][] board, String word, List<String> result, int row, int col, int index) {
-		if (index == word.length()) {
-			result.add(word);
-			return true;
+	private static final int[][] OFFSETS = {{-1, 0},{1, 0}, {0, -1}, {0, 1}};
+	private void findWords_helper(char[][] board, int row, int col, TrieNode node, List<String> result) {
+		if (row < 0 || col < 0 || row == board.length || col == board[0].length) return;
+		
+		if (board[row][col] == '#') return;  // cell is visited
+		
+		char c = board[row][col];
+		if (node.next[c-'a'] == null) return; // stop current dfs if no word match
+		
+		node = node.next[c-'a'];
+		if (node.word != null) {
+			result.add(node.word);  // found a match, add to result
+			node.word = null; // de-dup
 		}
 		
-		if (row < 0 || col < 0 || row == board.length || col == board[0].length) return false;
+		board[row][col] = '#'; // mark the cell as visited
 		
-		if (board[row][col] != word.charAt(index)) return false;
-		
-		board[row][col] ^= 256;
-		boolean found = false;
-		if (findWords_helper(board, word, result, row-1, col, index+1) ||
-				findWords_helper(board, word, result, row+1, col, index+1) ||
-				findWords_helper(board, word, result, row, col-1, index+1) ||
-				findWords_helper(board, word, result, row, col+1, index+1)) {
-			found = true;
+		// dfs
+		for (int[] offset : OFFSETS) {
+			int i = row + offset[0];
+			int j = col + offset[1];
+			findWords_helper(board, i, j, node, result);
 		}
-		board[row][col] ^= 256;
-		return found;
+		
+		board[row][col] = c; // backtrack, restore cell
 	}
 	
 	
