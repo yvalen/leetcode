@@ -14,15 +14,11 @@ public class ShortestWordDistance {
         	if (words[i].equals(word1)) idx1 = i;
         	else if (words[i].equals(word2)) idx2= i;
         	if (idx1 == -1 || idx2 == -1) continue;
-        	distance = Integer.min(distance, Math.abs(idx1-idx2));
+        	distance = Math.min(distance, Math.abs(idx1-idx2));
         }
         return distance;
     }
 	
-	/*
-	 * This is a follow up of Shortest Word Distance. The only difference is now you are given the list of words 
-	 * and your method will be called repeatedly many times with different parameters. How would you optimize it?
-	 */
 	
 	/*
 	 * This is a follow up of Shortest Word Distance. The only difference is now word1 could be the same as word2.
@@ -33,7 +29,7 @@ public class ShortestWordDistance {
         for (int i = 0; i < words.length; i++) {
         	if (words[i].equals(word1)) {
         		if (isSame) {
-        			idx1 = idx2;
+        			idx1 = idx2;  // for same word, idx1 is the previous index
         			idx2 = i;
         		}
         		else { 	

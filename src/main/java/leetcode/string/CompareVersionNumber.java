@@ -47,8 +47,9 @@ public class CompareVersionNumber {
         while (start1 < len1 || start2 < len2) {  
         	while (end1 < len1 && version1.charAt(end1) != '.') end1++;
         	while (end2 < len2 && version2.charAt(end2) != '.') end2++;
-        	int v1 = (start1 >= len1) ? 0 : Integer.valueOf(version1.substring(start1, end1)); // fill 0 if reaches end of string
-        	int v2 = (start2 >= len2) ? 0 : Integer.valueOf(version2.substring(start2, end2)); 
+        	// use parseInt to get primitive
+        	int v1 = (start1 >= len1) ? 0 : Integer.parseInt(version1.substring(start1, end1)); // fill 0 if reaches end of string
+        	int v2 = (start2 >= len2) ? 0 : Integer.parseInt(version2.substring(start2, end2)); 
         	if (v1 > v2) return 1;
         	else if (v1 < v2) return -1;
         	start1 = end1 + 1;

@@ -37,7 +37,6 @@ public class PalindromePairs {
 			dict.put(sb.reverse().toString(), i);
 		}
 		
-		
         List<List<Integer>> result = new ArrayList<>();
         for (int i = 0; i < words.length; i++) {
         	// process each word
@@ -46,17 +45,21 @@ public class PalindromePairs {
         		// partition the word into two pars
         		String s1 = word.substring(0, j);
         		String s2 = word.substring(j);
-        		if (dict.containsKey(s1) && isPalindrome(s2)) {
-        			result.add(Arrays.asList(j, dict.get(s1)));
+        		
+        		if (isPalindrome(s1)) {
+        			Integer idx = dict.get(s2);
+        			if (idx != null && idx != i) { // need to exclude the word itself
+        				result.add(Arrays.asList(idx, i));
+        			}
         		}
-        		if (dict.containsKey(s2) && isPalindrome(s1)) {
-        			result.add(Arrays.asList(dict.get(s1), j));
+        	
+        		if (isPalindrome(s2) && s2.length() != 0) { // the word is checked in the previous if statement, need toe exclude it by check the length of s2
+        			Integer idx = dict.get(s1);
+        			if (idx != null && idx != i) {
+        				result.add(Arrays.asList(i, idx));
+        			}
         		}
         	}
-        	
-        	
-        	
-        	
         }
         
         return result;

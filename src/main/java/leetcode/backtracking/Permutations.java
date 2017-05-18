@@ -70,7 +70,7 @@ public class Permutations {
 	
 	private void permuteUnique_helper(int[] nums, List<List<Integer>> result, LinkedList<Integer> list, boolean[] used) {
 		if (list.size() == nums.length) {
-			System.out.println(list);
+			System.out.println("add to result:" + list);
 			result.add(new ArrayList<>(list));
 			return;
 		}
@@ -79,8 +79,10 @@ public class Permutations {
 			if (used[i]) continue;
 			// when a number has the same value with its previous, we can use this number only if his previous is not used
 			if (i > 0 && nums[i] == nums[i-1] && used[i-1]) continue;
+			
 			list.addLast(nums[i]);
 			used[i] = true;
+			System.out.println(list);
 			permuteUnique_helper(nums, result, list, used);
 			list.removeLast();
 			used[i] = false;

@@ -42,7 +42,7 @@ public class SerializationBFS {
 				nodeQueue.offer(left);
 				node.left = left;
 			}
-			if (!vals[++i].equals("null")) {
+			if (i < vals.length-1 && !vals[++i].equals("null")) {
 				TreeNode right = new TreeNode(Integer.valueOf(vals[i]));
 				nodeQueue.offer(right);
 				node.right = right;
