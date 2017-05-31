@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
  * 	["bat"]
  * ]
  * Note: All inputs will be in lower-case.
+ * anagrams is a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.
  */
 public class GroupAnagrams {
 	public List<List<String>> groupAnagrams(String[] strs) {

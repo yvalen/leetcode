@@ -18,6 +18,8 @@ public class CombinationSum {
 	 *  [7],
 	 *	[2, 2, 3]
 	 *]
+	 *
+	 * Company: SnapChat, Uber
 	 */
 	public List<List<Integer>> combinationSum1(int[] candidates, int target) {
 		if (candidates == null || candidates.length == 0) return Collections.emptyList();
@@ -56,6 +58,8 @@ public class CombinationSum {
 	 * 	[2, 6],
 	 * 	[1, 1, 6]
 	 * ]
+	 * 
+	 * Company: SnapChat
 	 */
 	public List<List<Integer>> combinationSum2(int[] candidates, int target) {
 		if (candidates == null || candidates.length == 0) return Collections.emptyList();
@@ -110,6 +114,7 @@ public class CombinationSum {
 		}
 	}
 	
+	
 	public static void main(String[] args) {
 		CombinationSum c = new CombinationSum();
 		//int[] candidates = {2, 3, 6, 7};
@@ -122,7 +127,8 @@ public class CombinationSum {
 		//int target = 5;
 		//System.out.println(c.combinationSum2(candidates, target));
 		
-		int k = 3, n = 15;
-		System.out.println(c.combinationSum3(k, n));
+		//int k = 3, n = 15;
+		//System.out.println(c.combinationSum3(k, n));
+		
 	}
 }
