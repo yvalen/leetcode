@@ -114,46 +114,6 @@ public class BinaryTreeInOrder {
 		inorderTraversalRecursiveHelper(root.right, result);
 	}
 	
-	/**
-	 * Given a binary search tree and a node in it, 
-	 * find the in-order successor of that node in the BST.
-	 * Note: If the given node has no in-order successor in the tree, return null.
-	 * Complexity: O(h)
-	 * 
-	 */
-	public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
-        if (root == null || p == null) return null;
-        
-        // If right subtree of node is not NULL, 
-        // successor is the leftmost child of its right subtree
-        if (p.right != null) {
-        	TreeNode current = p.right;
-        	while (current.left != null) {
-        		current = current.left;
-        	}
-        	return current;
-        }
-        
-        // if right subtree of p is null, traverse down the tree 
-        // until p is found 
-        TreeNode current = root, successor = null;
-        while (current != null) {
-        	if (p.val < current.val) {
-        		// p is in the left subtree
-        		successor = current;
-        		current = current.left;
-        	}
-        	else if (p.val > current.val) {
-        		// p is in the right subtree
-        		current = current.right;
-        	}
-        	else {
-        		break;
-        	}
-        }
-        
-        return successor;
-    }
 	
 	/**
 	 * Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.

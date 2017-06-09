@@ -41,9 +41,11 @@ import java.util.Set;
  * - You may assume that if a is a prefix of b, then a must appear before b in the given dictionary.
  * - If the order is invalid, return an empty string.
  * - There may be multiple valid order of letters, return any one of them is fine.
+ * 
+ * Company: Google, Airbnb, Facebook, Twitter, Snapchat, Pocket Gems
  */
 public class AlienDictionary {
-	
+	/*
 	public String alienOrder(String[] words) {
 		if (words == null || words.length == 0) return "";
 		
@@ -111,14 +113,71 @@ public class AlienDictionary {
 		
 		return sb.length() == inDegrees.size() ? sb.toString() : ""; 
 		
+    }*/
+	
+	public String alienOrder(String[] words) {
+        if (words == null || words.length == 0) return "";
+        
+        Map<Character, Integer> inDegrees = new HashMap<>();
+        for (String word : words) {
+            for (Character c : word.toCharArray()) {
+                if (!inDegrees.containsKey(c)) inDegrees.put(c, 0);
+            }
+            
+        }
+        
+        Map<Character, Set<Character>> graph = new HashMap<>();
+        for (int i = 0; i < words.length - 1; i++) {
+            String current = words[i], next = words[i+1];
+            
+            if (current.length() > next.length() && current.startsWith(next)) {
+                return "";
+            }
+            
+            for (int j = 0; j < Math.min(current.length(), next.length()); j++) {
+                Character c1 = current.charAt(j);
+                Character c2 = next.charAt(j);
+                if (!c1.equals(c2)) {
+                	graph.putIfAbsent(c1, new HashSet<>());
+                	if (!graph.get(c1).contains(c2)) {
+                		graph.get(c1).add(c2);
+                		inDegrees.put(c2, inDegrees.get(c2)+1);
+                	}
+                	break;
+                }
+            }
+        }
+        
+        // bfs
+        Queue<Character> queue = new LinkedList<>();
+        for (Map.Entry<Character, Integer> entry : inDegrees.entrySet()) {
+            if (entry.getValue() == 0) queue.offer(entry.getKey());
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        while (!queue.isEmpty()) {
+            Character current = queue.poll();
+            sb.append(current);
+            
+            if (!graph.containsKey(current)) continue;
+            
+            for (Character c : graph.get(current)) {
+                inDegrees.put(c, inDegrees.get(c)-1);
+                if (inDegrees.get(c) == 0) queue.offer(c);
+            }
+        }
+        
+        return sb.length() == inDegrees.size() ? sb.toString() : "";
     }
+        
+	
 	
 	public static void main(String[] args) {
 		AlienDictionary ad = new AlienDictionary();
-		//String[] words = {"wrt", "wrf", "er", "ett", "rftt"};
+		String[] words = {"wrt", "wrf", "er", "ett", "rftt"};
 		//String[] words = {"z", "x"};
 		//String[] words = {"z", "x", "z"};
-		String[] words = {"za","zb","ca","cb"}; // expect "abzc"
+		//String[] words = {"za","zb","ca","cb"}; // expect "abzc"
 		System.out.println(ad.alienOrder(words));
 	}
 

@@ -207,14 +207,16 @@ public class CourseSchedule {
 		int[] visitStatus = new int[numCourses];
 		LinkedList<Integer> result = new LinkedList<>();
 		for (int i = 0; i < numCourses; i++) {
-			if (!findOrder_dfsHelper(i, visitStatus, graph, result)) return new int[0];
+			if (!findOrder_dfsHelper(i, visitStatus, graph, result)) { // has cycle
+				return new int[0];
+			}
 		}
 		
 		return result.stream().mapToInt(Integer::valueOf).toArray();
 	}
 	
 	private boolean findOrder_dfsHelper(int course, int[] visitStatus, List<List<Integer>> graph, LinkedList<Integer> result) {
-		if (visitStatus[course] == 1) return false;
+		if (visitStatus[course] == 1) return false;  // cycle detected
 		if (visitStatus[course] == 2) return true;
 		
 		visitStatus[course] = 1;

@@ -5,6 +5,11 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+/*
+ * Clone an undirected graph. Each node in the graph contains a label and a list of its neighbors. 
+ * 
+ * Company: Pocket Gems, Google, Uber, Facebook
+ */
 public class CloneGraph {
 	
 	// Time O((n) Space O(n)

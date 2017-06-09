@@ -80,31 +80,4 @@ public class BinaryTreeEasy {
     }
 	
 	
-	/**
-	 * Given a non-empty binary search tree and a target value, 
-	 * find the value in the BST that is closest to the target.
-	 * Note:
-	 * 	Given target value is a floating point.
-	 * 	You are guaranteed to have only one unique value in the BST that is closest to the target.
-	 */
-	public int closestBSTValueIterative(TreeNode root, double target) {
-		TreeNode current = root;
-		int closet = root.val;
-		while (current != null) {
-			closet = Math.abs(closet - target) < Math.abs(current.val - target) ? closet : current.val;
-			current = target < current.val ? current.left : current.right;
-		}
-		
-		return closet;
-    }
-	
-	public int closestBSTValueRecursive(TreeNode root, double target) {
-		
-		TreeNode child = target < root.val ? root.left : root.right;
-		if (child == null) return root.val;
-		
-		int closet = closestBSTValueRecursive(child, target);
-		return Math.abs(root.val - target) < Math.abs(closet - target) ? root.val : closet;
-    }
-	
 }

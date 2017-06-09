@@ -16,6 +16,8 @@ package leetcode.unionfind;
  * 	00100
  * 	00011
  * Answer: 3
+ * 
+ * Company: Amazon, Microsoft, Google, Facebook, Zenefits
  */
 public class NumberOfIslands {
 	private static class UnionFind {

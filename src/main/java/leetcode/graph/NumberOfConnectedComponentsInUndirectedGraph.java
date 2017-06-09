@@ -21,6 +21,8 @@ import java.util.Queue;
  * Note: You can assume that no duplicate edges will appear in edges. Since all edges are undirected, 
  * [0, 1] is the same as [1, 0] and thus will not appear together in edges.
  * https://discuss.leetcode.com/category/403/number-of-connected-components-in-an-undirected-graph
+ * 
+ * Company: Google, Twitter
  */
 public class NumberOfConnectedComponentsInUndirectedGraph {
 	//
