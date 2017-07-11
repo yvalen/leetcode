@@ -1,4 +1,7 @@
-package leetcode.list;
+package leetcode.sort;
+
+import leetcode.list.ListNode;
+import leetcode.list.ListUtil;
 
 public class ReorderList {
 	

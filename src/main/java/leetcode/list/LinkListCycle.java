@@ -2,16 +2,22 @@ package leetcode.list;
 
 /**
  * http://www.cnblogs.com/hiddenfox/p/3408931.html
+ * Floyd's cycle detection algorithm, a.k.a Hare Tortoise algorithm: https://en.wikipedia.org/wiki/Cycle_detection
  */
 public class LinkListCycle {
 	
 	
 	/**
 	 * Given a linked list, determine if it has a cycle in it
+	 * http://codingfreak.blogspot.com/2012/09/detecting-loop-in-singly-linked-list_22.html
+	 * 
+	 * Company: Amazon, Bloomberg, Microsoft, Yahoo
+	 * Difficulty: easy
 	 */
+	// Time Complexity: O(n), Space Complexity: O(1)
 	public boolean hasCycle(ListNode head) {
 		ListNode slow = head, fast = head;
-		while (fast != null && fast.next != null && slow != null) {
+		while (fast != null && fast.next != null) {
 			slow = slow.next;
 			fast = fast.next.next;
 			if (slow == fast) {
@@ -28,28 +34,27 @@ public class LinkListCycle {
 	 *  Note: Do not modify the linked list.
 	 */
 	public ListNode detectCycle(ListNode head) {
-		ListNode slow = head, fast = head;
+		// L1 is defined as the distance between the head point and entry point
+		// L2 is defined as the distance between the entry point and the meeting point
+		// C is defined as the length of the cycle
+		// the total distance of the slow pointer traveled when encounter is L1 + L2
+		// the total distance of the fast pointer traveled when encounter is L1 + L2 + C
+		// Because the total distance the fast pointer traveled is twice as the slow pointer, Thus:
+		// 2(L1 + L2) = L1 + L2 + C, leading to L1 = C - L2.
+		ListNode slow = head, fast = head, entry = head;
 		boolean hasCycle = false;
 		while (fast != null && fast.next != null && slow != null) {
 			slow = slow.next;
 			fast = fast.next.next;
 			if (slow == fast) {
-				hasCycle = true;
-				break;
+				while (slow != entry) {
+					entry = entry.next;
+					slow = slow.next;
+				}
+				return entry;
 			}
 		}
-		
-		if (!hasCycle) {
-			return null;
-		}
-		
-		slow = head;
-		while (slow != fast) {
-			slow = slow.next;
-			fast = fast.next ;
-		}
-		
-		return slow;
+		return null;
     }
 	
 	public static void main(String[] args) {

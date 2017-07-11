@@ -39,7 +39,7 @@ public class IsomorphicStrings {
         	int idx1 = s.charAt(i) - '0';
         	int idx2 = t.charAt(i) - '0';
         	if (m1[idx1] != m2[idx2]) return false;
-        	m1[idx1] = i+1; // need to use i+1 since array is initializaed wirth 0
+        	m1[idx1] = i+1; // need to use i+1 since array is initialized with 0
         	m2[idx2] = i+1;
         }
         return true;

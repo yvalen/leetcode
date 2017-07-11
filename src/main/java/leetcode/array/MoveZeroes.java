@@ -9,6 +9,9 @@ import java.util.stream.IntStream;
  *  nums should be [1, 3, 12, 0, 0]. 
  *  Note: you must do this in-place without making a copy of the array.
  *  Minimize the total number of operations.
+ *  
+ *  Company: Bloomberg, Facebook
+ *  Difficulty: easy
  */
 public class MoveZeroes {
 	public void moveZeroes(int[] nums) {

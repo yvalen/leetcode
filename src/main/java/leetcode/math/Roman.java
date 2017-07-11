@@ -1,4 +1,4 @@
-package leetcode.string;
+package leetcode.math;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +12,10 @@ import java.util.Map;
  * 	- I placed before V or X indicates one less, so four is IV (one less than five) and nine is IX (one less than ten)
  * 	- X placed before L or C indicates ten less, so forty is XL (ten less than fifty) and ninety is XC (ten less than a hundred)
  * 	- C placed before D or M indicates a hundred less, so four hundred is CD (a hundred less than five hundred) and nine hundred is CM (a hundred less than a thousand)
+ * 
+ *  Company:
+ *  - romanToInt: Microsoft, Bloomberg, Uber, Facebook, Yahoo
+ *  - intToRoman: Twitter
  */
 public class Roman {
 	
