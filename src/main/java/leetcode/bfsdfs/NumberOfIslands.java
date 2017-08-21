@@ -2,6 +2,8 @@ package leetcode.bfsdfs;
 
 import java.util.LinkedList;
 import java.util.Queue;
+
+import leetcode.matrix.MatrixUtil;
 /*
  * Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded 
  * by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four 
@@ -18,8 +20,13 @@ import java.util.Queue;
  * 	00100
  * 	00011
  * Answer: 3
+ * 
+ * Company: Amazon, Microsoft, Google, Facebook, Zenefits
+ * Difficulty: medium
  */
 public class NumberOfIslands {
+	private static final int[][] OFFSETS = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+	
 	
 	// DFS
 	// - scan each cell in grid
@@ -35,26 +42,25 @@ public class NumberOfIslands {
 			for (int j = 0; j < grid[0].length; j++) {
 				if (grid[i][j] == '1') {
 					dfs(grid, i, j);
+					System.out.println("i=" + i + " j=" + j);
+					MatrixUtil.print(grid);
 					count++;
 				}
 			}
 		}
 		return count;
     }
-
-	private void dfs(char[][] grid, int i, int j) {
-		if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length ||
-				grid[i][j] != '1') {
-			return;
-		}
-			
-		// mark current cell as visited
-		grid[i][j] = '0';
-		dfs(grid, i-1, j);
-		dfs(grid, i+1, j);
-		dfs(grid, i, j-1);
-		dfs(grid, i, j+1);
-	}
+	
+	private void dfs(char[][] grid, int row, int col) {
+        if (row < 0 || col < 0 || row >= grid.length || col >= grid[0].length || grid[row][col] == '0') {
+            return;
+        }
+        
+        grid[row][col] = '0';
+        for (int[] offset : OFFSETS) {
+            dfs(grid, row + offset[0], col + offset[1]);
+        }
+    }
 	
 	//
 	// BFS
@@ -74,31 +80,19 @@ public class NumberOfIslands {
 		return count;
     }
 	
-	private void bfs(char[][] grid, int x, int y) {
-		// mark the cell as visited
-		grid[x][y] = '0';
-		
-		int m = grid.length, n = grid[0].length;
+	private void bfs(char[][] grid, int row, int col) {
+		grid[row][col] = '0'; // mark the cell as visited
 		Queue<int[]> queue = new LinkedList<>();
-		queue.offer(new int[] {x, y}); // store an array in queue
+		queue.offer(new int[] {row, col}); // store an array in queue
 		while(!queue.isEmpty()) {
 			int[] curr = queue.poll();
-			int i = curr[0], j = curr[1];
-			if (i > 0 && grid[i-1][j] == '1') { //up
-				queue.offer(new int[]{i-1, j});
-				grid[i-1][j] = '0';
-			}
-			if (i < m-1 && grid[i+1][j] == '1') { // down
-				queue.offer(new int[]{i+1, j});
-				grid[i+1][j] = '0';
-			}
-			if (j > 0 && grid[i][j-1] == '1') { // left
-				queue.offer(new int[]{i, j-1});
-				grid[i][j-1] = '0';
-			}
-			if (j < n-1 && grid[i][j+1] == '1') { // right
-				queue.offer(new int[]{i, j+1});
-				grid[i][j+1] = '0';
+			for (int[] offset : OFFSETS) {
+				int x = curr[0] + offset[0], y = curr[1] + offset[1];
+				if (x < 0 || y < 0 || x >= grid.length || y >= grid[0].length || grid[x][y] == '0') {
+					continue;
+				}
+				queue.offer(new int[] {x, y});
+				grid[x][y] = '0'; // need to mark {x, y} as visited here, otherwise while loop will never end
 			}
 		}
 	}
@@ -123,6 +117,6 @@ public class NumberOfIslands {
 				{'0', '1', '0'},
 				{'1', '1', '1'},
 		};
-		System.out.println(ni.numIslands_bfs(grid));		
+		System.out.println(ni.numIslands_dfs(grid));		
 	}
 }

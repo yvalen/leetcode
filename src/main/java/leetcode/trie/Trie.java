@@ -3,6 +3,9 @@ package leetcode.trie;
 /*
  * Implement a trie with insert, search, and startsWith methods.
  * Note: you may assume that all inputs are consist of lowercase letters a-z.
+ * 
+ * Company: Google, Uber, Facebook, Microsoft, Twitter, Bloomberg
+ * Difficulty: medium
  */
 public class Trie {
 	private static class Node {
@@ -22,9 +25,11 @@ public class Trie {
         insert(root, word, 0);
     }
     
+    
     private Node insert(Node node, String word, int index) {
     	if (node == null) node = new Node();
     	if (index == word.length()) {
+    
     		node.endOfWord = true;
     		return node;
     	}

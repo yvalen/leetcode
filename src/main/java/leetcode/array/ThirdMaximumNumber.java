@@ -5,6 +5,9 @@ import java.util.TreeSet;
 /**
  * Given a non-empty array of integers, return the third maximum number in this array. 
  * If it does not exist, return the maximum distinct number. The time complexity must be in O(n).
+ * 
+ * Company: Amazon
+ * Difficulty: easy
  */
 public class ThirdMaximumNumber {
 	
@@ -67,6 +70,8 @@ public class ThirdMaximumNumber {
 		int[] nums3 = {2, 2, 3, 1};
 		int out3 = test.thirdMax(nums3);
 		System.out.println(out3);
+		
+		// Input: [1,2,-2147483648], Output: -2147483648
 		
 	}
 	

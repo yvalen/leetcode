@@ -20,7 +20,7 @@ import java.util.Queue;
  *         1
  *        / \
  *       2   3
- *	return [1]
+ * return [1]
  * Example 2: Given n = 6, edges = [[0, 3], [1, 3], [2, 3], [4, 3], [5, 4]]
  * 		0  1  2
  *  	 \ | /

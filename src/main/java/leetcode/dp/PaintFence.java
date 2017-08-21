@@ -8,6 +8,9 @@ package leetcode.dp;
  * For example, for 4 post 2 color case (0 for black, 1 for red)
  * 0011 is a valid solution,
  * 0001 is not
+ * 
+ * Company: Google
+ * Difficult: easy
  */
 public class PaintFence {
 	/*

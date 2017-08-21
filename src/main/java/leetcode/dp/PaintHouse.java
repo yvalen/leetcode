@@ -10,6 +10,9 @@ public class PaintHouse {
 	 * by a n x 3 cost matrix. For example, costs[0][0] is the cost of painting house 0 with color red; costs[1][2] is 
 	 * the cost of painting house 1 with color green, and so on... Find the minimum cost to paint all houses.
 	 * Note: All costs are positive integers.
+	 * 
+	 * Company: LinkedIn
+	 * Difficulty: easy
 	 */
 	public int minCost_withDPArray(int[][] costs) {
 		if (costs == null || costs.length == 0 || costs[0].length != 3) return 0;

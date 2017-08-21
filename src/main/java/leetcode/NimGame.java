@@ -11,8 +11,8 @@ package leetcode;
  * Difficulty: easy
  */
 public class NimGame {
-	// You can always win a Nim game if the number of stones nnn in the pile is not divisible by 4
+	// You can always win a Nim game if the number of stones n in the pile is not divisible by 4
 	public boolean canWinNim(int n) {
-        return (n / 4 == 0);
+		return (n % 4 != 0);
     }
 }

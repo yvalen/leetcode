@@ -2,8 +2,10 @@ package leetcode.dp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
@@ -17,6 +19,9 @@ public class WordBreak {
 	 * You may assume the dictionary does not contain duplicate words.
 	 * For example, given s = "leetcode", dict = ["leet", "code"].
 	 * Return true because "leetcode" can be segmented as "leet code". 
+	 * 
+	 * Company: Google, Facebook, Uber, Yahoo, Amazon, Bloomberg, Pocket Gems
+	 * Difficulty: medium
 	 */
 	public boolean wordBreak_recursive(String s, List<String> wordDict) {
 		if (s == null || s.length() == 0) return true;
@@ -43,6 +48,7 @@ public class WordBreak {
 		return false;
     }
 
+	// Time complexity: O(n^2), Space complexity: O(n)
 	public boolean wordBreak_dp(String s, List<String> wordDict) {
 		if (s == null || s.length() == 0) return true;
 		
@@ -54,18 +60,18 @@ public class WordBreak {
 		// dp[0] is for empty string which should return true 
 		dp[0] = true;
 		
-		for (int i = 1; i <= n; i++) {
-			for (int j = 0; j < i; j++) {
+		// consider substring of all possible lengths starting from the beginning using index i
+		// for each such substring partition it into two substring s1 and s2 in all possible ways using index j
+		for (int i = 1; i <= n; i++) { // i refers to the length of the substring considered so far from the beginning, end index of s2
+			for (int j = 0; j < i; j++) { // j refers to the index partitioning the current substring into smaller substring (0,j) and (j+1,i)
 				if (dp[j] && wordDict.contains(s.substring(j, i))) {
-					dp[i] = true;
+					dp[i] = true;  // both substring are in the dictionary
 					break;
 				}
 			}
 		}
-		
 		return dp[n];
 	}
-	
 	
 	
 	/**
@@ -74,6 +80,9 @@ public class WordBreak {
 	 * You may assume the dictionary does not contain duplicate words. Return all such possible sentences.
 	 * For example, given s = "catsanddog", dict = ["cat", "cats", "and", "sand", "dog"].
 	 * A solution is ["cats and dog", "cat sand dog"]. 
+	 * 
+	 * Company: Dropbox, Google, Uber, Snapchat, Twitter
+	 * Difficulty: hard
 	 */
 	public List<String> wordBreakII(String s, List<String> wordDict) {
 		List<String> result = new ArrayList<>();
@@ -117,21 +126,66 @@ public class WordBreak {
 		}
 	}
 	
+	// check every possible prefix of the string s. If it is found in wordDict
+	public List<String> wordBreakII_bruteforce(String s, List<String> wordDict) {
+		return wordBreakII_bruteforce(s, wordDict, 0);
+	}
+	private List<String> wordBreakII_bruteforce(String s, List<String> wordDict, int start) {
+		List<String> result = new ArrayList<>();
+		if (start == s.length()) {
+			result.add("");
+		}
+
+		for (int end = start + 1; end <= s.length(); end++) {
+			String prefix = s.substring(start, end);
+			if (wordDict.contains(prefix)) {
+				List<String> list = wordBreakII_bruteforce(s, wordDict, end);
+				for (String l : list) {
+					result.add(prefix + (l.equals("") ? "" : " ") + l);
+				}
+			}
+		}
+		return result;
+	}
 	
+	Map<Integer, List<String>> map = new HashMap<>(); // key is the current start
+	public List<String> wordBreakII_memorization(String s, List<String> wordDict) {
+		return wordBreakII_memorization(s, wordDict, 0);
+	}
+	private List<String> wordBreakII_memorization(String s, List<String> wordDict, int start) {
+		if (map.containsKey(start)) return map.get(start);
+		
+		List<String> result = new ArrayList<>();
+		if (start == s.length()) {
+			result.add("");
+		}
+
+		for (int end = start + 1; end <= s.length(); end++) {
+			String prefix = s.substring(start, end);
+			if (wordDict.contains(prefix)) {
+				List<String> list = wordBreakII_bruteforce(s, wordDict, end);
+				for (String l : list) {
+					result.add(prefix + (l.equals("") ? "" : " ") + l);
+				}
+			}
+		}
+		map.put(start, result);
+		return result;
+	}
 	
 	public static void main(String[] arg) {
 		WordBreak w = new WordBreak();
 		
-		//String s = "catsanddog";
-		//List<String> wordDict = Arrays.asList("cat", "cats", "and", "sand", "dog");
+		String s = "catsanddog";
+		List<String> wordDict = Arrays.asList("cat", "cats", "and", "sand", "dog");
 		
-		String s = "aaaaaaa";
-		List<String> wordDict = Arrays.asList("aaaa","aa");
+		//String s = "aaaaaaa";
+		//List<String> wordDict = Arrays.asList("aaaa","aa");
 		
 		//String s = "a";
 		//List<String> wordDict = Arrays.asList("a");
 		
-		List<String> result = w.wordBreakII(s, wordDict);
+		List<String> result = w.wordBreakII_memorization(s, wordDict);
 		System.out.println(result);	
 	}
 }

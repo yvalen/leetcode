@@ -18,6 +18,9 @@ public class HouseRobber {
 	 * contact the police if two adjacent houses were broken into on the same night.
 	 * Given a list of non-negative integers representing the amount of dp of each house, 
 	 * determine the maximum amount of dp you can rob tonight without alerting the police.
+	 * 
+	 * Company: LinkedIn, Airbnb
+	 * Difficulty: easy
 	 */
 	public int rob_withDPArray(int[] nums) {
 		if (nums == null || nums.length == 0) return 0;
@@ -76,6 +79,9 @@ public class HouseRobber {
 	 * houses remain the same as for those in the previous street.
 	 * Given a list of non-negative integers representing the amount of money of each house, determine the maximum 
 	 * amount of money you can rob tonight without alerting the police.
+	 * 
+	 * Company: Microsoft
+	 * Difficulty: medium
 	 */
 	// https://discuss.leetcode.com/topic/14375/simple-ac-solution-in-java-in-o-n-with-explanation
 	public int robCircle(int[] nums) {
@@ -83,8 +89,19 @@ public class HouseRobber {
 		
 		if (nums.length == 1) return nums[0];
 		
-        return Math.max(robCircleHelper(nums, 0, nums.length-2), robCircleHelper(nums, 1, nums.length-1));
+        //return Math.max(robCircleHelper(nums, 0, nums.length-2), robCircleHelper(nums, 1, nums.length-1));
+		return Math.max(robWithStartEnd(nums, 0, nums.length-2), robWithStartEnd(nums, 1, nums.length-1));
 		
+    }
+	
+	private int robWithStartEnd(int[] nums, int start, int end) {
+        int robPrev = 0, notRobPrev = 0;
+        for (int i = start; i <= end; i++) {
+            int temp = notRobPrev;
+            notRobPrev = Math.max(robPrev, notRobPrev);
+            robPrev = nums[i] + temp;    
+        }
+        return Math.max(notRobPrev, robPrev);
     }
 	
 	private int robCircleHelper(int[] nums, int start, int end) {
@@ -117,6 +134,9 @@ public class HouseRobber {
 	 *   / \   \ 
 	 *  1   3   1
 	 * Maximum amount of money the thief can rob = 4 + 5 = 9. 
+	 * 
+	 * Company: Uber
+	 * Difficulty: medium
 	 */
 	public int robTree(TreeNode root) {
 		int[] result = robTreeHelper(root);
@@ -140,8 +160,10 @@ public class HouseRobber {
 	
 	public static void main(String[] args) {
 		HouseRobber h = new HouseRobber();
-		TreeNode root = SerializationBFS.deserialize("2,1,3,null,4");
-		System.out.println(h.robTree(root));
+		int[] nums = {2, 1, 1, 1};
+		System.out.println(h.robCircle(nums));
+		//TreeNode root = SerializationBFS.deserialize("2,1,3,null,4");
+		//System.out.println(h.robTree(root));
 		
 		
 	}
