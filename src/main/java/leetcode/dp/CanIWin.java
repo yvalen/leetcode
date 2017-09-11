@@ -1,5 +1,9 @@
 package leetcode.dp;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 /*
  * In the "100 game," two players take turns adding, to a running total, any integer from 1..10. The player who first causes the running total 
  * to reach or exceed 100 wins. What if we change the game so that players cannot re-use integers? For example, two players might take turns 
@@ -14,8 +18,12 @@ package leetcode.dp;
  * of 11, which is >= desiredTotal. Same with other integers chosen by the first player, the second player will always win.
  * 
  * Company: LinkedIn
+ * Difficulty: medium
  */
 public class CanIWin {
+	// Time complexity: O(2^n)
+	// there are 2^n sub-problems, with memorization we compute each sub-problem once
+	// without memorization O(n!) - T(n) = n * T(n-1)
 	public boolean canIWin(int maxChoosableInteger, int desiredTotal) {
 		// first player can choose a number which is greater than or equal to desired number he can win 
 		if (desiredTotal <= maxChoosableInteger) return true;
@@ -24,8 +32,82 @@ public class CanIWin {
 		// sum of 1...n: https://en.wikipedia.org/wiki/1_%2B_2_%2B_3_%2B_4_%2B_%E2%8B%AF
 		if (maxChoosableInteger*(maxChoosableInteger+1) / 2 < desiredTotal) return false;
 		
+		// used stores which numbers have been used
+		boolean[] used = new boolean[maxChoosableInteger];
 		
+		// map stores the outcome of the sub-problem
+		// key is the string representation of the used array, numbers have been choosen
+		// value indicates whether we can reach the remaining desired total
+		Map<String, Boolean> map = new HashMap<>();
 		
-        return (desiredTotal % (maxChoosableInteger+1) != 0);
+		return helper(desiredTotal, used, map);
     }
+
+	private boolean helper(int desiredTotal, boolean[] used, Map<String, Boolean> map) {
+		// base case, the other play has reached the desired total, hence wins
+		if (desiredTotal <= 0) return false; 
+		
+		String key = Arrays.toString(used);
+		if (map.containsKey(key)) return map.get(key);
+		
+		for (int i = 0; i < used.length; i++) {
+			if (used[i]) continue; // skip used number
+			
+			used[i] = true;  //  
+			if (!helper(desiredTotal-i-1, used, map)) {  // Minimax, whether the other play will lose
+				map.put(key, true);
+				used[i] = false;
+				return true;  
+			}
+			used[i] = false; // backtrack
+		}
+		map.put(key, false);
+		return false;
+	}
+	
+	public boolean canIWin_withBits(int maxChoosableInteger, int desiredTotal) {
+		// first player can choose a number which is greater than or equal to desired number he can win 
+		if (desiredTotal <= maxChoosableInteger) return true;
+		
+		// the sum of the numbers in the pool is less than desired number, no one can win
+		// sum of 1...n: https://en.wikipedia.org/wiki/1_%2B_2_%2B_3_%2B_4_%2B_%E2%8B%AF
+		if (maxChoosableInteger*(maxChoosableInteger+1) / 2 < desiredTotal) return false;
+		
+		// use an integer to represent which numbers have been used
+		// i-th bit of state represent whether the i-th number is used, 0 - unused, 1 - used  
+		int state = 0;
+		
+		// memo stores the result of state i
+		// 0 - not checked, 1 - win, -1 - lose
+		int[] memo = new int[1 << maxChoosableInteger]; // should use 1<<maxChoosableInteger instead of 1+maxChoosableInteger
+		
+		return helper_withBits(maxChoosableInteger, desiredTotal, state, memo);
+    }
+	
+	private boolean helper_withBits(int max, int desiredTotal, int state, int[] memo) {
+		if (memo[state] != 0) return memo[state] == 1;
+		
+		if (desiredTotal <= 0) {
+			memo[state] = -1;
+			return false;
+		}
+		
+		for (int i = 0; i < max; i++) {
+			// check if the state has been used
+			if (((state >> i) & 1)  == 1) continue;
+			
+			if (!helper_withBits(max, desiredTotal-i-1, (state |= (1 << i)), memo)) { // need to pass the modified state, cannot modify state here because we need it to change memo
+				memo[state] = 1;
+				return true;
+			}
+		}
+		memo[state] = -1;
+		return false;
+	}
+	
+	public static void main(String[] args) {
+		CanIWin ciw = new CanIWin();
+		int maxChoosableInteger = 4, desiredTotal = 6;
+		System.out.println(ciw.canIWin_withBits(maxChoosableInteger, desiredTotal));
+	}
 }

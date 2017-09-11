@@ -6,175 +6,125 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-/**
- * Design a simplified version of Twitter where users can post tweets, 
- * follow/unfollow another user and is able to see the 10 most recent tweets in the user's news feed. 
- * Your design should support the following methods:
- * 	postTweet(userId, tweetId): Compose a new tweet.
- * 	getNewsFeed(userId): Retrieve the 10 most recent tweet ids in the user's news feed. 
- * 		- Each item in the news feed must be posted by users who the user followed or by the user herself. 
- * 		- Tweets must be ordered from most recent to least recent.
- * 	follow(followerId, followeeId): Follower follows a followee.
- * 	unfollow(followerId, followeeId): Follower unfollows a followee.
- */
 public class Twitter {
-	
-	private static final class Tweet {
-		private final int tweetId;
-		private final long createdTime;
-	
-		public Tweet(int tweetId, long createdTime) {
-			this.tweetId = tweetId;
-			this.createdTime = createdTime;
-		}
-	
-		public int getTweetId() {
-			return tweetId;
-		}
-
-		public long getCreatedTime() {
-			return createdTime;
+	private final Map<Integer, Set<Integer>> following;
+    private final Map<Integer, List<Tweet>> tweets;
+    private long count;
+    
+    private static class Tweet implements Comparable<Tweet> {
+    	int id;
+    	long timestamp;
+    	
+		public Tweet(int id, long timestamp) {
+			super();
+			this.id = id;
+			this.timestamp = timestamp;
 		}
 
 		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + tweetId;
-			return result;
+		public int compareTo(Tweet o) {
+			return this.timestamp == o.timestamp ? this.id - o.id : (int) (this.timestamp - o.timestamp);
 		}
-		
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			Tweet other = (Tweet) obj;
-			if (tweetId != other.tweetId)
-				return false;
-			return true;
-		}
-	}
-	
-	Map<Integer, Set<Integer>> followersMap;
-	Map<Integer, Set<Integer>> followingMap;
-	Map<Integer, Set<Tweet>> tweetsMap;
-	Map<Integer, List<Integer>> feedsMap;
-	
-	/** Initialize your data structure here. */
+    }
+    
+    /** Initialize your data structure here. */
     public Twitter() {
-    	followersMap = new HashMap<>();
-    	followingMap = new HashMap<>();
-        tweetsMap = new HashMap<>();
-        feedsMap = new HashMap<>();
+        following = new HashMap<>();
+        tweets = new HashMap<>();
     }
     
-    /** 
-     * Compose a new tweet. 
-     * */
+    /** Compose a new tweet. */
     public void postTweet(int userId, int tweetId) {
-    	Set<Tweet> tweets = tweetsMap.get(userId);
-    	if (tweets == null) {
-    		tweets = new HashSet<>();
-    		tweetsMap.put(userId, tweets);
-    	}
-    	tweets.add(new Tweet(tweetId, System.currentTimeMillis()));
+        if (!tweets.containsKey(userId)) {
+            tweets.put(userId, new ArrayList<>());
+        }
+        tweets.get(userId).add(new Tweet(tweetId, count++));
     }
     
-    /** 
-     * Retrieve the 10 most recent tweet ids in the user's news feed. 
-     * Each item in the news feed must be posted by users who the user followed or by the user herself. 
-     * Tweets must be ordered from most recent to least recent. 
-     * */
+    /** Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent. */
     public List<Integer> getNewsFeed(int userId) {
-        List<Integer> feeds = feedsMap.get(userId);
+        PriorityQueue<Tweet> pq = new PriorityQueue<>(10);
         
-        if (feeds != null && feeds.size() > 0) {
-        	List<Integer> result = new ArrayList<>();
-        	for (int i = feeds.size() - 1, count = 1; i >= 0 || count <= 10; i--, count++) {
-        		result.add(feeds.get(i));
+        addTweetsToFeed(pq, userId);
+        
+        if (following.get(userId) != null) {
+        	for (int followee : following.get(userId)) {
+        		addTweetsToFeed(pq, followee);
         	}
-        	return result;
+        }
+        	
+        List<Integer> result = new ArrayList<>(10);
+        while (pq.size() > 0) {
+            result.add(pq.poll().id);
         }
         
-        return Collections.emptyList();
+        Collections.reverse(result);
+        
+        return result;
+    }
+    
+    private void addTweetsToFeed(PriorityQueue<Tweet> pq, Integer userId) {
+    	List<Tweet> tweetList = tweets.get(userId);
+    	if (tweetList == null) return;
+    	
+    	for (int i = tweetList.size() - 1; i >= 0 && i >= tweetList.size() - 10; i--) {
+    		Tweet tweet = tweetList.get(i);
+    		if (pq.size() < 10) {
+    			pq.offer(tweet);
+    		}
+    		else if (pq.peek().compareTo(tweet) < 0 ) {
+    			pq.poll();
+    			pq.offer(tweet);
+    		}
+    	}
     }
     
     /** Follower follows a followee. If the operation is invalid, it should be a no-op. */
     public void follow(int followerId, int followeeId) {
     	if (followerId == followeeId) return;
-    	
-    	Set<Integer> followers = followersMap.get(followeeId);
-        if (followers == null) {
-        	followers = new HashSet<>();
-        	followersMap.put(followeeId, followers);
-        }
-        boolean newFollower = followers.add(followerId);
-    	/*
-        if (followers.add(followerId)) {
-        	Set<Integer> tweets = tweetsMap.get(followeeId);
-        	if (tweets != null) {
-        		List<Integer> feeds = feedsMap.get(followerId);
-        		if (feeds == null) {
-        			feeds = new ArrayList<>();
-        			feedsMap.put(followerId, feeds);
-        		}
-        		feeds.addAll(tweets);
-        	}
-        }
-        */
+        if (!following.containsKey(followerId)) {
+            following.put(followerId, new HashSet<>());
+        }      
+        following.get(followerId).add(followeeId);
     }
     
     /** Follower unfollows a followee. If the operation is invalid, it should be a no-op. */
     public void unfollow(int followerId, int followeeId) {
-    	if (followerId == followeeId) return;
-    	
-    	Set<Integer> followers = followersMap.get(followeeId);
-        if (followers != null) {
-        	followers.remove(followerId);
+        if (following.containsKey(followerId)) {
+            following.get(followerId).remove(followeeId);
         }
-    	
-        List<Integer> feeds = feedsMap.get(followerId);
-        /*
-        Set<Integer> tweets = tweetsMap.get(followeeId);
-        if (feeds != null && tweets != null) {
-        	List<Integer> updatedFeeds = feeds.stream().filter(id -> !tweets.contains(id)).collect(Collectors.toList());
-        	feedsMap.put(followerId, updatedFeeds);
-        }*/
     }
-	
-    public static void main(String[] args) {
+    
+    public static void main(String[] args)  {
     	Twitter twitter = new Twitter();
-
     	
-    	twitter.postTweet(1, 1);
+    	// User 1 posts a new tweet (id = 5).
+    	twitter.postTweet(1, 5);
+    	
+    	// User 1 posts a new tweet (id = 3).
     	twitter.postTweet(1, 3);
-    	twitter.postTweet(1, 101);
-    	twitter.postTweet(1, 13);
-    	twitter.postTweet(1, 10);
-    	twitter.postTweet(1, 2);
-    	twitter.postTweet(1, 94);
-    	twitter.postTweet(1, 505);
-    	twitter.postTweet(1, 333);
-    	twitter.postTweet(1, 22);
 
     	// User 1's news feed should return a list with 1 tweet id -> [5].
     	System.out.println(twitter.getNewsFeed(1));
 
-    	
-    	twitter.follow(2, 1);
-    	
-    	System.out.println(twitter.getNewsFeed(2));
-    	
-    	twitter.unfollow(2, 1);
+    	// User 1 follows user 2.
+    	twitter.follow(1, 2);
 
-    	System.out.println(twitter.getNewsFeed(2));
+    	// User 2 posts a new tweet (id = 6).
+    	twitter.postTweet(2, 6);
+
+    	// User 1's news feed should return a list with 2 tweet ids -> [6, 5].
+    	// Tweet id 6 should precede tweet id 5 because it is posted after tweet id 5.
+    	System.out.println(twitter.getNewsFeed(1));
+
+    	// User 1 unfollows user 2.
+    	twitter.unfollow(1, 2);
+
+    	// User 1's news feed should return a list with 1 tweet id -> [5],
+    	// since user 1 is no longer following user 2.
+    	twitter.getNewsFeed(1);System.out.println(twitter.getNewsFeed(1));
     }
-
 }

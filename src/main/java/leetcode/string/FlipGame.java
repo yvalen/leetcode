@@ -29,6 +29,13 @@ public class FlipGame {
         if (s == null || s.length() < 2) return Collections.emptyList();
         
         List<String> result = new ArrayList<>();
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) == '+' && s.charAt(i-1) == '+') {
+            	String str = s.substring(0, i-1) + "--" + s.substring(i+1);
+                result.add(str);
+            }
+        }
+        /*
         int i = 0;
         while (i < s.length() - 1) { 
         	if (s.charAt(i) == '+') {
@@ -41,7 +48,7 @@ public class FlipGame {
         	else {
         		i++;
         	}
-        }
+        }*/
         return result;
     }
 	
@@ -103,7 +110,7 @@ public class FlipGame {
 		FlipGame fg = new FlipGame();
 		String s = "++++";
 		//String s = "--++";
-		//System.out.println(fg.generatePossibleNextMoves_withIndexOf(s));
-		System.out.println(fg.canWin(s));
+		System.out.println(fg.generatePossibleNextMoves(s));
+		//System.out.println(fg.canWin(s));
 	}
 }

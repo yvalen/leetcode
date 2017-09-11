@@ -15,6 +15,7 @@ import leetcode.array.ArrayUtil;
  * 0/1 knapsack: http://love-oriented.com/pack/P01.html
  * 
  * Company: eBay
+ * Difficulty: medium
  */
 public class PartitionEqualSubsetSum {
 	// This problem is essentially let us to find whether there are several numbers in a set which are able to sum 
@@ -44,7 +45,7 @@ public class PartitionEqualSubsetSum {
 		boolean[][] dp = new boolean[nums.length+1][sum+1];
 		dp[0][0] = true; // sum of zero number is 0
 		for (int i = 1; i <= nums.length; i++) {
-			dp[i][0] = true;
+			dp[i][0] = true; // ith number is not picked
 			for (int j = 1; j <= sum; j++) {
 				dp[i][j] = dp[i-1][j] || ((j >= nums[i-1]) ? dp[i-1][j-nums[i-1]] : false);
 			}

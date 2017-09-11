@@ -4,6 +4,9 @@ package leetcode.math;
  * A square root of a number a is a number y such that y2 = a; in other words, a number y whose square (the result of multiplying the number by itself, y⋅y) is a. 
  * Every nonnegative real number a has a unique nonnegative square root, called the principal square root, which is denoted by √a, where √ is called the radical sign or radix.
  * The term whose root is being considered is known as the radicand. The radicand is the number or expression underneath the radical sign, 
+ * 
+ * Company: Bloomberg, Facebook, Apple
+ * Difficulty: easy
  */
 public class SquareRoot {
 	public int mySqrt(int x) {

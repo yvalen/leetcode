@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import leetcode.backtracking.WordSearch.TrieNode;
 
 /*
  * Given a 2D board and a list of words from the dictionary, find all words in the board. Each word must be constructed 
