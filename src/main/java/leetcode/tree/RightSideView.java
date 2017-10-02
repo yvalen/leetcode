@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Queue;
 
 /*
+ * LEETCODE 199 
  * Given a binary tree, imagine yourself standing on the right side of it, 
  * return the values of the nodes you can see ordered from top to bottom.
  * For example: given the following binary tree,
@@ -15,6 +16,10 @@ import java.util.Queue;
  *  \     \
  *   5     4       <---
  * You should return [1, 3, 4]. 
+ * 
+ * Company: Amazon
+ * Difficulty: medium
+ * Similar Questions: 116(PopulateNextRightPointer), 545(BoundaryOfBinaryTree)
  */
 public class RightSideView {
 	public List<Integer> rightSideView_bfs(TreeNode root) {

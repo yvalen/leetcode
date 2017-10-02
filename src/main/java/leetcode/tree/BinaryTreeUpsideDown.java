@@ -60,7 +60,7 @@ public class BinaryTreeUpsideDown {
 	
 	public static void main(String[] args) {
 		BinaryTreeUpsideDown btu = new BinaryTreeUpsideDown();
-		TreeNode root = SerializationBFS.deserialize("1,2,null,3");
-		System.out.println(SerializationBFS.serialize(btu.upsideDownBinaryTree_iterative(root)));
+		TreeNode root = SerializeDeserialize.deserialize_bfs("1,2,null,3");
+		System.out.println(SerializeDeserialize.serialize_bfs(btu.upsideDownBinaryTree_iterative(root)));
 	}
 }

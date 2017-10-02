@@ -9,6 +9,9 @@ import java.util.stream.Stream;
 public class ConstructFromTraversal {
 	/**
 	 * Given preorder and inorder traversal of a tree, construct the binary tree.
+	 * 
+	 * Company: Bloomberg
+	 * Difficulty: medium
 	 */
 	public TreeNode buildTree_preorderInOrder(int[] preorder, int[] inorder) {
         if (preorder == null || inorder == null || preorder.length != inorder.length || preorder.length == 0) {
@@ -41,6 +44,9 @@ public class ConstructFromTraversal {
 
 	/**
 	 * Given inorder and postorder traversal of a tree, construct the binary tree.
+	 * 
+	 * Company: Microsoft
+	 * Difficulty: medium
 	 */
 	public TreeNode buildTree_postorderInOrder(int[] inorder, int[] postorder) {
         if (postorder == null || inorder == null || postorder.length != inorder.length || inorder.length == 0) {

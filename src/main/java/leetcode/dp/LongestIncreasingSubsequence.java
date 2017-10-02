@@ -6,18 +6,36 @@ import java.util.Collections;
 import java.util.List;
 
 /*
+ * LEETCODE 300
  * Given an unsorted array of integers, find the length of longest increasing subsequence.
  * For example, given [10, 9, 2, 5, 3, 7, 101, 18], the longest increasing subsequence is 
  * [2, 3, 7, 101], therefore the length is 4. Note that there may be more than one LIS combination, 
- * it is only necessary for you to return the length. 
+ * it is only necessary for you to return the length. Your algorithm should run in O(n2) complexity.
+ * Follow up: Could you improve it to O(n log n) time complexity? 
+ * 
+ * Company: Microsoft
+ * Difficulty: medium
  */
 public class LongestIncreasingSubsequence {	
-	// Complexity: O(n^2)
+	// Time complexity: O(n^2)  Space complexity: O(n)
 	public int lengthOfLIS(int[] nums) {
-		if (nums == null || nums.length == 0) return 0;
+		if (nums == null) return 0;
 		
 		int n = nums.length;
+		if (n <= 1) return n;
 		int[] dp = new int[n];
+		int maxLen = 1;
+		for (int i = 0; i < n; i++) {
+			dp[i] = 1;
+			for (int j = 0; j < i; j++) {
+				if (nums[i] > nums[j]) {
+					dp[i] = Math.max(dp[i], dp[j]+1);
+				}
+			}
+			maxLen = Math.max(maxLen, dp[i]);
+		}
+		
+		/*
 		int maxLen = Integer.MIN_VALUE;
 		for (int i = 0; i < n; i++) {
 			int len = Integer.MIN_VALUE;
@@ -28,7 +46,7 @@ public class LongestIncreasingSubsequence {
 			}
 			dp[i] = len == Integer.MIN_VALUE ? 1 : len + 1;
 			maxLen = Integer.max(maxLen, dp[i]);
-		}
+		}*/
 		
 		return maxLen;
     }

@@ -1,12 +1,56 @@
 package leetcode.array;
 
+/*
+ * LEETCODE 42
+ * Given n non-negative integers representing an elevation map where the width of each bar is 1, 
+ * compute how much water it is able to trap after raining.
+ * For example, given [0,1,0,2,1,0,1,3,2,1,2,1], return 6. 
+ * 
+ * Company: Google, Amazon, Bloomberg, Twitter, Apple, Zenefits
+ * Difficulty: hard
+ * Similar Questions: 11(ContainerWithMostWater), 238(ProductOfArrayExceptSelf), 407(TrappingRainWaterII)
+ */
 public class TrappingRainWater {
-	/*
-	 * Given n non-negative integers representing an elevation map where the width of each bar is 1, 
-	 * compute how much water it is able to trap after raining.
-	 * For example, given [0,1,0,2,1,0,1,3,2,1,2,1], return 6. 
-	 */
-	public int trap(int[] height) {
+	//
+	// For each element in the array, the maximum level of water it can trap equals to
+	// the minimum of the maximum bars on both sides minus its own height
+	//
+	
+	
+	// DP
+	// 1. Find maximum height of bar from the left end up to index i in the array max_left
+	// 2. Find maximum height of bar from the right end up to index i in the array max_right.
+	// 3. Iterate over the height array and update ans by adding min(max_left[i],max_right[i])−height[i] to it
+	// Time complexity: O(n)  Space complexity: O(n)
+	public int trap_dp(int[] height) {
+		if (height == null || height.length < 3) return 0;
+		
+		int n = height.length;
+		
+		int[] maxLeft = new int[n];
+		maxLeft[0] = height[0]; 
+		for (int i = 1; i < n; i++) {
+			maxLeft[i] = Math.max(height[i],  maxLeft[i-1]);
+		}
+		
+		int[] maxRight = new int[n];
+		maxRight[n-1] = height[n-1];
+		for (int i = n - 2; i >= 0; i--) {
+			maxRight[i] = Math.max(height[i], maxRight[i+1]);
+		}
+		
+		int result = 0;
+		for (int i = 1; i < n - 1; i++) {
+			result += Math.min(maxLeft[i], maxRight[i]) - height[i];
+		}
+		
+		return result;
+	}
+	
+	// based on DP approach, we notice that as long as the max_right[i] > max_left[i], the water trapped depends upon the left_max, index 0 through 6.
+	// similarly when max_left[i] > max_right[i], the water trapped depends upon the right_max, index 8 through 11
+	// Time complexity: O(n), one pass  Space complexity: O(1)
+	public int trap_twoPointers(int[] height) {
 		int l = 0, r = height.length -1;
 		int maxLeft = 0, maxRight = 0, max = 0;
 		while (l < r) {
@@ -24,24 +68,4 @@ public class TrappingRainWater {
 		
 		return max;
     }
-	
-	/*
-	 * Given an m x n matrix of positive integers representing the height of each unit cell in a 2D elevation map, 
-	 * compute the volume of water it is able to trap after raining.
-	 * Note: Both m and n are less than 110. The height of each unit cell is greater than 0 and is less than 20,000.
-	 * Example: given the following 3x6 height map:
-	 * [
-	 * 	[1,4,3,1,3,2],
-	 * 	[3,2,1,3,2,4],
-	 * 	[2,3,3,2,3,1]
-	 * ]
-	 * Return 4.
-	 * http://www.cnblogs.com/grandyang/p/5928987.html
-	 */
-	public int trapRainWater(int[][] heightMap) {
-        int max = 0;
-		
-		return max;
-    }
-
 }

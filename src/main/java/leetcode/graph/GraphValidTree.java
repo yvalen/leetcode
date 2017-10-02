@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Queue;
 
 /*
+ * LEETCODE 261
  * Given n nodes labeled from 0 to n - 1 and a list of undirected edges (each edge is a pair of nodes), 
  * write a function to check whether these edges make up a valid tree.
  * For example:
@@ -15,6 +16,8 @@ import java.util.Queue;
  * same as [1, 0] and thus will not appear together in edges.
  * 
  * Company: Google, Facebook, Zenefits
+ * Difficulty: medium
+ * Similar Questions: 207(CourseSchedule), 323(NumberOfConnectedComponentsInUndirectedGraph)
  */
 public class GraphValidTree {
 	/*

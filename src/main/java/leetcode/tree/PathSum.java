@@ -139,7 +139,7 @@ public class PathSum {
 		PathSum p = new PathSum();
 		
 		String s = "1,null,2,null,3,null,4,null,5";
-		TreeNode root = SerializationBFS.deserialize(s);
+		TreeNode root = SerializeDeserialize.deserialize_bfs(s);
 		int sum = 3;
 		System.out.println(p.pathSumIII_dfs(root, sum));
 		

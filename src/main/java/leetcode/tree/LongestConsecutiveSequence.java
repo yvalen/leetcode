@@ -1,7 +1,8 @@
 package leetcode.tree;
 
 public class LongestConsecutiveSequence {
-	/**
+	/*
+	 * LEETCODE 298
 	 * Given a binary tree, find the length of the longest consecutive sequence path.
 	 * The path refers to any sequence of nodes from some starting node to any node in the tree along the parent-child connections. 
 	 * The longest consecutive path need to be from parent to child (cannot be the reverse).
@@ -21,7 +22,7 @@ public class LongestConsecutiveSequence {
 	 * 		2    
 	 * 	   /
 	 * 	  1
-	 * Longest consecutive sequence path is 2-3,not 3-2-1, so return 2.
+	 * Longest consecutive sequence path is 2-3,not 3-2-1 (since this is not an increasing sequence), so return 2. 
 	 * 
 	 * Company: Google
 	 * Difficulty: medium
@@ -65,6 +66,7 @@ public class LongestConsecutiveSequence {
 	}
 	
 	/*
+	 * LEETCODE 549
 	 * Given a binary tree, you need to find the length of Longest Consecutive Path in Binary Tree.
 	 * Especially, this path can be either increasing or decreasing. For example, [1,2,3,4] and [4,3,2,1] 
 	 * are both considered valid, but the path [1,2,4,3] is not valid. On the other hand, the path can be 
@@ -115,6 +117,8 @@ public class LongestConsecutiveSequence {
 				decr = Math.max(decr,  r[1] + 1);
 			}
 		}
+		// for each subtree, the longest child-parent-child consecutive (with root being the parent) is dec+inc-1 
+		// since both the ascending and descending path start from root.
 		maxLen = Math.max(maxLen, incr+decr-1);
 		return new int[] {incr, decr};
 	}

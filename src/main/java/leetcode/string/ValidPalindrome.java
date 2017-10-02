@@ -1,13 +1,18 @@
 package leetcode.string;
 
-/*
- * Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
- * For example, 
- * 	"A man, a plan, a canal: Panama" is a palindrome. 
- * 	"race a car" is not a palindrome. 
- * we define empty string as valid palindrome.
- */
+
 public class ValidPalindrome {
+	/*
+	 * LEETCODE 125
+	 * Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+	 * For example, 
+	 * 	"A man, a plan, a canal: Panama" is a palindrome. 
+	 * 	"race a car" is not a palindrome. 
+	 * we define empty string as valid palindrome.
+	 * 
+	 * Company: Facebook, Microsoft, Uber, Zenefits
+	 * Difficulty: easy
+	 */
 	public boolean isPalindrome(String s) {
 		if (s == null || s.isEmpty()) return true;
 		
@@ -24,11 +29,43 @@ public class ValidPalindrome {
 				j--;
 			}
 		}
-	
 		return true;
     }
 
+	/*
+	 * LEETCODE 680
+	 * Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
+	 * Example 1: Input: "aba" Output: True
+	 * Example 2: Input: "abca" Output: True
+	 * Explanation: You could delete the character 'c'.
+	 * Note: The string will only contain lower case characters a-z. The maximum length of the string is 50000.
+	 * 
+	 * Company: Facebook
+	 * Difficulty: easy
+	 */
+	public boolean validPalindrome(String s) {
+		if (s == null || s.length() <= 2) return true;
+		int l = 0, r = s.length()-1;
+		while (l < r) {
+			if (s.charAt(l) != s.charAt(r)) { // find the first un-matched characters and try to compare by skipping either of them 
+				return isPalindrome(s, l, r-1) || isPalindrome(s, l+1, r);
+			}
+			l++;
+			r--;
+		}
+		
+        return true;
+    }
 
+	private boolean isPalindrome(String s, int l, int r) {
+		while (l < r) {
+			if (s.charAt(l) != s.charAt(r)) return false;
+			l++;
+			r--;
+		}
+		return true;
+	}
+	
 	public static void main(String[] args) {
 		ValidPalindrome v = new ValidPalindrome();
 		String s = "ab";

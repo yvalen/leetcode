@@ -3,6 +3,8 @@ package leetcode.binarysearch;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
@@ -20,22 +22,42 @@ import java.util.List;
  * Difficulty: medium
  */
 public class FindKClosestElements {
-	public List<Integer> findClosestElements(List<Integer> arr, int k, int x) {
-		int idx = findClosetElementIndex(arr, x);
+	
+	// Time complexity: O(nlogn)
+	public List<Integer> findClosestElements_withSorting(List<Integer> arr, int k, int x) {
+		// sort the array first by the difference
+		Collections.sort(arr, (a, b) -> Math.abs(a-x) - Math.abs(b-x));
 		
-		int l = idx, r = idx+1;
-		while (r - l < k ) {
-			if (l == 0) r++;
-			else if (r == arr.size()) l--;
-			else {
-				int left =  Math.abs(arr.get(l) -x);
-				int right =  Math.abs(arr.get(r)-x);
-				if (right < left && r < arr.size() -1) r++;
-				else  l--;
-			}
+		// extract the first k element
+		List<Integer> result = arr.subList(0, k);
+		
+		Collections.sort(result);
+		
+		return result;
+	}
+	
+	// Time xomplexity: O(logn+k)
+	public List<Integer> findClosestElements_withBinarySearch(List<Integer> arr, int k, int x) {
+		int n = arr.size();
+		
+		// handle special cases 
+		if (arr.get(0) >= x) return arr.subList(0, k);
+		if (arr.get(n-1) <= x) return arr.subList(n-k, n);
+		
+		// find the first number which is equal to or greater than x
+		
+		// Collections.binarySearch returns the index of the search key, if it is contained in the list; otherwise, (-(insertion point) - 1). 
+		// The insertion point is defined as the point at which the key would be inserted into the list: the index of the first element greater 
+		// than the key, or list.size() if all elements in the list are less than the specified key. 
+		int index = Collections.binarySearch(arr, x);
+		if (index < 0 ) index = -(index+1);
+		
+		int left = index , right = index;
+		while (k-- > 0) {
+			if (left < 0 || (right < n && Math.abs(arr.get(left)-x) > Math.abs(arr.get(right)-x))) right++;
+			else left--;
 		}
-		
-		return arr.subList(l, r);
+		return arr.subList(left+1, right);
     }
 	
 	private int findClosetElementIndex(List<Integer> arr, int x) {
@@ -63,6 +85,7 @@ public class FindKClosestElements {
 		//int k = 5, x = 9;
 		List<Integer> arr = Arrays.asList(0,2,2,3,4,6,7,8,9,9);
 		int k = 4, x = 5;
-		System.out.println(fce.findClosestElements(arr, k, x));
+		System.out.println(fce.findClosestElements_withBinarySearch(arr, k, x));
+		
 	}
 }

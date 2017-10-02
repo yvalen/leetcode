@@ -3,7 +3,7 @@ package leetcode.dp;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import leetcode.tree.SerializationBFS;
+import leetcode.tree.SerializeDeserialize;
 import leetcode.tree.TreeNode;
 
 // 0-1 knapsack problem explanation:

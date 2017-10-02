@@ -5,11 +5,34 @@ import java.util.Queue;
 
 public class PopulateNextRightPointer {
 	
-	/**
-	 * Given a binary tree populate each next pointer to point to its next right node. 
-	 * If there is no next right node, the next pointer should be set to NULL.
-	 * Note: You may only use constant extra space. You may assume that it is a perfect binary tree 
-	 * (ie, all leaves are at the same level, and every parent has two children).
+	/*
+	 * LEETCODE 116
+	 * Given a binary tree 
+	 * struct TreeLinkNode {
+	 * 		TreeLinkNode *left;
+	 * 		TreeLinkNode *right;
+	 * 		TreeLinkNode *next;
+	 * }
+	 * Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+	 * Initially, all next pointers are set to NULL.
+	 * Note:
+	 * - You may only use constant extra space.
+	 * - You may assume that it is a perfect binary tree (ie, all leaves are at the same level, and every parent has two children).
+	 * For example, given the following perfect binary tree,
+	 *       1
+	 *      /  \
+	 *     2    3
+	 *    / \  / \
+	 *   4  5  6  7
+	 * After calling your function, the tree should look like:
+	 *       1 -> NULL
+	 *      /  \
+	 *     2 -> 3 -> NULL
+	 *    / \  / \
+	 *   4->5->6->7 -> NULL   
+	 *   
+	 * Company: Microsoft
+	 * Difficulty: medium
 	 */
 	public void connect_perfect_tree_recursive(TreeLinkNode root) {
         if (root == null || root.left == null) return;
@@ -31,6 +54,7 @@ public class PopulateNextRightPointer {
         	TreeLinkNode current = leftNode;
         	// use next pointer to do level order traversal
         	while (current != null) {
+        		// populate the next pointer for each node in the next level
         		current.left.next = current.right;
         		if (current.next != null) current.right.next = current.next.left;
             	current = current.next;
@@ -41,8 +65,25 @@ public class PopulateNextRightPointer {
 	
 	
 	/*
+	 * LEETCODE 117
 	 * Follow up for problem "Populating Next Right Pointers in Each Node".
 	 * What if the given tree could be any binary tree? Would your previous solution still work?
+	 * Note: You may only use constant extra space.
+	 * For example, given the following binary tree,
+	 *     1
+	 *    /  \
+	 *   2    3
+	 *  / \    \
+	 * 4   5    7
+	 * After calling your function, the tree should look like:
+	 *      1 -> NULL
+	 *    /  \
+	 *   2 -> 3 -> NULL
+	 *  / \    \
+	 * 4-> 5 -> 7 -> NULL
+	 * 
+	 * Company: Facebook, Microsoft, Bloomberg
+	 * Difficulty: medium
 	 */
 	// O(N) space
 	public void connect_non_perfect_tree_levelOrder(TreeLinkNode root) {
@@ -76,14 +117,12 @@ public class PopulateNextRightPointer {
         	// use next pointer to do level order traversal
         	while (current != null) {
         		next = findNext(current.next);
-        		
         		if (current.right != null) {
         			current.right.next = next;
-        			next = current.right;
+        			next = current.right; 
         		}
-        		
         		if (current.left != null) {
-        			current.left.next = next;
+        			current.left.next = next; // cannot use current.right here because it could be null
         		}
         		current = current.next;
         	}
@@ -94,7 +133,7 @@ public class PopulateNextRightPointer {
 	}
 	
 	private TreeLinkNode findNext(TreeLinkNode node) {
-		while (node != null) {
+		while (node != null) { // need to check all nodes at the same level since some middle nodes could have null children
 			if (node.left != null) return node.left;
 			if (node.right != null) return node.right;
 			node = node.next;

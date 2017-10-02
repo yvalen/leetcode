@@ -58,8 +58,8 @@ public class MostFrequentSubtreeSum {
 		root.right = new TreeNode(-3);
 		*/
 		
-		TreeNode root = SerializationBFS.deserialize("3,1,5,0,2,4,6,null,null,null,3");
-		System.out.println(SerializationBFS.serialize(root));
+		TreeNode root = SerializeDeserialize.deserialize_bfs("3,1,5,0,2,4,6,null,null,null,3");
+		System.out.println(SerializeDeserialize.serialize_bfs(root));
 		
 		int[] result = s.findFrequentTreeSum(root);
 		IntStream.of(result).forEach(System.out::println);
