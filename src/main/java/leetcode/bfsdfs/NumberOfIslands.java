@@ -4,7 +4,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import leetcode.matrix.MatrixUtil;
+
 /*
+ * LEETCODE 200
  * Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded 
  * by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four 
  * edges of the grid are all surrounded by water.
@@ -23,6 +25,7 @@ import leetcode.matrix.MatrixUtil;
  * 
  * Company: Amazon, Microsoft, Google, Facebook, Zenefits
  * Difficulty: medium
+ * Similar Questions: 695(MaxAreaOfIsland)
  */
 public class NumberOfIslands {
 	private static final int[][] OFFSETS = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
@@ -99,24 +102,27 @@ public class NumberOfIslands {
 	
 	//
 	// union find
-	//
+	// See unionfind
+	
 	
 	
 	public static void main(String[] args) {
 		NumberOfIslands ni = new NumberOfIslands();
-		/*
+		
 		char[][] grid = {
 				{'1', '1', '0', '0', '0'},
 				{'1', '1', '0', '0', '0'},
 				{'0', '0', '1', '0', '0'},
 				{'0', '0', '0', '1', '1'}
 		};
-		*/
+		
+		/*
 		char[][] grid = {
 				{'1', '1', '1'},
 				{'0', '1', '0'},
 				{'1', '1', '1'},
 		};
-		System.out.println(ni.numIslands_dfs(grid));		
+		*/
+		System.out.println(ni.numIslands_bfs(grid));		
 	}
 }

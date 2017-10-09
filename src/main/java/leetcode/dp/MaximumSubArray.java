@@ -3,9 +3,14 @@ package leetcode.dp;
 import leetcode.array.SubArray;
 
 /**
+ * LEETCODE 53
  * Find the contiguous subarray within an array (containing at least one number) 
  * which has the largest sum. For example, given the array [-2,1,-3,4,-1,2,1,-5,4], 
  * the contiguous subarray [4,-1,2,1] has the largest sum = 6. 
+ * 
+ * Company: Microsoft, Bloomberg, LinkedIn
+ * Difficukty: easy
+ * Similar Question: 121(Best time to buy and sell stock), 
  */
 public class MaximumSubArray {
 	public int maxSubArray_dpTwoDArray(int[] nums) {
@@ -23,6 +28,10 @@ public class MaximumSubArray {
 	}
 	
 	// DP with one dimensional array
+	// Kandane's Algorithm
+	// if we know the maximum subarray sum ending at position i (call this Bi)
+	// the maximum subarray sum ending at position i+1 either includes the maximum 
+	// subarray sum ending at i as a prefix or it doesn't
 	public int maxSubArray_dpOneDArray(int[] nums) {
 		int n = nums.length, max = nums[0];
 		int[] dp = new int[n];
@@ -46,18 +55,9 @@ public class MaximumSubArray {
 		return max;
 	}
 	
-	// DP Kandane's algorithm  O(n)
-	// https://en.wikipedia.org/wiki/Maximum_subarray_problem
-	public int maxSubArray(int[] nums) {
-        int result = nums[0], resultWithCurrent = result;
-        for (int i = 1; i < nums.length; i++) {
-        	resultWithCurrent = Math.max(nums[i] + resultWithCurrent, nums[i]);
-        	result = Math.max(resultWithCurrent,  result);
-        }
-		return result;
-    }
-	
+	//
 	// Divide and Conquer O(nlgn)
+	//
 	public int maxSubArray_divideAndConquer(int[] nums) {
 		if (nums == null || nums.length == 0) return Integer.MIN_VALUE;
 		

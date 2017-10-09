@@ -6,18 +6,21 @@ import java.util.PriorityQueue;
 import leetcode.array.Interval;
 
 public class MeetingRoom {
-	
-	
 	/**
+	 * LEETCODE 252
 	 * Given an array of meeting time intervals consisting of start and end times 
 	 * [[s1,e1],[s2,e2],...] (si < ei), determine if a person could attend all meetings.
 	 * For example, given [[0, 30],[5, 10],[15, 20]], return false.
+	 * 
+	 * Company: Facebook
+	 * Difficulty: easy
+	 * Similar Questions: 253(Meeting Room II), 56(Merge Interval)
 	 */
 	public boolean canAttendMeetings(Interval[] intervals) {
-        Arrays.sort(intervals, (Interval i1, Interval i2) -> i1.start - i2.start);
+        Arrays.sort(intervals, (i1, i2) -> i1.start - i2.start);
 	
         for (int i = 1; i < intervals.length; i++) {
-        	if (intervals[i].start < intervals[i-1].end) {
+        	if (intervals[i].start < intervals[i-1].end) { // a meeting can start at the end time of last meeting
         		return false;
         	}
         }
@@ -26,9 +29,14 @@ public class MeetingRoom {
     }
 	
 	/**
+	 * LEETCODE 253
 	 * Given an array of meeting time intervals consisting of start and end times 
 	 * [[s1,e1],[s2,e2],...] (si < ei), find the minimum number of conference rooms required.
 	 * For example, given [[0, 30],[5, 10],[15, 20]], return 2.
+	 * 
+	 * Company: Google, Faceboo, Snapchat
+	 * Difficulty: medium
+	 * Similar Questions: 252(Meeting Room), 56(Merge Interval), 452
 	 */
 	public int minMeetingRooms(Interval[] intervals) {
 		if (intervals == null || intervals.length == 0) return 0;
@@ -69,7 +77,7 @@ public class MeetingRoom {
 		
 		heap.offer(intervals[0]);
 		for (int i = 1; i < intervals.length; i++) {
-			Interval interval = heap.poll();
+			Interval interval = heap.poll(); // cannot use peek here because the end time of the top element may be changed, thus it may change its position in the heap
 			if (intervals[i].start < interval.end) {
 				// add to heap if there is an overlap
 				heap.offer(intervals[i]);
@@ -92,7 +100,9 @@ public class MeetingRoom {
 		//boolean canAttend = m.canAttendMeetings(intervals);
 		//System.out.println(canAttend);
 		
-		Interval[] intervals = {new Interval(9, 10), new Interval(4, 9), new Interval(4, 17)};
-		System.out.println(m.minMeetingRooms(intervals));
+		//Interval[] intervals = {new Interval(9, 10), new Interval(4, 9), new Interval(4, 17)};
+		
+		Interval[] intervals = {new Interval(2, 15), new Interval(36, 45), new Interval(9, 29), new Interval(16, 23), new Interval(4, 9)};
+		System.out.println(m.minMeetingRooms_withHeap(intervals));
 	}
 }

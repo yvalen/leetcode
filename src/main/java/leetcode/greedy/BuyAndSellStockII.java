@@ -8,8 +8,13 @@ package leetcode.greedy;
  * (ie, you must sell the stock before you buy again).
  * http://www.sigmainfy.com/blog/leetcode-best-time-to-buy-and-sell-stock-ii.html
  * https://leetcode.com/articles/best-time-buy-and-sell-stock-ii/
+ * 
+ * Company: Bloomberg
+ * Difficulty: easy
+ * Similar Questions: 121, 123, 188, 309(BuyAndSellStockWithCoolDown)
  */
 public class BuyAndSellStockII {
+	// Time complexity: O(n), Space complexity: O(1)
 	public int maxProfit(int[] prices) {
 		if (prices == null || prices.length == 0) return 0;
 		

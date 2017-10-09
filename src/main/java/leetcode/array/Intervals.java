@@ -14,11 +14,15 @@ import java.util.stream.Stream;
 
 public class Intervals {
 	/**
+	 * LEETCODE 57
 	 * Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary).
 	 * You may assume that the intervals were initially sorted according to their start times.
 	 * Example 1: Given intervals [1,3],[6,9], insert and merge [2,5] in as [1,5],[6,9].
 	 * Example 2: Given [1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] in as [1,2],[3,10],[12,16].
 	 * This is because the new interval [4,9] overlaps with [3,5],[6,7],[8,10]. 
+	 * 
+	 * Company: Google, Facebook, LinkedIn
+	 * Difficulty: hard
 	 */
 	public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
 		if (intervals == null) {
@@ -36,18 +40,16 @@ public class Intervals {
 		}
 		
 		// add all intervals overlaps with newInterval
+		// we should update newInterval with the current min and max 
 		while (i < n && intervals.get(i).start <= newInterval.end) {
 			newInterval.start = Math.min(newInterval.start, intervals.get(i).start);
 			newInterval.end = Math.max(newInterval.end, intervals.get(i).end);
 			i++;
 		}
-		result.add(newInterval);		
+		result.add(newInterval);
 		
 		// add the rest
-		while (i < n) {
-			result.add(intervals.get(i));
-			i++;
-		}
+		if (i < n) result.addAll(intervals.subList(i, n));
 		
 		return result;
     }
@@ -77,10 +79,16 @@ public class Intervals {
     }
 
 	
-	/**
+	/*
+	 * LEETCODE 56
 	 * Given a collection of intervals, merge all overlapping intervals.
 	 * For example, given [1,3],[2,6],[8,10],[15,18], return [1,6],[8,10],[15,18]. 
+	 * 
+	 * Company: Google, Facebook, Microsoft, Bloomberg, LinkedIn, Twitter, Yelp
+	 * Difficulty: medium
+	 * Similar Questions: 57(Insert Interval), 252/253(MeetingRoom), 495(TeemoAttacking), 616
 	 */
+	// Time complexity: O(nlogn)
 	public List<Interval> merge(List<Interval> intervals) {
 		if (intervals == null || intervals.isEmpty() || intervals.size() == 1) {
 			return intervals;
@@ -119,23 +127,58 @@ public class Intervals {
 		return result;
     }
 
-	
+	public List<Interval> merge_withArray(List<Interval> intervals) {
+		if (intervals == null || intervals.size() <= 1) {
+			return intervals;
+		}
+		
+		int n = intervals.size();
+		int[] start = new int[n];
+		int[] end = new int[n];
+		for (int i = 0; i < n; i++) {
+			start[i] = intervals.get(i).start;
+			end[i] = intervals.get(i).end;
+		}
+		Arrays.sort(start);
+		Arrays.sort(end);
+		
+		List<Interval> result = new ArrayList<Interval>(intervals.size());
+		// for the result distinct Interval, the latter one's start must > previous one's end.
+		for (int i = 0, j = 0; i < n; i++) { // j is the start of the interval, i is the end of the interval
+			if (i == n -1 || start[i+1] > end[i]) {
+				result.add(new Interval(start[j], end[i]));
+				j = i + 1;
+			}
+		}
+		return result;
+	}
 	
 	public static void main(String[] args) {
 		Intervals test = new Intervals();
-		
+		/*
 		List<Interval> intervals = Stream.of(
 				new Interval(1, 3),
 				new Interval(2, 6),
 				new Interval(8, 10), 
 				new Interval(15, 18))
 				.collect(Collectors.toList());
+		*/
+		List<Interval> intervals = Stream.of(
+				new Interval(1, 2),
+				new Interval(3, 5),
+				new Interval(6, 7),
+				new Interval(8, 10), 
+				new Interval(12, 16))
+				.collect(Collectors.toList());
 		
-		Interval newInterval = new Interval(0, 10);
+		//Interval newInterval = new Interval(0, 10);
 		//List<Interval> result = test.insert(intervals, newInterval);
 		//List<Interval> result = test.insert_inPlace(intervals, newInterval);
 		
-		List<Interval> result = test.merge(intervals);
-		result.stream().forEach(System.out::print);
+		//List<Interval> result = test.merge(intervals);
+		//result.stream().forEach(System.out::print);
+		
+		Interval newInterval = new Interval(4, 9);
+		System.out.println(test.insert(intervals, newInterval));
 	}
 }

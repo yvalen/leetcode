@@ -1,17 +1,20 @@
 package leetcode.matrix;
 
-public class SetZeroes {
-	/**
-	 * Given a m x n matrix, if an element is 0, set its entire row and column to 0. Do it in place. 
-	 * Follow up:
-	 * - Did you use extra space?
-	 * - A straight forward solution using O(mn) space is probably a bad idea.
-	 * - A simple improvement uses O(m + n) space, but still not the best solution.
-	 * - Could you devise a constant space solution?
-	 * 
-	 * Company: Microsoft, Amazon
-	 * Difficulty: medium
-	 */
+/*
+ * LEETCODE 73
+ * Given a m x n matrix, if an element is 0, set its entire row and column to 0. Do it in place. 
+ * Follow up:
+ * - Did you use extra space?
+ * - A straight forward solution using O(mn) space is probably a bad idea.
+ * - A simple improvement uses O(m + n) space, but still not the best solution.
+ * - Could you devise a constant space solution?
+ * 
+ * Company: Microsoft, Amazon
+ * Difficulty: medium
+ * Similar Questions: 289(GameOfLife)
+ */
+public class SetMatrixZeroes {
+	
 	public void setZeroes(int[][] matrix) {
         int m = matrix.length, n = matrix[0].length;
         

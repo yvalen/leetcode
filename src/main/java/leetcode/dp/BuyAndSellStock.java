@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class BuyAndSellStock {
 
 	/**
+	 * LEETCODE 121
 	 * Say you have an array for which the ith element is the price of a given stock on day i.
 	 * If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), 
 	 * design an algorithm to find the maximum profit.
@@ -13,7 +14,12 @@ public class BuyAndSellStock {
 	 * Example 2: Input: [7, 6, 4, 3, 1] Output: 0 
 	 * 	In this case, no transaction is done, i.e. max profit = 0.
 	 * http://www.sigmainfy.com/blog/leetcode-stocki.html
+	 * 
+	 * Company: Facebook, Microsoft, Amazon, Bloomberg, Uber
+	 * Difficulty: easy
+	 * Similar Questions: 122(BuyAndSellStockII), 123, 188, 53(MaximumSubArray), 309(BuyAndSellStockWithCoolDown)
 	 */
+	// Time complexity: O(n)  Space complexity: O(1)
 	public int maxProfit1(int[] prices) {
 		if (prices == null || prices.length == 0) return 0;
 		
@@ -35,20 +41,32 @@ public class BuyAndSellStock {
 	// And only after this, we can update the minimum price.
 	public int maxProfit1_dp(int[] prices) {
 		if (prices == null || prices.length == 0) return 0;
+		int minPrice = Integer.MAX_VALUE, maxProfit = 0;
+        for (int i = 0; i < prices.length; i++) {
+            minPrice = Math.min(minPrice, prices[i]);
+            maxProfit = Math.max(maxProfit, prices[i] - minPrice);
+        }
+        return maxProfit;
 		
+		/*
 		int maxProfit = 0, minPrice = prices[0];
 		for (int i = 1; i < prices.length; i++) {
 			maxProfit = Math.max(maxProfit, prices[i] - minPrice);
 			minPrice = Math.min(minPrice, prices[i]);
 		}
 		return maxProfit;
+		*/
     }
 	
 	/**
+	 * LEETCODE 123
 	 * Say you have an array for which the ith element is the price of a given stock on day i.
 	 * Design an algorithm to find the maximum profit. You may complete at most two transactions.
 	 * You may not engage in multiple transactions at the same time 
 	 * (ie, you must sell the stock before you buy again).
+	 * 
+	 * Difficulty: hard
+	 * Similar Questions: 122(BuyAndSellStockII), 121, 188, 689(MaxSumOfNonOverlappingSubArrays)
 	 */
 	public int maxProfit3(int[] prices) {
 		if (prices == null || prices.length == 0) return 0;
@@ -83,10 +101,14 @@ public class BuyAndSellStock {
     }
 	
 	/**
+	 * LEETCODE 188
 	 * Say you have an array for which the ith element is the price of a given stock on day i.
 	 * Design an algorithm to find the maximum profit. You may complete at most k transactions.
 	 * Note: You may not engage in multiple transactions at the same time 
 	 * (ie, you must sell the stock before you buy again).
+	 * 
+	 * Difficulty: hard
+	 * Similar Questions: 121, 123, 122(BuyAndSellStockII)
 	 */
 	// dp[k][i]: max profit up to day i (included) with at most k transactions (global optimal objective)
 	// g[k][i]: max profit up to day i (included) with at most k transactions AND we sell at day i 
@@ -115,14 +137,14 @@ public class BuyAndSellStock {
 
 		int[][] dp = new int[k+1][prices.length];
 		for (int i = 1; i <=k; i ++) {
-			int localMax = dp[i-1][0] - prices[0];
+			int profit = -prices[0];
 			for (int j = 1; j < prices.length; j++) {
 				// dp[i][j-1] - no transaction at jth day
 				// prices[j] + localMax -> prices[j]-prices[jj]+dp[i-1][jj] for (jj in 0...j-1)
-				dp[i][j] = Integer.max(dp[i][j-1], prices[j] + localMax);
+				dp[i][j] = Integer.max(dp[i][j-1], prices[j] + profit);
 				// update the max profit of doing i-1 transaction at j-1 day and buy the stock at prices[j], this will be used in the next iteration
 				//localMax = Math.max(localMax, dp[i-1][j] - prices[j]); // allow buy and sell on same day
-				localMax = Math.max(localMax, dp[i-1][j-1] - prices[j]); // not allow buy and sell on same day
+				profit = Math.max(profit, dp[i-1][j-1] - prices[j]); // not allow buy and sell on same day, buy stock at jth day, this will be used to calculate the profit in the next iteration
 			}
 		}
 		
