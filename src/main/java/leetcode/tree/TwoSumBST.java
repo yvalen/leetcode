@@ -26,6 +26,7 @@ import java.util.Set;
  * 
  * Company: Facebook, Samsung
  * Difficulty: easy
+ * Similar Questions: 1(2sum), 167(Two Sum II, sorted input array), 170(TwoSum, data structure design)
  */
 public class TwoSumBST {
 	
@@ -40,6 +41,27 @@ public class TwoSumBST {
 		set.add(root.val);
 		return dfs(root.left, k, set) || dfs(root.right, k, set);
 	}
+	
+	//
+	// binary search: For each node, we check if k - node.val exists in this BST.
+	// Time complexity: O(nlogn)  Space complexity: O(logn) recursion
+	public boolean findTarget_binarySearch(TreeNode root, int k) {
+        return find(root, root, k);
+    }
+    private boolean find(TreeNode root, TreeNode current, int k) { 
+        if (root == null || current == null) return false;
+        return search(root, current, k-current.val) ||  // should subtract current.val from k instead of root.val as current is the node checking right now
+        		find(root, current.left, k) ||  // should always check from root consider a case [2,1,3] k=4
+        		find(root, current.right,  k);
+    }
+    private boolean search(TreeNode root, TreeNode current, int target) {
+        if (root == null) return false;
+        
+        if (root.val == target && root != current) return true; // need to check if root is the current node
+        
+        if (target < root.val) return search(root.left, current, target);
+        else return search(root.right, current, target);
+    }
 	
 	
 	public static void main(String[] args) {

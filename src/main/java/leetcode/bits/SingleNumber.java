@@ -3,8 +3,12 @@ package leetcode.bits;
 // https://discuss.leetcode.com/topic/50315/a-summary-how-to-use-bit-manipulation-to-solve-problems-easily-and-efficiently
 public class SingleNumber {
 	/*
+	 * LEETCODE 136
 	 * Given an array of integers, every element appears twice except for one. Find that single one.
 	 * Note: Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory? 
+	 * 
+	 * Company: Airbnb, Palantir
+	 * Difficulty: easy
 	 */
 	public int singleNumber(int[] nums) {
 		// A number XOR itself will become 0, any number XOR with 0 will stay unchanged. 

@@ -5,19 +5,24 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * LEETCODE 257
+ * Given a binary tree, return all root-to-leaf paths.
+ * For example, given the following binary tree:
+ *     	  1
+ *      /   \
+ *     2     3
+ *     		  \
+ *             5
+ * All root-to-leaf paths are: ["1->3->5", "1->2"]
+ * 
+ * Company: Google, Facebook, Apple
+ * Difficulty: easy
+ * Similar Questions: 113(Path Sum II)
+ */
 public class BinaryTreePath {
 	
-	/**
-	 *  Given a binary tree, return all root-to-leaf paths.
-	 *  For example, given the following binary tree:
-	 *     	  1
-	 *      /   \
-	 *     2     3
-	 *     		  \
-	 *             5
-	 *  All root-to-leaf paths are: ["1->3->5", "1->2"]
-	 *  (EASY)
-	 */
+	
 	public List<String> binaryTreePaths(TreeNode root) {
         List<String> paths = new LinkedList<>();
         if (root == null) return paths;
