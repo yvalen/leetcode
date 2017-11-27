@@ -3,6 +3,7 @@ package leetcode.dp;
 import java.util.Arrays;
 
 /*
+ * LEETCODE 377
  * Given an integer array with all positive numbers and no duplicates, 
  * find the number of possible combinations that add up to a positive integer target.
  * Example: nums = [1, 2, 3] target = 4
@@ -17,9 +18,13 @@ import java.util.Arrays;
  * Note that different sequences are counted as different combinations.
  * Therefore the output is 7.
  * Follow up: https://discuss.leetcode.com/topic/52227/7-liner-in-python-and-follow-up-question/2
- * 	What if negative numbers are allowed in the given array?
- * 	How does it change the problem?
- * 	What limitation we need to add to the question to allow negative numbers? 
+ * － What if negative numbers are allowed in the given array?
+ * － How does it change the problem?
+ * － What limitation we need to add to the question to allow negative numbers? 
+ * 
+ * Company: Google, Facebook, Snapchat
+ * Difficulty: medium
+ * Similar Questions: 39(Combination Sum)
  */
 public class CombinationSumIV {
 	public int combinationSum4_recursive(int[] nums, int target) {

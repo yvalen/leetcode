@@ -12,6 +12,7 @@ import leetcode.tree.TreeNode;
 public class HouseRobber {
 	
 	/** 
+	 * LEETCODE 198
 	 * You are a professional robber planning to rob houses along a street. Each house has a 
 	 * certain amount of dp stashed, the only constraint stopping you from robbing each of 
 	 * them is that adjacent houses have security system connected and it will automatically 
@@ -21,6 +22,8 @@ public class HouseRobber {
 	 * 
 	 * Company: LinkedIn, Airbnb
 	 * Difficulty: easy
+	 * Similar Questions: 256(Paint House), 276(PaintFence), 213(House Robber II), 152(MaxProductArray), 213(House Robber II)
+	 * 337(House Robber III)
 	 */
 	public int rob_withDPArray(int[] nums) {
 		if (nums == null || nums.length == 0) return 0;
@@ -73,6 +76,7 @@ public class HouseRobber {
     }
 	
 	/**
+	 * LEETCODE 213
 	 * After robbing those houses on that street, the thief has found himself a new place for his thievery 
 	 * so that he will not get too much attention. This time, all houses at this place are arranged in a circle. 
 	 * That means the first house is the neighbor of the last one. Meanwhile, the security system for these 
@@ -82,6 +86,7 @@ public class HouseRobber {
 	 * 
 	 * Company: Microsoft
 	 * Difficulty: medium
+	 * Similar Questions: 256(Paint House), 276(PaintFence), 198(House Robber), 337(House Robber III)
 	 */
 	// https://discuss.leetcode.com/topic/14375/simple-ac-solution-in-java-in-o-n-with-explanation
 	public int robCircle(int[] nums) {
@@ -115,12 +120,13 @@ public class HouseRobber {
     }
 	
 	/*
-	 *  The thief has found himself a new place for his thievery again. There is only one entrance 
-	 *  to this area, called the "root." Besides the root, each house has one and only one parent house. 
-	 *  After a tour, the smart thief realized that "all houses in this place forms a binary tree". 
-	 *  It will automatically contact the police if two directly-linked houses were broken into on the same night.
-	 *  Determine the maximum amount of money the thief can rob tonight without alerting the police.
-	 *  Example 1:
+	 * LEETCODE 337
+	 * The thief has found himself a new place for his thievery again. There is only one entrance 
+	 * to this area, called the "root." Besides the root, each house has one and only one parent house. 
+	 * After a tour, the smart thief realized that "all houses in this place forms a binary tree". 
+	 * It will automatically contact the police if two directly-linked houses were broken into on the same night.
+	 * Determine the maximum amount of money the thief can rob tonight without alerting the police.
+	 * Example 1:
 	 *       3
 	 *      / \
 	 *     2   3
@@ -137,8 +143,9 @@ public class HouseRobber {
 	 * 
 	 * Company: Uber
 	 * Difficulty: medium
+	 * Similar Questions: 198(House Robber), 213(House Robber II)
 	 */
-	public int robTree(TreeNode root) {
+	public int robTree_dfs(TreeNode root) { // bfs won't work here because you can rob elements from consecutive levels as long as the elements are not linked
 		int[] result = robTreeHelper(root);
 		return Integer.max(result[0], result[1]);
 	}
@@ -152,7 +159,7 @@ public class HouseRobber {
 		int[] left = robTreeHelper(root.left);
 		int[] right = robTreeHelper(root.right);
 		// root is not robbed, choose the max value from the result of left and right
-		result[0] = Integer.max(left[0],  left[1]) + Integer.max(right[0], right[1]);
+		result[0] = Math.max(left[0],  left[1]) + Math.max(right[0], right[1]);
 		// root is robbed, left and right cannot be robbed
 		result[1] = root.val + left[0] + right[0];
 		return result;
@@ -160,10 +167,14 @@ public class HouseRobber {
 	
 	public static void main(String[] args) {
 		HouseRobber h = new HouseRobber();
-		int[] nums = {2, 1, 1, 1};
-		System.out.println(h.robCircle(nums));
+		//int[] nums = {2, 1, 1, 1};
+		//System.out.println(h.robCircle(nums));
 		//TreeNode root = SerializationBFS.deserialize("2,1,3,null,4");
 		//System.out.println(h.robTree(root));
+		
+		String s = "2,1,3,null,4";
+		TreeNode root = SerializeDeserialize.deserialize_bfs(s);
+		System.out.println(h.robTree_dfs(root));
 		
 		
 	}

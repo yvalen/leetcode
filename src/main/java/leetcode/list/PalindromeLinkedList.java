@@ -1,8 +1,13 @@
 package leetcode.list;
 
 /*
+ * LEETCODE 234
  * Given a singly linked list, determine if it is a palindrome.
  * Follow up: Could you do it in O(n) time and O(1) space?
+ * 
+ * Company: Facebook, Amazon, IXL
+ * Difficulty: easy
+ * Similar Questions: 206(Reverse Linked List)
  */
 public class PalindromeLinkedList {
 	public boolean isPalindrome(ListNode head) {
@@ -19,7 +24,8 @@ public class PalindromeLinkedList {
 		// slow is the head of the second half
 		prev.next = null;
 		
-		// reverse the second half
+		// reverse the second half so that we don't need to worry about list with odd number of nodes
+		// as slow will be at the end and won't be compared with the first half
 		ListNode tail = reverse(slow);
 		
 		// compare the second half with the first half

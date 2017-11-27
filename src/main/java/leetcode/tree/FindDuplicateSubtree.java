@@ -39,7 +39,7 @@ public class FindDuplicateSubtree {
 	}
 	
 	private String postorder(TreeNode root, Map<String, Integer> map, List<TreeNode> result) {
-		if (root == null) return "#"; // with null node set to # the tree can uniquely defined using post order (or pre order)
+		if (root == null) return "#"; // with null node set to # the tree can uniquely defined using post order (or pre order), null has to be represented by a char
 		String key = root.val + " " + postorder(root.left, map, result) + " " + postorder(root.right, map, result);
 		if (map.containsKey(key) && map.get(key) == 1) result.add(root);
 		map.put(key, map.getOrDefault(key, 0)+1);

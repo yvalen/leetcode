@@ -1,6 +1,7 @@
 package leetcode.tree;
 
 /*
+ * LEETCODE 156
  * Given a binary tree where all the right nodes are either leaf nodes with a sibling (a left node that shares the same parent node) 
  * or empty, flip it upside down and turn it into a tree where the original right nodes turned into left leaf nodes. Return the new root.
  * For example: given a binary tree {1,2,3,4,5},
@@ -15,6 +16,10 @@ package leetcode.tree;
  *  5   2
  *     / \
  *    3   1  
+ *    
+ * Company: LinkedIn
+ * Difficulty: medium
+ * Similar Questions: 206(Reverse Linked List)    
  */
 public class BinaryTreeUpsideDown {
 	
@@ -44,12 +49,16 @@ public class BinaryTreeUpsideDown {
 	
 	public TreeNode upsideDownBinaryTree_iterative(TreeNode root) {
 		TreeNode current = root;
-		TreeNode prev = null, next = null, temp = null;
+		// prev - parent of current node, next - left child of current nide, temp - right child of current node's parent
+		TreeNode prev = null, next = null, temp = null; 
 		while (current != null) {
 			next = current.left;
+			
+			// swapping nodes now, need temp to keep the previous right child
 			current.left = temp;
 			temp = current.right;
 			current.right = prev;
+			
 			prev = current;
 			current = next;
 		}
@@ -60,7 +69,10 @@ public class BinaryTreeUpsideDown {
 	
 	public static void main(String[] args) {
 		BinaryTreeUpsideDown btu = new BinaryTreeUpsideDown();
-		TreeNode root = SerializeDeserialize.deserialize_bfs("1,2,null,3");
+		//TreeNode root = SerializeDeserialize.deserialize_bfs("1,2,null,3");
+		//System.out.println(SerializeDeserialize.serialize_bfs(btu.upsideDownBinaryTree_iterative(root)));
+		
+		TreeNode root = SerializeDeserialize.deserialize_bfs("1,2,3,4,5");
 		System.out.println(SerializeDeserialize.serialize_bfs(btu.upsideDownBinaryTree_iterative(root)));
 	}
 }

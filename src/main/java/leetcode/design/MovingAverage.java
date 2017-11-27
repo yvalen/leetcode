@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 /*
+ * LEETCODE 346
  * Given a stream of integers and a window size, calculate the moving average of all integers in the sliding window.
  * For example,
  * MovingAverage m = new MovingAverage(3);
@@ -14,6 +15,11 @@ import java.util.Deque;
  * 
  * Company: Google
  * Difficulty: easy
+ * 
+ * Follow up:
+ * 1. multi-threaded: use ConcurrentLinkedDeque
+ * https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentLinkedDeque.html
+ * 2. big data set with size exceeding memory limit
  */
 public class MovingAverage {
 	private final int size;

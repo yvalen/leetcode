@@ -5,6 +5,7 @@ import java.util.Arrays;
 import leetcode.array.ArrayUtil;
 
 /*
+ * LEETCODE 416
  * Given a non-empty array containing only positive integers, find if the array can be partitioned into two subsets 
  * such that the sum of elements in both subsets is equal.
  * Note: Each of the array element will not exceed 100. The array size will not exceed 200.
@@ -16,6 +17,7 @@ import leetcode.array.ArrayUtil;
  * 
  * Company: eBay
  * Difficulty: medium
+ * Similar Questions: 698(PartitionToKEqualSumSubsets)
  */
 public class PartitionEqualSubsetSum {
 	// This problem is essentially let us to find whether there are several numbers in a set which are able to sum 

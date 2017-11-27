@@ -58,60 +58,6 @@ public class LinkListEasy {
 		return dummy.next;
     }
 	
-	/** 
-	 * Write a program to find the node at which the intersection of two singly linked lists begins.
-	 * For example, the following two linked lists:
-	 *
-	 *A:          a1 → a2
-     *              ↘
-     *                c1 → c2 → c3
-     *              ↗            
-     *B:     b1 → b2 → b3
-     *begin to intersect at node c1.
-     *
-     * http://www.geeksforgeeks.org/write-a-function-to-get-the-intersection-point-of-two-linked-lists/
-	 */
-	public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        int lenA = 0, lenB = 0;
-        
-        // find the length of A
-        for (ListNode a = headA; a != null; a = a.next) {
-        	lenA++;
-        }
-        
-        // find the length of B
-        for (ListNode b = headB; b != null; b = b.next) {
-        	lenB++;
-        }
-        
-        if (lenA == 0 || lenB == 0) return null;
-        
-        ListNode a = headA, b = headB;
-        int diff = 0, i = 0;
-        // move to the proper position in the long list
-        if (lenA > lenB) {
-        	diff = lenA - lenB;
-        	while (i < diff) {
-        		i++;
-        		a = a.next;
-        	}
-        }
-        else {
-        	diff = lenB - lenA;
-        	while (i < diff) {
-        		i++;
-        		b = b.next;
-        	}
-        }
-        
-        while (a != null) {
-        	if (a.val == b.val) return a;
-        	a = a.next;
-        	b = b.next;
-        }
-        
-		return null;
-    }
 	
 	/**
 	 * Given a linked list, remove the nth node from the end of list and return its head.

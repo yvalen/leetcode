@@ -1,4 +1,4 @@
-package leetcode.array;
+package leetcode.design;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,11 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 /*
+ * LEETCODE 244
  * This is a follow up of Shortest Word Distance. The only difference is now you are given the list of words and your method 
  * will be called repeatedly many times with different parameters. How would you optimize it? Design a class which receives 
  * a list of words in the constructor, and implements a method that takes two words word1 and word2 and return the shortest 
  * distance between these two words in the list.
  * Note: You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.
+ * 
+ * Company: LinkedIn
+ * Difficulty: medium
+ * Similar Questions: 243, 244(ShortestWordDistance, I & III), 21(Merge Two Sorted Lists)
  */
 public class WordDistance {
 	private Map<String, List<Integer>> indexMap;

@@ -1,9 +1,13 @@
 package leetcode.array;
 
 /*
+ * LEETCODE 41
  * Given an unsorted integer array, find the first missing positive integer.
  * For example, Given [1,2,0] return 3, and [3,4,-1,1] return 2.
  * Your algorithm should run in O(n) time and uses constant space. 
+ * 
+ * Difficulty: hard
+ * Similar Questions: 268(MissingNumber), 287(FindDuplicateNumber), 448(DisappearedNumbersInArray)
  */
 public class FirstMissingPositive {
 	// For any k positive numbers (duplicated allowed), the first missing number must be within [1, k+1]
@@ -23,6 +27,7 @@ public class FirstMissingPositive {
 				nums[num-1] = num;
 				num = nums[i]; // reset num for the next iteration in while loop
 			}
+			ArrayUtil.printArray(nums, " ");
 		}
 		
 		// the first missing positive will be the position in which the number doesn't match its index
@@ -40,10 +45,8 @@ public class FirstMissingPositive {
 		// first missing positive must be in [1, k+1]
 		// set nums[i] to negative to indicate the existence of i+1
 		for (int i = 0; i < k; i++) {
-			int num = Math.abs(nums[i]);
-			if (num <= nums.length && nums[num-1] > 0) {
-				nums[num-1] =  -nums[num-1];
-			}
+			int index = Math.abs(nums[i]) -1;
+            if (index < nums.length && nums[index] > 0) nums[index] = -nums[index];
 		}
 		
 		for (int i = 0; i < nums.length; i++) {
@@ -54,7 +57,7 @@ public class FirstMissingPositive {
 	
 	private int partition(int[] nums, int start, int end) {
 		while (start <= end) {
-			while (start < nums.length && nums[start] > 0) start++;
+			while (start < nums.length && nums[start] > 0) start++; 
 			while (end >= 0 && nums[end] <= 0) end--;
  			if (start <= end) {
 				int temp = nums[start];
@@ -67,10 +70,11 @@ public class FirstMissingPositive {
 	
 	public static void main(String[] args) {
 		FirstMissingPositive f = new FirstMissingPositive();
-		//int[] nums = {3, 4, -1, 1};
+		int[] nums = {3, 4, -1, 1};
 		//int[] nums = {0};
-		int[] nums = {};
-		System.out.println(f.firstMissingPositive_withPartition(nums));
+		//int[] nums = {};
+		//System.out.println(f.firstMissingPositive_withPartition(nums));
+		System.out.println(f.firstMissingPositive(nums));
 		
 	}
 }

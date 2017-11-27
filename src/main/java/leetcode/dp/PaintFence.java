@@ -1,6 +1,7 @@
 package leetcode.dp;
 
 /*
+ * LEETCODE 276
  * There is a fence with n posts, each post can be painted with one of the k colors. You have to paint all the posts such that 
  * no more than two adjacent fence posts have the same color (or no 3 adjacent posts have the same color).
  * Return the total number of ways you can paint the fence.
@@ -11,6 +12,7 @@ package leetcode.dp;
  * 
  * Company: Google
  * Difficult: easy
+ * Similar Questions: 198(House Robber), 213(House Robber II), 256(Paint House II), 265(Paint House II)
  */
 public class PaintFence {
 	/*
@@ -18,7 +20,7 @@ public class PaintFence {
 	 * If n == 2, there would be two situations:
 	 * - 2.1 You paint same color with the previous post: k*1 ways to paint, named it as same
 	 * - 2.2 You paint differently with the previous post: k*(k-1) ways to paint this way, named it as diff
-	 * If n >= 3, you can always maintain these two situations, either paint the same color with the previous one, or differently.
+	 * If n >= 3, you can always maintain these two situations, either paint the same color with the PREVIOUS one, or differently.
 	 * Since there is a rule: "no more than two adjacent fence posts have the same color.", we can further analyze:
 	 * - from 2.1, since previous two are in the same color, next one you could only paint differently, and it would form one part 
 	 * of "paint differently" case in the n == 3 level, and the number of ways to paint this way would equal to same*(k-1).

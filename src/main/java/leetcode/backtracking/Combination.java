@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /*
+ * LEETCODE 77
  * Given two integers n and k, return all possible combinations of k numbers out of 1 ... n.
  * For example, If n = 4 and k = 2, a solution is:
  * [
@@ -16,6 +17,9 @@ import java.util.List;
  * 	[1,3],
  * 	[1,4],
  * ]
+ * 
+ * Difficulty: medium
+ * Similar Questions: 39(Combination Sum), 46(Permutations)
  */
 public class Combination {
 	public List<List<Integer>> combine(int n, int k) {

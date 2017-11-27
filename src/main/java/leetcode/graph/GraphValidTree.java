@@ -156,8 +156,9 @@ public class GraphValidTree {
 	public static void main(String[] args) {
 		GraphValidTree gvt = new GraphValidTree();
 		int n = 5;
-		int[][] edges = {{0,1},{0,2},{2,3},{2,4}};
-		System.out.println(gvt.validTree_bfs(n, edges));
+		//int[][] edges = {{0,1},{0,2},{2,3},{2,4}};
+		int[][] edges = {{0, 1}, {1, 2}, {2, 3}, {1, 3}, {1, 4}};
+		System.out.println(gvt.validTree_dfs(n, edges));
 	}
 	
 }

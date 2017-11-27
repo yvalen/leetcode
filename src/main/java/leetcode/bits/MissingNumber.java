@@ -4,9 +4,14 @@ package leetcode.bits;
 import java.util.Arrays;
 
 /*
+ * LEETCODE 268
  * Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array.
  * For example, given nums = [0, 1, 3] return 2.
  * Note: your algorithm should run in linear runtime complexity. Could you implement it using only constant extra space complexity? 
+ * 
+ * Company: Microsoft, Bloomberg
+ * Difficulty: easy
+ * Similar Questions: 136(Single Number), 287(FindDuplicateNumber), 41(FirstMissingPositive)
  */
 public class MissingNumber {
 	

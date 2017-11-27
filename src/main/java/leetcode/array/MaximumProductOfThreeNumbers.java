@@ -1,6 +1,7 @@
 package leetcode.array;
 
 /*
+ * LEETCODE 628
  * Given an integer array, find three numbers whose product is maximum and output the maximum product.
  * Example 1: Input: [1,2,3] Output: 6
  * Example 2: Input: [1,2,3,4] Output: 24
@@ -9,6 +10,7 @@ package leetcode.array;
  * - Multiplication of any three numbers in the input won't exceed the range of 32-bit signed integer.
  * 
  * Company: Intuit
+ * Difficulty: easy
  */
 public class MaximumProductOfThreeNumbers {
 	public int maximumProduct(int[] nums) {

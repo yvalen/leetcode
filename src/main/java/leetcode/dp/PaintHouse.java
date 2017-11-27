@@ -4,6 +4,7 @@ import java.util.stream.IntStream;
 
 public class PaintHouse {
 	/*
+	 * LEETCODE 256
 	 * There are a row of n houses, each house can be painted with one of the three colors: red, blue or green. 
 	 * The cost of painting each house with a certain color is different. You have to paint all the houses such that 
 	 * no two adjacent houses have the same color. The cost of painting each house with a certain color is represented 
@@ -13,6 +14,7 @@ public class PaintHouse {
 	 * 
 	 * Company: LinkedIn
 	 * Difficulty: easy
+	 * Similar Questions: 265(Paint House II), 276(PaintFence), 198(House Robber), 213(House Robber II)
 	 */
 	public int minCost_withDPArray(int[][] costs) {
 		if (costs == null || costs.length == 0 || costs[0].length != 3) return 0;
@@ -45,6 +47,7 @@ public class PaintHouse {
     }
 	
 	/*
+	 * LEETCODE 265
 	 * There are a row of n houses, each house can be painted with one of the k colors. The cost of painting each house 
 	 * with a certain color is different. You have to paint all the houses such that no two adjacent houses have the same color.
 	 * The cost of painting each house with a certain color is represented by a n x k cost matrix. For example, costs[0][0] is 
@@ -52,6 +55,10 @@ public class PaintHouse {
 	 * Find the minimum cost to paint all houses.
 	 * Note: All costs are positive integers.
 	 * Follow up: Could you solve it in O(nk) runtime?
+	 * 
+	 * Company: Facebook
+	 * Difficulty: medium
+	 * Similar Questions: 256(Paint House), 276(PaintFence), 238(ProductOfArrayExceptSelf), 239(SlidingWindowMaximum)
 	 */
 	public int minCostII_withDPArray(int[][] costs) {
         if (costs == null || costs.length == 0 || costs[0].length == 0) return 0;
@@ -79,7 +86,7 @@ public class PaintHouse {
         // we need to know the min cost to the previous house of any color and 
         // if the color j is used on previous house to get prev min cost
         // dp[currentHouse][currentColor] = (currentColor == prevMinColor? prevSecondMin: prevMin) + costs[currentHouse][currentColor]
-        int prevMin = 0, prevSecMin = 0, prevMinIdx = -1;
+        int prevMin = 0, prevSecMin = 0, prevMinIdx = -1; // prevMin and prevSecMin should start from 0
         for (int i = 0; i < costs.length; i++) {
         	int min = Integer.MAX_VALUE, secMin = Integer.MAX_VALUE, minIdx = -1;
 			for (int j = 0; j < costs[0].length; j++) {

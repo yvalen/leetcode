@@ -12,6 +12,7 @@ public class ValidPalindrome {
 	 * 
 	 * Company: Facebook, Microsoft, Uber, Zenefits
 	 * Difficulty: easy
+	 * Similar Questions: 234(PalindromeLinkedList), 680(Valid Palindrome II)
 	 */
 	public boolean isPalindrome(String s) {
 		if (s == null || s.isEmpty()) return true;
@@ -42,6 +43,7 @@ public class ValidPalindrome {
 	 * 
 	 * Company: Facebook
 	 * Difficulty: easy
+	 * Similar Questions: 125(Valid Palindrome)
 	 */
 	public boolean validPalindrome(String s) {
 		if (s == null || s.length() <= 2) return true;

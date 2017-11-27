@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Permutations {
 	/*
+	 * LEETCODE 46
 	 * Given a collection of distinct numbers, return all possible permutations.
 	 * For example, [1,2,3] have the following permutations:
 	 * [
@@ -18,8 +19,12 @@ public class Permutations {
 	 * 	[3,1,2],
 	 * 	[3,2,1]
 	 * ]
-	 * Complexity: O(n^n) - time, O(n) - space
+	 * 
+	 * Company: Microsoft, LinkedIn
+	 * Difficulty: medium
+	 * Similar Questions: 47(Permutations II), 77(Combination), 31(NextPermutation), 60(PermutationSequence)
 	 */
+	// Complexity: O(n^n) - time, O(n) - space
 	public List<List<Integer>> permute(int[] nums) {
 		if (nums == null || nums.length == 0) return Collections.emptyList();
 		List<List<Integer>> result = new ArrayList<>();
@@ -48,6 +53,7 @@ public class Permutations {
 	}
 	
 	/*
+	 * LEETCODE 47
 	 * Given a collection of numbers that might contain duplicates, return all possible unique permutations.
 	 * For example, [1,1,2] have the following unique permutations:
 	 * [
@@ -55,8 +61,11 @@ public class Permutations {
 	 * 	[1,2,1],
 	 * 	[2,1,1]
 	 * ]
-	 * Complexity: O(n^n) - time, O(n) - space
+	 * 
+	 * Company: Microsoft, LinkedIn
+	 * Similar Questions: 46(Permutations), 31(NextPermutation)
 	 */
+	// Complexity: O(n^n) - time, O(n) - space
 	public List<List<Integer>> permuteUnique(int[] nums) {
 		if (nums == null || nums.length == 0) return Collections.emptyList();
 		List<List<Integer>> result = new ArrayList<>();
@@ -77,7 +86,7 @@ public class Permutations {
 		
 		for (int i = 0; i < nums.length; i++) {
 			if (used[i]) continue;
-			// when a number has the same value with its previous, we can use this number only if his previous is not used
+			// when a number has the same value with its previous, we can use this number only if its previous is used
 			if (i > 0 && nums[i] == nums[i-1] && used[i-1]) continue;
 			
 			list.addLast(nums[i]);

@@ -7,9 +7,9 @@ package leetcode.dp;
  * 
  * Company: LinkedIn
  * Difficulty: medium
- * Similar Questions: 53(MaximumSubArray)
+ * Similar Questions: 53(MaximumSubArray), 198(House Robber), 238(ProductOfArrayExceptSelf)
  */
-public class MaxProductArray {
+public class MaxProductSubarray {
 	public int maxProduct(int[] nums) {
 		int maxProduct = nums[0], minProduct = nums[0], result = nums[0];
 		

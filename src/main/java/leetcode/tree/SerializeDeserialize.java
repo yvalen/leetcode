@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /*
+ * LEETCODE 297
  * Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or 
  * memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
  * Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization 
@@ -23,6 +24,7 @@ import java.util.stream.Stream;
  * 
  * Company: Google, Facebook, Microsoft, Amazon, Bloomberg, LinkedIn, Uber, Yahoo
  * Difficulty: hard
+ * Similar Questions: 449(SerializationBST), 652(FindDuplicateSubtree)
  */
 public class SerializeDeserialize {
 	//
@@ -74,7 +76,7 @@ public class SerializeDeserialize {
     }
 
 	//
-	// DFS
+	// DFS preorder
 	//
 	public String serialize_dfs(TreeNode root) {
 		if (root == null) return null;
@@ -110,5 +112,15 @@ public class SerializeDeserialize {
 		node.left = buildTree(dataList);
 		node.right = buildTree(dataList);
 		return node;
+	}
+	
+	public static void main(String[] args) {
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);
+		root.right.left = new TreeNode(4);
+		root.right.right = new TreeNode(5);
+		SerializeDeserialize sd = new SerializeDeserialize();
+		System.out.println(sd.serialize_dfs(root));
 	}
 }

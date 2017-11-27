@@ -16,6 +16,7 @@ import java.util.Map;
  * 
  * Company: Amazon
  * Difficulty: easy
+ * Similar Questions: 287(FindDuplicateNumber)
  */
 public class SetMismatch {
 	public int[] findErrorNums_withMap(int[] nums) {
@@ -34,7 +35,7 @@ public class SetMismatch {
         return result;
     }
 	
-	public int[] findErrorNums(int[] nums) {
+	public int[] findErrorNums_withArray(int[] nums) {
 		int[] result = new int[2];       
         int n = nums.length;
         int[] count = new int[n+1];
@@ -45,6 +46,23 @@ public class SetMismatch {
         for (int i = 1; i <=n; i++) {
             if (count[i] == 2) result[0] = i;
             else if (count[i] == 0) result[1] = i;
+        }
+        
+        return result;
+    }
+	
+	public int[] findErrorNums_noExtraSpace(int[] nums) {
+        if (nums == null || nums.length == 0) return new int[0];
+        
+        int[] result = new int[2];
+        for (int num : nums) {
+            int index = Math.abs(num) - 1;
+            if (nums[index] > 0) nums[index] = -nums[index];
+            else result[0] = index+1;
+        }
+        
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) result[1] = i+1;
         }
         
         return result;

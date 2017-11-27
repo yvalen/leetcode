@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Queue;
 
 /*
+ * LEETCODE 314
  * Given a binary tree, return the vertical order traversal of its nodes' values. (ie, from top to bottom, column by column).
  * If two nodes are in the same row and column, the order should be from left to right.
  * Examples: 
@@ -56,13 +57,18 @@ import java.util.Queue;
  * 
  * Company: Google, Snapchat, Facebook
  * Difficulty: medium
+ * Similar Questions: 102(Binary Tree Level Order Traversal)
  */
 public class BinaryTreeVerticalOrderTraversal {
+    // BFS, put node, col into queue at the same time
+    // Every left child access col - 1 while right child col + 1
+    // This maps node into different col buckets
+    // Get col boundary min and max on the fly
+    // Retrieve result from cols
 	public List<List<Integer>> verticalOrder(TreeNode root) {
         if (root == null) return Collections.emptyList();
         
         List<List<Integer>> result = new ArrayList<>();
-        
         Queue<TreeNode> nodeq = new LinkedList<>();
         Queue<Integer> colq = new LinkedList<>();
         nodeq.offer(root);

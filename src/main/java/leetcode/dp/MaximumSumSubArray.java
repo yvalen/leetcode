@@ -12,7 +12,7 @@ import leetcode.array.SubArray;
  * Difficukty: easy
  * Similar Question: 121(Best time to buy and sell stock), 
  */
-public class MaximumSubArray {
+public class MaximumSumSubArray {
 	public int maxSubArray_dpTwoDArray(int[] nums) {
 		int n = nums.length;
 		
@@ -96,7 +96,7 @@ public class MaximumSubArray {
     }
 	
 	public static void  main(String[] args) {
-		MaximumSubArray s = new MaximumSubArray();
+		MaximumSumSubArray s = new MaximumSumSubArray();
 		
 		int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
 		System.out.println(s.maxSubArray_dpOneDArray(nums));

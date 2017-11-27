@@ -8,11 +8,13 @@ public class LinkListCycle {
 	
 	
 	/**
+	 * LEETCODE 141
 	 * Given a linked list, determine if it has a cycle in it
 	 * http://codingfreak.blogspot.com/2012/09/detecting-loop-in-singly-linked-list_22.html
 	 * 
 	 * Company: Amazon, Bloomberg, Microsoft, Yahoo
 	 * Difficulty: easy
+	 * Similar Questions: 142(Linked List Cycle II)
 	 */
 	// Time Complexity: O(n), Space Complexity: O(1)
 	public boolean hasCycle(ListNode head) {
@@ -29,9 +31,13 @@ public class LinkListCycle {
     }
 	
 	/**
-	 *  Given a linked list, return the node where the cycle begins. 
-	 *  If there is no cycle, return null.
-	 *  Note: Do not modify the linked list.
+	 * LEETCODE 142
+	 * Given a linked list, return the node where the cycle begins. 
+	 * If there is no cycle, return null.
+	 * Note: Do not modify the linked list.
+	 * 
+	 * Difficulty: medium
+	 * Similar Questions: 141(Linked List Cycle), 287(FindDuplicateNumber)
 	 */
 	public ListNode detectCycle(ListNode head) {
 		// L1 is defined as the distance between the head point and entry point

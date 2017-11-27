@@ -1,4 +1,4 @@
-package leetcode.list;
+package leetcode.bfsdfs;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -27,6 +27,7 @@ public class NestedListWeight {
 	}
 	
 	/**
+	 * LEETCODE 339
 	 * Given a nested list of integers, return the sum of all integers in the list weighted by their depth.
 	 * Each element is either an integer, or a list -- whose elements may also be integers or other lists.
 	 * Example 1: Given the list [[1,1],2,[1,1]], return 10. (four 1's at depth 2, one 2 at depth 1)
@@ -34,6 +35,7 @@ public class NestedListWeight {
 	 * 
 	 * Company: LinkedIn
 	 * Difficulty: easy
+	 * Similar Questions: 364(Nested List Weight Sum II), 690(EmployeeImportance)
 	 */
 	public int depthSum_recursive(List<NestedInteger> nestedList) {
 		if (nestedList == null || nestedList.isEmpty()) return 0;
@@ -55,6 +57,7 @@ public class NestedListWeight {
 	}
 	
 	/**
+	 * LEETCODE 364
 	 * Given a nested list of integers, return the sum of all integers in the list weighted by their depth.
 	 * Each element is either an integer, or a list -- whose elements may also be integers or other lists.
 	 * Different from the previous question where weight is increasing from root to leaf, 
@@ -66,6 +69,7 @@ public class NestedListWeight {
 	 * 
 	 * Company: LinkedIn
 	 * Difficulty: medium
+	 * Similar Questions: 339(Nested List Weight Sum)
 	 */
 	public int depthSumInverse(List<NestedInteger> nestedList) {
 		int unweighted = 0, weighted = 0;

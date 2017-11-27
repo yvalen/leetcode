@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /*
+ * LEETCODE 254
  * Numbers can be regarded as product of its factors. For example, 8 = 2 x 2 x 2,  = 2 x 4.
  * Write a function that takes an integer n and return all possible combinations of its factors.
  * Note: You may assume that n is always positive. Factors should be greater than 1 and less than n.
@@ -28,6 +29,8 @@ import java.util.List;
  * 	]
  * 
  * Company: LinkedIn, Uber
+ * Difficulty: medium
+ * Similar Questions: 39(Combination Sum)
  */
 public class FactorCombinations {
 	public List<List<Integer>> getFactors(int n) {
@@ -54,16 +57,19 @@ public class FactorCombinations {
 			list.removeLast();
 		}
 	
+		// since we are checking for sqrt(n) in previous, we need to add the last element
 		list.addLast(n);
 		getFactorsHelper(1, result, list, n); 
 		list.removeLast();
-		
+	
 	}
 	
 	public static void main(String[] args) {
 		FactorCombinations fc = new FactorCombinations ();
 		//int n = 32;
-		int n = 16;
+		//int n = 16;
+		//int n = 12;
+		int n = 15;
 		System.out.println(fc.getFactors(n));
 	}
 }

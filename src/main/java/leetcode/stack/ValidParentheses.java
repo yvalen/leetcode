@@ -1,8 +1,9 @@
-package leetcode.string;
+package leetcode.stack;
 
 import java.util.Stack;
 
 /*
+ * LEETCODE 20
  * Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
  * The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
  * Test cases: "[", ")"
@@ -21,14 +22,14 @@ public class ValidParentheses {
 				stack.push(c);
 			}
 			else {
-				if (stack.isEmpty()) return false;
+				if (stack.isEmpty()) return false; // need to check if stack is empty before pop
 				char matchingChar = stack.pop();
 				if (c == ')' && matchingChar != '(') return false;
 				if (c == ']' && matchingChar != '[') return false;
 				if (c == '}' && matchingChar != '{') return false;
 			}
 		}
-		return stack.isEmpty();
+		return stack.isEmpty(); // only return true when stack is empty
     }
 	
 	public boolean isValid(String s) {

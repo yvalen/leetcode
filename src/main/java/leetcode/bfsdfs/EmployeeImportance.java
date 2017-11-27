@@ -36,7 +36,7 @@ public class EmployeeImportance {
 	    public List<Integer> subordinates;
 	}
 	
-	public int getImportance(List<Employee> employees, int id) {
+	public int getImportance_bfs(List<Employee> employees, int id) {
 		if (employees == null || employees.isEmpty()) return 0;
 		 
 		Map<Integer, Employee> map = new HashMap<>();
@@ -59,4 +59,23 @@ public class EmployeeImportance {
 		return result;
     }
 	
+	public int getImportance_dfs(List<Employee> employees, int id) {
+		if (employees == null || employees.isEmpty()) return 0;
+		Map<Integer, Employee> map = new HashMap<>();
+		for (Employee e : employees) {
+			map.put(e.id, e);
+		}
+		if (!map.containsKey(id)) return 0;
+		
+		return dfs(map, id);
+	}
+	
+	private int dfs(Map<Integer, Employee> map, int id) {
+		Employee e = map.get(id);
+		int result = e.importance;
+		for (int s : e.subordinates) {
+			result += dfs(map, s);
+		}
+		return result;
+	}
 }

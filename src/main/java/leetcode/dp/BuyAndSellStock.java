@@ -2,6 +2,9 @@ package leetcode.dp;
 
 import java.util.Arrays;
 
+import leetcode.array.ArrayUtil;
+
+// https://discuss.leetcode.com/topic/97310/most-consistent-ways-of-dealing-with-the-series-of-stock-problems
 public class BuyAndSellStock {
 
 	/**
@@ -108,7 +111,8 @@ public class BuyAndSellStock {
 	 * (ie, you must sell the stock before you buy again).
 	 * 
 	 * Difficulty: hard
-	 * Similar Questions: 121, 123, 122(BuyAndSellStockII)
+	 * Similar Questions: 121(Best Time to Buy and Sell Stock), 123(Best Time to Buy and Sell Stock III), 
+	 * 122(BuyAndSellStockII)
 	 */
 	// dp[k][i]: max profit up to day i (included) with at most k transactions (global optimal objective)
 	// g[k][i]: max profit up to day i (included) with at most k transactions AND we sell at day i 
@@ -163,9 +167,6 @@ public class BuyAndSellStock {
 			}
 			return maxProfit;
 		}
-
-		// balance - the balance with at most j transactions with item 0 to i
-	    // profit - the profit with at most j transactions with item 0 to i
 		
 		// Every trade has once sell and once buy.Buy goes first and sell goes after buy.
 		// So the sell result is dependent on the buy,and the buy is dependent on the sell in last trade(j-1th)
@@ -177,6 +178,11 @@ public class BuyAndSellStock {
 				sell[j] = Integer.max(sell[j], buy[j] + prices[i]);   // whether to sell at prices[i]
 				buy[j] = Integer.max(buy[j], sell[j-1] - prices[i]); // whether to buy at prices[i]
 			}
+			System.out.println("i=" + i);
+			System.out.print("sell: ");
+			ArrayUtil.printArray(sell, ", ");
+			System.out.print("buy: ");
+			ArrayUtil.printArray(buy, ", ");
 		}
 		
 		return sell[k];

@@ -8,13 +8,17 @@ import java.util.List;
 import java.util.Map;
 
 /*
+ * LEETCODE 267
  * Given a string s, return all the palindromic permutations (without duplicates) of it. 
  * Return an empty list if no palindromic permutation could be form.
  * For example:
  * Given s = "aabb", return ["abba", "baab"].
  * Given s = "abc", return []. 
+ * 
+ * Dififculty: medium
+ * Similar Questions: 31(NextPermutation), 47(Permutations II), 266(PalindromePermutation)
  */
-public class PalindromePermutation {
+public class PalindromePermutationII {
 	public List<String> generatePalindromes(String s) {
 		if (s == null || s.isEmpty()) return Collections.emptyList();
 		
@@ -65,7 +69,7 @@ public class PalindromePermutation {
 	}
 	
 	public static void main(String[] args) {
-		PalindromePermutation pp = new PalindromePermutation ();
+		PalindromePermutationII pp = new PalindromePermutationII ();
 		//String s = "aabb";
 		//String s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 		String s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
