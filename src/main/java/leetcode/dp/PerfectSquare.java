@@ -9,8 +9,13 @@ import java.util.Queue;
 import java.util.Set;
 
 /*
+ * LEETCODE 279
  * Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, ...) which sum to n.
  * For example, given n = 12, return 3 because 12 = 4 + 4 + 4; given n = 13, return 2 because 13 = 4 + 9. 
+ * 
+ * Company: Google
+ * Difficulty: medium
+ * Similar Questions: 203(CountPrimes), 264(Ugly Number II)
  */
 public class PerfectSquare {
 
@@ -23,7 +28,7 @@ public class PerfectSquare {
 		for (int i = 1; i <= n; i++) {
 			for (int j = 1; j*j <= i; j++) {
 				// for each i it must be the sum of some number (i-j*j)
-				// and a perfect sqaure number (j*j)
+				// and a perfect square number (j*j)
 				dp[i] = Integer.min(dp[i], dp[i-j*j]+1);
 			}
 		}
@@ -70,7 +75,7 @@ public class PerfectSquare {
 	public static void main(String[] args) {
 		PerfectSquare ps = new PerfectSquare();
 		int n = 12;
-		System.out.println(ps.numSquares_dp(n));
+		System.out.println(ps.numSquares_bfs(n));
 		
 	}
 }

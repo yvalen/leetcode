@@ -1,7 +1,8 @@
 package leetcode.math;
 
 /*
- * Convert a non-negative integer to its English words representation. Given input is guaranteed to be less than 2^31 - 1 (2147483647).
+ * LEETCODE 273
+ * Convert a non-negative integer to its English words representation. Given input is guaranteed to be less than 2^31 - 1 (2,147,483,647).
  * For example,
  * 123 -> "One Hundred Twenty Three"
  * 12345 -> "Twelve Thousand Three Hundred Forty Five"
@@ -13,6 +14,7 @@ package leetcode.math;
  * 
  * Company: Microsoft, Facebook
  * Difficulty: Hard
+ * Similar Questions: 12(Integer to Roman)
  */
 public class IntegerToEnglishWords {
 	private static final String[] LESS_THAN_20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", 
@@ -27,7 +29,7 @@ public class IntegerToEnglishWords {
         int i = 0;
         while (num > 0) {
         	// starting from the right, processing three digits at a time
-        	if (num % 1000 != 0) { // need to handle middle middle chunk is zero
+        	if (num % 1000 != 0) { // need to handle middle is zero
         		result = helper(num % 1000) + THOUSANDS[i] + " " +  result; 
         	}
         	num /= 1000;
@@ -37,6 +39,7 @@ public class IntegerToEnglishWords {
 		return result.trim(); // need to remove the empty space at the end
     }
 	
+	// num is less than 1000, this helper handles space properly especially an additional white space at the end
 	private String helper(int num) {
 		if (num == 0) return ""; // reurn empty string instead of calling LESS_THAN_20[num] for 0 so that white space is handled properly
 		if (num < 20) return LESS_THAN_20[num] + " "; 

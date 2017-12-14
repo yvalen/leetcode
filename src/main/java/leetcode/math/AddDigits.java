@@ -1,14 +1,19 @@
 package leetcode.math;
 
 /*
- *  Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
- *  For example: given num = 38, the process is like: 3 + 8 = 11, 1 + 1 = 2. Since 2 has only one digit, return it.
- *  Follow up: could you do it without any loop/recursion in O(1) runtime? 
+ * LEETCODE 258
+ * Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
+ * For example: given num = 38, the process is like: 3 + 8 = 11, 1 + 1 = 2. Since 2 has only one digit, return it.
+ * Follow up: could you do it without any loop/recursion in O(1) runtime? 
+ * 
+ * Company: Microsoft, Adobe
+ * Difficulty: easy
+ * Similar Questions: 202(HappyNumber)
  *  
- *  https://en.wikipedia.org/wiki/Digital_root#Congruence_formula
- *  The digital root (aka repeated digital sum) of a non-negative integer is the (single digit) value obtained by an 
- *  iterative process of summing digits, on each iteration using the result from the previous iteration to compute a digit sum. 
- *  The process continues until a single-digit number is reached.
+ * https://en.wikipedia.org/wiki/Digital_root#Congruence_formula
+ * The digital root (aka repeated digital sum) of a non-negative integer is the (single digit) value obtained by an 
+ * iterative process of summing digits, on each iteration using the result from the previous iteration to compute a digit sum. 
+ * The process continues until a single-digit number is reached.
  */
 public class AddDigits {
 	public int addDigits(int num) {

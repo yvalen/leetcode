@@ -10,7 +10,7 @@ public class UglyNumber {
 	 * Note that 1 is typically treated as an ugly number. 
 	 * 
 	 * Difficulty: easy
-	 * Similar Questions: 
+	 * Similar Questions: 202(HappyNumber), 204(CountPrimes), 264(Ugly Number II) 
 	 */
 	/*
 	public boolean isUgly(int num) {
@@ -47,6 +47,9 @@ public class UglyNumber {
 	 * Write a program to find the n-th ugly number. For example, 
 	 * 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 is the sequence of the first 10 ugly numbers.
 	 * Note that 1 is typically treated as an ugly number, and n does not exceed 1690. 
+	 * 
+	 * Difficulty: medium
+	 * Similar Questions: 204(CountPrimes), 263(Ugly Number), 313(Super Ugly Number) 
 	 */
 	// DP: We have an array k of first n ugly number. We only know, at the beginning, the first one, which is 1. 
 	// k[1] = min( k[0]x2, k[0]x3, k[0]x5). The answer is k[0]x2. So we move 2's pointer to 1. Then we test:
@@ -69,6 +72,7 @@ public class UglyNumber {
     }
 	
 	/*
+	 * LEETCODE 313
 	 * Write a program to find the nth super ugly number. Super ugly numbers are positive numbers whose all prime factors 
 	 * are in the given prime list primes of size k. For example, [1, 2, 4, 7, 8, 13, 14, 16, 19, 26, 28, 32] is the sequence 
 	 * of the first 12 super ugly numbers given primes = [2, 7, 13, 19] of size 4.
@@ -77,6 +81,10 @@ public class UglyNumber {
 	 * - The given numbers in primes are in ascending order.
 	 * - 0 < k ≤ 100, 0 < n ≤ 106, 0 < primes[i] < 1000.
 	 * - The nth super ugly number is guaranteed to fit in a 32-bit signed integer. 
+	 * 
+	 * Company: Google
+	 * Difficulty: medium
+	 * Similar QUestions: 264(Ugly Number II)
 	 */
 	// Time complexity O(kn) k - length of primes
 	public int nthSuperUglyNumber(int n, int[] primes) {
@@ -101,7 +109,9 @@ public class UglyNumber {
 			
 			// one loop, 
 			for (int j = 0; j < primes.length; j++) {
-				if (primes[j]*dp[indexes[j]] == dp[i-1]) indexes[j]++;
+				if (primes[j]*dp[indexes[j]] == dp[i-1]) {
+					indexes[j]++;
+				}
 				dp[i] = Integer.min(dp[i], dp[indexes[j]] * primes[j]);
 			}
 		}
@@ -163,6 +173,6 @@ public class UglyNumber {
 		
 		int n = 12;
 		int[] primes = {2, 7, 13, 19};
-		System.out.println(un.nthSuperUglyNumber_withHeap(n, primes));
+		System.out.println(un.nthSuperUglyNumber(n, primes));
 	}
 }

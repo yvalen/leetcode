@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /*
+ * LEETCODE 202
  * Write an algorithm to determine if a number is "happy". A happy number is a number defined by the following process: 
  * Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process 
  * until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers 
@@ -13,6 +14,10 @@ import java.util.Set;
  * 		8^2 + 2^2 = 68
  * 		6^2 + 8^2 = 100
  * 		1^2 + 0^2 + 0^2 = 1
+ * 
+ * Company: Uber, Twitter, Airbnb
+ * Difficulty: easy
+ * Similar Questions: 258(AddDigits), 263(Ugly Number)
  */
 public class HappyNumber {
 	// Starting from a number I, if some value - say a - appears again during the process after k steps, 
@@ -48,8 +53,15 @@ public class HappyNumber {
 		while (set.add(n)) { // add to set returns true if set doesn't contain the element
 			if (n == 1) return true;
 			n = calculateSquareSum(n);
+			System.out.println(n);
 		} // once a repeated number is detected the number is not a happy number because it will never end
 		
 		return false;
     }
+	
+	public static void main(String[] args) {
+		HappyNumber hn = new HappyNumber ();
+		int n = 7;
+		System.out.println(hn.isHappy_withSet(n));
+	}
 }

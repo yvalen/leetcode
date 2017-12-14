@@ -1,8 +1,9 @@
 package leetcode.math;
 
 /*
- * Count the number of prime numbers less than a non-negative number, n.
- * A prime number is a natural number that has exactly two distinct natural number divisors: 1 and itself.
+ * LEETCODE 204
+ * Count the number of prime numbers LESS THAN a non-negative number, n.
+ * A prime number is a natural number GREATER than 1 that has exactly two distinct natural number divisors: 1 and itself.
  * 
  * Sieve of Eratosthenes Algorithm
  * 1. Create a list of consecutive integers from 2 through n: (2, 3, 4, ..., n).
@@ -17,12 +18,15 @@ package leetcode.math;
  * As a refinement, it is sufficient to mark the numbers in step 3 starting from p2, as all the smaller multiples 
  * of p will have already been marked at that point. 
  * 
+ * Company: Microsoft, Amazon
+ * Difficulty: easy
+ * Similar Questions: 
  */
 public class CountPrimes {
 	public int countPrimes(int n) {
 		if (n <= 2) return 0;
 		
-		boolean[] notPrime = new boolean[n+1];
+		boolean[] notPrime = new boolean[n];
 		int count = 0;
 		for (int i = 2; i < n; i++) {
 			if (!notPrime[i]) {

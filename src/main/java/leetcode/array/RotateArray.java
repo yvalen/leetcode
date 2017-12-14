@@ -7,7 +7,7 @@ package leetcode.array;
  * 
  * Company: Microsoft, Amazon, Bloomberg
  * Difficulty: easy
- * Similar Questions: 61(RotateList), rotate words in string II
+ * Similar Questions: 61(RotateList), 186(Reverse Words in a String II)
  */      
 public class RotateArray {
 	

@@ -20,15 +20,15 @@ public class ValidPalindrome {
 		int i = 0, j = s.length() -1;
 		while (i < j) {
 		    char ci = s.charAt(i), cj = s.charAt(j);
-			if (!Character.isLetterOrDigit(ci)) i++;
-			else if (!Character.isLetterOrDigit(cj)) j--;
-			else {
-				if (Character.toLowerCase(ci) != Character.toLowerCase(cj)) {
-					return false;
-				}
-				i++; 
-				j--;
-			}
+		    if (Character.isLetterOrDigit(ci) && Character.isLetterOrDigit(cj)) {
+                if (Character.toLowerCase(ci) != Character.toLowerCase(cj)) return false;
+                i++;
+                j--;
+            }
+            else {
+                if (!Character.isLetterOrDigit(ci)) i++;
+                if (!Character.isLetterOrDigit(cj)) j--;
+            }
 		}
 		return true;
     }
