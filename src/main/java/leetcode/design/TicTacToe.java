@@ -43,61 +43,66 @@ package leetcode.design;
  * Difficulty: medium
  */
 public class TicTacToe {
-	// In order to win Tic-Tac-Toe you must have the entire row or column. 
-	// Thus, we don't need to keep track of an entire n^2 board. We only need to 
-	// keep a count for each row and column, the diagonal and anti-diagonal. 
-	// Increment the count by 1 for player and decrement the count by 1 for player 2.
-	// Each time a player places a piece we just need to check the count of that 
-	// row, column, diagonal and anti-diagonal. If at any time a row or column 
-	// matches the size of the board then that player has won.
-		
-	private int[] rowCount;
-	private int[] colCount;
-	private int diagCount;
-	private int antidiagCount;
-	private int n;
-	
-	public TicTacToe(int n) {
+    // In order to win Tic-Tac-Toe you must have the entire row or column.
+    // Thus, we don't need to keep track of an entire n^2 board. We only need to
+    // keep a count for each row and column, the diagonal and anti-diagonal.
+    // Increment the count by 1 for player and decrement the count by 1 for
+    // player 2.
+    // Each time a player places a piece we just need to check the count of that
+    // row, column, diagonal and anti-diagonal. If at any time a row or column
+    // matches the size of the board then that player has won.
+
+    private int[] rowCount;
+    private int[] colCount;
+    private int diagCount;
+    private int antidiagCount;
+    private int n;
+
+    public TicTacToe(int n) {
         rowCount = new int[n];
         colCount = new int[n];
         this.n = n;
     }
-	
-	/**
-	 * Player {player} makes a move at ({row}, {col}).
-	 * @param row The row of the board.
-	 * @param col The column of the board.
-	 * @param player The player, can be either 1 or 2.
-	 * @return The current winning condition, can be either:
-	 * 0: No one wins.
-	 * 1: Player 1 wins.
-	 * 2: Player 2 wins.
-	 */
-	public int move(int row, int col, int player) {
-		int valToAdd = player == 1 ? 1 : -1;
-		rowCount[row] += valToAdd;
-		colCount[col] += valToAdd;
-		
-		if (row == col) diagCount += valToAdd; // need to use valToAdd here as well
-		if (row + col == n - 1) antidiagCount += valToAdd;
-		
-		if (Math.abs(rowCount[row]) == n || Math.abs(colCount[col]) == n ||
-				Math.abs(diagCount) == n || Math.abs(antidiagCount) == n) {
-			return player;
-		}
-		
-		return 0;
-	}
-	
-	public static void main(String[] args) {
-		TicTacToe ticTacToe = new TicTacToe(3);
-		System.out.println(ticTacToe.move(0, 0, 1));
-		System.out.println(ticTacToe.move(0, 2, 2));
-		System.out.println(ticTacToe.move(2, 2, 1));
-		System.out.println(ticTacToe.move(1, 1, 2));
-		System.out.println(ticTacToe.move(2, 0, 1));
-		System.out.println(ticTacToe.move(1, 0, 2));
-		System.out.println(ticTacToe.move(2, 1, 1));
-	}
+
+    /**
+     * Player {player} makes a move at ({row}, {col}).
+     * 
+     * @param row
+     *            The row of the board.
+     * @param col
+     *            The column of the board.
+     * @param player
+     *            The player, can be either 1 or 2.
+     * @return The current winning condition, can be either: 0: No one wins. 1:
+     *         Player 1 wins. 2: Player 2 wins.
+     */
+    public int move(int row, int col, int player) {
+        int valToAdd = player == 1 ? 1 : -1;
+        rowCount[row] += valToAdd;
+        colCount[col] += valToAdd;
+
+        if (row == col)
+            diagCount += valToAdd; // need to use valToAdd here as well
+        if (row + col == n - 1)
+            antidiagCount += valToAdd;
+
+        if (Math.abs(rowCount[row]) == n || Math.abs(colCount[col]) == n || Math.abs(diagCount) == n
+                || Math.abs(antidiagCount) == n) {
+            return player;
+        }
+
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        TicTacToe ticTacToe = new TicTacToe(3);
+        System.out.println(ticTacToe.move(0, 0, 1));
+        System.out.println(ticTacToe.move(0, 2, 2));
+        System.out.println(ticTacToe.move(2, 2, 1));
+        System.out.println(ticTacToe.move(1, 1, 2));
+        System.out.println(ticTacToe.move(2, 0, 1));
+        System.out.println(ticTacToe.move(1, 0, 2));
+        System.out.println(ticTacToe.move(2, 1, 1));
+    }
 
 }

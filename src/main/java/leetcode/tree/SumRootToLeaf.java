@@ -17,20 +17,24 @@ package leetcode.tree;
  * Similar Questions: 112(Path Sum), 124(Binary Tree Max Path Sum)
  */
 public class SumRootToLeaf {
-	public int sumNumbers(TreeNode root) {
-		return preorder(root, 0);
+    public int sumNumbers(TreeNode root) {
+        return preorder(root, 0);
     }
-	
-	public int preorder(TreeNode root, int sum) {
-		if (root == null) return 0;
-		
-		sum = sum * 10 + root.val;
-		if (root.left == null && root.right == null) { // base case, need to return sum here; otherwise the result will 0 for a single node tree
-        	return sum;
+
+    public int preorder(TreeNode root, int sum) {
+        if (root == null)
+            return 0;
+
+        sum = sum * 10 + root.val;
+        if (root.left == null && root.right == null) { // base case, need to
+                                                       // return sum here;
+                                                       // otherwise the result
+                                                       // will 0 for a single
+                                                       // node tree
+            return sum;
         }
-		
-		return preorder(root.left, sum) +
-				preorder(root.right, sum);
+
+        return preorder(root.left, sum) + preorder(root.right, sum);
     }
-	
+
 }

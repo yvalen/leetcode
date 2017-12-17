@@ -31,62 +31,62 @@ import java.util.Stack;
  * Similar Questions: 155(MinStack)
  */
 public class MaxStack {
-	private Stack<Integer> stack;
+    private Stack<Integer> stack;
     private Stack<Integer> maxStack;
     private Stack<Integer> tmp;
-    
+
     public MaxStack() {
         stack = new Stack<>();
         maxStack = new Stack<>();
         tmp = new Stack<>();
     }
-    
+
     public void push(int x) {
         stack.push(x);
-        if (maxStack.isEmpty() || x >= maxStack.peek()) maxStack.push(x);
+        if (maxStack.isEmpty() || x >= maxStack.peek())
+            maxStack.push(x);
     }
-    
+
     public int pop() {
         int x = stack.pop();
-        if (maxStack.peek() == x) maxStack.pop();
+        if (maxStack.peek() == x)
+            maxStack.pop();
         return x;
     }
-    
+
     public int top() {
         return stack.peek();
     }
-    
+
     public int peekMax() {
         return maxStack.peek();
     }
-    
+
     public int popMax() {
         int result = maxStack.pop();
         while (stack.peek() != result) {
             tmp.push(stack.pop());
         }
-        
+
         stack.pop();
         while (!tmp.isEmpty()) {
-        	push(tmp.pop()); // use MaxStack.push instead of stack.push, this will populate maxStack properly
+            push(tmp.pop()); // use MaxStack.push instead of stack.push, this
+                             // will populate maxStack properly
         }
-        
+
         return result;
     }
-    
+
     public static void main(String[] args) {
-    	MaxStack maxStack = new MaxStack();
-    	maxStack.push(5);
-    	maxStack.push(1);
-    	/*
-    	maxStack.push(2);
-    	maxStack.push(2);
-    	maxStack.push(5);
-    	maxStack.push(4);
-    	maxStack.push(3);
-    	*/
-    	System.out.println(maxStack.popMax());
-    	System.out.println(maxStack.peekMax());
+        MaxStack maxStack = new MaxStack();
+        maxStack.push(5);
+        maxStack.push(1);
+        /*
+         * maxStack.push(2); maxStack.push(2); maxStack.push(5);
+         * maxStack.push(4); maxStack.push(3);
+         */
+        System.out.println(maxStack.popMax());
+        System.out.println(maxStack.peekMax());
     }
 
 }

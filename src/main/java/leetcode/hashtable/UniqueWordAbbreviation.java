@@ -32,58 +32,66 @@ import java.util.Set;
  * Difficulty: medium
  */
 public class UniqueWordAbbreviation {
-	//private final Map<String, Set<String>> dict;
-	
-	private final Map<String, Boolean> abbreDict;
-	private final Set<String> dict;
-	
-	public UniqueWordAbbreviation(String[] dictionary) {
-		/*
-		dict = new HashMap<>();
-		for (String s : dictionary) {
-			String abbre = getAbbreviation(s);
-			Set<String> wordSet = dict.getOrDefault(abbre, new HashSet<>());
-			wordSet.add(s);
-			dict.put(abbre, wordSet);
-		}
-		System.out.println(dict);
-		*/
-		
-		dict = new HashSet<>(Arrays.asList(dictionary));
-		abbreDict = new HashMap<>();
-		for (String s : dict) { // add dictionary to set first to dedup and then iterate through set
-			String abbre = getAbbreviation(s);
-			abbreDict.put(abbre,  !abbreDict.containsKey(abbre));
-		}
-		System.out.println(dict);
-		System.out.println(abbreDict);
+    // private final Map<String, Set<String>> dict;
+
+    private final Map<String, Boolean> abbreDict;
+    private final Set<String> dict;
+
+    public UniqueWordAbbreviation(String[] dictionary) {
+        /*
+         * dict = new HashMap<>(); for (String s : dictionary) { String abbre =
+         * getAbbreviation(s); Set<String> wordSet = dict.getOrDefault(abbre,
+         * new HashSet<>()); wordSet.add(s); dict.put(abbre, wordSet); }
+         * System.out.println(dict);
+         */
+
+        dict = new HashSet<>(Arrays.asList(dictionary));
+        abbreDict = new HashMap<>();
+        for (String s : dict) { // add dictionary to set first to dedup and then
+                                // iterate through set
+            String abbre = getAbbreviation(s);
+            abbreDict.put(abbre, !abbreDict.containsKey(abbre));
+        }
+        System.out.println(dict);
+        System.out.println(abbreDict);
     }
-    
+
     public boolean isUnique(String word) {
-    	String abbre = getAbbreviation(word); 
-    	return !abbreDict.containsKey(abbre) || (abbreDict.get(abbre) && dict.contains(word)); // faster than using Map<String, Set<String>> if isUniqie called a lot
-    	
-    	//Set<String> wordSet = dict.get(getAbbreviation(word));
-    	//return wordSet == null || (wordSet.contains(word) && wordSet.size() == 1);
+        String abbre = getAbbreviation(word);
+        return !abbreDict.containsKey(abbre) || (abbreDict.get(abbre) && dict.contains(word)); // faster
+                                                                                               // than
+                                                                                               // using
+                                                                                               // Map<String,
+                                                                                               // Set<String>>
+                                                                                               // if
+                                                                                               // isUniqie
+                                                                                               // called
+                                                                                               // a
+                                                                                               // lot
+
+        // Set<String> wordSet = dict.get(getAbbreviation(word));
+        // return wordSet == null || (wordSet.contains(word) && wordSet.size()
+        // == 1);
     }
-    
+
     private String getAbbreviation(String s) {
-    	if (s == null || s.length() <= 2) return s;
-    	
-    	int n = s.length();
-    	StringBuilder sb = new StringBuilder();
-    	sb.append(s.charAt(0)).append(n-2).append(s.charAt(n-1));
-    	return sb.toString();
+        if (s == null || s.length() <= 2)
+            return s;
+
+        int n = s.length();
+        StringBuilder sb = new StringBuilder();
+        sb.append(s.charAt(0)).append(n - 2).append(s.charAt(n - 1));
+        return sb.toString();
     }
-    
+
     public static void main(String[] args) {
-    	//String[] dictionary = {"deer", "door", "cake", "card"};
-    	String[] dictionary = {"a", "a"};
-    	UniqueWordAbbreviation uwa = new UniqueWordAbbreviation(dictionary);
-    	//System.out.println("dear:" + uwa.isUnique("dear"));
-    	//System.out.println("cart:" + uwa.isUnique("cart"));
-    	//System.out.println("cane:" + uwa.isUnique("cane"));
-    	//System.out.println("make:" + uwa.isUnique("make"));
-    	System.out.println("a:" + uwa.isUnique("a"));
+        // String[] dictionary = {"deer", "door", "cake", "card"};
+        String[] dictionary = { "a", "a" };
+        UniqueWordAbbreviation uwa = new UniqueWordAbbreviation(dictionary);
+        // System.out.println("dear:" + uwa.isUnique("dear"));
+        // System.out.println("cart:" + uwa.isUnique("cart"));
+        // System.out.println("cane:" + uwa.isUnique("cane"));
+        // System.out.println("make:" + uwa.isUnique("make"));
+        System.out.println("a:" + uwa.isUnique("a"));
     }
 }

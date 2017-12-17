@@ -15,42 +15,47 @@ package leetcode.array;
  * 
  */
 public class LongestContinuousIncreasingSubsequence {
-	public int findLengthOfLCIS_twoPointer(int[] nums) {
-        if (nums == null) return 0;
-        
+    public int findLengthOfLCIS_twoPointer(int[] nums) {
+        if (nums == null)
+            return 0;
+
         int n = nums.length;
-        if (n <= 1) return n;
-        
+        if (n <= 1)
+            return n;
+
         int maxLen = 1;
         int i = 0, j = 1;
         while (j < n) {
-        	if (nums[j] <= nums[j-1]) { 
-        		maxLen = Math.max(maxLen, j-i);
-        		i = j;
-        	}
-        	j++;
+            if (nums[j] <= nums[j - 1]) {
+                maxLen = Math.max(maxLen, j - i);
+                i = j;
+            }
+            j++;
         }
-        return Math.max(maxLen, j-i);  // need to compare maxLen with j-i to handle nums as an increasing sequence
+        return Math.max(maxLen, j - i); // need to compare maxLen with j-i to
+                                        // handle nums as an increasing sequence
     }
-	
-	public int findLengthOfLCIS(int[] nums) {
-        if (nums == null) return 0;
+
+    public int findLengthOfLCIS(int[] nums) {
+        if (nums == null)
+            return 0;
         int maxLen = 0, len = 1;
         for (int i = 0; i < nums.length; i++) {
-        	if (i == 0 || nums[i-1] < nums[i]) {
-        		len++;
-        		maxLen = Math.max(maxLen, len);
-        	}
-        	else len = 1;
+            if (i == 0 || nums[i - 1] < nums[i]) {
+                len++;
+                maxLen = Math.max(maxLen, len);
+            } else
+                len = 1;
         }
         return maxLen;
     }
-	
-	public static void main(String[] args) {
-		LongestContinuousIncreasingSubsequence  lcis = new LongestContinuousIncreasingSubsequence ();
-		int[] nums = {1,3,5,4,7};
-		//int[] nums = {2,2,2,2,2};
-		//int[] nums = {1,3,5,7};
-		System.out.println(lcis.findLengthOfLCIS_twoPointer(nums));
-;	}
+
+    public static void main(String[] args) {
+        LongestContinuousIncreasingSubsequence lcis = new LongestContinuousIncreasingSubsequence();
+        int[] nums = { 1, 3, 5, 4, 7 };
+        // int[] nums = {2,2,2,2,2};
+        // int[] nums = {1,3,5,7};
+        System.out.println(lcis.findLengthOfLCIS_twoPointer(nums));
+        ;
+    }
 }

@@ -1,4 +1,5 @@
 package leetcode.matrix;
+
 /*
  * According to the Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised 
  * by the British mathematician John Horton Conway in 1970." 
@@ -19,61 +20,70 @@ package leetcode.matrix;
  * Difficulty: medium
  */
 public class GameOfLife {
-	// use 2 bits to store 2 states:
-	// [2nd bit, 1st bit] = [next state, current state]
-	// - 00  dead (next) <- dead (current)
-	// - 01  dead (next) <- live (current)  
-	// - 10  live (next) <- dead (current)  
-	// - 11  live (next) <- live (current) 
-	// Since every 2nd state is by default dead, only two transition to check
-	// - Transition 01 -> 11: when board == 1 and lives >= 2 && lives <= 3.
-	// - Transition 00 -> 10: when board == 0 and lives == 3.
-	public void gameOfLife(int[][] board) {
-		if (board == null || board.length == 0) return;
-		
-		int m = board.length, n = board[0].length;
+    // use 2 bits to store 2 states:
+    // [2nd bit, 1st bit] = [next state, current state]
+    // - 00 dead (next) <- dead (current)
+    // - 01 dead (next) <- live (current)
+    // - 10 live (next) <- dead (current)
+    // - 11 live (next) <- live (current)
+    // Since every 2nd state is by default dead, only two transition to check
+    // - Transition 01 -> 11: when board == 1 and lives >= 2 && lives <= 3.
+    // - Transition 00 -> 10: when board == 0 and lives == 3.
+    public void gameOfLife(int[][] board) {
+        if (board == null || board.length == 0)
+            return;
+
+        int m = board.length, n = board[0].length;
         for (int i = 0; i < m; i++) {
-        	for (int j = 0; j < n; j++) {
-        		// count the number of live cell for a given cell's neighbors and itself
-        		int count = 0; 
-        		for (int ii = Math.max(0, i-1); ii < Math.min(m, i+2); ii++) { // check max for start and check min for end
-        			for (int jj = Math.max(0, j-1); jj < Math.min(n, j+2); jj++) {
-        				count += board[ii][jj] & 1; // current state is board[i][j] & 1
-        			}
-        		}
-        		/*
-        		if (count == 3 || count - board[i][j] == 3) {
-        			board[i][j] |= 2;
-        		}*/
-        		
-        		count -= board[i][j];
-        		if (board[i][j] == 1 && (count == 2 || count == 3)) {
-        			board[i][j] = 3;
-        		}
-        		
-        		if (board[i][j] == 0 && count == 3) {
-        			board[i][j] = 2;
-        		}
-        		
-        	}
+            for (int j = 0; j < n; j++) {
+                // count the number of live cell for a given cell's neighbors
+                // and itself
+                int count = 0;
+                for (int ii = Math.max(0, i - 1); ii < Math.min(m, i + 2); ii++) { // check
+                                                                                   // max
+                                                                                   // for
+                                                                                   // start
+                                                                                   // and
+                                                                                   // check
+                                                                                   // min
+                                                                                   // for
+                                                                                   // end
+                    for (int jj = Math.max(0, j - 1); jj < Math.min(n, j + 2); jj++) {
+                        count += board[ii][jj] & 1; // current state is
+                                                    // board[i][j] & 1
+                    }
+                }
+                /*
+                 * if (count == 3 || count - board[i][j] == 3) { board[i][j] |=
+                 * 2; }
+                 */
+
+                count -= board[i][j];
+                if (board[i][j] == 1 && (count == 2 || count == 3)) {
+                    board[i][j] = 3;
+                }
+
+                if (board[i][j] == 0 && count == 3) {
+                    board[i][j] = 2;
+                }
+
+            }
         }
-        
+
         for (int i = 0; i < m; i++) {
-        	for (int j = 0; j < n; j++) {
-        		board[i][j] >>= 1;
-        	}
+            for (int j = 0; j < n; j++) {
+                board[i][j] >>= 1;
+            }
         }
     }
 
-	public static void main(String[] args) {
-		GameOfLife gol = new GameOfLife();
-		//int[][] board = {
-		//		{0}
-		//};
-		int[][] board = {
-				{1, 1}
-		};
-		gol.gameOfLife(board);
-		MatrixUtil.print(board);
-	}
+    public static void main(String[] args) {
+        GameOfLife gol = new GameOfLife();
+        // int[][] board = {
+        // {0}
+        // };
+        int[][] board = { { 1, 1 } };
+        gol.gameOfLife(board);
+        MatrixUtil.print(board);
+    }
 }

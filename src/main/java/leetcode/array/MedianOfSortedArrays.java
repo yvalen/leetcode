@@ -7,12 +7,9 @@ package leetcode.array;
  * Example 2: nums1 = [1, 2], nums2 = [3, 4],the median is (2 + 3)/2 = 2.5
  */
 public class MedianOfSortedArrays {
-	public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        
-		
-		return 0;
-    }
-	
-	
-}
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
 
+        return 0;
+    }
+
+}

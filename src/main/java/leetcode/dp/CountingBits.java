@@ -10,29 +10,29 @@ package leetcode.dp;
  * - Can you do it like a boss? Do it without using any builtin function like __builtin_popcount in c++ or in any other language.
  */
 public class CountingBits {
-	public int[] countBits_bruteforce(int num) {
-        int[] result = new int[num+1];
+    public int[] countBits_bruteforce(int num) {
+        int[] result = new int[num + 1];
         for (int i = 1; i <= num; i++) {
-        	result[i] = oneBits(i);
+            result[i] = oneBits(i);
         }
         return result;
     }
-	
-	private int oneBits(int num) {
-		int count = 0;
-		while (num != 0) {
-			num = num & (num -1);
-			count++;
-		}
-		return count;
-	}
 
-	public int[] countBits_dp(int num) {
-        int[] result = new int[num+1];
+    private int oneBits(int num) {
+        int count = 0;
+        while (num != 0) {
+            num = num & (num - 1);
+            count++;
+        }
+        return count;
+    }
+
+    public int[] countBits_dp(int num) {
+        int[] result = new int[num + 1];
         for (int i = 1; i <= num; i++) {
-        	result[i] = result[i >> 1] + (i & 1);
+            result[i] = result[i >> 1] + (i & 1);
         }
         return result;
     }
-	
+
 }

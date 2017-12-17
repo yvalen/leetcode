@@ -17,25 +17,27 @@ package leetcode.string;
  * Difficulty: medium
  */
 public class ComplexNumberMultiplication {
-	public String complexNumberMultiply(String a, String b) {
-        if (a == null || b == null) return null;
-        
+    public String complexNumberMultiply(String a, String b) {
+        if (a == null || b == null)
+            return null;
+
         StringBuilder sb = new StringBuilder();
         int[] nums1 = parseString(a), nums2 = parseString(b);
-        
+
         sb.append(nums1[0] * nums2[0] - nums1[1] * nums2[1]).append("+");
-        sb.append(nums1[0]*nums2[1] + nums2[0]*nums1[1]).append("i");
+        sb.append(nums1[0] * nums2[1] + nums2[0] * nums1[1]).append("i");
         return sb.toString();
     }
-	
-	private int[] parseString(String s) {
-		String[] tokens = s.split("\\+"); // need to escape + in regex
-		return new int[] {Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1].substring(0, tokens[1].length()-1))};
-	}
-	
-	public static void main(String[] args) {
-		ComplexNumberMultiplication cnm = new ComplexNumberMultiplication();
-		String a = "1+-1i", b = "1+-1i";
-		System.out.println(cnm.complexNumberMultiply(a, b));
-	}
+
+    private int[] parseString(String s) {
+        String[] tokens = s.split("\\+"); // need to escape + in regex
+        return new int[] { Integer.parseInt(tokens[0]),
+                Integer.parseInt(tokens[1].substring(0, tokens[1].length() - 1)) };
+    }
+
+    public static void main(String[] args) {
+        ComplexNumberMultiplication cnm = new ComplexNumberMultiplication();
+        String a = "1+-1i", b = "1+-1i";
+        System.out.println(cnm.complexNumberMultiply(a, b));
+    }
 }

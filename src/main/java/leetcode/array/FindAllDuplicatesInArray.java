@@ -17,23 +17,25 @@ import java.util.List;
  * Similar Questions: 448(FindAllDisappearedNumbersInArray)
  */
 public class FindAllDuplicatesInArray {
-	public List<Integer> findDuplicates(int[] nums) {
-		if (nums == null || nums.length == 0) return Collections.emptyList();
-        
-		List<Integer> result = new LinkedList<>();
-		for (int num : nums) {
-			// when find a number i, flip the number at position i-1 to negative. 
-		    // if the number at position i-1 is already negative, i is the number that occurs twice.
-			int idx = Math.abs(num) - 1;
-			if (nums[idx] > 0) {
-				nums[idx] = -nums[idx];
-			}
-			else {
-				result.add(idx+1);
-			}
-		}
-		
-		return result;
+    public List<Integer> findDuplicates(int[] nums) {
+        if (nums == null || nums.length == 0)
+            return Collections.emptyList();
+
+        List<Integer> result = new LinkedList<>();
+        for (int num : nums) {
+            // when find a number i, flip the number at position i-1 to
+            // negative.
+            // if the number at position i-1 is already negative, i is the
+            // number that occurs twice.
+            int idx = Math.abs(num) - 1;
+            if (nums[idx] > 0) {
+                nums[idx] = -nums[idx];
+            } else {
+                result.add(idx + 1);
+            }
+        }
+
+        return result;
     }
 
 }

@@ -16,61 +16,76 @@ import java.util.Map;
  * The palindromes are ["dcbaabcd", "abcddcba", "slls", "llssssll"]
  */
 public class PalindromePairs {
-	/*
-	 * - Traverse the array, build map. Key is the reversed string, value is index in array (0 based)
-	 * - Main logic part. Partition the word into left and right, and see 1) if there exists a candidate in map equals 
-	 * to the left side of current word, and right side of current word is palindrome, so concatenate(current word, candidate) 
-	 * forms a pair: left | right | candidate. 2) same for checking the right side of current word: candidate | left | right.
-	 * - Edge case - check if empty string exists. It's interesting that for given words {"a", ""}, 
-	 * it's expected to return two results [0,1] and [1,0]. Since my main logic can cover [0, 1] concatenate("a", ""), 
-	 * so as to cover the other situation concatenate("", "a"), I need to traverse the words array again, find the 
-	 * palindrome word candidate except "" itself, and add pair("", palindrome word) to the final answer.
-	 * Time complexity: O(n*k^2)
-	 */
-	public List<List<Integer>> palindromePairs(String[] words) {
-		if (words == null || words.length == 0) return Collections.emptyList();
-		
-		// create a dictionary with the reverse of each word as key and its index as value
-		Map<String, Integer> dict = new HashMap<>();
-		for (int i = 0; i < words.length; i++) {
-			StringBuilder sb = new StringBuilder(words[i]);
-			dict.put(sb.reverse().toString(), i);
-		}
-		
+    /*
+     * - Traverse the array, build map. Key is the reversed string, value is
+     * index in array (0 based) - Main logic part. Partition the word into left
+     * and right, and see 1) if there exists a candidate in map equals to the
+     * left side of current word, and right side of current word is palindrome,
+     * so concatenate(current word, candidate) forms a pair: left | right |
+     * candidate. 2) same for checking the right side of current word: candidate
+     * | left | right. - Edge case - check if empty string exists. It's
+     * interesting that for given words {"a", ""}, it's expected to return two
+     * results [0,1] and [1,0]. Since my main logic can cover [0, 1]
+     * concatenate("a", ""), so as to cover the other situation concatenate("",
+     * "a"), I need to traverse the words array again, find the palindrome word
+     * candidate except "" itself, and add pair("", palindrome word) to the
+     * final answer. Time complexity: O(n*k^2)
+     */
+    public List<List<Integer>> palindromePairs(String[] words) {
+        if (words == null || words.length == 0)
+            return Collections.emptyList();
+
+        // create a dictionary with the reverse of each word as key and its
+        // index as value
+        Map<String, Integer> dict = new HashMap<>();
+        for (int i = 0; i < words.length; i++) {
+            StringBuilder sb = new StringBuilder(words[i]);
+            dict.put(sb.reverse().toString(), i);
+        }
+
         List<List<Integer>> result = new ArrayList<>();
         for (int i = 0; i < words.length; i++) {
-        	// process each word
-        	String word = words[i];
-        	for (int j = 0; j <= word.length(); j++) { // need to include =
-        		// partition the word into two pars
-        		String s1 = word.substring(0, j);
-        		String s2 = word.substring(j);
-        		
-        		if (isPalindrome(s1)) {
-        			Integer idx = dict.get(s2);
-        			if (idx != null && idx != i) { // need to exclude the word itself
-        				result.add(Arrays.asList(idx, i));
-        			}
-        		}
-        	
-        		if (isPalindrome(s2) && s2.length() != 0) { // the word is checked in the previous if statement, need toe exclude it by check the length of s2
-        			Integer idx = dict.get(s1);
-        			if (idx != null && idx != i) {
-        				result.add(Arrays.asList(i, idx));
-        			}
-        		}
-        	}
+            // process each word
+            String word = words[i];
+            for (int j = 0; j <= word.length(); j++) { // need to include =
+                // partition the word into two pars
+                String s1 = word.substring(0, j);
+                String s2 = word.substring(j);
+
+                if (isPalindrome(s1)) {
+                    Integer idx = dict.get(s2);
+                    if (idx != null && idx != i) { // need to exclude the word
+                                                   // itself
+                        result.add(Arrays.asList(idx, i));
+                    }
+                }
+
+                if (isPalindrome(s2) && s2.length() != 0) { // the word is
+                                                            // checked in the
+                                                            // previous if
+                                                            // statement, need
+                                                            // toe exclude it by
+                                                            // check the length
+                                                            // of s2
+                    Integer idx = dict.get(s1);
+                    if (idx != null && idx != i) {
+                        result.add(Arrays.asList(i, idx));
+                    }
+                }
+            }
         }
-        
+
         return result;
-    }	
-	
-	private boolean isPalindrome(String s) {
-		if (s == null || s.isEmpty()) return true;		
-		for (int i = 0, j = s.length()-1; i < j; i++, j--) {
-			if (s.charAt(i) != s.charAt(j)) return false;
-		}
-		return true;
-	}
-	
+    }
+
+    private boolean isPalindrome(String s) {
+        if (s == null || s.isEmpty())
+            return true;
+        for (int i = 0, j = s.length() - 1; i < j; i++, j--) {
+            if (s.charAt(i) != s.charAt(j))
+                return false;
+        }
+        return true;
+    }
+
 }

@@ -19,55 +19,59 @@ import java.util.List;
  * https://fisherlei.blogspot.com/2013/01/leetcode-zigzag-conversion.html
  */
 public class ZigZapConversion {
-	// Time complexity O(n)
-	public String convert_withStringBuilderArray(String s, int numRows) {
-		if (s == null || s.isEmpty() || numRows <= 0) return s;
-		
-		StringBuilder[] sbs = new StringBuilder[numRows];
-		for (int i = 0; i < numRows; i++) { // need to initialize StringBuilder array
-			sbs[i] = new StringBuilder();
-		}
-		
-		int i = 0, len = s.length();
-		char[] chars = s.toCharArray();
-		while (i < len) {
-			// vertically down 
-			for (int j = 0; j < numRows && i < len ; j++) {
-				sbs[j].append(chars[i++]);
-			}
-			
-			// zig zag up, when traversing up, the first row and the last row has no element, 
-			for (int j = numRows - 2; j > 0 && i < len; j--) { 
-				sbs[j].append(chars[i++]);
-			}
-		}
-		
-		for (int j = 1; j < numRows; j++) {
-			sbs[0].append(sbs[j]);
-		}
-		
-		return sbs[0].toString();
+    // Time complexity O(n)
+    public String convert_withStringBuilderArray(String s, int numRows) {
+        if (s == null || s.isEmpty() || numRows <= 0)
+            return s;
+
+        StringBuilder[] sbs = new StringBuilder[numRows];
+        for (int i = 0; i < numRows; i++) { // need to initialize StringBuilder
+                                            // array
+            sbs[i] = new StringBuilder();
+        }
+
+        int i = 0, len = s.length();
+        char[] chars = s.toCharArray();
+        while (i < len) {
+            // vertically down
+            for (int j = 0; j < numRows && i < len; j++) {
+                sbs[j].append(chars[i++]);
+            }
+
+            // zig zag up, when traversing up, the first row and the last row
+            // has no element,
+            for (int j = numRows - 2; j > 0 && i < len; j--) {
+                sbs[j].append(chars[i++]);
+            }
+        }
+
+        for (int j = 1; j < numRows; j++) {
+            sbs[0].append(sbs[j]);
+        }
+
+        return sbs[0].toString();
     }
-	
-	public String convert_withOneStringBuilder(String s, int numRows) {
-		if (s == null || s.isEmpty() || numRows <= 1) return s;
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < numRows; i++) {
-			for (int j = 0, k = i; k < s.length(); j++) {
-				System.out.println("i=" + i + " j=" + j + " k=" + k);
-				sb.append(s.charAt(k));
-				k += ((i==0 || (j%2==0)) && (i!= numRows-1) )? 2*(numRows-i-1) : 2*i;
-			}
-		}
-		return sb.toString();
-	}
-	
-	public static void main(String[] args) {
-		ZigZapConversion zz = new ZigZapConversion ();
-		//String s = "PAYPALISHIRING";
-		//int numRows = 3;
-		String s = "ABCDEFGHIJKLMN";
-		int numRows = 4;
-		System.out.println(zz.convert_withOneStringBuilder(s, numRows));
-	}
+
+    public String convert_withOneStringBuilder(String s, int numRows) {
+        if (s == null || s.isEmpty() || numRows <= 1)
+            return s;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0, k = i; k < s.length(); j++) {
+                System.out.println("i=" + i + " j=" + j + " k=" + k);
+                sb.append(s.charAt(k));
+                k += ((i == 0 || (j % 2 == 0)) && (i != numRows - 1)) ? 2 * (numRows - i - 1) : 2 * i;
+            }
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        ZigZapConversion zz = new ZigZapConversion();
+        // String s = "PAYPALISHIRING";
+        // int numRows = 3;
+        String s = "ABCDEFGHIJKLMN";
+        int numRows = 4;
+        System.out.println(zz.convert_withOneStringBuilder(s, numRows));
+    }
 }

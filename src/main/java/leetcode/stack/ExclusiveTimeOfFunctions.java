@@ -37,80 +37,61 @@ import leetcode.array.ArrayUtil;
  * Difficulty: medium
  */
 public class ExclusiveTimeOfFunctions {
-	public int[] exclusiveTime(int n, List<String> logs) {
-		if (logs == null || logs.isEmpty()) return new int[] {};
-	
-		int[] result = new int[n];
-		Stack<Integer> stack = new Stack<>();  // use a stack to keep track of the function ids that have started
-		int running = 0;  // current running function id
-		int prev = 0; // previous timestamp 
-		for (String log : logs) {
-			String[] ary = log.split(":");
-			int timestamp = Integer.parseInt(ary[2]);
-			if (!stack.isEmpty()) result[stack.peek()] += timestamp - prev;
-			prev = timestamp;
-			if (ary[1].equals("start")) {
-				stack.push(Integer.parseInt(ary[0]));
-			}
-			else {
-				result[stack.pop()]++;
-				prev++;
-			}
-			
-			/*
-			int func = Integer.parseInt(ary[0]);
-			boolean start = ary[1].equals("start");
-			int timestamp = Integer.parseInt(ary[2]);
-			if (!start) timestamp++;  
-			
-			result[running] += timestamp - prev; // update the duration for the current running function
-			if (start) { 
-				stack.push(running);  // push the current running function id to stack, it should be running instead of func
-				running = func;  // update current running function id with the one in the start log
-			}
-			else {
-				running = stack.pop();  // update current running function id with the previous one
-			}
-			prev = timestamp;  
-			*/
-		}
-		return result;
+    public int[] exclusiveTime(int n, List<String> logs) {
+        if (logs == null || logs.isEmpty())
+            return new int[] {};
+
+        int[] result = new int[n];
+        Stack<Integer> stack = new Stack<>(); // use a stack to keep track of
+                                              // the function ids that have
+                                              // started
+        int running = 0; // current running function id
+        int prev = 0; // previous timestamp
+        for (String log : logs) {
+            String[] ary = log.split(":");
+            int timestamp = Integer.parseInt(ary[2]);
+            if (!stack.isEmpty())
+                result[stack.peek()] += timestamp - prev;
+            prev = timestamp;
+            if (ary[1].equals("start")) {
+                stack.push(Integer.parseInt(ary[0]));
+            } else {
+                result[stack.pop()]++;
+                prev++;
+            }
+
+            /*
+             * int func = Integer.parseInt(ary[0]); boolean start =
+             * ary[1].equals("start"); int timestamp = Integer.parseInt(ary[2]);
+             * if (!start) timestamp++;
+             * 
+             * result[running] += timestamp - prev; // update the duration for
+             * the current running function if (start) { stack.push(running); //
+             * push the current running function id to stack, it should be
+             * running instead of func running = func; // update current running
+             * function id with the one in the start log } else { running =
+             * stack.pop(); // update current running function id with the
+             * previous one } prev = timestamp;
+             */
+        }
+        return result;
     }
-	
-	public static void main(String[] args) {
-		ExclusiveTimeOfFunctions etf = new ExclusiveTimeOfFunctions();
-		
-		List<String> logs = Arrays.asList(
-				"0:start:0",
-				"1:start:2",
-				"1:end:5",
-				"0:end:6"
-				);
-		int n = 2;
-		
-		/*
-		List<String> logs = Arrays.asList(
-				"0:start:0",
-				"0:start:2",
-				"0:end:5",
-				"0:start:6",
-				"0:end:6",	
-				"0:end:7"
-				);
-		int n = 1;
-		*/
-		/*
-		List<String> logs = Arrays.asList(
-				"0:start:0",
-				"0:start:2",
-				"0:end:5",
-				"1:start:6",
-				"1:end:6",	
-				"0:end:7"
-				);
-		int n = 2;
-		*/
-		ArrayUtil.printArray(etf.exclusiveTime(n, logs));
-	}
+
+    public static void main(String[] args) {
+        ExclusiveTimeOfFunctions etf = new ExclusiveTimeOfFunctions();
+
+        List<String> logs = Arrays.asList("0:start:0", "1:start:2", "1:end:5", "0:end:6");
+        int n = 2;
+
+        /*
+         * List<String> logs = Arrays.asList( "0:start:0", "0:start:2",
+         * "0:end:5", "0:start:6", "0:end:6", "0:end:7" ); int n = 1;
+         */
+        /*
+         * List<String> logs = Arrays.asList( "0:start:0", "0:start:2",
+         * "0:end:5", "1:start:6", "1:end:6", "0:end:7" ); int n = 2;
+         */
+        ArrayUtil.printArray(etf.exclusiveTime(n, logs));
+    }
 
 }

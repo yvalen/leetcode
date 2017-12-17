@@ -14,55 +14,61 @@ import java.util.Map;
  * Difficulty: medium
  */
 public class MaximumSizeSubArraySumEqualsK {
-	
-	// DP
-	// Time complexity: O(n^2), Space complexity: O(n)
-	public int maxSubArrayLen_dp(int[] nums, int k) {
-		if (nums == null || nums.length == 0) return 0;
-				
+
+    // DP
+    // Time complexity: O(n^2), Space complexity: O(n)
+    public int maxSubArrayLen_dp(int[] nums, int k) {
+        if (nums == null || nums.length == 0)
+            return 0;
+
         int maxLen = 0, n = nums.length;
-        
-		int[] sums = new int[n];
-		sums[0] = nums[0];
-		for (int i = 1; i < n; i++) {
-			sums[i] = sums[i-1] + nums[i];
-		}
-		
-		for (int i = 0; i < n; i++) {
-			for (int j = i; j < n; j++) {
-				int sum = sums[j] - sums[i] + nums[i];
-				if (sum == k) {
-					maxLen = Math.max(maxLen,  j - i + 1);
-				}
-			}
-		}
-		
+
+        int[] sums = new int[n];
+        sums[0] = nums[0];
+        for (int i = 1; i < n; i++) {
+            sums[i] = sums[i - 1] + nums[i];
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                int sum = sums[j] - sums[i] + nums[i];
+                if (sum == k) {
+                    maxLen = Math.max(maxLen, j - i + 1);
+                }
+            }
+        }
+
         return maxLen;
     }
-	
-	// hash table
-	// Time complexity: O(n), Space complexity: O(n)
-	public int maxSubArrayLen(int[] nums, int k) {
-		if (nums == null || nums.length == 0) return 0;
-				
+
+    // hash table
+    // Time complexity: O(n), Space complexity: O(n)
+    public int maxSubArrayLen(int[] nums, int k) {
+        if (nums == null || nums.length == 0)
+            return 0;
+
         int maxLen = 0, sum = 0;
         Map<Integer, Integer> map = new HashMap<>();
-		for (int i = 0; i < nums.length; i++) {
-			sum += nums[i];  // current sum starting from the beginning of the array
-			if (sum == k) maxLen = i + 1;
-			else if (map.containsKey(sum-k)) maxLen = Math.max(maxLen, i - map.get(sum-k));
-			
-			// only update map the first time because we want the start of the subarray as left as possible
-			map.putIfAbsent(sum, i);
-		}
-		
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i]; // current sum starting from the beginning of the
+                            // array
+            if (sum == k)
+                maxLen = i + 1;
+            else if (map.containsKey(sum - k))
+                maxLen = Math.max(maxLen, i - map.get(sum - k));
+
+            // only update map the first time because we want the start of the
+            // subarray as left as possible
+            map.putIfAbsent(sum, i);
+        }
+
         return maxLen;
     }
-	
-	public static void main(String[] args) {
-		MaximumSizeSubArraySumEqualsK msk = new MaximumSizeSubArraySumEqualsK();
-		int[] nums = {1,-1,5,-2,3};
-		int k = 3;
-		System.out.println(msk.maxSubArrayLen_dp(nums, k));
-	}
+
+    public static void main(String[] args) {
+        MaximumSizeSubArraySumEqualsK msk = new MaximumSizeSubArraySumEqualsK();
+        int[] nums = { 1, -1, 5, -2, 3 };
+        int k = 3;
+        System.out.println(msk.maxSubArrayLen_dp(nums, k));
+    }
 }

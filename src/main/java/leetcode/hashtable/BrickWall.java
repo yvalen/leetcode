@@ -28,22 +28,26 @@ import java.util.Map;
  * Difficulty: medium
  */
 public class BrickWall {
-	// use a hash map to store the frequency of edges at different locations. The location with largest number of edges will 
-	// have a vertical line cross the least number of bricks.
-	public int leastBricks(List<List<Integer>> wall) {
-		if (wall == null || wall.isEmpty()) return 0;
-		
+    // use a hash map to store the frequency of edges at different locations.
+    // The location with largest number of edges will
+    // have a vertical line cross the least number of bricks.
+    public int leastBricks(List<List<Integer>> wall) {
+        if (wall == null || wall.isEmpty())
+            return 0;
+
         int count = 0;
-		Map<Integer, Integer> map = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<>();
         for (List<Integer> row : wall) {
-        	int sum = 0;
-        	for (int i = 0; i < row.size() - 1; i++) { // don't need to consider the last brick in each row
-        		sum += row.get(i);
-        		map.put(sum, map.getOrDefault(sum, 0)+1);
-        		count = Math.max(count,  map.get(sum));
-        	}
+            int sum = 0;
+            for (int i = 0; i < row.size() - 1; i++) { // don't need to consider
+                                                       // the last brick in each
+                                                       // row
+                sum += row.get(i);
+                map.put(sum, map.getOrDefault(sum, 0) + 1);
+                count = Math.max(count, map.get(sum));
+            }
         }
-		return wall.size() - count;
+        return wall.size() - count;
     }
 
 }

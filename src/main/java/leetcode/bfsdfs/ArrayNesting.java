@@ -21,43 +21,48 @@ package leetcode.bfsdfs;
  * Difficulty: medium
  */
 public class ArrayNesting {
-	// start from every number find circle in those index-pointer-chain. 
-	// mark every number in the traversal as visited since A contains only distict numbers
-	public int arrayNesting_recursive(int[] nums) {
-        if (nums == null || nums.length == 0) return 0;
-        
-		int maxLen = 0, n = nums.length;
-		boolean[] visited = new boolean[n];
-		for (int i = 0; i < n; i++) {
-			maxLen = Math.max(maxLen,  dfs(nums, visited, i, 0));
-		}
-		return maxLen;
+    // start from every number find circle in those index-pointer-chain.
+    // mark every number in the traversal as visited since A contains only
+    // distict numbers
+    public int arrayNesting_recursive(int[] nums) {
+        if (nums == null || nums.length == 0)
+            return 0;
+
+        int maxLen = 0, n = nums.length;
+        boolean[] visited = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            maxLen = Math.max(maxLen, dfs(nums, visited, i, 0));
+        }
+        return maxLen;
     }
-	private int dfs(int[] nums, boolean[] visited, int idx, int depth) {
-		if (visited[idx]) return depth;
-		visited[idx] = true;
-		return dfs(nums, visited, nums[idx], depth+1);
-	}
-	
-	public int arrayNesting_iterative(int[] nums) {
-        if (nums == null || nums.length == 0) return 0;
-        
-		int maxLen = 0, n = nums.length;
-		boolean[] visited = new boolean[n];
-		for (int i = 0; i < n; i++) {
-			int depth = 0;
-			for (int j = i; !visited[j]; j = nums[j]) {
-				visited[j] = true;
-				depth++;
-			}
-			maxLen = Math.max(maxLen,  depth);
-		}
-		return maxLen;
+
+    private int dfs(int[] nums, boolean[] visited, int idx, int depth) {
+        if (visited[idx])
+            return depth;
+        visited[idx] = true;
+        return dfs(nums, visited, nums[idx], depth + 1);
     }
-	
-	public static void main(String[] args) {
-		ArrayNesting an = new ArrayNesting();
-		int[] nums = {5,4,0,3,1,6,2};
-		System.out.println(an.arrayNesting_iterative(nums));
-	}
+
+    public int arrayNesting_iterative(int[] nums) {
+        if (nums == null || nums.length == 0)
+            return 0;
+
+        int maxLen = 0, n = nums.length;
+        boolean[] visited = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            int depth = 0;
+            for (int j = i; !visited[j]; j = nums[j]) {
+                visited[j] = true;
+                depth++;
+            }
+            maxLen = Math.max(maxLen, depth);
+        }
+        return maxLen;
+    }
+
+    public static void main(String[] args) {
+        ArrayNesting an = new ArrayNesting();
+        int[] nums = { 5, 4, 0, 3, 1, 6, 2 };
+        System.out.println(an.arrayNesting_iterative(nums));
+    }
 }

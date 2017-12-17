@@ -65,46 +65,48 @@ public class BinaryTreeVerticalOrderTraversal {
     // This maps node into different col buckets
     // Get col boundary min and max on the fly
     // Retrieve result from cols
-	public List<List<Integer>> verticalOrder(TreeNode root) {
-        if (root == null) return Collections.emptyList();
-        
+    public List<List<Integer>> verticalOrder(TreeNode root) {
+        if (root == null)
+            return Collections.emptyList();
+
         List<List<Integer>> result = new ArrayList<>();
         Queue<TreeNode> nodeq = new LinkedList<>();
         Queue<Integer> colq = new LinkedList<>();
         nodeq.offer(root);
         colq.offer(0);
-        int minCol = 0, maxCol = 0; // minCol and maxCol is the range of the current col numbers, use them to decide whether to prepend to the list or append to the list
+        int minCol = 0, maxCol = 0; // minCol and maxCol is the range of the
+                                    // current col numbers, use them to decide
+                                    // whether to prepend to the list or append
+                                    // to the list
         result.add(new ArrayList<>()); // add a list to result for col 0
         while (!nodeq.isEmpty()) {
-        	TreeNode node = nodeq.poll();
-        	int col = colq.poll();
-        	if (col < minCol) {
-        		List<Integer> l = new ArrayList<>();
-        		l.add(node.val);
-        		result.add(0, l);
-        		minCol = col;
-        	}
-        	else if (col > maxCol) {
-        		List<Integer> l = new ArrayList<>();
-        		l.add(node.val);
-        		result.add(l);
-        		maxCol = col;
-        	}
-        	else {
-        		result.get(col - minCol).add(node.val); 
-        	}
-        	
-        	if (node.left != null) {
-        		nodeq.offer(node.left);
-        		colq.offer(col-1);
-        	}
-        	
-        	if (node.right != null) {
-        		nodeq.offer(node.right);
-        		colq.offer(col+1);
-        	}
+            TreeNode node = nodeq.poll();
+            int col = colq.poll();
+            if (col < minCol) {
+                List<Integer> l = new ArrayList<>();
+                l.add(node.val);
+                result.add(0, l);
+                minCol = col;
+            } else if (col > maxCol) {
+                List<Integer> l = new ArrayList<>();
+                l.add(node.val);
+                result.add(l);
+                maxCol = col;
+            } else {
+                result.get(col - minCol).add(node.val);
+            }
+
+            if (node.left != null) {
+                nodeq.offer(node.left);
+                colq.offer(col - 1);
+            }
+
+            if (node.right != null) {
+                nodeq.offer(node.right);
+                colq.offer(col + 1);
+            }
         }
-        
+
         return result;
     }
 }

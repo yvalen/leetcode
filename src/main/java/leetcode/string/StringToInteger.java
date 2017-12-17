@@ -20,38 +20,43 @@ package leetcode.string;
  * Similar Questions: 
  */
 public class StringToInteger {
-	private static final int MAX_DIV = Integer.MAX_VALUE / 10; 
-    
+    private static final int MAX_DIV = Integer.MAX_VALUE / 10;
+
     public int myAtoi(String str) {
-        if (str == null || str.isEmpty()) return 0;
-        
+        if (str == null || str.isEmpty())
+            return 0;
+
         int i = 0, n = str.length();
-        while (i < n && Character.isWhitespace(str.charAt(i))) i++;
-        
+        while (i < n && Character.isWhitespace(str.charAt(i)))
+            i++;
+
         boolean isNegative = false;
-        if (i < n && str.charAt(i) == '+') i++;
+        if (i < n && str.charAt(i) == '+')
+            i++;
         else if (i < n && str.charAt(i) == '-') {
             i++;
             isNegative = true;
         }
-        
+
         int num = 0;
         while (i < n) {
             char c = str.charAt(i);
-            if (!Character.isDigit(c)) break;
-            if (num > MAX_DIV || (num == MAX_DIV && c >= '8')) return isNegative ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+            if (!Character.isDigit(c))
+                break;
+            if (num > MAX_DIV || (num == MAX_DIV && c >= '8'))
+                return isNegative ? Integer.MIN_VALUE : Integer.MAX_VALUE;
             num = num * 10 + Character.getNumericValue(c);
             i++;
         }
-        
+
         return num * (isNegative ? -1 : 1);
     }
-    
+
     public static void main(String[] args) {
-    	StringToInteger sti = new StringToInteger();
-    	//String str = "1";
-    	//String str = "123abc";
-    	String str = "      -11919730356x";
-    	System.out.println(sti.myAtoi(str));
+        StringToInteger sti = new StringToInteger();
+        // String str = "1";
+        // String str = "123abc";
+        String str = "      -11919730356x";
+        System.out.println(sti.myAtoi(str));
     }
 }

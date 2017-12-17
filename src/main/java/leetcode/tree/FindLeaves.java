@@ -29,48 +29,51 @@ import java.util.List;
  * Difficulty: medium
  */
 public class FindLeaves {
-	// find the height of each node, the leaf node has height of 0
-	public List<List<Integer>> findLeaves_useHeight(TreeNode root) {
+    // find the height of each node, the leaf node has height of 0
+    public List<List<Integer>> findLeaves_useHeight(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
         height(root, result);
         return result;
     }
 
-	private int height(TreeNode root, List<List<Integer>> result) {
-		if (root == null) return -1;
-		
-		int h = 1 + Math.max(height(root.left, result), height(root.right, result));
-		if (result.size() == h) result.add(new ArrayList<>());
-		result.get(h).add(root.val); 
-		return h;
-	}
-	
-	//
-	// DFS
-	//
-	public List<List<Integer>> findLeaves_dfs(TreeNode root) {
+    private int height(TreeNode root, List<List<Integer>> result) {
+        if (root == null)
+            return -1;
+
+        int h = 1 + Math.max(height(root.left, result), height(root.right, result));
+        if (result.size() == h)
+            result.add(new ArrayList<>());
+        result.get(h).add(root.val);
+        return h;
+    }
+
+    //
+    // DFS
+    //
+    public List<List<Integer>> findLeaves_dfs(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
-        
+
         while (root != null) {
             List<Integer> leaves = new ArrayList<>();
             root = dfs(root, leaves);
             result.add(leaves);
         }
-        
+
         return result;
     }
-	
-	private TreeNode dfs(TreeNode root, List<Integer> leaves) {
-        if (root == null) return null;
-        
+
+    private TreeNode dfs(TreeNode root, List<Integer> leaves) {
+        if (root == null)
+            return null;
+
         if (root.left == null && root.right == null) {
             leaves.add(root.val);
             return null;
         }
-        
+
         root.left = dfs(root.left, leaves);
         root.right = dfs(root.right, leaves);
-        
+
         return root;
     }
 }

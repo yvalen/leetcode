@@ -39,109 +39,110 @@ import leetcode.matrix.MatrixUtil;
  * Difficulty: medium
  */
 public class FriendCircle {
-	public int findCircleNum_dfs(int[][] M) {
-        if (M == null || M.length == 0) return 0;
-        
+    public int findCircleNum_dfs(int[][] M) {
+        if (M == null || M.length == 0)
+            return 0;
+
         int n = M.length;
         int count = 0;
-        boolean[] visited = new boolean[n]; // track whether this student has been visited
+        boolean[] visited = new boolean[n]; // track whether this student has
+                                            // been visited
         for (int i = 0; i < n; i++) {
-        	if (!visited[i]) { // if the student hasn't been visited, use it as a start point for DFS
-        		bfs(M, visited, i);
-        		count++;
-        	}
+            if (!visited[i]) { // if the student hasn't been visited, use it as
+                               // a start point for DFS
+                bfs(M, visited, i);
+                count++;
+            }
         }
-        
+
         return count;
     }
-	
-	//
-	// DFS
-	// Time complexity: O(n^2), Space complexity: O(n)
-	private void dfs(int[][] M, boolean[] visited, int i) {
-		visited[i] = true;
-		for (int j = 0; j < M.length; j++) {
-			if (M[i][j] == 1 && !visited[j]) {
-				dfs(M, visited, j);
-			}
-		}
-	}
-	
-	//
-	// BFS
-	// Time complexity: O(n^2), Space complexity: O(n)
-	private void bfs(int[][] M, boolean[] visited, int i) {
-		Queue<Integer> queue = new LinkedList<>();
-		queue.offer(i);
-		visited[i] = true;
-		while (!queue.isEmpty()) {
-			int curr = queue.poll();
-			for (int j = 0; j < M.length; j++) {
-				if (M[curr][j] == 1 && !visited[j]) {
-					visited[j] = true;
-					queue.offer(j);
-				}
-			}
-		}
-	}
-	
-	//
-	// Union Find
-	// Time complexity: O(n^3), Space complexity: O(n)
-	private static class UnionFind {
-		private int[] ids;
-		private int count;
-		
-		UnionFind(int n) {
-			ids = new int[n];
-			for (int i = 0; i < n; i++) {
-				ids[i] = i;
-			}
-			count = n;
-		}
-		
-		public int find(int p) {
-			while (p != ids[p]) p = ids[p];
-			return p;
-		}
-		
-		public void union(int p, int q) {
-			int i = find(p);
-			int j = find(q);
-			if (i == j) return;
-			ids[i] = j;
-			count--;
-		}
-		
-		public int getCount() {
-			return count;
-		}
-	}
-	
-	public int findCircleNum_unionFind(int[][] M) {
-        if (M == null || M.length == 0) return 0;
-        
+
+    //
+    // DFS
+    // Time complexity: O(n^2), Space complexity: O(n)
+    private void dfs(int[][] M, boolean[] visited, int i) {
+        visited[i] = true;
+        for (int j = 0; j < M.length; j++) {
+            if (M[i][j] == 1 && !visited[j]) {
+                dfs(M, visited, j);
+            }
+        }
+    }
+
+    //
+    // BFS
+    // Time complexity: O(n^2), Space complexity: O(n)
+    private void bfs(int[][] M, boolean[] visited, int i) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(i);
+        visited[i] = true;
+        while (!queue.isEmpty()) {
+            int curr = queue.poll();
+            for (int j = 0; j < M.length; j++) {
+                if (M[curr][j] == 1 && !visited[j]) {
+                    visited[j] = true;
+                    queue.offer(j);
+                }
+            }
+        }
+    }
+
+    //
+    // Union Find
+    // Time complexity: O(n^3), Space complexity: O(n)
+    private static class UnionFind {
+        private int[] ids;
+        private int count;
+
+        UnionFind(int n) {
+            ids = new int[n];
+            for (int i = 0; i < n; i++) {
+                ids[i] = i;
+            }
+            count = n;
+        }
+
+        public int find(int p) {
+            while (p != ids[p])
+                p = ids[p];
+            return p;
+        }
+
+        public void union(int p, int q) {
+            int i = find(p);
+            int j = find(q);
+            if (i == j)
+                return;
+            ids[i] = j;
+            count--;
+        }
+
+        public int getCount() {
+            return count;
+        }
+    }
+
+    public int findCircleNum_unionFind(int[][] M) {
+        if (M == null || M.length == 0)
+            return 0;
+
         int n = M.length;
         UnionFind uf = new UnionFind(n);
         for (int i = 0; i < n; i++) {
-        	for (int j = 0; j < n; j++) {
-        		if (i != j && M[i][j] == 1) {
-        			uf.union(i, j);
-        		}
-        	}
+            for (int j = 0; j < n; j++) {
+                if (i != j && M[i][j] == 1) {
+                    uf.union(i, j);
+                }
+            }
         }
-        
+
         return uf.getCount();
     }
-	
-	
-	public static void main(String[] args) {
-		FriendCircle fc = new FriendCircle();
-		int[][] M = {
-				{1, 1, 0},
-				{1, 1, 0},
-				{0, 0, 1}
-		};
-		System.out.println(fc.findCircleNum_unionFind(M));
-	}
+
+    public static void main(String[] args) {
+        FriendCircle fc = new FriendCircle();
+        int[][] M = { { 1, 1, 0 }, { 1, 1, 0 }, { 0, 0, 1 } };
+        System.out.println(fc.findCircleNum_unionFind(M));
+    }
 }

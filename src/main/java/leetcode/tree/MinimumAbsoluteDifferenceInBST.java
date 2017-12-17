@@ -21,25 +21,25 @@ import java.util.Stack;
  * Similar Question: 532(KDiffPairsInArray)
  */
 public class MinimumAbsoluteDifferenceInBST {
-	// Time complexity: O(n)  Space complexity: O(1)
-	public int getMinimumDifference(TreeNode root) {
+    // Time complexity: O(n) Space complexity: O(1)
+    public int getMinimumDifference(TreeNode root) {
         int min = Integer.MAX_VALUE;
-        
+
         Stack<TreeNode> stack = new Stack<>();
         TreeNode prev = null, current = root;
         while (!stack.isEmpty() || current != null) {
-        	if (current != null) {
-        		stack.push(current);
-        		current = current.left;
-        	}
-        	else {
-        		current = stack.pop();
-        		if (prev != null) min = Math.min(min,  current.val - prev.val);
-        		prev = current;
-        		current = current.right;
-        	}
+            if (current != null) {
+                stack.push(current);
+                current = current.left;
+            } else {
+                current = stack.pop();
+                if (prev != null)
+                    min = Math.min(min, current.val - prev.val);
+                prev = current;
+                current = current.right;
+            }
         }
-		return min;
+        return min;
     }
-	
+
 }

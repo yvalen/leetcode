@@ -29,54 +29,73 @@ package leetcode.string;
  * Similar Questions: 38(CountAndSay), 271(EncodeDecodeString)
  */
 public class StringCompression {
-	public int compress(char[] chars) {
-        if (chars == null || chars.length == 0) return 0;
-       
+    public int compress(char[] chars) {
+        if (chars == null || chars.length == 0)
+            return 0;
+
         int start = 0;
         for (int end = 0, count = 0; end < chars.length; end++) {
-        	count++;
-        	if (end == chars.length - 1 || chars[end] != chars[end+1]) { // check for last char here so that we don't need to handle it outside the loop
-        		chars[start] = chars[end];
-        		start++;
-        		if (count > 1) {
-        			char[] countChars = String.valueOf(count).toCharArray();
-        			for (char c : countChars) chars[start++] = c;
-        		}
-        		count = 0;
-        	}
+            count++;
+            if (end == chars.length - 1 || chars[end] != chars[end + 1]) { // check
+                                                                           // for
+                                                                           // last
+                                                                           // char
+                                                                           // here
+                                                                           // so
+                                                                           // that
+                                                                           // we
+                                                                           // don't
+                                                                           // need
+                                                                           // to
+                                                                           // handle
+                                                                           // it
+                                                                           // outside
+                                                                           // the
+                                                                           // loop
+                chars[start] = chars[end];
+                start++;
+                if (count > 1) {
+                    char[] countChars = String.valueOf(count).toCharArray();
+                    for (char c : countChars)
+                        chars[start++] = c;
+                }
+                count = 0;
+            }
         }
         return start;
     }
-	
-	public char[] decompress(String s) {
-		if (s == null || s.isEmpty()) return new char[0];
-		
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < s.length();) {
-			char c = s.charAt(i++);
-			int count = 0;
-			while (i < s.length() && Character.isDigit(s.charAt(i))) {
-				count = count * 10 + (s.charAt(i) - '0');
-				i++;
-			}
-			while (count-- > 0) sb.append(c);
-		}
-		System.out.println(sb);
-		
-		return sb.toString().toCharArray();
-	}
-	
-	public static void main(String[] args) {
-		StringCompression sc = new StringCompression();
-		//char[] chars = {'a','a','b','b','c','c','c'};
-		//char[] chars = {'a'};
-		//char[] chars = {'a','b','b','b','b','b','b','b','b','b','b','b','b'};
-		//char[] chars = {'a','a','a','b','b','a','a'};
-		//char[] chars = {'a', 'a'};
-		//System.out.println(sc.compress(chars));
-		
-		String s = "L1e2t1C1o1d1e1";
-		sc.decompress(s);
-	}
+
+    public char[] decompress(String s) {
+        if (s == null || s.isEmpty())
+            return new char[0];
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length();) {
+            char c = s.charAt(i++);
+            int count = 0;
+            while (i < s.length() && Character.isDigit(s.charAt(i))) {
+                count = count * 10 + (s.charAt(i) - '0');
+                i++;
+            }
+            while (count-- > 0)
+                sb.append(c);
+        }
+        System.out.println(sb);
+
+        return sb.toString().toCharArray();
+    }
+
+    public static void main(String[] args) {
+        StringCompression sc = new StringCompression();
+        // char[] chars = {'a','a','b','b','c','c','c'};
+        // char[] chars = {'a'};
+        // char[] chars = {'a','b','b','b','b','b','b','b','b','b','b','b','b'};
+        // char[] chars = {'a','a','a','b','b','a','a'};
+        // char[] chars = {'a', 'a'};
+        // System.out.println(sc.compress(chars));
+
+        String s = "L1e2t1C1o1d1e1";
+        sc.decompress(s);
+    }
 
 }

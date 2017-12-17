@@ -13,25 +13,27 @@ import java.util.Arrays;
  * Difficulty: easy
  */
 public class FirstUniqueCharacterInString {
-	public int firstUniqChar(String s) {
-		if (s == null || s.isEmpty()) return -1;
-		
+    public int firstUniqChar(String s) {
+        if (s == null || s.isEmpty())
+            return -1;
+
         int[] count = new int[26];
         int[] position = new int[26];
         int result = s.length();
         Arrays.fill(position, -1);
         for (int i = 0; i < s.length(); i++) {
-        	char c = s.charAt(i);
-        	count[c-'a']++;
-        	if (position[c-'a'] == -1) position[c-'a'] = i;
+            char c = s.charAt(i);
+            count[c - 'a']++;
+            if (position[c - 'a'] == -1)
+                position[c - 'a'] = i;
         }
-        
+
         for (int i = 0; i < 26; i++) {
-        	if (count[i] == 1) {
-        		result = Math.min(result,  position[i]);
-        	}
+            if (count[i] == 1) {
+                result = Math.min(result, position[i]);
+            }
         }
-        
+
         return result == s.length() ? -1 : result;
     }
 }

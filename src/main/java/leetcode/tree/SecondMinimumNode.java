@@ -28,23 +28,28 @@ import java.util.Stack;
  * Difficulty: easy
  */
 public class SecondMinimumNode {
-	// If the root value of a subtree == k, 
-	// 		keep searching its children
-	// else, 
-	// 		return the root value because it is the minimum of current subtree.
-	public int findSecondMinimumValue(TreeNode root) {
+    // If the root value of a subtree == k,
+    // keep searching its children
+    // else,
+    // return the root value because it is the minimum of current subtree.
+    public int findSecondMinimumValue(TreeNode root) {
         return findMin(root, root.val);
     }
-	
-	private int findMin(TreeNode root, int min) {
-		if (root == null) return -1;
-		if (root.val != min) return root.val;
-		
-		// second min could be in either left or right subtree, need to check both
-		int left = findMin(root.left, min);
-		int right = findMin(root.right, min);
-		if (left == -1) return right;
-		if (right == -1) return left;
-		return Math.min(left,  right);
-	}
+
+    private int findMin(TreeNode root, int min) {
+        if (root == null)
+            return -1;
+        if (root.val != min)
+            return root.val;
+
+        // second min could be in either left or right subtree, need to check
+        // both
+        int left = findMin(root.left, min);
+        int right = findMin(root.right, min);
+        if (left == -1)
+            return right;
+        if (right == -1)
+            return left;
+        return Math.min(left, right);
+    }
 }

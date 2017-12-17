@@ -26,34 +26,37 @@ import leetcode.matrix.MatrixUtil;
  * Difficulty: medium
  */
 public class PredictWinner {
-	public boolean PredictTheWinner_2d(int[] nums) {
-        if (nums == null || nums.length == 0) return true;
+    public boolean PredictTheWinner_2d(int[] nums) {
+        if (nums == null || nums.length == 0)
+            return true;
         int n = nums.length - 1;
-        int[][] dp = new int[n+1][n]; // dp[i][j] stores how much more score player1 gets than player2 from i to j
+        int[][] dp = new int[n + 1][n]; // dp[i][j] stores how much more score
+                                        // player1 gets than player2 from i to j
         for (int i = n; i >= 0; i--) {
-        	for (int j = i+1; j < n; j++) {
-        		dp[i][j] = Math.max(nums[i] - dp[i+1][j], nums[j] - dp[i][j-1]);
-        	}
+            for (int j = i + 1; j < n; j++) {
+                dp[i][j] = Math.max(nums[i] - dp[i + 1][j], nums[j] - dp[i][j - 1]);
+            }
         }
-        return dp[0][n-1] >= 0;
+        return dp[0][n - 1] >= 0;
     }
-	
-	public boolean PredictTheWinner_1d(int[] nums) {
+
+    public boolean PredictTheWinner_1d(int[] nums) {
         int n = nums.length;
-        int[] dp = new int[n];  
-        for (int i = n-1; i >= 0; i--) {
-        	for (int j = i+1; j < n; j++) {
-        		dp[j] = Math.max(nums[i] - dp[j],  // dp[j] has the value from the previous iteration
-        				nums[j] - dp[j-1]);
-        		System.out.println(Arrays.toString(dp));
-        	}
+        int[] dp = new int[n];
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i + 1; j < n; j++) {
+                dp[j] = Math.max(nums[i] - dp[j], // dp[j] has the value from
+                                                  // the previous iteration
+                        nums[j] - dp[j - 1]);
+                System.out.println(Arrays.toString(dp));
+            }
         }
-        return dp[n-1] >= 0;
+        return dp[n - 1] >= 0;
     }
-	
-	public static void main(String[] args) {
-		PredictWinner pw = new PredictWinner();
-		int[] nums = {1, 5, 2, 4, 6};
-		System.out.println(pw.PredictTheWinner_1d(nums));
-	}
+
+    public static void main(String[] args) {
+        PredictWinner pw = new PredictWinner();
+        int[] nums = { 1, 5, 2, 4, 6 };
+        System.out.println(pw.PredictTheWinner_1d(nums));
+    }
 }

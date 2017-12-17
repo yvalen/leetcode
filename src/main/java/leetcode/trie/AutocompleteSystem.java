@@ -58,140 +58,144 @@ import java.util.stream.Collectors;
  * Article: https://leetcode.com/articles/design-search-autocomplete-system/
  */
 public class AutocompleteSystem {
-	private Trie trie;
-	private String current;
-	public AutocompleteSystem(String[] sentences, int[] times) {
+    private Trie trie;
+    private String current;
+
+    public AutocompleteSystem(String[] sentences, int[] times) {
         trie = new Trie();
         for (int i = 0; i < times.length; i++) {
-        	trie.insert(sentences[i], times[i]);
+            trie.insert(sentences[i], times[i]);
         }
         current = "";
     }
-    
+
     public List<String> input(char c) {
-    	if (c == '#') {
-    		trie.insert(current, 1);  // insert the sentence into trie
-    		current = "";
-    		return Collections.emptyList();
-    	}
-    	else {
-    		current += c;
-    		return trie.search(current);
-    	}
+        if (c == '#') {
+            trie.insert(current, 1); // insert the sentence into trie
+            current = "";
+            return Collections.emptyList();
+        } else {
+            current += c;
+            return trie.search(current);
+        }
     }
 
     private static class Trie {
-    	private static class SentenceWithCount implements Comparable<SentenceWithCount> {
-        	private String sentence;
-        	private int count;
-        	SentenceWithCount(String sentence, int count) {
-        		this.sentence = sentence;
-        		this.count = count;
-        	}
-			@Override
-			public int compareTo(SentenceWithCount o) {
-				return (this.count == o.count) ? o.sentence.compareTo(this.sentence) : this.count - o.count;
-			}
-			@Override
-			public String toString() {
-				return "SentenceWithCount [sentence=" + sentence + ", count=" + count + "]";
-			}
+        private static class SentenceWithCount implements Comparable<SentenceWithCount> {
+            private String sentence;
+            private int count;
+
+            SentenceWithCount(String sentence, int count) {
+                this.sentence = sentence;
+                this.count = count;
+            }
+
+            @Override
+            public int compareTo(SentenceWithCount o) {
+                return (this.count == o.count) ? o.sentence.compareTo(this.sentence) : this.count - o.count;
+            }
+
+            @Override
+            public String toString() {
+                return "SentenceWithCount [sentence=" + sentence + ", count=" + count + "]";
+            }
         }
-    	
-    	private static class Node {
-    		private int times;
-    		private Node[] next = new Node[27];
-    	}
-    	
-    	private Node root;
-    	private PriorityQueue<SentenceWithCount> pq;
-    	
-    	Trie() {
-    		 root = new Node(); 
-    		 pq = new PriorityQueue<>(3);
-    	}
-    	
-    	private int index(char c) {
-    		return c == ' ' ? 26 : c - 'a';
-    	}
-    	
-    	void insert(String sentence, int times) {
-    		Node node = root;
-    		for (char c : sentence.toCharArray()) {
-    			int idx = index(c);
-    			if (node.next[idx] == null) node.next[idx] = new Node();
-    			node = node.next[idx];
-    		}
-    		node.times += times;
-    	}
-    	
-    	List<String> search(String prefix) {
-    		pq.clear();
-    		Node node = root;
-    		for (int i = 0; i < prefix.length() && node != null; i++) {
-    			int idx = index(prefix.charAt(i));
-    			node = node.next[idx];
-    		}
-    		
-    		if (node == null) return Collections.emptyList();
-    		
-    		traverse(prefix, node);
-    		List<String> result = new ArrayList<>(3);
-    		for (int i = 0; i < 3 && !pq.isEmpty(); i++) {
-    			result.add(pq.poll().sentence);
-    		}
-    		Collections.reverse(result);
-    		
-    		return result;
-    	}
-    	
-    	private void traverse(String prefix, Node node) {
-    		if (node.times > 0) {
-    			updatePriorityQueue(new SentenceWithCount(prefix, node.times));
-    		}
-    		for (char c = 'a'; c <= 'z'; c++) {
-    			int idx = index(c);
-    			if (node.next[idx] != null) {
-    				traverse(prefix+c, node.next[idx]);
-    			}
-    		}
-    		if (node.next[26] != null) {
-    			traverse(prefix+' ', node.next[26]);
-    		}
-    	}
-    	
-    	private void updatePriorityQueue(SentenceWithCount sentenceWithCount) {
-    		//System.out.println(sentenceWithCount);
-    		if (pq.size() < 3) {
-    			pq.offer(sentenceWithCount);
-    		}
-    		else if (pq.peek().compareTo(sentenceWithCount) < 0) {
-    			pq.poll();
-    			pq.offer(sentenceWithCount);
-    		}
-    		System.out.println(pq);
-    	}
+
+        private static class Node {
+            private int times;
+            private Node[] next = new Node[27];
+        }
+
+        private Node root;
+        private PriorityQueue<SentenceWithCount> pq;
+
+        Trie() {
+            root = new Node();
+            pq = new PriorityQueue<>(3);
+        }
+
+        private int index(char c) {
+            return c == ' ' ? 26 : c - 'a';
+        }
+
+        void insert(String sentence, int times) {
+            Node node = root;
+            for (char c : sentence.toCharArray()) {
+                int idx = index(c);
+                if (node.next[idx] == null)
+                    node.next[idx] = new Node();
+                node = node.next[idx];
+            }
+            node.times += times;
+        }
+
+        List<String> search(String prefix) {
+            pq.clear();
+            Node node = root;
+            for (int i = 0; i < prefix.length() && node != null; i++) {
+                int idx = index(prefix.charAt(i));
+                node = node.next[idx];
+            }
+
+            if (node == null)
+                return Collections.emptyList();
+
+            traverse(prefix, node);
+            List<String> result = new ArrayList<>(3);
+            for (int i = 0; i < 3 && !pq.isEmpty(); i++) {
+                result.add(pq.poll().sentence);
+            }
+            Collections.reverse(result);
+
+            return result;
+        }
+
+        private void traverse(String prefix, Node node) {
+            if (node.times > 0) {
+                updatePriorityQueue(new SentenceWithCount(prefix, node.times));
+            }
+            for (char c = 'a'; c <= 'z'; c++) {
+                int idx = index(c);
+                if (node.next[idx] != null) {
+                    traverse(prefix + c, node.next[idx]);
+                }
+            }
+            if (node.next[26] != null) {
+                traverse(prefix + ' ', node.next[26]);
+            }
+        }
+
+        private void updatePriorityQueue(SentenceWithCount sentenceWithCount) {
+            // System.out.println(sentenceWithCount);
+            if (pq.size() < 3) {
+                pq.offer(sentenceWithCount);
+            } else if (pq.peek().compareTo(sentenceWithCount) < 0) {
+                pq.poll();
+                pq.offer(sentenceWithCount);
+            }
+            System.out.println(pq);
+        }
     }
-    
+
     public static void main(String[] args) {
-    	String[] sentences = {"i love you", "island","ironman", "i love leetcode"};
-    	int[] times = {5,3,2,2};
-    	AutocompleteSystem as = new AutocompleteSystem (sentences, times);
-    	
-    	System.out.println(as.input('i'));
-    	System.out.println(as.input(' '));
-    	System.out.println(as.input('a'));
-    	System.out.println(as.input('#'));
-    	
-    	/*
-    	Trie.SentenceWithCount a = new Trie.SentenceWithCount("ironman", 2);
-    	Trie.SentenceWithCount b = new Trie.SentenceWithCount("island", 3);
-    	Trie.SentenceWithCount c = new Trie.SentenceWithCount("i love leetcode", 2);
-    	
-    	System.out.println(a.compareTo(c));
-    	System.out.println("ironman".compareTo("i love leetcode"));
-    	*/
+        String[] sentences = { "i love you", "island", "ironman", "i love leetcode" };
+        int[] times = { 5, 3, 2, 2 };
+        AutocompleteSystem as = new AutocompleteSystem(sentences, times);
+
+        System.out.println(as.input('i'));
+        System.out.println(as.input(' '));
+        System.out.println(as.input('a'));
+        System.out.println(as.input('#'));
+
+        /*
+         * Trie.SentenceWithCount a = new Trie.SentenceWithCount("ironman", 2);
+         * Trie.SentenceWithCount b = new Trie.SentenceWithCount("island", 3);
+         * Trie.SentenceWithCount c = new Trie.SentenceWithCount(
+         * "i love leetcode", 2);
+         * 
+         * System.out.println(a.compareTo(c));
+         * System.out.println("ironman".compareTo("i love leetcode"));
+         */
     }
-    
-    
+
 }

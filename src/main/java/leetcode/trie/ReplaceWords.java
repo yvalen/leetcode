@@ -23,65 +23,71 @@ import java.util.List;
  * Difficulty: medium
  */
 public class ReplaceWords {
-	public String replaceWords(List<String> dict, String sentence) {
-        if (dict == null || dict.isEmpty() || sentence == null || sentence.length() == 0) return sentence;
-		
+    public String replaceWords(List<String> dict, String sentence) {
+        if (dict == null || dict.isEmpty() || sentence == null || sentence.length() == 0)
+            return sentence;
+
         Trie trie = new Trie();
-		for (String word : dict) {
-			trie.insert(word);
-		}
-       
-		String[] words = sentence.split(" "); 
+        for (String word : dict) {
+            trie.insert(word);
+        }
+
+        String[] words = sentence.split(" ");
         StringBuilder sb = new StringBuilder();
         for (String word : words) {
-        	String root = trie.getPrefix(word);
-        	if (root != null) sb.append(root);
-        	else sb.append(word);
-        	sb.append(' ');
+            String root = trie.getPrefix(word);
+            if (root != null)
+                sb.append(root);
+            else
+                sb.append(word);
+            sb.append(' ');
         }
-        
-        sb.setLength(sb.length()-1);
+
+        sb.setLength(sb.length() - 1);
         return sb.toString();
     }
-	
-	private static class Trie {
-		private static class Node {
-			private boolean isWord;
-			private Node[] next = new Node[26];
-		}
-		private Node root;
-		
-		Trie() {
-			root = new Node();
-		}
-		
-		void insert(String word) {
-			Node node = root;
-			for (char c : word.toCharArray()) {
-				int idx = c - 'a';
-				if (node.next[idx] == null) node.next[idx] = new Node();
-				node = node.next[idx];
-			}
-			node.isWord = true;
-		}
-		
-		String getPrefix(String word) {
-			Node node = root;
-			StringBuilder prefix = new StringBuilder();
-			for (int i = 0; i < word.length() && node != null; i++) {
-				char c = word.charAt(i);
-				prefix.append(c);
-				node = node.next[c-'a'];
-				if (node != null && node.isWord) return prefix.toString();
-			}
-			return null;
-		}
-	}
-	
-	public static void main(String[] args) {
-		ReplaceWords rw = new ReplaceWords();
-		List<String> dict = Arrays.asList("ca", "cat", "bat", "rat");
-		String sentence = "the cattle was rattled by the battery";
-		System.out.println(rw.replaceWords(dict, sentence));
-	}
+
+    private static class Trie {
+        private static class Node {
+            private boolean isWord;
+            private Node[] next = new Node[26];
+        }
+
+        private Node root;
+
+        Trie() {
+            root = new Node();
+        }
+
+        void insert(String word) {
+            Node node = root;
+            for (char c : word.toCharArray()) {
+                int idx = c - 'a';
+                if (node.next[idx] == null)
+                    node.next[idx] = new Node();
+                node = node.next[idx];
+            }
+            node.isWord = true;
+        }
+
+        String getPrefix(String word) {
+            Node node = root;
+            StringBuilder prefix = new StringBuilder();
+            for (int i = 0; i < word.length() && node != null; i++) {
+                char c = word.charAt(i);
+                prefix.append(c);
+                node = node.next[c - 'a'];
+                if (node != null && node.isWord)
+                    return prefix.toString();
+            }
+            return null;
+        }
+    }
+
+    public static void main(String[] args) {
+        ReplaceWords rw = new ReplaceWords();
+        List<String> dict = Arrays.asList("ca", "cat", "bat", "rat");
+        String sentence = "the cattle was rattled by the battery";
+        System.out.println(rw.replaceWords(dict, sentence));
+    }
 }

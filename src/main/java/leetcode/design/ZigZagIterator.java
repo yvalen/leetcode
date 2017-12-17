@@ -24,66 +24,57 @@ import java.util.stream.Stream;
  * It should return [1,4,8,2,5,9,3,6,7]. 
  */
 public class ZigZagIterator implements Iterator<Integer> {
-	private final Queue<Iterator<Integer>> queue;
-	
-	public ZigZagIterator(List<Integer> v1, List<Integer> v2) {
-		queue = new LinkedList<>();
-		if (!v1.isEmpty()) queue.offer(v1.iterator()); // only add to list when the incoming list is not empty 
-		if (!v2.isEmpty()) queue.offer(v2.iterator());
-	}
-	
-	@Override
-	public boolean hasNext() {
-		return !queue.isEmpty();
-	}
+    private final Queue<Iterator<Integer>> queue;
 
-	@Override
-	public Integer next() {
-		Iterator<Integer> itr = queue.poll();
-		Integer next = itr.next();
-		if (itr.hasNext()) queue.offer(itr);
-		return next;
-	}
-	
-	/*
-	private final List<Iterator<Integer>> itrs;
-	private final int size;
-	private int current;
-	
-	public ZigZagIterator(List<Integer> v1, List<Integer> v2) {
-		this.itrs = new ArrayList<>(2);
-		itrs.add(v1.iterator());
-		itrs.add(v2.iterator());
-		size = itrs.size();
-	}
+    public ZigZagIterator(List<Integer> v1, List<Integer> v2) {
+        queue = new LinkedList<>();
+        if (!v1.isEmpty())
+            queue.offer(v1.iterator()); // only add to list when the incoming
+                                        // list is not empty
+        if (!v2.isEmpty())
+            queue.offer(v2.iterator());
+    }
 
-	@Override
-	public boolean hasNext() {
-		int count = 0;
-		while (!itrs.get(current).hasNext() && count < size) {
-			current = (current == size -1) ? 0 : current+1;
-			count++;
-		}
-		
-		return itrs.get(current).hasNext();
-	}
+    @Override
+    public boolean hasNext() {
+        return !queue.isEmpty();
+    }
 
-	@Override
-	public Integer next() {
-		Integer next = itrs.get(current).next();
-		current = (current == size -1) ? 0 : current+1;
-		return next;
-	}*/
-	
-	public static void main(String[] args) {
-		List<Integer> v1 = Arrays.asList(1, 2);
-		List<Integer> v2 = Arrays.asList(3, 4, 5, 6);
-		ZigZagIterator zitr = new ZigZagIterator(v1, v2);
-		while (zitr.hasNext()) {
-			System.out.print(zitr.next() + " ");
-		}
-	}
+    @Override
+    public Integer next() {
+        Iterator<Integer> itr = queue.poll();
+        Integer next = itr.next();
+        if (itr.hasNext())
+            queue.offer(itr);
+        return next;
+    }
 
-	
+    /*
+     * private final List<Iterator<Integer>> itrs; private final int size;
+     * private int current;
+     * 
+     * public ZigZagIterator(List<Integer> v1, List<Integer> v2) { this.itrs =
+     * new ArrayList<>(2); itrs.add(v1.iterator()); itrs.add(v2.iterator());
+     * size = itrs.size(); }
+     * 
+     * @Override public boolean hasNext() { int count = 0; while
+     * (!itrs.get(current).hasNext() && count < size) { current = (current ==
+     * size -1) ? 0 : current+1; count++; }
+     * 
+     * return itrs.get(current).hasNext(); }
+     * 
+     * @Override public Integer next() { Integer next =
+     * itrs.get(current).next(); current = (current == size -1) ? 0 : current+1;
+     * return next; }
+     */
+
+    public static void main(String[] args) {
+        List<Integer> v1 = Arrays.asList(1, 2);
+        List<Integer> v2 = Arrays.asList(3, 4, 5, 6);
+        ZigZagIterator zitr = new ZigZagIterator(v1, v2);
+        while (zitr.hasNext()) {
+            System.out.print(zitr.next() + " ");
+        }
+    }
 
 }

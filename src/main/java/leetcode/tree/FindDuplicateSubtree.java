@@ -31,18 +31,23 @@ import java.util.Map;
  * Similar Question: 297(SerializeDeserialize), 449(SerializationBST ), 606(ConstructStringFromBinaryTree)
  */
 public class FindDuplicateSubtree {
-	public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
-        if (root == null) return Collections.emptyList();
+    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+        if (root == null)
+            return Collections.emptyList();
         List<TreeNode> result = new ArrayList<>();
         postorder(root, new HashMap<>(), result);
         return result;
-	}
-	
-	private String postorder(TreeNode root, Map<String, Integer> map, List<TreeNode> result) {
-		if (root == null) return "#"; // with null node set to # the tree can uniquely defined using post order (or pre order), null has to be represented by a char
-		String key = root.val + " " + postorder(root.left, map, result) + " " + postorder(root.right, map, result);
-		if (map.containsKey(key) && map.get(key) == 1) result.add(root);
-		map.put(key, map.getOrDefault(key, 0)+1);
-		return key;
-	}
+    }
+
+    private String postorder(TreeNode root, Map<String, Integer> map, List<TreeNode> result) {
+        if (root == null)
+            return "#"; // with null node set to # the tree can uniquely defined
+                        // using post order (or pre order), null has to be
+                        // represented by a char
+        String key = root.val + " " + postorder(root.left, map, result) + " " + postorder(root.right, map, result);
+        if (map.containsKey(key) && map.get(key) == 1)
+            result.add(root);
+        map.put(key, map.getOrDefault(key, 0) + 1);
+        return key;
+    }
 }

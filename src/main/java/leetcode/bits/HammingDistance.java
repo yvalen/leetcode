@@ -12,20 +12,19 @@ package leetcode.bits;
  * The above arrows point to positions where the corresponding bits are different.
  */
 public class HammingDistance {
-	public int hammingDistance(int x, int y) {
-		int z = x ^ y;
+    public int hammingDistance(int x, int y) {
+        int z = x ^ y;
         int count = 0;
         while (z != 0) {
-        	z = z & (z-1);
-        	count++;
+            z = z & (z - 1);
+            count++;
         }
         return count;
     }
-	
 
-	public static void main(String[] args) {
-		HammingDistance hd = new HammingDistance();
-		int x = 1,  y = 4;
-		System.out.println(hd.hammingDistance(x, y));
-	}
+    public static void main(String[] args) {
+        HammingDistance hd = new HammingDistance();
+        int x = 1, y = 4;
+        System.out.println(hd.hammingDistance(x, y));
+    }
 }

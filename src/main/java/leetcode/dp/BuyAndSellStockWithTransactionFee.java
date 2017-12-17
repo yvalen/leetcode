@@ -22,32 +22,32 @@ package leetcode.dp;
  * Similar Questions: 122(BuyAndSellStockII)
  */
 public class BuyAndSellStockWithTransactionFee {
-	public int maxProfit_withArray(int[] prices, int fee) {
-		int n = prices.length; 
-		int[] buy = new int[n];
-		int[] sell = new int[n];
-		buy[0] = -prices[0];
-		for (int i = 1; i < n; i++) {
-			buy[i] = Math.max(buy[i-1], sell[i-1]-prices[i]);
-			sell[i] = Math.max(sell[i-1], buy[i-1]+prices[i]-fee);
-		}
-		return sell[n-1];
-    }
-	
-	public int maxProfit(int[] prices, int fee) {
-		int buy = -prices[0], sell = 0;
-		for (int i = 1; i < prices.length; i++) {
-			int tmp = buy;
-			buy = Math.max(buy, sell-prices[i]);
-			sell = Math.max(sell, tmp+prices[i]-fee);
-		}
-		return sell;
+    public int maxProfit_withArray(int[] prices, int fee) {
+        int n = prices.length;
+        int[] buy = new int[n];
+        int[] sell = new int[n];
+        buy[0] = -prices[0];
+        for (int i = 1; i < n; i++) {
+            buy[i] = Math.max(buy[i - 1], sell[i - 1] - prices[i]);
+            sell[i] = Math.max(sell[i - 1], buy[i - 1] + prices[i] - fee);
+        }
+        return sell[n - 1];
     }
 
-	public static void main(String[] args) {
-		BuyAndSellStockWithTransactionFee sf = new BuyAndSellStockWithTransactionFee();
-		int[] prices = {1, 3, 2, 8, 4, 9};
-		int fee = 2;
-		System.out.print(sf.maxProfit(prices, fee));
-	}
+    public int maxProfit(int[] prices, int fee) {
+        int buy = -prices[0], sell = 0;
+        for (int i = 1; i < prices.length; i++) {
+            int tmp = buy;
+            buy = Math.max(buy, sell - prices[i]);
+            sell = Math.max(sell, tmp + prices[i] - fee);
+        }
+        return sell;
+    }
+
+    public static void main(String[] args) {
+        BuyAndSellStockWithTransactionFee sf = new BuyAndSellStockWithTransactionFee();
+        int[] prices = { 1, 3, 2, 8, 4, 9 };
+        int fee = 2;
+        System.out.print(sf.maxProfit(prices, fee));
+    }
 }

@@ -27,85 +27,77 @@ import java.util.Map;
  * Similar Questions: 530(MinimumAbsoluteDifferenceInBST)
  */
 public class KDiffPairsInArray {
-	public int findPairs_twoPointers(int[] nums, int k) {
-		if (nums == null || nums.length <= 1) return 0;
-		Arrays.sort(nums);
+    public int findPairs_twoPointers(int[] nums, int k) {
+        if (nums == null || nums.length <= 1)
+            return 0;
+        Arrays.sort(nums);
         int count = 0;
-        
-        for (int i = 0, j = 1; i < nums.length-1 && j < nums.length;) {
-        	int diff = nums[j]- nums[i];
-        	if (diff == k) {
-        		count++;
-        		while (j < nums.length && nums[j+1] == nums[j]) j++;
-        	}
-        	else if (diff < k) j++;
-        	else {
-        		while (i < nums.length-1 && nums[i] == nums[i-1]) i++;
-        		j = i+1;
-        	}
-        	/*
-        	if ((i > 0 && nums[i] == nums[i-1]) ||
-        			diff > k) {
-        		i++;
-        	}
-    		else if (diff < k || j <= i) j++;
-    		else {
-    			count++;
-    			i++;
-    		}*/
+
+        for (int i = 0, j = 1; i < nums.length - 1 && j < nums.length;) {
+            int diff = nums[j] - nums[i];
+            if (diff == k) {
+                count++;
+                while (j < nums.length && nums[j + 1] == nums[j])
+                    j++;
+            } else if (diff < k)
+                j++;
+            else {
+                while (i < nums.length - 1 && nums[i] == nums[i - 1])
+                    i++;
+                j = i + 1;
+            }
+            /*
+             * if ((i > 0 && nums[i] == nums[i-1]) || diff > k) { i++; } else if
+             * (diff < k || j <= i) j++; else { count++; i++; }
+             */
         }
-        
+
         /*
-        for (int i = 0, j = 1; i < nums.length-1 && j < nums.length;) {
-        	int diff = nums[j]- nums[i];
-        	if ((i > 0 && nums[i] == nums[i-1]) ||  // need to check dup for i
-        			diff > k) {
-        		i++;
-        	}
-    		else if (diff < k || j <= i) j++;
-    		else {
-    			count++;
-    			i++;
-    		}
-        }
-        */
-        
-        
+         * for (int i = 0, j = 1; i < nums.length-1 && j < nums.length;) { int
+         * diff = nums[j]- nums[i]; if ((i > 0 && nums[i] == nums[i-1]) || //
+         * need to check dup for i diff > k) { i++; } else if (diff < k || j <=
+         * i) j++; else { count++; i++; } }
+         */
+
         /*
-        for (int i = 0; i < nums.length-1; i++) {
-        	for (int j = i+1; j < nums.length; j++) {
-        		int diff = nums[j]- nums[i];
-        		if (diff == k) count++;
-        		else if (diff > k) break;
-        		while (j < nums.length-1 && nums[j+1] == nums[j]) j++;  // need to skip duplicate after 1st j
-        	}
-            while (i < nums.length-1 && nums[i+1] == nums[i]) i++; // need to skip duplicate after 1st i
-        }*/
-        
+         * for (int i = 0; i < nums.length-1; i++) { for (int j = i+1; j <
+         * nums.length; j++) { int diff = nums[j]- nums[i]; if (diff == k)
+         * count++; else if (diff > k) break; while (j < nums.length-1 &&
+         * nums[j+1] == nums[j]) j++; // need to skip duplicate after 1st j }
+         * while (i < nums.length-1 && nums[i+1] == nums[i]) i++; // need to
+         * skip duplicate after 1st i }
+         */
+
         return count;
     }
-	
-	public int findPairs_withMap(int[] nums, int k) {
-		if (nums == null || nums.length <= 1) return 0;
-		if (k < 0) return 0;  // absolute value is always non-negative.
-		int count = 0;
-		Map<Integer, Integer> map = new HashMap<>();
-		for (int num : nums) {
-			map.put(num, map.getOrDefault(num, 0) + 1);
-		}
-        
-		for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-			if (k == 0) {
-				//count how many elements in the array that appear more than twice.
-				if (entry.getValue() >= 2) count++;
-			}
-			else {
-				// k is absolute difference, which means k >= 0. We want to find pair (a,b), 
-				// which satisfies a-b=diff. This implies a>=b, and a=k+b, b=a-k. 
-				if (map.containsKey(entry.getKey()+k)) count++;
-			}
-		}
-	
+
+    public int findPairs_withMap(int[] nums, int k) {
+        if (nums == null || nums.length <= 1)
+            return 0;
+        if (k < 0)
+            return 0; // absolute value is always non-negative.
+        int count = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (k == 0) {
+                // count how many elements in the array that appear more than
+                // twice.
+                if (entry.getValue() >= 2)
+                    count++;
+            } else {
+                // k is absolute difference, which means k >= 0. We want to find
+                // pair (a,b),
+                // which satisfies a-b=diff. This implies a>=b, and a=k+b,
+                // b=a-k.
+                if (map.containsKey(entry.getKey() + k))
+                    count++;
+            }
+        }
+
         return count;
-	}
+    }
 }

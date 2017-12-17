@@ -22,31 +22,51 @@ import java.util.PriorityQueue;
  * Difficulty: hard
  */
 public class CourseScheduleIII {
-	// 1. Sort all the courses by their ending time (in ascending order)
-	// 2. Use a maxHeap to store the duration of courses that can be taken so far, and use time to store the current end time
-	// 3. Iterate over the sorted course
-	// 3.1 If the current course can be taken (time + duration) < end_time, add it to maxHeap and update time with its duration
-	// 3.2 If the current course cannot be taken, we need to find the course taken so far that has the maximum duration. If that
-	// course duration is greater than current course duration, we can replace it with current course by remove it from maxHeap
-	// and add the current course to maxHeap. time also needs to be updated with the new duration. 
-	// 4. At the end the number of elements in the maxHeap is the number of courses that can be taken
-	public int scheduleCourse(int[][] courses) {
-        Arrays.sort(courses, (a, b) -> a[1]-b[1]);
-		
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b -a); // maxHeap, stores the duration of all course that can be taken so far
+    // 1. Sort all the courses by their ending time (in ascending order)
+    // 2. Use a maxHeap to store the duration of courses that can be taken so
+    // far, and use time to store the current end time
+    // 3. Iterate over the sorted course
+    // 3.1 If the current course can be taken (time + duration) < end_time, add
+    // it to maxHeap and update time with its duration
+    // 3.2 If the current course cannot be taken, we need to find the course
+    // taken so far that has the maximum duration. If that
+    // course duration is greater than current course duration, we can replace
+    // it with current course by remove it from maxHeap
+    // and add the current course to maxHeap. time also needs to be updated with
+    // the new duration.
+    // 4. At the end the number of elements in the maxHeap is the number of
+    // courses that can be taken
+    public int scheduleCourse(int[][] courses) {
+        Arrays.sort(courses, (a, b) -> a[1] - b[1]);
+
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a); // maxHeap,
+                                                                               // stores
+                                                                               // the
+                                                                               // duration
+                                                                               // of
+                                                                               // all
+                                                                               // course
+                                                                               // that
+                                                                               // can
+                                                                               // be
+                                                                               // taken
+                                                                               // so
+                                                                               // far
         int time = 0; // current end time
         for (int[] course : courses) {
-        	if (time + course[0] <= course[1]) { // course can be taken
-        		maxHeap.offer(course[0]);
-        		time += course[0];
-        	}
-        	else if (!maxHeap.isEmpty() && maxHeap.peek() > course[0]) { // course cannot be taken
-        		time += course[0] - maxHeap.poll();
-        		maxHeap.offer(course[0]);
-        	}
+            if (time + course[0] <= course[1]) { // course can be taken
+                maxHeap.offer(course[0]);
+                time += course[0];
+            } else if (!maxHeap.isEmpty() && maxHeap.peek() > course[0]) { // course
+                                                                           // cannot
+                                                                           // be
+                                                                           // taken
+                time += course[0] - maxHeap.poll();
+                maxHeap.offer(course[0]);
+            }
         }
-        
-		return maxHeap.size();
+
+        return maxHeap.size();
     }
 
 }

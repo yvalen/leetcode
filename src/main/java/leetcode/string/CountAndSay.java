@@ -42,50 +42,57 @@ package leetcode.string;
  */
 public class CountAndSay {
 
-	public String countAndSay(int n) {
-		if (n < 0) {
-			throw new IllegalArgumentException("Invalid n " + n);
-		}
-		if (n == 0) {
-			return "1";
-		}
+    public String countAndSay(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Invalid n " + n);
+        }
+        if (n == 0) {
+            return "1";
+        }
 
-		String result = "1";
-		/*
-		for (int i = 1; i < n; i++) {
-			int count = 1;
-			StringBuilder sb = new StringBuilder();
-			for (int j = 1; j < result.length(); j++) {
-				if (result.charAt(j) == result.charAt(j-1)) {
-					count++;
-				}
-				else {
-					sb.append(count).append(result.charAt(j-1));
-					count = 1;
-				}
-			}
-			sb.append(count).append(result.charAt(result.length() - 1));
-			result = sb.toString();
-		}*/
-		for (int i = 2; i <= n; i++) {
+        String result = "1";
+        /*
+         * for (int i = 1; i < n; i++) { int count = 1; StringBuilder sb = new
+         * StringBuilder(); for (int j = 1; j < result.length(); j++) { if
+         * (result.charAt(j) == result.charAt(j-1)) { count++; } else {
+         * sb.append(count).append(result.charAt(j-1)); count = 1; } }
+         * sb.append(count).append(result.charAt(result.length() - 1)); result =
+         * sb.toString(); }
+         */
+        for (int i = 2; i <= n; i++) {
             StringBuilder sb = new StringBuilder();
-            for (int j = 0, count = 0; j < result.length(); j++) { // end and count start from 0
+            for (int j = 0, count = 0; j < result.length(); j++) { // end and
+                                                                   // count
+                                                                   // start from
+                                                                   // 0
                 count++; // always increment count since it starts from 0
-                if (j == result.length()-1 || result.charAt(j) != result.charAt(j+1)) { // check for last char here so that no special handling outside the loop
-                   sb.append(count).append(result.charAt(j));
-                   count = 0; // reset count to 0
+                if (j == result.length() - 1 || result.charAt(j) != result.charAt(j + 1)) { // check
+                                                                                            // for
+                                                                                            // last
+                                                                                            // char
+                                                                                            // here
+                                                                                            // so
+                                                                                            // that
+                                                                                            // no
+                                                                                            // special
+                                                                                            // handling
+                                                                                            // outside
+                                                                                            // the
+                                                                                            // loop
+                    sb.append(count).append(result.charAt(j));
+                    count = 0; // reset count to 0
                 }
             }
             result = sb.toString();
             System.out.println(result);
         }
 
-		return result;
-	}
-	
-	public static void main(String[] args) {
-		CountAndSay cs = new CountAndSay();
-		int n = 4;
-		System.out.println(cs.countAndSay(n));
-	}
+        return result;
+    }
+
+    public static void main(String[] args) {
+        CountAndSay cs = new CountAndSay();
+        int n = 4;
+        System.out.println(cs.countAndSay(n));
+    }
 }

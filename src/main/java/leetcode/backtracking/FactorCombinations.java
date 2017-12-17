@@ -33,43 +33,47 @@ import java.util.List;
  * Similar Questions: 39(Combination Sum)
  */
 public class FactorCombinations {
-	public List<List<Integer>> getFactors(int n) {
+    public List<List<Integer>> getFactors(int n) {
         List<List<Integer>> result = new ArrayList<>();
         getFactorsHelper(n, result, new LinkedList<>(), 2);
         return result;
     }
-	
-	private void getFactorsHelper(int n, List<List<Integer>> result, LinkedList<Integer> list, int start) {
-		if (n == 1) {
-			if (list.size() > 1) { // skip the list which contains one element 
-				result.add(new ArrayList<>(list));
-			}
-			return;
-		}
-		
-		// factors of an integer n (except for 1 and n) are always between 1 and sqrt(n)
-		// if the factor is bigger than sqrt(n), then it's next factor will be smaller than sqrt(n), 
-		// so we only have to loop until the index reaches sqrt(n);
-		for (int i = start; i * i <= n; i++) {
-			if (n % i != 0) continue;
-			list.addLast(i);
-			getFactorsHelper(n/i, result, list, i);
-			list.removeLast();
-		}
-	
-		// since we are checking for sqrt(n) in previous, we need to add the last element
-		list.addLast(n);
-		getFactorsHelper(1, result, list, n); 
-		list.removeLast();
-	
-	}
-	
-	public static void main(String[] args) {
-		FactorCombinations fc = new FactorCombinations ();
-		//int n = 32;
-		//int n = 16;
-		//int n = 12;
-		int n = 15;
-		System.out.println(fc.getFactors(n));
-	}
+
+    private void getFactorsHelper(int n, List<List<Integer>> result, LinkedList<Integer> list, int start) {
+        if (n == 1) {
+            if (list.size() > 1) { // skip the list which contains one element
+                result.add(new ArrayList<>(list));
+            }
+            return;
+        }
+
+        // factors of an integer n (except for 1 and n) are always between 1 and
+        // sqrt(n)
+        // if the factor is bigger than sqrt(n), then it's next factor will be
+        // smaller than sqrt(n),
+        // so we only have to loop until the index reaches sqrt(n);
+        for (int i = start; i * i <= n; i++) {
+            if (n % i != 0)
+                continue;
+            list.addLast(i);
+            getFactorsHelper(n / i, result, list, i);
+            list.removeLast();
+        }
+
+        // since we are checking for sqrt(n) in previous, we need to add the
+        // last element
+        list.addLast(n);
+        getFactorsHelper(1, result, list, n);
+        list.removeLast();
+
+    }
+
+    public static void main(String[] args) {
+        FactorCombinations fc = new FactorCombinations();
+        // int n = 32;
+        // int n = 16;
+        // int n = 12;
+        int n = 15;
+        System.out.println(fc.getFactors(n));
+    }
 }

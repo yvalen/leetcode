@@ -21,48 +21,51 @@ package leetcode.bfsdfs;
  * Company: Google
  */
 public class LongestIncreasingPathInMatrix {
-	/*
-	 * To get max length of increasing sequences:
-	 * - Do DFS from every cell
-	 * - Compare every 4 direction and skip cells that are out of boundary or smaller
-	 * - Get matrix max from every cell's max
-	 * - Use matrix[x][y] <= matrix[i][j] so we don't need a visited[m][n] array
-	 * The key is to cache the distance because it's highly possible to revisit a cell
-	 */
-	
-	private static final int[][] DIRS = {{-1,0}, {1, 0}, {0, -1}, {0, 1}}; 
-	
-	public int longestIncreasingPath(int[][] matrix) {
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return 0;
-        
+    /*
+     * To get max length of increasing sequences: - Do DFS from every cell -
+     * Compare every 4 direction and skip cells that are out of boundary or
+     * smaller - Get matrix max from every cell's max - Use matrix[x][y] <=
+     * matrix[i][j] so we don't need a visited[m][n] array The key is to cache
+     * the distance because it's highly possible to revisit a cell
+     */
+
+    private static final int[][] DIRS = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+
+    public int longestIncreasingPath(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
+            return 0;
+
         int m = matrix.length, n = matrix[0].length;
         int[][] cache = new int[m][n];
-        
+
         int maxLen = 1;
         for (int i = 0; i < matrix.length; i++) {
-        	for (int j = 0; j < matrix[0].length; j++) {
-        		int len = dfs(matrix, i, j, cache);
-        		maxLen = Math.max(maxLen, len);
-        	}
+            for (int j = 0; j < matrix[0].length; j++) {
+                int len = dfs(matrix, i, j, cache);
+                maxLen = Math.max(maxLen, len);
+            }
         }
-		return maxLen;
+        return maxLen;
     }
-	
-	private int dfs(int[][] matrix, int row, int col, int[][] cache) {
-		if (cache[row][col] != 0) return cache[row][col];
-		
-		int maxLen = 1;
-		for (int[] dir : DIRS) {
-			int x = row + dir[0], y = col + dir[1];
-			if (x < 0 || y < 0 || x >= matrix.length || y >= matrix[0].length || // out of boundary 
-					matrix[x][y] <= matrix[row][col]) { // non increasing
-				continue;
-			}
-			int len = 1 + dfs(matrix, x, y, cache);
-			maxLen = Math.max(maxLen, len);
-		}
-		cache[row][col] = maxLen;
-		return maxLen;
-	}
+
+    private int dfs(int[][] matrix, int row, int col, int[][] cache) {
+        if (cache[row][col] != 0)
+            return cache[row][col];
+
+        int maxLen = 1;
+        for (int[] dir : DIRS) {
+            int x = row + dir[0], y = col + dir[1];
+            if (x < 0 || y < 0 || x >= matrix.length || y >= matrix[0].length || // out
+                                                                                 // of
+                                                                                 // boundary
+                    matrix[x][y] <= matrix[row][col]) { // non increasing
+                continue;
+            }
+            int len = 1 + dfs(matrix, x, y, cache);
+            maxLen = Math.max(maxLen, len);
+        }
+        cache[row][col] = maxLen;
+        return maxLen;
+    }
 
 }

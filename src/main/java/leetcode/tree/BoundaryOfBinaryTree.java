@@ -42,58 +42,68 @@ import java.util.Stack;
  * Similar Questions: 199(RightSideView), 116(PopulateNextRightPointer)
  */
 public class BoundaryOfBinaryTree {
-	//  divide this problem into three subproblems- left boundary, leaves and right boundary
-	// Time complexity: O(n), one complete traversal for leaves and two traversals up to depth of binary tree for left and right boundary.
-	// Space complexity: O(n)
-	public List<Integer> boundaryOfBinaryTree(TreeNode root) {
-		if (root == null) return Collections.emptyList();
-		
-		List<Integer> result = new ArrayList<>();
+    // divide this problem into three subproblems- left boundary, leaves and
+    // right boundary
+    // Time complexity: O(n), one complete traversal for leaves and two
+    // traversals up to depth of binary tree for left and right boundary.
+    // Space complexity: O(n)
+    public List<Integer> boundaryOfBinaryTree(TreeNode root) {
+        if (root == null)
+            return Collections.emptyList();
+
+        List<Integer> result = new ArrayList<>();
         result.add(root.val);
         addLeftBoundary(root.left, result);
         addLeaves(root.left, result);
         addLeaves(root.right, result);
         addRightBoundary(root.right, result);
-		return result;
+        return result;
     }
-	
-	private void addLeaves(TreeNode root, List<Integer> result) {
-		if (root == null) return;
-		if (root.left == null && root.right == null) {
-			result.add(root.val);
-			return;
-		}
-		addLeaves(root.left, result);
-		addLeaves(root.right, result);
-	}
-	
-	// keep on traversing the tree towards the left and keep on adding the nodes in the res array, 
-	// provided the current node isn't a leaf node. If at any point, we can't find the left child 
-	// of a node, but its right child exists, we put the right child in the res and continue the process. 
-	private void addLeftBoundary(TreeNode root, List<Integer> result) {
-		if (root == null || (root.left == null && root.right == null)) return;
-		result.add(root.val);
-		if (root.left != null) {
-			addLeftBoundary(root.left, result);
-		}
-		else {
-			addLeftBoundary(root.right, result);
-		}
-	}
-	
-	// perform the same process as the left boundary. But traverse towards the right. If the right child doesn't exist, 
-	// move towards the left child. Also, instead of putting the traversed nodes in the res array, we push them over a 
-	// stack during the traversal. After the complete traversal is done, we pop the element from over the stack and append 
-	// them to the res array. 
-	private void addRightBoundary(TreeNode root, List<Integer> result) {
-		if (root == null || (root.left == null && root.right == null)) return;
-		
-		if (root.right != null) {
-			addRightBoundary(root.right, result);
-		}
-		else {
-			addRightBoundary(root.left, result);
-		}
-		result.add(root.val);
-	}
+
+    private void addLeaves(TreeNode root, List<Integer> result) {
+        if (root == null)
+            return;
+        if (root.left == null && root.right == null) {
+            result.add(root.val);
+            return;
+        }
+        addLeaves(root.left, result);
+        addLeaves(root.right, result);
+    }
+
+    // keep on traversing the tree towards the left and keep on adding the nodes
+    // in the res array,
+    // provided the current node isn't a leaf node. If at any point, we can't
+    // find the left child
+    // of a node, but its right child exists, we put the right child in the res
+    // and continue the process.
+    private void addLeftBoundary(TreeNode root, List<Integer> result) {
+        if (root == null || (root.left == null && root.right == null))
+            return;
+        result.add(root.val);
+        if (root.left != null) {
+            addLeftBoundary(root.left, result);
+        } else {
+            addLeftBoundary(root.right, result);
+        }
+    }
+
+    // perform the same process as the left boundary. But traverse towards the
+    // right. If the right child doesn't exist,
+    // move towards the left child. Also, instead of putting the traversed nodes
+    // in the res array, we push them over a
+    // stack during the traversal. After the complete traversal is done, we pop
+    // the element from over the stack and append
+    // them to the res array.
+    private void addRightBoundary(TreeNode root, List<Integer> result) {
+        if (root == null || (root.left == null && root.right == null))
+            return;
+
+        if (root.right != null) {
+            addRightBoundary(root.right, result);
+        } else {
+            addRightBoundary(root.left, result);
+        }
+        result.add(root.val);
+    }
 }

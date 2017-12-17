@@ -17,72 +17,51 @@ import java.util.Stack;
  * Difficulty: medium
  */
 public class NestedIterator implements Iterator<Integer> {
-	private Stack<NestedInteger> stack;
-	
-	public NestedIterator(List<NestedInteger> nestedList) {
-		stack = new Stack<>();
-		for(int i = nestedList.size() - 1; i >= 0; i--) {
+    private Stack<NestedInteger> stack;
+
+    public NestedIterator(List<NestedInteger> nestedList) {
+        stack = new Stack<>();
+        for (int i = nestedList.size() - 1; i >= 0; i--) {
             stack.push(nestedList.get(i));
         }
-	}
-	
-	@Override
-	public Integer next() {
-		return stack.pop().getInteger();
-	}
-
-	@Override
-	public boolean hasNext() {
-		while (!stack.isEmpty() && !stack.peek().isInteger()) {
-			List<NestedInteger> list = stack.pop().getList();
-			for (int i = list.size() - 1; i >= 0; i--) {
-				stack.push(list.get(i));
-			}
-		}		
-		return !stack.isEmpty();
-	}
-	
-
-	/*
-	 * flatten first
-	private List<Integer> flattenedList;
-	private int current, size;
-    public NestedIterator(List<NestedInteger> nestedList) {
-    	this.flattenedList = new LinkedList<>();
-    	if (nestedList == null) {
-    		return;
-    	}
-    	flatten(nestedList);
-    	size = flattenedList.size();
     }
 
     @Override
     public Integer next() {
-    	Integer result = null;
-    	if (hasNext()) {
-    		result = flattenedList.get(current++);
-    	}
-    	
-		return result;
-        
+        return stack.pop().getInteger();
     }
 
     @Override
     public boolean hasNext() {
-		return (current < size);
-        
+        while (!stack.isEmpty() && !stack.peek().isInteger()) {
+            List<NestedInteger> list = stack.pop().getList();
+            for (int i = list.size() - 1; i >= 0; i--) {
+                stack.push(list.get(i));
+            }
+        }
+        return !stack.isEmpty();
     }
-    
-    private void flatten(List<NestedInteger> nestedList) {
-    	for (NestedInteger itr : nestedList) {
-    		if (itr.isInteger()) {
-    			this.flattenedList.add(itr.getInteger());
-    		}
-    		else {
-    			flatten(itr.getList());
-    		}
-    	}
-    }
-    */
-}
 
+    /*
+     * flatten first private List<Integer> flattenedList; private int current,
+     * size; public NestedIterator(List<NestedInteger> nestedList) {
+     * this.flattenedList = new LinkedList<>(); if (nestedList == null) {
+     * return; } flatten(nestedList); size = flattenedList.size(); }
+     * 
+     * @Override public Integer next() { Integer result = null; if (hasNext()) {
+     * result = flattenedList.get(current++); }
+     * 
+     * return result;
+     * 
+     * }
+     * 
+     * @Override public boolean hasNext() { return (current < size);
+     * 
+     * }
+     * 
+     * private void flatten(List<NestedInteger> nestedList) { for (NestedInteger
+     * itr : nestedList) { if (itr.isInteger()) {
+     * this.flattenedList.add(itr.getInteger()); } else {
+     * flatten(itr.getList()); } } }
+     */
+}

@@ -22,36 +22,33 @@ import java.util.Deque;
  * 2. big data set with size exceeding memory limit
  */
 public class MovingAverage {
-	private final int size;
-	private final Deque<Integer> deque;
-	private double sum;
-	
-	private final int[] window;
-	private int count;
-	private int index;
+    private final int size;
+    private final Deque<Integer> deque;
+    private double sum;
 
-	public MovingAverage(int size) {
+    private final int[] window;
+    private int count;
+    private int index;
+
+    public MovingAverage(int size) {
         this.size = size;
         this.deque = new ArrayDeque<>(size);
-        
+
         this.window = new int[size];
     }
-    
+
     public double next(int val) {
-    	if (count < size) count++;
-    	sum -= window[index];
-    	sum += val;
-    	window[index] = val;
-    	index = (index + 1) % size;
-    	return sum / count;
-    	
-    	/*
-        if (deque.size() == this.size) {
-        	sum -= deque.removeFirst();
-        }
-        deque.addLast(val);
+        if (count < size)
+            count++;
+        sum -= window[index];
         sum += val;
-        return sum / deque.size();
-        */
+        window[index] = val;
+        index = (index + 1) % size;
+        return sum / count;
+
+        /*
+         * if (deque.size() == this.size) { sum -= deque.removeFirst(); }
+         * deque.addLast(val); sum += val; return sum / deque.size();
+         */
     }
 }

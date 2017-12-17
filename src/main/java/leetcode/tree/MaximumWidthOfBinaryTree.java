@@ -52,62 +52,74 @@ import java.util.Queue;
  * 
  */
 public class MaximumWidthOfBinaryTree {
-	public int widthOfBinaryTree_bfs(TreeNode root) {
-		if (root == null) return 0;
-		
-		Queue<TreeNode> nodeq = new LinkedList<>();
-		Queue<Integer> indexq = new LinkedList<>();
-		nodeq.offer(root);
-		indexq.offer(0);
-		int maxWidth = 1;
-		while(!nodeq.isEmpty()) {
-			int size = nodeq.size();
-			int left = 0, right = 0;
-			for (int i = 0; i < size; i++) {
-				TreeNode node = nodeq.poll();
-				int index = indexq.poll();
-				if (i == 0) left = index;
-				if (i == size -1) right = index;  // cannot use else if here, otherwise, right won't be updated properly if queue size is 1
-				if (node.left != null) {
-					nodeq.offer(node.left);
-					indexq.offer(index * 2);  // index of the left child is parent_index*2
-				}
-				
-				if (node.right != null) {
-					nodeq.offer(node.right);
-					indexq.offer(index * 2 + 1); // // index of the right child is parent_index*2+1
-				}
-			}
-			maxWidth = Math.max(maxWidth, right - left + 1);
-		}
-		
-		return maxWidth;
+    public int widthOfBinaryTree_bfs(TreeNode root) {
+        if (root == null)
+            return 0;
+
+        Queue<TreeNode> nodeq = new LinkedList<>();
+        Queue<Integer> indexq = new LinkedList<>();
+        nodeq.offer(root);
+        indexq.offer(0);
+        int maxWidth = 1;
+        while (!nodeq.isEmpty()) {
+            int size = nodeq.size();
+            int left = 0, right = 0;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = nodeq.poll();
+                int index = indexq.poll();
+                if (i == 0)
+                    left = index;
+                if (i == size - 1)
+                    right = index; // cannot use else if here, otherwise, right
+                                   // won't be updated properly if queue size is
+                                   // 1
+                if (node.left != null) {
+                    nodeq.offer(node.left);
+                    indexq.offer(index * 2); // index of the left child is
+                                             // parent_index*2
+                }
+
+                if (node.right != null) {
+                    nodeq.offer(node.right);
+                    indexq.offer(index * 2 + 1); // // index of the right child
+                                                 // is parent_index*2+1
+                }
+            }
+            maxWidth = Math.max(maxWidth, right - left + 1);
+        }
+
+        return maxWidth;
     }
-	
-	private int max = 0;
-	private List<Integer> leftNodes = new ArrayList<>();  // store the index of the left-most node
-	public int widthOfBinaryTree_dfs(TreeNode root) {
-		if (root == null) return 0;
-		dfs(root, 0, 0);
-		return max;
-	}
-	private void dfs(TreeNode root, int index, int depth) {
-		if (root == null) return;
-		if (depth >= leftNodes.size()) { // depth of root is 0
-			leftNodes.add(index);
-		}
-		max = Math.max(max, index-leftNodes.get(depth)+1);
-		dfs(root.left, index*2, depth+1);
-		dfs(root.right, index*2+1, depth+1);
-	}
-	
-	public static void main(String[] args) {
-		MaximumWidthOfBinaryTree mw = new MaximumWidthOfBinaryTree();
-		TreeNode root = new TreeNode(0);
-		root.right = new TreeNode(0);
-		root.right.right = new TreeNode(0);
-		root.right.right.right = new TreeNode(0);
-		root.right.right.right.left = new TreeNode(0);
-		System.out.println(mw.widthOfBinaryTree_bfs(root));
-	}
+
+    private int max = 0;
+    private List<Integer> leftNodes = new ArrayList<>(); // store the index of
+                                                         // the left-most node
+
+    public int widthOfBinaryTree_dfs(TreeNode root) {
+        if (root == null)
+            return 0;
+        dfs(root, 0, 0);
+        return max;
+    }
+
+    private void dfs(TreeNode root, int index, int depth) {
+        if (root == null)
+            return;
+        if (depth >= leftNodes.size()) { // depth of root is 0
+            leftNodes.add(index);
+        }
+        max = Math.max(max, index - leftNodes.get(depth) + 1);
+        dfs(root.left, index * 2, depth + 1);
+        dfs(root.right, index * 2 + 1, depth + 1);
+    }
+
+    public static void main(String[] args) {
+        MaximumWidthOfBinaryTree mw = new MaximumWidthOfBinaryTree();
+        TreeNode root = new TreeNode(0);
+        root.right = new TreeNode(0);
+        root.right.right = new TreeNode(0);
+        root.right.right.right = new TreeNode(0);
+        root.right.right.right.left = new TreeNode(0);
+        System.out.println(mw.widthOfBinaryTree_bfs(root));
+    }
 }

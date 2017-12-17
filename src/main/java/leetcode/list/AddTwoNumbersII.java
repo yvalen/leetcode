@@ -13,104 +13,108 @@ import java.util.Stack;
  * Output: 7 -> 8 -> 0 -> 7
  */
 public class AddTwoNumbersII {
-	public ListNode addTwoNumbers_long(ListNode l1, ListNode l2) {
-        if (l1 == null) return l2;
-        if (l2 == null) return l1;
-        
+    public ListNode addTwoNumbers_long(ListNode l1, ListNode l2) {
+        if (l1 == null)
+            return l2;
+        if (l2 == null)
+            return l1;
+
         Stack<Integer> s1 = new Stack<>();
         ListNode c1 = l1;
         while (c1 != null) {
-        	s1.push(c1.val);
-        	c1 = c1.next;
+            s1.push(c1.val);
+            c1 = c1.next;
         }
-        
+
         Stack<Integer> s2 = new Stack<>();
         ListNode c2 = l2;
         while (c2 != null) {
-        	s2.push(c2.val);
-        	c2 = c2.next;
+            s2.push(c2.val);
+            c2 = c2.next;
         }
-        
+
         boolean addOne = false;
         ListNode next = null;
         while (!s1.isEmpty() && !s2.isEmpty()) {
-        	int val = s1.pop() + s2.pop() + (addOne ? 1 : 0);
-        	if (val >= 10) {
-        		addOne = true;
-        		val %= 10;
-        	}
-        	else {
-        		addOne = false;
-        	}
-        	ListNode node = new ListNode(val);
-        	node.next = next;
-        	next = node;
+            int val = s1.pop() + s2.pop() + (addOne ? 1 : 0);
+            if (val >= 10) {
+                addOne = true;
+                val %= 10;
+            } else {
+                addOne = false;
+            }
+            ListNode node = new ListNode(val);
+            node.next = next;
+            next = node;
         }
-		
+
         Stack<Integer> s = s1.isEmpty() ? s2 : s1;
         while (!s.isEmpty()) {
-        	int val = s.pop() + (addOne ? 1 : 0);
-        	if (val >= 10) {
-        		val %= 10;
-        		addOne = true;
-        	}
-        	else {
-        		addOne = false;
-        	}
-        	ListNode node = new ListNode(val);
-        	node.next = next;
-        	next = node;
+            int val = s.pop() + (addOne ? 1 : 0);
+            if (val >= 10) {
+                val %= 10;
+                addOne = true;
+            } else {
+                addOne = false;
+            }
+            ListNode node = new ListNode(val);
+            node.next = next;
+            next = node;
         }
-		
+
         if (addOne) {
-        	ListNode node = new ListNode(1);
-        	node.next = next;
-        	next = node;
+            ListNode node = new ListNode(1);
+            node.next = next;
+            next = node;
         }
-        
+
         return next;
     }
-	
-	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-		if (l1 == null) return l2;
-        if (l2 == null) return l1;
-        
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        if (l1 == null)
+            return l2;
+        if (l2 == null)
+            return l1;
+
         Stack<Integer> s1 = new Stack<>();
         while (l1 != null) {
-        	s1.push(l1.val);
-        	l1 = l1.next;
+            s1.push(l1.val);
+            l1 = l1.next;
         }
-        
+
         Stack<Integer> s2 = new Stack<>();
         while (l2 != null) {
-        	s2.push(l2.val);
-        	l2 = l2.next;
+            s2.push(l2.val);
+            l2 = l2.next;
         }
-        
+
         int sum = 0;
         ListNode list = new ListNode(0);
         while (!s1.isEmpty() || !s2.isEmpty()) {
-        	if (!s1.isEmpty()) sum += s1.pop();
-        	if (!s2.isEmpty()) sum += s2.pop();
-        	list.val = sum % 10;
-        	ListNode node = new ListNode(sum / 10);
-        	node.next = list;
-        	list = node;
-        	sum /= 10; // update sum 
+            if (!s1.isEmpty())
+                sum += s1.pop();
+            if (!s2.isEmpty())
+                sum += s2.pop();
+            list.val = sum % 10;
+            ListNode node = new ListNode(sum / 10);
+            node.next = list;
+            list = node;
+            sum /= 10; // update sum
         }
-		
+
         return (list.val == 0) ? list.next : list;
-	}
-	
-	public static void main(String[] args) {
-		AddTwoNumbersII a = new AddTwoNumbersII();
-		int[] ary1 = {7, 2, 4, 3};
-		int[] ary2 = {5, 6, 4};
-		//int[] ary1 = {5};
-		//int[] ary2 = {5};
-		ListNode l1 = ListUtil.createList(ary1);
-		ListNode l2 = ListUtil.createList(ary2);
-		ListNode l = a.addTwoNumbers(l1, l2);
-		ListUtil.printList(l);
-	}
+    }
+
+    public static void main(String[] args) {
+        AddTwoNumbersII a = new AddTwoNumbersII();
+        int[] ary1 = { 7, 2, 4, 3 };
+        int[] ary2 = { 5, 6, 4 };
+        // int[] ary1 = {5};
+        // int[] ary2 = {5};
+        ListNode l1 = ListUtil.createList(ary1);
+        ListNode l2 = ListUtil.createList(ary2);
+        ListNode l = a.addTwoNumbers(l1, l2);
+        ListUtil.printList(l);
+    }
 }

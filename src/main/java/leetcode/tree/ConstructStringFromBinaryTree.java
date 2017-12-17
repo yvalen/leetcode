@@ -29,40 +29,46 @@ package leetcode.tree;
  * Similar Question: 536(ConstructBinaryTreeFromString), 606(FindDuplicateSubtree)
  */
 public class ConstructStringFromBinaryTree {
-	public String tree2str(TreeNode t) {
-		if (t == null) return "";
-		
-		String result = String.valueOf(t.val);
-		String left = tree2str(t.left), right = tree2str(t.right);
-		if (left.length() > 0 || right.length() > 0) { 
-			if (left.length() > 0) result += "(" + left + ")" + (right.length() > 0 ? "("+right+")" : "");
-			else if (right.length() > 0) result += "()(" + right + ")"; 
-		}
-		return result;
-	} 
-	
-	public String tree2str_withStringBuilder(TreeNode t) {
-		if (t == null) return "";
-		StringBuilder sb = new StringBuilder();
-		helper(t, sb);
-		return sb.toString();
-	} 
-	
-	private void helper(TreeNode root, StringBuilder sb) {
-		sb.append(root.val);
-		if (root.left == null && root.right == null) return;
-		
-		if (root.left != null) {
-			sb.append("(");
-			helper(root.left, sb);
-			sb.append(")");
-		}
-		
-		if (root.right != null) {
-			if (root.left == null) sb.append("()");
-			sb.append("(");
-			helper(root.right, sb);
-			sb.append(")");
-		}
-	}
+    public String tree2str(TreeNode t) {
+        if (t == null)
+            return "";
+
+        String result = String.valueOf(t.val);
+        String left = tree2str(t.left), right = tree2str(t.right);
+        if (left.length() > 0 || right.length() > 0) {
+            if (left.length() > 0)
+                result += "(" + left + ")" + (right.length() > 0 ? "(" + right + ")" : "");
+            else if (right.length() > 0)
+                result += "()(" + right + ")";
+        }
+        return result;
+    }
+
+    public String tree2str_withStringBuilder(TreeNode t) {
+        if (t == null)
+            return "";
+        StringBuilder sb = new StringBuilder();
+        helper(t, sb);
+        return sb.toString();
+    }
+
+    private void helper(TreeNode root, StringBuilder sb) {
+        sb.append(root.val);
+        if (root.left == null && root.right == null)
+            return;
+
+        if (root.left != null) {
+            sb.append("(");
+            helper(root.left, sb);
+            sb.append(")");
+        }
+
+        if (root.right != null) {
+            if (root.left == null)
+                sb.append("()");
+            sb.append("(");
+            helper(root.right, sb);
+            sb.append(")");
+        }
+    }
 }

@@ -22,38 +22,43 @@ import java.util.Queue;
  * Similar Questions: 116(PopulateNextRightPointer), 545(BoundaryOfBinaryTree)
  */
 public class RightSideView {
-	public List<Integer> rightSideView_bfs(TreeNode root) {
-		if (root == null) return Collections.emptyList();
-		
+    public List<Integer> rightSideView_bfs(TreeNode root) {
+        if (root == null)
+            return Collections.emptyList();
+
         List<Integer> result = new LinkedList<>();
         Queue<TreeNode> nodeQueue = new LinkedList<>();
-		nodeQueue.offer(root);
-		while (!nodeQueue.isEmpty()) {
-			int size = nodeQueue.size();
-			for (int i = 0; i < size; i++) {
-				TreeNode current = nodeQueue.poll();
-				if (current.left != null) nodeQueue.offer(current.left);
-				if (current.right != null) nodeQueue.offer(current.right);
-				if (i == size - 1) result.add(current.val);
-			}
-		}
+        nodeQueue.offer(root);
+        while (!nodeQueue.isEmpty()) {
+            int size = nodeQueue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode current = nodeQueue.poll();
+                if (current.left != null)
+                    nodeQueue.offer(current.left);
+                if (current.right != null)
+                    nodeQueue.offer(current.right);
+                if (i == size - 1)
+                    result.add(current.val);
+            }
+        }
         return result;
     }
 
-	// pre order, right first then left
-	public List<Integer> rightSideView_dfs(TreeNode root) {
+    // pre order, right first then left
+    public List<Integer> rightSideView_dfs(TreeNode root) {
         List<Integer> result = new LinkedList<>();
         rightSideView_dfs_helper(root, result, 1);
         return result;
-	}
-	
-	public void rightSideView_dfs_helper(TreeNode root, List<Integer> result, int depth) {
-        if (root == null) return;
-        
+    }
+
+    public void rightSideView_dfs_helper(TreeNode root, List<Integer> result, int depth) {
+        if (root == null)
+            return;
+
         if (result.size() < depth) {
-        	result.add(root.val);
+            result.add(root.val);
         }
         rightSideView_dfs_helper(root.right, result, depth + 1);
         rightSideView_dfs_helper(root.left, result, depth + 1);
-	}
+    }
 }

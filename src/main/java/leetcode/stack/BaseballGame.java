@@ -37,56 +37,57 @@ import java.util.Stack;
  * Difficulty: easy
  */
 public class BaseballGame {
-	public int calPoints_wtihStackAndStream(String[] ops) {
-        if (ops == null || ops.length == 0) return 0;
-        
-		Stack<Integer> stack = new Stack<>();
-		for (String op : ops) {
-			if (op.equals("+")) {
-				Integer top = stack.pop();
-				Integer sum = top + stack.peek();
-				stack.push(top);
-				stack.push(sum);
-			}
-			else if (op.equals("D")) {
-				stack.push(stack.peek() * 2);
-			}
-			else if (op.equals("C")) {
-				stack.pop();
-			}
-			else {
-				stack.push(Integer.parseInt(op));
-			}	
-		}
-		
-		return stack.stream().reduce(0, Integer::sum);
+    public int calPoints_wtihStackAndStream(String[] ops) {
+        if (ops == null || ops.length == 0)
+            return 0;
+
+        Stack<Integer> stack = new Stack<>();
+        for (String op : ops) {
+            if (op.equals("+")) {
+                Integer top = stack.pop();
+                Integer sum = top + stack.peek();
+                stack.push(top);
+                stack.push(sum);
+            } else if (op.equals("D")) {
+                stack.push(stack.peek() * 2);
+            } else if (op.equals("C")) {
+                stack.pop();
+            } else {
+                stack.push(Integer.parseInt(op));
+            }
+        }
+
+        return stack.stream().reduce(0, Integer::sum);
     }
-	
-	public int calPoints(String[] ops) {
-		if (ops == null || ops.length == 0) return 0;
-		
-		LinkedList<Integer> list = new LinkedList<>();
-		int sum = 0;
-		for (String op : ops) {
-			int val = 0;
-			if (op.equals("+")) {
-				val = list.getLast() + list.get(list.size()-2); // we can use index of list to get the second to last element
-				list.add(val);
-			}
-			else if (op.equals("D")) {
-				val = list.getLast() * 2;
-				list.add(val);
-			}
-			else if (op.equals("C")) {
-				val = list.removeLast() * -1;
-			}
-			else {
-				val = Integer.parseInt(op);
-				list.addLast(val);
-			}	
-			sum += val;
-		}
-		return sum;
-	}
+
+    public int calPoints(String[] ops) {
+        if (ops == null || ops.length == 0)
+            return 0;
+
+        LinkedList<Integer> list = new LinkedList<>();
+        int sum = 0;
+        for (String op : ops) {
+            int val = 0;
+            if (op.equals("+")) {
+                val = list.getLast() + list.get(list.size() - 2); // we can use
+                                                                  // index of
+                                                                  // list to get
+                                                                  // the second
+                                                                  // to last
+                                                                  // element
+                list.add(val);
+            } else if (op.equals("D")) {
+                val = list.getLast() * 2;
+                list.add(val);
+            } else if (op.equals("C")) {
+                val = list.removeLast() * -1;
+            } else {
+                val = Integer.parseInt(op);
+                list.addLast(val);
+            }
+            sum += val;
+        }
+        return sum;
+    }
 
 }

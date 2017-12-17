@@ -25,86 +25,104 @@ package leetcode.math;
  * Difficulty: medium
  */
 public class OptimalDivision {
-	// divide the list into two parts left and right, and call function for these two parts. 
-	// iterate i from start to end so that left=(start,i) and right=(i+1,end).
-	// left and right parts return their maximum and minimum value and corresponding strings.
-	// Minimum value can be found by dividing minimum of left by maximum of right i.e. minVal=left.min/right.max.
-	// Maximum value can be found by dividing maximum of left by minimum of right i.e. maxVal=left.max/right.min
-	// Time complexity : O(n^3), dp array of size n^2is filled and filling of each cell takes O(n) time.
-	// Space complexity : O(n^3) dp array of size n^2​​ where each cell of array contains string of length O(n).
-	private static class DivisionResult {
-		float minVal;
-		float maxVal;
-		String minString;
-		String maxString;
-		DivisionResult() {
-			minVal = Float.MAX_VALUE;
-			maxVal = Float.MIN_VALUE;
-			minString = "";
-			maxString = "";
-		}
-	}
-	
-	public String optimalDivision_dp(int[] nums) {
-		int n = nums.length;
-		if (n == 1) return String.valueOf(nums[0]);
-		if (n == 2) return String.valueOf(nums[0]) + "/" + String.valueOf(nums[1]);
-		
-		DivisionResult[][] dp = new DivisionResult[n][n];
-		DivisionResult result = optimal(nums, 0, n-1, dp);
+    // divide the list into two parts left and right, and call function for
+    // these two parts.
+    // iterate i from start to end so that left=(start,i) and right=(i+1,end).
+    // left and right parts return their maximum and minimum value and
+    // corresponding strings.
+    // Minimum value can be found by dividing minimum of left by maximum of
+    // right i.e. minVal=left.min/right.max.
+    // Maximum value can be found by dividing maximum of left by minimum of
+    // right i.e. maxVal=left.max/right.min
+    // Time complexity : O(n^3), dp array of size n^2is filled and filling of
+    // each cell takes O(n) time.
+    // Space complexity : O(n^3) dp array of size n^2​​ where each cell of array
+    // contains string of length O(n).
+    private static class DivisionResult {
+        float minVal;
+        float maxVal;
+        String minString;
+        String maxString;
+
+        DivisionResult() {
+            minVal = Float.MAX_VALUE;
+            maxVal = Float.MIN_VALUE;
+            minString = "";
+            maxString = "";
+        }
+    }
+
+    public String optimalDivision_dp(int[] nums) {
+        int n = nums.length;
+        if (n == 1)
+            return String.valueOf(nums[0]);
+        if (n == 2)
+            return String.valueOf(nums[0]) + "/" + String.valueOf(nums[1]);
+
+        DivisionResult[][] dp = new DivisionResult[n][n];
+        DivisionResult result = optimal(nums, 0, n - 1, dp);
         return result.maxString;
     }
-	
-	private DivisionResult optimal(int[] nums, int start, int end, DivisionResult[][] dp) {
-		if (dp[start][end] != null) return dp[start][end];
-		
-		DivisionResult result = new DivisionResult();
-		if (start == end) {
-			result.minVal = nums[start];
-			result.maxVal = nums[start];
-			result.minString = String.valueOf(nums[start]);
-			result.maxString = String.valueOf(nums[start]);
-			dp[start][end] = result;
-			return result;
-		}
-		
-		for (int i = start; i < end; i++) {
-			DivisionResult left = optimal(nums, start, i, dp);
-			DivisionResult right = optimal(nums, i+1, end, dp);
-			float min = left.minVal / right.maxVal, max = left.maxVal / right.minVal;
-			if (result.minVal > min) {
-				result.minVal = min;
-				// need to use i==end-1 to check whether to add parenthesis
-				result.minString = left.minString + "/" + (i == end - 1 ? right.maxString : "("+ right.maxString+")");  
-			}
-			if (result.maxVal < max) {
-				result.maxVal = max;
-				result.maxString = left.maxString + "/" + (i == end - 1? right.minString : "("+ right.minString+")");
-			}
-		}
-		
-		dp[start][end] = result;
-		return result;
-	}
-	
-	
-	//
-	// Math
-	// for X1/X2/X3/../Xn, no matter how you place parentheses, X1 always goes to the numerator and X2 always goes to the denominator.
-	// X1/X2/X3/../Xn => (X1/X2) * Y, need to maximize Y. Y is maximized when it is equal to X3 *..*Xn. 
-	// So the answer is always X1/(X2/X3/../Xn) = (X1 *X3 *..*Xn)/X2
-	// Time complexity: O(n)   Space complexity: O(n)
-	public String optimalDivision_math(int[] nums) {
-		int n = nums.length;
-		if (n == 1) return String.valueOf(nums[0]);
-		if (n == 2) return String.valueOf(nums[0]) + "/" + String.valueOf(nums[1]);
-		
-		StringBuilder sb = new StringBuilder(); // cannot initialize with StringBuilder(nums[0]), since it will be used as StringBuilder(int capacity)
-		sb.append(nums[0]).append("/(").append(nums[1]);
-		for (int i = 2; i < nums.length; i++) {
-			sb.append("/").append(nums[i]);
-		}
-		sb.append(")");
-		return sb.toString();
+
+    private DivisionResult optimal(int[] nums, int start, int end, DivisionResult[][] dp) {
+        if (dp[start][end] != null)
+            return dp[start][end];
+
+        DivisionResult result = new DivisionResult();
+        if (start == end) {
+            result.minVal = nums[start];
+            result.maxVal = nums[start];
+            result.minString = String.valueOf(nums[start]);
+            result.maxString = String.valueOf(nums[start]);
+            dp[start][end] = result;
+            return result;
+        }
+
+        for (int i = start; i < end; i++) {
+            DivisionResult left = optimal(nums, start, i, dp);
+            DivisionResult right = optimal(nums, i + 1, end, dp);
+            float min = left.minVal / right.maxVal, max = left.maxVal / right.minVal;
+            if (result.minVal > min) {
+                result.minVal = min;
+                // need to use i==end-1 to check whether to add parenthesis
+                result.minString = left.minString + "/"
+                        + (i == end - 1 ? right.maxString : "(" + right.maxString + ")");
+            }
+            if (result.maxVal < max) {
+                result.maxVal = max;
+                result.maxString = left.maxString + "/"
+                        + (i == end - 1 ? right.minString : "(" + right.minString + ")");
+            }
+        }
+
+        dp[start][end] = result;
+        return result;
+    }
+
+    //
+    // Math
+    // for X1/X2/X3/../Xn, no matter how you place parentheses, X1 always goes
+    // to the numerator and X2 always goes to the denominator.
+    // X1/X2/X3/../Xn => (X1/X2) * Y, need to maximize Y. Y is maximized when it
+    // is equal to X3 *..*Xn.
+    // So the answer is always X1/(X2/X3/../Xn) = (X1 *X3 *..*Xn)/X2
+    // Time complexity: O(n) Space complexity: O(n)
+    public String optimalDivision_math(int[] nums) {
+        int n = nums.length;
+        if (n == 1)
+            return String.valueOf(nums[0]);
+        if (n == 2)
+            return String.valueOf(nums[0]) + "/" + String.valueOf(nums[1]);
+
+        StringBuilder sb = new StringBuilder(); // cannot initialize with
+                                                // StringBuilder(nums[0]), since
+                                                // it will be used as
+                                                // StringBuilder(int capacity)
+        sb.append(nums[0]).append("/(").append(nums[1]);
+        for (int i = 2; i < nums.length; i++) {
+            sb.append("/").append(nums[i]);
+        }
+        sb.append(")");
+        return sb.toString();
     }
 }

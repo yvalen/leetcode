@@ -16,32 +16,34 @@ package leetcode.tree;
  * Difficulty: easy
  */
 public class DiameterOfBinaryTree {
-	private int max = 0;
-	public int diameterOfBinaryTree(TreeNode root) {
+    private int max = 0;
+
+    public int diameterOfBinaryTree(TreeNode root) {
         maxDepth(root);
-		return max;
+        return max;
     }
-	
-	private int maxDepth(TreeNode root) {
-		if (root == null) return 0;
-		int leftDepth = maxDepth(root.left);
-		int rightDepth = maxDepth(root.right);
-		
-		// For every node, length of longest path which pass it is
-		// MaxDepth of its left subtree + MaxDepth of its right subtree.
-		max = Math.max(max, leftDepth+rightDepth);
-		return Math.max(leftDepth, rightDepth) + 1;
-	}
-	
-	public static void main(String[] args) {
-		TreeNode root = new TreeNode(1);
-		root.left = new TreeNode(2);
-		root.right = new TreeNode(3);
-		root.left.left = new TreeNode(4);
-		root.left.right = new TreeNode(5);
-		
-		DiameterOfBinaryTree  dia = new DiameterOfBinaryTree ();
-		System.out.println(dia.diameterOfBinaryTree(root));
-	}
+
+    private int maxDepth(TreeNode root) {
+        if (root == null)
+            return 0;
+        int leftDepth = maxDepth(root.left);
+        int rightDepth = maxDepth(root.right);
+
+        // For every node, length of longest path which pass it is
+        // MaxDepth of its left subtree + MaxDepth of its right subtree.
+        max = Math.max(max, leftDepth + rightDepth);
+        return Math.max(leftDepth, rightDepth) + 1;
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+
+        DiameterOfBinaryTree dia = new DiameterOfBinaryTree();
+        System.out.println(dia.diameterOfBinaryTree(root));
+    }
 
 }

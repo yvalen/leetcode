@@ -22,29 +22,32 @@ import java.util.List;
  * Similar Questions: 39(Combination Sum), 46(Permutations)
  */
 public class Combination {
-	public List<List<Integer>> combine(int n, int k) {
-		if (n <= 0 || k <= 0 || k > n) return Collections.emptyList();
-		List<List<Integer>> result = new ArrayList<>();
-		helper(n, k, result, new LinkedList<>(), 1);
+    public List<List<Integer>> combine(int n, int k) {
+        if (n <= 0 || k <= 0 || k > n)
+            return Collections.emptyList();
+        List<List<Integer>> result = new ArrayList<>();
+        helper(n, k, result, new LinkedList<>(), 1);
         return result;
     }
-	
-	private void helper(int n, int k, List<List<Integer>> result, LinkedList<Integer> list, int start) {
-		if (list.size() == k) {
-			result.add(new ArrayList<>(list));
-			return;
-		}
-		
-		for (int i = start; i <= n; i++) {
-			list.addLast(i);
-			helper(n, k, result, list, i + 1); // use i+1 instead of start+1 here so that the sequence is always in increasing order
-			list.removeLast();
-		}
-	}
-	
-	public static void main(String[] args) {
-		Combination c = new Combination();
-		int n = 4, k = 2;
-		System.out.println(c.combine(n, k));
-	}
+
+    private void helper(int n, int k, List<List<Integer>> result, LinkedList<Integer> list, int start) {
+        if (list.size() == k) {
+            result.add(new ArrayList<>(list));
+            return;
+        }
+
+        for (int i = start; i <= n; i++) {
+            list.addLast(i);
+            helper(n, k, result, list, i + 1); // use i+1 instead of start+1
+                                               // here so that the sequence is
+                                               // always in increasing order
+            list.removeLast();
+        }
+    }
+
+    public static void main(String[] args) {
+        Combination c = new Combination();
+        int n = 4, k = 2;
+        System.out.println(c.combine(n, k));
+    }
 }

@@ -20,38 +20,38 @@ package leetcode.greedy;
  * Difficulty: easy
  */
 public class CanPlaceFlower {
-	public boolean canPlaceFlowers(int[] flowerbed, int n) {
-		if (flowerbed == null || flowerbed.length == 0) return false;
-		if (n <= 0) return true;
-		
-		for (int i = 0; i < flowerbed.length; i++) {
-			/*
-			if (flowerbed[i] == 1) continue;
-			if (i > 0 && flowerbed[i-1] == 1) continue;
-			if (i < flowerbed.length-1 && flowerbed[i+1] == 1) continue;
-			n--;
-			flowerbed[i] = 1;
-			if (n == 0) return true;
-			*/
-			if (flowerbed[i] == 0 && 
-					(i == 0 || flowerbed[i-1] == 0) &&
-					(i == flowerbed.length-1 || flowerbed[i+1] == 0)) {
-				n--;
-				flowerbed[i] = 1; // need to set the current position to 1 to remeber the choice
-				if (n == 0) return true;
-			}
-			
-		}
-		
-		return false;
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        if (flowerbed == null || flowerbed.length == 0)
+            return false;
+        if (n <= 0)
+            return true;
+
+        for (int i = 0; i < flowerbed.length; i++) {
+            /*
+             * if (flowerbed[i] == 1) continue; if (i > 0 && flowerbed[i-1] ==
+             * 1) continue; if (i < flowerbed.length-1 && flowerbed[i+1] == 1)
+             * continue; n--; flowerbed[i] = 1; if (n == 0) return true;
+             */
+            if (flowerbed[i] == 0 && (i == 0 || flowerbed[i - 1] == 0)
+                    && (i == flowerbed.length - 1 || flowerbed[i + 1] == 0)) {
+                n--;
+                flowerbed[i] = 1; // need to set the current position to 1 to
+                                  // remeber the choice
+                if (n == 0)
+                    return true;
+            }
+
+        }
+
+        return false;
     }
-	
-	public static void main(String[] args) {
-		CanPlaceFlower cpf = new CanPlaceFlower();
-		int[] flowerbed = {1,0,0,0,0,1};
-		int n = 2;
-		//int[] flowerbed = {0,0,1,0,1};
-		//int n = 1;
-		System.out.println(cpf.canPlaceFlowers(flowerbed, n));
-	}
+
+    public static void main(String[] args) {
+        CanPlaceFlower cpf = new CanPlaceFlower();
+        int[] flowerbed = { 1, 0, 0, 0, 0, 1 };
+        int n = 2;
+        // int[] flowerbed = {0,0,1,0,1};
+        // int n = 1;
+        System.out.println(cpf.canPlaceFlowers(flowerbed, n));
+    }
 }

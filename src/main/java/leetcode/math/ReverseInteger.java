@@ -18,41 +18,42 @@ package leetcode.math;
  * Similar Questions: 8(StringToInteger)
  */
 public class ReverseInteger {
-	private static int MAX_DIV = Integer.MAX_VALUE / 10;
-	
+    private static int MAX_DIV = Integer.MAX_VALUE / 10;
+
     public int reverse(int x) {
         boolean isNegative = (x < 0);
         x = Math.abs(x);
-        
+
         int num = 0;
         while (x > 0) {
-            if (num > MAX_DIV) return 0;
+            if (num > MAX_DIV)
+                return 0;
             num = num * 10 + x % 10;
             x /= 10;
         }
-        
+
         return num * (isNegative ? -1 : 1);
     }
-	
-	public int reverse_withLong(int x) {
-		long ret = 0;
-		while (x != 0) {
-			ret = ret * 10 + x % 10;
-			x = x / 10;
-		}
-		
-		if (ret < Integer.MIN_VALUE || ret > Integer.MAX_VALUE) {
-			return 0;
-		}
-		
-		return (int) ret;
-	}
-	
-	public static void main(String[] args) {
-		ReverseInteger r = new ReverseInteger();
-		int x = 1534236469;
-		int i = r.reverse(x);
-		System.out.println(i);
-	}
-	
+
+    public int reverse_withLong(int x) {
+        long ret = 0;
+        while (x != 0) {
+            ret = ret * 10 + x % 10;
+            x = x / 10;
+        }
+
+        if (ret < Integer.MIN_VALUE || ret > Integer.MAX_VALUE) {
+            return 0;
+        }
+
+        return (int) ret;
+    }
+
+    public static void main(String[] args) {
+        ReverseInteger r = new ReverseInteger();
+        int x = 1534236469;
+        int i = r.reverse(x);
+        System.out.println(i);
+    }
+
 }

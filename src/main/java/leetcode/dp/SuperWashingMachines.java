@@ -32,27 +32,34 @@ package leetcode.dp;
  * Difficulty: hard
  */
 public class SuperWashingMachines {
-	public int findMinMoves(int[] machines) {
-        if (machines == null || machines.length <= 1) return 0;
-        
+    public int findMinMoves(int[] machines) {
+        if (machines == null || machines.length <= 1)
+            return 0;
+
         int sum = 0;
-        for (int m : machines) sum += m;
-        
-        // check whether the sum of dresses in all machines can be divided by count of machines
+        for (int m : machines)
+            sum += m;
+
+        // check whether the sum of dresses in all machines can be divided by
+        // count of machines
         // if not there is no solution
-        if (sum % machines.length != 0) return -1;
-        
-        // we can always transfer a dress from one machine to another, one at a time until every 
-        // machines reach the same number, so there must be a solution. In this way, the total actions 
+        if (sum % machines.length != 0)
+            return -1;
+
+        // we can always transfer a dress from one machine to another, one at a
+        // time until every
+        // machines reach the same number, so there must be a solution. In this
+        // way, the total actions
         // is sum of operations on every machine.
-        // Since we can operate several machines at the same time, the minimum number of moves is the 
+        // Since we can operate several machines at the same time, the minimum
+        // number of moves is the
         // maximum number of necessary operations on every machine.
-        
+
         int avg = sum / machines.length;
         int count = 0, max = 0;
         for (int load : machines) {
-        	count += load -avg;
-        	max = Math.max(Math.max(max,  Math.abs(count)), load-avg);
+            count += load - avg;
+            max = Math.max(Math.max(max, Math.abs(count)), load - avg);
         }
         return max;
     }

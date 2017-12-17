@@ -9,44 +9,46 @@ package leetcode.math;
  * Difficulty: easy
  */
 public class SquareRoot {
-	public int mySqrt(int x) {
+    public int mySqrt(int x) {
         int abs = Math.abs(x);
         int lo = 1, hi = abs, mid = 0;
         while (lo <= hi) {
-        	mid = lo + (hi - lo) / 2;
-        	if (mid > abs / mid) {
-        		hi = mid - 1;
-        	}
-        	else {
-        		if (mid + 1 > abs /(mid+1)) break;
-        		lo = mid + 1;
-        	}
+            mid = lo + (hi - lo) / 2;
+            if (mid > abs / mid) {
+                hi = mid - 1;
+            } else {
+                if (mid + 1 > abs / (mid + 1))
+                    break;
+                lo = mid + 1;
+            }
         }
-        		
-        return (x > 0) ?  mid : -mid ;
+
+        return (x > 0) ? mid : -mid;
     }
-	
-	public int mySqrt_useRight(int x) {
+
+    public int mySqrt_useRight(int x) {
         int lo = 1, hi = x;
         while (lo <= hi) {
-        	int mid = lo + (hi - lo) / 2;
-        	if ( mid == x / mid) return mid;
-        	else if (mid > x / mid) hi = mid - 1;
-        	else lo = mid + 1;
+            int mid = lo + (hi - lo) / 2;
+            if (mid == x / mid)
+                return mid;
+            else if (mid > x / mid)
+                hi = mid - 1;
+            else
+                lo = mid + 1;
         }
-        		
+
         return hi;
     }
 
-	public static void main(String[] args) {
-		SquareRoot s = new SquareRoot();
-		//int x = 2;
-		//System.out.println(s.mySqrt(x));
-		
-		for (int i = 0; i <= 21; i++ ) {
-			System.out.println("i=" + i + " sqrt=" + s.mySqrt_useRight(i));
-		}
-		
-		
-	}
- }
+    public static void main(String[] args) {
+        SquareRoot s = new SquareRoot();
+        // int x = 2;
+        // System.out.println(s.mySqrt(x));
+
+        for (int i = 0; i <= 21; i++) {
+            System.out.println("i=" + i + " sqrt=" + s.mySqrt_useRight(i));
+        }
+
+    }
+}

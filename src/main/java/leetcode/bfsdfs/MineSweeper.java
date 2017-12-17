@@ -51,82 +51,91 @@ import java.util.Queue;
  * Difficulty: medium
  */
 public class MineSweeper {
-	// 
+    //
     // 1. If click on a mine ('M'), mark it as 'X', stop further search.
     // 2. If click on an empty cell ('E'), depends on how many surrounding mine:
-    // 2.1 Has surrounding mine(s), mark it with number of surrounding mine(s), stop further search.
-	// 2.2 No surrounding mine, mark it as 'B', continue search its 8 neighbors.
-	// 
+    // 2.1 Has surrounding mine(s), mark it with number of surrounding mine(s),
+    // stop further search.
+    // 2.2 No surrounding mine, mark it as 'B', continue search its 8 neighbors.
+    //
 
-	private static final int[][] DIRS = {{0,1},{0,-1},{1,0},{-1,0},{-1,-1},{-1,1},{1,-1},{1,1}};
-	
-	public char[][] updateBoard_dfs(char[][] board, int[] click) {
+    private static final int[][] DIRS = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 }, { -1, -1 }, { -1, 1 }, { 1, -1 },
+            { 1, 1 } };
+
+    public char[][] updateBoard_dfs(char[][] board, int[] click) {
         int row = click[0], col = click[1];
         int m = board.length, n = board[0].length;
-        
-		if (board[row][col] == 'M') { // stop after revealing a mine
-			board[row][col] = 'X';
-			return board;
-		}
-		
-		// empty cell, count the number of mines in the surrounding cells
-		int count = 0;
-		for (int[] dir : DIRS) {
-			int x = row + dir[0], y = col + dir[1];
-			if (x >=0 && x < m && y >= 0 && y < n) {
-				if (board[x][y] == 'M' || board[x][y] == 'X') count++; // increment count if surrounding cell has either a revealed or a unrevealed mine
-			}
-		}
-		
-		if (count > 0) { // stop when there are surrounding mines
-			board[row][col] = (char) (count + '0');
-			return board;
-		}
-		
-		board[row][col] = 'B'; // mark the cell as a revealed empty cell
-		
-		// perform dfs for unrevealed surrounding cells
-		for (int[] dir : DIRS) {
-			int x = row + dir[0], y = col + dir[1];
-			if (x >=0 && x < m && y >= 0 && y < n && board[x][y] == 'E') { // only perform dfs for unrevealed cell
-				updateBoard_dfs(board, new int[] {x, y});
-			}
-		}
-		return board;
+
+        if (board[row][col] == 'M') { // stop after revealing a mine
+            board[row][col] = 'X';
+            return board;
+        }
+
+        // empty cell, count the number of mines in the surrounding cells
+        int count = 0;
+        for (int[] dir : DIRS) {
+            int x = row + dir[0], y = col + dir[1];
+            if (x >= 0 && x < m && y >= 0 && y < n) {
+                if (board[x][y] == 'M' || board[x][y] == 'X')
+                    count++; // increment count if surrounding cell has either a
+                             // revealed or a unrevealed mine
+            }
+        }
+
+        if (count > 0) { // stop when there are surrounding mines
+            board[row][col] = (char) (count + '0');
+            return board;
+        }
+
+        board[row][col] = 'B'; // mark the cell as a revealed empty cell
+
+        // perform dfs for unrevealed surrounding cells
+        for (int[] dir : DIRS) {
+            int x = row + dir[0], y = col + dir[1];
+            if (x >= 0 && x < m && y >= 0 && y < n && board[x][y] == 'E') { // only
+                                                                            // perform
+                                                                            // dfs
+                                                                            // for
+                                                                            // unrevealed
+                                                                            // cell
+                updateBoard_dfs(board, new int[] { x, y });
+            }
+        }
+        return board;
     }
 
-	public char[][] updateBoard_bfs(char[][] board, int[] click) {
+    public char[][] updateBoard_bfs(char[][] board, int[] click) {
         int m = board.length, n = board[0].length;
-		Queue<int[]> queue = new LinkedList<>();
-		queue.offer(click);
-		while (!queue.isEmpty()) {
-			int[] current = queue.poll();
-			int row = current[0], col = current[1];
-			if (board[row][col] == 'M') { // stop after revealing a mine
-				board[row][col] = 'X';
-				continue;
-			}
-			int count = 0;
-			for (int[] dir : DIRS) {
-				int x = row + dir[0], y = col + dir[1];
-				if (x >=0 && x < m && y >= 0 && y < n && (board[x][y] == 'M' || board[x][y] == 'X')) count++;
-			}
-			if (count > 0) { 
-				board[row][col] = (char) (count + '0');
-				continue;
-			}
-			
-			board[row][col] = 'B';
-			for (int[] dir : DIRS) {
-				int x = row + dir[0], y = col + dir[1];
-				if (x >=0 && x < m && y >= 0 && y < n && board[x][y] == 'E') {
-					queue.offer(new int[] {x, y});
-					board[x][y] = 'B'; // prevent this cell to be added again
-				}
-			}
-		}
-		return board;
-	}
-	
-	
+        Queue<int[]> queue = new LinkedList<>();
+        queue.offer(click);
+        while (!queue.isEmpty()) {
+            int[] current = queue.poll();
+            int row = current[0], col = current[1];
+            if (board[row][col] == 'M') { // stop after revealing a mine
+                board[row][col] = 'X';
+                continue;
+            }
+            int count = 0;
+            for (int[] dir : DIRS) {
+                int x = row + dir[0], y = col + dir[1];
+                if (x >= 0 && x < m && y >= 0 && y < n && (board[x][y] == 'M' || board[x][y] == 'X'))
+                    count++;
+            }
+            if (count > 0) {
+                board[row][col] = (char) (count + '0');
+                continue;
+            }
+
+            board[row][col] = 'B';
+            for (int[] dir : DIRS) {
+                int x = row + dir[0], y = col + dir[1];
+                if (x >= 0 && x < m && y >= 0 && y < n && board[x][y] == 'E') {
+                    queue.offer(new int[] { x, y });
+                    board[x][y] = 'B'; // prevent this cell to be added again
+                }
+            }
+        }
+        return board;
+    }
+
 }

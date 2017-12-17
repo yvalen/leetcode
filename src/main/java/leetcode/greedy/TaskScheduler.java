@@ -26,81 +26,91 @@ import java.util.Queue;
  * Similar Questions: 358(RearrangeStringKDistanceApart)
  */
 public class TaskScheduler {
-	/*
-	 * Assume the most frequent letter(s) is with count k, then there are two cases:
-	 * - When the whole frame is "loose" -- when there is still unused idle time in each chunk, 
-	 * result = (c[25] - 1) * (n + 1) + 25 - i where "25 - i" simply counts how many letters are 
-	 * with count k and n + 1 is the length of each chunk. Since we have k (in this case k == c[25]) 
-	 * chunks, the total length of the first k - 1 chunks == (k - 1) * (n + 1). For the last chunk, 
-	 * we don't need the "whole chunk" (i.e., if the chunk is "ABXXX", we only will need the "AB". 
-	 * Because there are no more "less frequent letters" left so we can remove the last three spaces)
-	 * - When the frame is "dense" (fully filled), the length of each chunk > n + 1. 
-	 * In this case it could be: 
-	 * a) initially the number of letters with count k is > n + 1 so the frame is already "fully filled 
-	 * without space left, or
-	 * b) the length of each chunk is > n + 1 after insertion. We still calculate the total length by 
-	 * adding up all the chunks, and it will == the length of the task at last.
-	 */
-	public int leastInterval(char[] tasks, int n) {
+    /*
+     * Assume the most frequent letter(s) is with count k, then there are two
+     * cases: - When the whole frame is "loose" -- when there is still unused
+     * idle time in each chunk, result = (c[25] - 1) * (n + 1) + 25 - i where
+     * "25 - i" simply counts how many letters are with count k and n + 1 is the
+     * length of each chunk. Since we have k (in this case k == c[25]) chunks,
+     * the total length of the first k - 1 chunks == (k - 1) * (n + 1). For the
+     * last chunk, we don't need the "whole chunk" (i.e., if the chunk is
+     * "ABXXX", we only will need the "AB". Because there are no more
+     * "less frequent letters" left so we can remove the last three spaces) -
+     * When the frame is "dense" (fully filled), the length of each chunk > n +
+     * 1. In this case it could be: a) initially the number of letters with
+     * count k is > n + 1 so the frame is already "fully filled without space
+     * left, or b) the length of each chunk is > n + 1 after insertion. We still
+     * calculate the total length by adding up all the chunks, and it will ==
+     * the length of the task at last.
+     */
+    public int leastInterval(char[] tasks, int n) {
         int[] taskCount = new int[26];
         for (char c : tasks) {
-        	taskCount[c - 'A']++;
+            taskCount[c - 'A']++;
         }
-        
-        Arrays.sort(taskCount); // after sorting taskCount[25] is the hightest count
-		
+
+        Arrays.sort(taskCount); // after sorting taskCount[25] is the hightest
+                                // count
+
         // count how many tasks have the max occurrence -> 25 -i
-		int i = 25;
-		while(i >= 0 && taskCount[i] == taskCount[25]) i--;
-        
-		// there should be maxCount(taskCount[25]) frames, among which taskCount[25]-1 frames will have length of n+1
-		// 25 - i is the length of the last frame
-        return Math.max(tasks.length, (taskCount[25]-1)*(n+1)+(25-i));
+        int i = 25;
+        while (i >= 0 && taskCount[i] == taskCount[25])
+            i--;
+
+        // there should be maxCount(taskCount[25]) frames, among which
+        // taskCount[25]-1 frames will have length of n+1
+        // 25 - i is the length of the last frame
+        return Math.max(tasks.length, (taskCount[25] - 1) * (n + 1) + (25 - i));
     }
-	
-	
-	public int leastInterval_priorityQueue(char[] tasks, int n) {
-		int[] taskCount = new int[26];
+
+    public int leastInterval_priorityQueue(char[] tasks, int n) {
+        int[] taskCount = new int[26];
         for (char c : tasks) {
-        	taskCount[c - 'A']++;
+            taskCount[c - 'A']++;
         }
-        
-        // pq stores the number of instances left to be executed in descending order
+
+        // pq stores the number of instances left to be executed in descending
+        // order
         PriorityQueue<Integer> pq = new PriorityQueue<>(26, Collections.reverseOrder());
         for (int count : taskCount) {
-        	if (count > 0) pq.offer(count);
+            if (count > 0)
+                pq.offer(count);
         }
-        
+
         int count = 0;
         while (!pq.isEmpty()) {
-        	int k = n + 1;
-        	List<Integer> list = new ArrayList<>(n+1); // stores the remaining count 
-        	while (k > 0 && !pq.isEmpty()) {
-        		list.add(pq.poll()- 1);
-        		k--; // need to do this inside the loop because we don't want to decrement k when pq is empty
-        		count++;
-        	}
-        
-        	// add remaining count back to queue
-        	for (Integer i : list) {
-        		if (i > 0) pq.offer(i);
-        	}
-        	
-        	// no more instance to process
-        	// need to check this before adding k to count because 
-        	// we don't need to add cooling interval after the last task
-        	if (pq.isEmpty()) break; 
-        	
-        	count += k; // if k > 0 it means we need to add some idle interval
+            int k = n + 1;
+            List<Integer> list = new ArrayList<>(n + 1); // stores the remaining
+                                                         // count
+            while (k > 0 && !pq.isEmpty()) {
+                list.add(pq.poll() - 1);
+                k--; // need to do this inside the loop because we don't want to
+                     // decrement k when pq is empty
+                count++;
+            }
+
+            // add remaining count back to queue
+            for (Integer i : list) {
+                if (i > 0)
+                    pq.offer(i);
+            }
+
+            // no more instance to process
+            // need to check this before adding k to count because
+            // we don't need to add cooling interval after the last task
+            if (pq.isEmpty())
+                break;
+
+            count += k; // if k > 0 it means we need to add some idle interval
         }
         return count;
-	}
-	
-	public static void main(String[] args) {
-		TaskScheduler ts = new TaskScheduler();
-		char[] tasks = {'A', 'A', 'A', 'B', 'B', 'B'};
-		int n = 2;
-		System.out.println(ts.leastInterval(tasks, n));
-	}
+    }
+
+    public static void main(String[] args) {
+        TaskScheduler ts = new TaskScheduler();
+        char[] tasks = { 'A', 'A', 'A', 'B', 'B', 'B' };
+        int n = 2;
+        System.out.println(ts.leastInterval(tasks, n));
+    }
 
 }

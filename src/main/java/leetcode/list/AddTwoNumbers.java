@@ -14,75 +14,80 @@ package leetcode.list;
  * Similar Questions: 
  */
 public class AddTwoNumbers {
-	public ListNode addTwoNumbers_andnullcheck(ListNode l1, ListNode l2) {
-		if (l1 == null) return l2;
-		if (l2 == null) return l1;
+    public ListNode addTwoNumbers_andnullcheck(ListNode l1, ListNode l2) {
+        if (l1 == null)
+            return l2;
+        if (l2 == null)
+            return l1;
 
-		ListNode dummy = new ListNode(0);
-		ListNode current = dummy;
-		int carry = 0;
-		while (l1 != null && l2 != null) {
-			int val = l1.val + l2.val + carry;
-			carry = val >= 10 ? 1 : 0;
-			current.next = new ListNode(val % 10);
-			current = current.next;
-			l1 = l1.next;
-			l2 = l2.next;
-		}
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+        int carry = 0;
+        while (l1 != null && l2 != null) {
+            int val = l1.val + l2.val + carry;
+            carry = val >= 10 ? 1 : 0;
+            current.next = new ListNode(val % 10);
+            current = current.next;
+            l1 = l1.next;
+            l2 = l2.next;
+        }
 
-		ListNode l = l1 == null ? l2 : l1;
-		while (l != null) {
-			int val = l.val + carry;
-			carry = val >= 10 ? 1 : 0;
-			current.next = new ListNode(val % 10);
-			current = current.next;
-			l = l.next;
-		}
+        ListNode l = l1 == null ? l2 : l1;
+        while (l != null) {
+            int val = l.val + carry;
+            carry = val >= 10 ? 1 : 0;
+            current.next = new ListNode(val % 10);
+            current = current.next;
+            l = l.next;
+        }
 
-		if (carry == 1) current.next = new ListNode(1);
+        if (carry == 1)
+            current.next = new ListNode(1);
 
-		return dummy.next;
-	}
+        return dummy.next;
+    }
 
-	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-		if (l1 == null) return l2;
-		if (l2 == null) return l1;
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        if (l1 == null)
+            return l2;
+        if (l2 == null)
+            return l1;
 
-		ListNode dummy = new ListNode(0);
-		ListNode current = dummy;
-		int sum = 0;
-		while (l1 != null || l2 != null) {
-			// previous sum, divided by 10 to get the number to add to the new sum
-			sum = sum / 10;
-			if (l1 != null) {
-				sum += l1.val;
-				l1 = l1.next;
-			}
-			if (l2 != null) {
-				sum += l2.val;
-				l2 = l2.next;
-			}
-			current.next = new ListNode(sum % 10);
-			current = current.next;
-		}
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+        int sum = 0;
+        while (l1 != null || l2 != null) {
+            // previous sum, divided by 10 to get the number to add to the new
+            // sum
+            sum = sum / 10;
+            if (l1 != null) {
+                sum += l1.val;
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                sum += l2.val;
+                l2 = l2.next;
+            }
+            current.next = new ListNode(sum % 10);
+            current = current.next;
+        }
 
-		// take care the overflow of the last digit
-		if (sum / 10 > 0) {
-			current.next = new ListNode(1);
-		}
+        // take care the overflow of the last digit
+        if (sum / 10 > 0) {
+            current.next = new ListNode(1);
+        }
 
-		return dummy.next;
-	}
+        return dummy.next;
+    }
 
+    public static void main(String[] args) {
+        AddTwoNumbers a = new AddTwoNumbers();
 
-	public static void main(String[] args) {
-		AddTwoNumbers a = new AddTwoNumbers();
-
-		int[] nums1 = {1, 8};
-		int[] nums2 = {0};
-		ListNode l1 = ListUtil.createList(nums1);
-		ListNode l2 = ListUtil.createList(nums2);
-		ListNode l = a.addTwoNumbers(l1, l2);
-		ListUtil.printList(l);
-	}
+        int[] nums1 = { 1, 8 };
+        int[] nums2 = { 0 };
+        ListNode l1 = ListUtil.createList(nums1);
+        ListNode l2 = ListUtil.createList(nums2);
+        ListNode l = a.addTwoNumbers(l1, l2);
+        ListUtil.printList(l);
+    }
 }

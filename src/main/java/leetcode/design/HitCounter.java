@@ -35,31 +35,30 @@ package leetcode.design;
  * Difficulty: medium
  */
 public class HitCounter {
-	private final int[] hits;
-	private final int[] timestamps;
-	
+    private final int[] hits;
+    private final int[] timestamps;
+
     public HitCounter() {
-    	hits = new int[300];
-    	timestamps = new int[300];
+        hits = new int[300];
+        timestamps = new int[300];
     }
-    
+
     public void hit(int timestamp) {
-    	int idx = timestamp % 300;
-    	if (timestamps[idx] != timestamp) {
-    		timestamps[idx] = timestamp;
-    		hits[idx] = 1;
-    	}
-    	else {
-    		hits[idx]++;
-    	}
+        int idx = timestamp % 300;
+        if (timestamps[idx] != timestamp) {
+            timestamps[idx] = timestamp;
+            hits[idx] = 1;
+        } else {
+            hits[idx]++;
+        }
     }
-    
+
     public int getHits(int timestamp) {
         int total = 0;
         for (int i = 0; i < 300; i++) {
-        	if (timestamp - timestamps[i] < 300) {
-        		total += hits[i];
-        	}
+            if (timestamp - timestamps[i] < 300) {
+                total += hits[i];
+            }
         }
         return total;
     }

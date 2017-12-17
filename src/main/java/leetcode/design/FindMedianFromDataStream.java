@@ -23,80 +23,54 @@ import java.util.PriorityQueue;
  * Difficulty: hard
  */
 public class FindMedianFromDataStream {
-	private final PriorityQueue<Integer> minHeap;
-	private final PriorityQueue<Integer> maxHeap;
+    private final PriorityQueue<Integer> minHeap;
+    private final PriorityQueue<Integer> maxHeap;
 
-	public FindMedianFromDataStream() {
-		minHeap = new PriorityQueue<>();
-		maxHeap = new PriorityQueue<>(Collections.reverseOrder());
-	}
-	
-	public void addNum(int num) {
-		maxHeap.add(num); // always add to maxHeap
-		
-		// new element could be greater than the top element of minHeap
-		// balance minHeap first
-		minHeap.add(maxHeap.poll());
-		
-		// maintain the size property
-		if (maxHeap.size() < minHeap.size()) {
-			maxHeap.add(minHeap.poll());
-		}
-		
-	}
-	
-	/*
-	public void addNum(int num) {
-		if (maxHeap.isEmpty()) maxHeap.add(num);
-		else if (minHeap.isEmpty()) {
-			if (num < maxHeap.peek()) {
-				minHeap.add(maxHeap.poll());
-				maxHeap.add(num);
-			}
-			else {
-				minHeap.add(num);
-			}
-		}
-		else {
-			int left = maxHeap.peek(), right = minHeap.peek();
-			boolean sameSize = maxHeap.size() == minHeap.size();
-			if (num > right) {
-				if (sameSize) {
-					maxHeap.add(minHeap.poll());
-				}
-				minHeap.add(num);
-			}
-			else if (num < left) {
-				if (!sameSize) {
-					minHeap.add(maxHeap.poll());
-				}
-				maxHeap.add(num);
-			}
-			else {
-				if (sameSize) {
-					maxHeap.add(num);
-				}
-				else {
-					minHeap.add(num);
-				}
-			}
-		}
+    public FindMedianFromDataStream() {
+        minHeap = new PriorityQueue<>();
+        maxHeap = new PriorityQueue<>(Collections.reverseOrder());
     }
-    */
+
+    public void addNum(int num) {
+        maxHeap.add(num); // always add to maxHeap
+
+        // new element could be greater than the top element of minHeap
+        // balance minHeap first
+        minHeap.add(maxHeap.poll());
+
+        // maintain the size property
+        if (maxHeap.size() < minHeap.size()) {
+            maxHeap.add(minHeap.poll());
+        }
+
+    }
+
+    /*
+     * public void addNum(int num) { if (maxHeap.isEmpty()) maxHeap.add(num);
+     * else if (minHeap.isEmpty()) { if (num < maxHeap.peek()) {
+     * minHeap.add(maxHeap.poll()); maxHeap.add(num); } else { minHeap.add(num);
+     * } } else { int left = maxHeap.peek(), right = minHeap.peek(); boolean
+     * sameSize = maxHeap.size() == minHeap.size(); if (num > right) { if
+     * (sameSize) { maxHeap.add(minHeap.poll()); } minHeap.add(num); } else if
+     * (num < left) { if (!sameSize) { minHeap.add(maxHeap.poll()); }
+     * maxHeap.add(num); } else { if (sameSize) { maxHeap.add(num); } else {
+     * minHeap.add(num); } } } }
+     */
     public double findMedian() {
-        if (maxHeap.size() > minHeap.size()) return Double.valueOf(maxHeap.peek());
-        
+        if (maxHeap.size() > minHeap.size())
+            return Double.valueOf(maxHeap.peek());
+
         return (maxHeap.peek() + minHeap.peek()) * 0.5;
     }
-	
+
     public static void main(String[] args) {
-    	FindMedianFromDataStream fm = new FindMedianFromDataStream();
-    	//fm.addNum(-1);
-    	//fm.addNum(-2);
-    	//fm.addNum(-3);
-    	fm.addNum(1);
-    	fm.addNum(2);
-    	fm.addNum(3);
-    	System.out.println(fm.findMedian());
+        FindMedianFromDataStream fm = new FindMedianFromDataStream();
+        // fm.addNum(-1);
+        // fm.addNum(-2);
+        // fm.addNum(-3);
+        fm.addNum(1);
+        fm.addNum(2);
+        fm.addNum(3);
+        System.out.println(fm.findMedian());
     }
 }

@@ -12,30 +12,34 @@ package leetcode.array;
  * If there is no celebrity, return -1. 
  */
 public class FindCelebrity {
-	public int findCelebrity(int n) {
-		
-		// if A knows B, A must not be celebrity, B could be celebrity
-		int candidate = 0;
-		for (int i = 1; i < n; i++) {
-			if (knows(candidate, i)) candidate = i;
-		}
-		// everyone to the left of candidate must not be celebrity because they know previous or current candidate
-		// everyone to the right of candidate must not be celebrity because they candidate knows no one to the right
-		
-		// check if candidate is celebrity 
-		for (int i = 0; i < n; i++) {
-			if (i == candidate) continue;
-			
-			if (!knows(i, candidate) ||  // someone doesn't know candidate
-					knows(candidate, i)) {  // candidate doesn't know someone
-				return -1;
-			}
-		}
-		
-		return candidate;
+    public int findCelebrity(int n) {
+
+        // if A knows B, A must not be celebrity, B could be celebrity
+        int candidate = 0;
+        for (int i = 1; i < n; i++) {
+            if (knows(candidate, i))
+                candidate = i;
+        }
+        // everyone to the left of candidate must not be celebrity because they
+        // know previous or current candidate
+        // everyone to the right of candidate must not be celebrity because they
+        // candidate knows no one to the right
+
+        // check if candidate is celebrity
+        for (int i = 0; i < n; i++) {
+            if (i == candidate)
+                continue;
+
+            if (!knows(i, candidate) || // someone doesn't know candidate
+                    knows(candidate, i)) { // candidate doesn't know someone
+                return -1;
+            }
+        }
+
+        return candidate;
     }
-	
-	private boolean knows(int a, int b) {
-		return true;
-	}
+
+    private boolean knows(int a, int b) {
+        return true;
+    }
 }

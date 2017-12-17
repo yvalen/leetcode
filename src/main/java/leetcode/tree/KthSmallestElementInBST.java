@@ -12,56 +12,62 @@ import java.util.Stack;
  * Difficulty: medium
  */
 public class KthSmallestElementInBST {
-	public int kthSmallest_inorderIterative(TreeNode root, int k) {
-		Stack<TreeNode> stack = new Stack<>();
-		TreeNode node = root;
-		while (!stack.isEmpty() || node != null) {
-			if (node != null) {
-				stack.push(node);
-				node = node.left;
-			}
-			else {
-				node = stack.pop();
-				if (--k == 0) break;
-				node = node.right;
-			}
-		}
-		return node.val;
+    public int kthSmallest_inorderIterative(TreeNode root, int k) {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+        while (!stack.isEmpty() || node != null) {
+            if (node != null) {
+                stack.push(node);
+                node = node.left;
+            } else {
+                node = stack.pop();
+                if (--k == 0)
+                    break;
+                node = node.right;
+            }
+        }
+        return node.val;
     }
-	
-	private int count = 0;
-	public int kthSmallest_inorderRecursive(TreeNode root, int k) {
-		TreeNode kthNode = inorder(root, k);
-		return kthNode.val;
+
+    private int count = 0;
+
+    public int kthSmallest_inorderRecursive(TreeNode root, int k) {
+        TreeNode kthNode = inorder(root, k);
+        return kthNode.val;
     }
-	private TreeNode inorder(TreeNode node, int k) {
-		if (node == null) return null;
-		TreeNode left = inorder(node.left, k);
-		if (left != null) return left;
-		if (++count == k) return node;
-		return inorder(node.right, k);
-	}
-	
-	public int kthSmallest(TreeNode root, int k) {
-		int count = countNodes(root.left);
-		if (k <= count) {
-			return kthSmallest(root.left, k);
-		}
-		else if (k > count + 1) {
-			return kthSmallest(root.right, k - count - 1); // i is counted as current node
-		}
-		return root.val;
+
+    private TreeNode inorder(TreeNode node, int k) {
+        if (node == null)
+            return null;
+        TreeNode left = inorder(node.left, k);
+        if (left != null)
+            return left;
+        if (++count == k)
+            return node;
+        return inorder(node.right, k);
     }
-	
-	private int countNodes(TreeNode node) {
-		if (node == null) return 0;
-		return 1 + countNodes(node.left) + countNodes(node.right);
-	}
-	
-	public static void main(String[] args) {
-		KthSmallestElementInBST ks = new KthSmallestElementInBST ();
-		TreeNode root = new TreeNode(1);
-		int k = 1;
-		System.out.println(ks.kthSmallest_inorderIterative(root, k));
-	}
+
+    public int kthSmallest(TreeNode root, int k) {
+        int count = countNodes(root.left);
+        if (k <= count) {
+            return kthSmallest(root.left, k);
+        } else if (k > count + 1) {
+            return kthSmallest(root.right, k - count - 1); // i is counted as
+                                                           // current node
+        }
+        return root.val;
+    }
+
+    private int countNodes(TreeNode node) {
+        if (node == null)
+            return 0;
+        return 1 + countNodes(node.left) + countNodes(node.right);
+    }
+
+    public static void main(String[] args) {
+        KthSmallestElementInBST ks = new KthSmallestElementInBST();
+        TreeNode root = new TreeNode(1);
+        int k = 1;
+        System.out.println(ks.kthSmallest_inorderIterative(root, k));
+    }
 }

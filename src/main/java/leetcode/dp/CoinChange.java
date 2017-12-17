@@ -9,30 +9,31 @@ package leetcode.dp;
  * Note: You may assume that you have an infinite number of each kind of coin. 
  */
 public class CoinChange {
-	public int coinChange(int[] coins, int amount) {
-		if (amount <= 0 || coins == null || coins.length == 0) return 0;
-		
-		int[] dp = new int[amount+1];
-		dp[0] = 0;
-		for (int i = 1; i <= amount; i++) {
-			int min = Integer.MAX_VALUE;
-			for (int j = 0; j < coins.length; j++) {
-				if (coins[j] <= i) {
-					min = Integer.min(min, dp[i-coins[j]]);
-				}
-			}
-			dp[i] = (min == Integer.MAX_VALUE) ? Integer.MAX_VALUE : min + 1;
-		}
-		
-		return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
+    public int coinChange(int[] coins, int amount) {
+        if (amount <= 0 || coins == null || coins.length == 0)
+            return 0;
+
+        int[] dp = new int[amount + 1];
+        dp[0] = 0;
+        for (int i = 1; i <= amount; i++) {
+            int min = Integer.MAX_VALUE;
+            for (int j = 0; j < coins.length; j++) {
+                if (coins[j] <= i) {
+                    min = Integer.min(min, dp[i - coins[j]]);
+                }
+            }
+            dp[i] = (min == Integer.MAX_VALUE) ? Integer.MAX_VALUE : min + 1;
+        }
+
+        return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
     }
-	
-	public static void main(String[] args) {
-		CoinChange c = new CoinChange();
-		
-		int[] coins = {2};
-		int amount = 3;
-		System.out.println(c.coinChange(coins, amount));
-		
-	}
+
+    public static void main(String[] args) {
+        CoinChange c = new CoinChange();
+
+        int[] coins = { 2 };
+        int amount = 3;
+        System.out.println(c.coinChange(coins, amount));
+
+    }
 }

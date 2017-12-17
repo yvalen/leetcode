@@ -21,28 +21,28 @@ import java.util.Arrays;
  * Similar Questions: 259(ThreeSumSmaller)
  */
 public class ValidTriangleNumber {
-	public int triangleNumber(int[] nums) {
-        if (nums == null || nums.length < 3) return 0;
+    public int triangleNumber(int[] nums) {
+        if (nums == null || nums.length < 3)
+            return 0;
         Arrays.sort(nums);
         int count = 0;
-        for (int i = nums.length-1; i >=2; i--) {
-        	for (int j = 0, k = i-1; j < k;) {
-        		int sum = nums[j] + nums[k];
-        		if (sum > nums[i]) {
-        			count += k-j;
-        			k--;
-        		}
-        		else {
-        			j++;
-        		}
-        	}
+        for (int i = nums.length - 1; i >= 2; i--) {
+            for (int j = 0, k = i - 1; j < k;) {
+                int sum = nums[j] + nums[k];
+                if (sum > nums[i]) {
+                    count += k - j;
+                    k--;
+                } else {
+                    j++;
+                }
+            }
         }
         return count;
     }
 
-	public static void main(String[] args) {
-		ValidTriangleNumber vtn = new ValidTriangleNumber();
-		int[] nums = {2, 2, 3, 4};
-		System.out.println(vtn.triangleNumber(nums));
-	}
+    public static void main(String[] args) {
+        ValidTriangleNumber vtn = new ValidTriangleNumber();
+        int[] nums = { 2, 2, 3, 4 };
+        System.out.println(vtn.triangleNumber(nums));
+    }
 }

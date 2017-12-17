@@ -23,25 +23,28 @@ import java.util.Queue;
  * Similar Questions: 102(Binary Tree Level Order Traversal), 107(102(Binary Tree Level Order Traversal II)
  */
 public class AverageOfLevels {
-	public List<Double> averageOfLevels(TreeNode root) {
-		List<Double> result = new ArrayList<>();
-		if (root == null) return result;
-		
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<Double> result = new ArrayList<>();
+        if (root == null)
+            return result;
+
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         while (!queue.isEmpty()) {
-        	long sum = 0;
-        	int size = queue.size();
-        	for (int i = 0; i < size; i++) {
-        		TreeNode node = queue.poll();
-        		if (node.left != null) queue.offer(node.left);
-        		if (node.right != null) queue.offer(node.right);
-        		sum += node.val;
-        	}
-        	result.add(Double.valueOf(sum) / size);
+            long sum = 0;
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (node.left != null)
+                    queue.offer(node.left);
+                if (node.right != null)
+                    queue.offer(node.right);
+                sum += node.val;
+            }
+            result.add(Double.valueOf(sum) / size);
         }
-		
-		return result;
+
+        return result;
     }
 
 }

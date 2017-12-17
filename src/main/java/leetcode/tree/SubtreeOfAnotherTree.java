@@ -38,33 +38,40 @@ import java.util.Stack;
  * Similar Questions: 250(CountUnivalueSubtree)
  */
 public class SubtreeOfAnotherTree {
-	public boolean isSubtree(TreeNode s, TreeNode t) {
-		if (s == null) return t == null;
-		if (t == null) return true;
-		
-		// For each node during pre-order traversal of s, use a recursive function isSame to 
-		// validate if sub-tree started with this node is the same with t.
-		Stack<TreeNode> stack = new Stack<>();
-		stack.push(s);
-		while (!stack.isEmpty()) {
-			TreeNode node = stack.pop();
-			if (isSameTree(node, t)) return true;
-			if (node.right != null) {
-				stack.push(node.right);
-			}
-			if (node.left != null) {
-				stack.push(node.left);
-			}
-		}
-		return false;
+    public boolean isSubtree(TreeNode s, TreeNode t) {
+        if (s == null)
+            return t == null;
+        if (t == null)
+            return true;
+
+        // For each node during pre-order traversal of s, use a recursive
+        // function isSame to
+        // validate if sub-tree started with this node is the same with t.
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(s);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            if (isSameTree(node, t))
+                return true;
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+        }
+        return false;
     }
-	
-	private boolean isSameTree(TreeNode s, TreeNode t) {
-		if (s == null) return t == null;
-		if (t == null) return false;
-		
-		if (s.val != t.val) return false;
-		
-		return (s.val == t.val) && isSameTree(s.left, t.left) && isSameTree(s.right, t.right);
-	}
+
+    private boolean isSameTree(TreeNode s, TreeNode t) {
+        if (s == null)
+            return t == null;
+        if (t == null)
+            return false;
+
+        if (s.val != t.val)
+            return false;
+
+        return (s.val == t.val) && isSameTree(s.left, t.left) && isSameTree(s.right, t.right);
+    }
 }

@@ -46,62 +46,65 @@ import java.util.Queue;
  * Difficulty: hard
  */
 public class CutOffTreeForGolfEvent {
-	private static final int[][] DIRS = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-	
-	public int cutOffTree(List<List<Integer>> forest) {
-		if (forest == null || forest.isEmpty()) return 0;
-		int m = forest.size(), n = forest.get(0).size();
-		PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[2]-b[2]);
-		for (int i = 0; i < m; i++) {
-        	for (int j = 0; j < n; j++) {
-        		if (forest.get(i).get(j) > 1) pq.offer(new int[] {i, j, forest.get(i).get(j)});
-        	}
+    private static final int[][] DIRS = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+
+    public int cutOffTree(List<List<Integer>> forest) {
+        if (forest == null || forest.isEmpty())
+            return 0;
+        int m = forest.size(), n = forest.get(0).size();
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[2] - b[2]);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (forest.get(i).get(j) > 1)
+                    pq.offer(new int[] { i, j, forest.get(i).get(j) });
+            }
         }
-		
-		int[] start = {0, 0}; 
+
+        int[] start = { 0, 0 };
         int minSteps = 0;
         while (!pq.isEmpty()) {
-        	int[] current = pq.poll();
-        	
-        	// calculate the min step from start to current
-        	int currentSteps = minSteps(forest, start, current, m, n);
-        	if (currentSteps == -1) {
-        		return -1;  // cannot reach current from start
-        	}
-        	
-        	minSteps += currentSteps;
-        	// reset start to current
-        	start[0] = current[0];
-        	start[1] = current[1];
+            int[] current = pq.poll();
+
+            // calculate the min step from start to current
+            int currentSteps = minSteps(forest, start, current, m, n);
+            if (currentSteps == -1) {
+                return -1; // cannot reach current from start
+            }
+
+            minSteps += currentSteps;
+            // reset start to current
+            start[0] = current[0];
+            start[1] = current[1];
         }
-  
+
         return minSteps;
     }
-	
-	// use BFS to calculate minimum steps to reach end from start
-	private int minSteps(List<List<Integer>> forest, int[] start, int[] end, int m, int n) {
-		boolean[][] visited = new boolean[m][n];
-		visited[start[0]][start[1]] = true;
-		Queue<int[]> queue = new LinkedList<>();
-		queue.offer(start);
-		int steps = 0;
-		
-		while(!queue.isEmpty()) {
-			int size = queue.size();
-			while (size-- > 0) {
-				int[] current = queue.poll();
-				if (current[0] == end[0] && current[1] == end[1]) return steps;
 
-				for (int[] dir : DIRS) {
-					int x = current[0] + dir[0], y = current[1] + dir[1];
-					if (x >=0 && x < m && y >= 0 && y < n && !visited[x][y] && forest.get(x).get(y) >= 1) {
-						queue.offer(new int[] {x, y});
-						visited[x][y] = true;
-					}
-				}
-			}
-			steps++;
-		}
-		return -1; // no path to end
-	}
+    // use BFS to calculate minimum steps to reach end from start
+    private int minSteps(List<List<Integer>> forest, int[] start, int[] end, int m, int n) {
+        boolean[][] visited = new boolean[m][n];
+        visited[start[0]][start[1]] = true;
+        Queue<int[]> queue = new LinkedList<>();
+        queue.offer(start);
+        int steps = 0;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size-- > 0) {
+                int[] current = queue.poll();
+                if (current[0] == end[0] && current[1] == end[1])
+                    return steps;
+
+                for (int[] dir : DIRS) {
+                    int x = current[0] + dir[0], y = current[1] + dir[1];
+                    if (x >= 0 && x < m && y >= 0 && y < n && !visited[x][y] && forest.get(x).get(y) >= 1) {
+                        queue.offer(new int[] { x, y });
+                        visited[x][y] = true;
+                    }
+                }
+            }
+            steps++;
+        }
+        return -1; // no path to end
+    }
 }

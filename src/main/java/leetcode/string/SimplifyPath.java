@@ -17,58 +17,61 @@ import java.util.Stack;
  * 	In this case, you should ignore redundant slashes and return "/home/foo".
  */
 public class SimplifyPath {
-	public String simplifyPath_withStack(String path) {
-        if (path == null || path.isEmpty()) return path;
-        
+    public String simplifyPath_withStack(String path) {
+        if (path == null || path.isEmpty())
+            return path;
+
         String[] dirs = path.split("/");
         Stack<String> stack = new Stack<>();
         for (String dir : dirs) {
-        	if (dir.isEmpty() || ".".equals(dir)) {
-        		continue;
-        	}
-        	
-        	if ("..".equals(dir)) {
-        		if (!stack.isEmpty()) stack.pop();
-        	}
-        	else {
-        		stack.push(dir);
-        	}
+            if (dir.isEmpty() || ".".equals(dir)) {
+                continue;
+            }
+
+            if ("..".equals(dir)) {
+                if (!stack.isEmpty())
+                    stack.pop();
+            } else {
+                stack.push(dir);
+            }
         }
-        
+
         return "/" + String.join("/", stack);
     }
-	
-	public String simplifyPath_withDeque(String path) {
-        if (path == null || path.isEmpty()) return path;
-        
+
+    public String simplifyPath_withDeque(String path) {
+        if (path == null || path.isEmpty())
+            return path;
+
         String[] dirs = path.split("/");
         Deque<String> list = new LinkedList<>();
         for (String dir : dirs) {
-        	if (dir.isEmpty() || ".".equals(dir)) {
-        		continue;
-        	}
-        	
-        	if ("..".equals(dir)) {
-        		if (!list.isEmpty()) list.removeLast();
-        	}
-        	else {
-        		list.add(dir);
-        	}
+            if (dir.isEmpty() || ".".equals(dir)) {
+                continue;
+            }
+
+            if ("..".equals(dir)) {
+                if (!list.isEmpty())
+                    list.removeLast();
+            } else {
+                list.add(dir);
+            }
         }
-        
+
         StringBuilder sb = new StringBuilder("/");
         for (String s : list) {
-        	sb.append(s).append("/");
+            sb.append(s).append("/");
         }
-        if (sb.length() > 1) sb.setLength(sb.length() - 1);
-        
+        if (sb.length() > 1)
+            sb.setLength(sb.length() - 1);
+
         return sb.toString();
     }
-	
-	public static void main(String[] args) {
-		SimplifyPath s = new SimplifyPath();
-		String path = "/abc/....";
-		System.out.println(s.simplifyPath_withDeque(path));
-		
-	}
+
+    public static void main(String[] args) {
+        SimplifyPath s = new SimplifyPath();
+        String path = "/abc/....";
+        System.out.println(s.simplifyPath_withDeque(path));
+
+    }
 }

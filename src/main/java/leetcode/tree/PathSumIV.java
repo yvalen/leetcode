@@ -30,38 +30,46 @@ import java.util.Map;
  * Similar Questions: 112(Path Sum), 113(Path Sum II), 437(Path Sum III), 124(Binary Tree Max Path Sum)
  */
 public class PathSumIV {
-	// each tree node is represented by a number. 1st digits is the level, 2nd is the position in that level 
-	// (note that it starts from 1 instead of 0). 3rd digit is the value.
-	// we can form a tree using a HashMap. The key is first two digits which marks the position of a node in the tree. 
-	// The value is value of that node. Thus, we can easily find a node's left and right children using math.
-	// Formula: For node xy (x is the depth, y is the position), its left child is (x+1)(y*2-1) and right child is (x+1)(y*2)
+    // each tree node is represented by a number. 1st digits is the level, 2nd
+    // is the position in that level
+    // (note that it starts from 1 instead of 0). 3rd digit is the value.
+    // we can form a tree using a HashMap. The key is first two digits which
+    // marks the position of a node in the tree.
+    // The value is value of that node. Thus, we can easily find a node's left
+    // and right children using math.
+    // Formula: For node xy (x is the depth, y is the position), its left child
+    // is (x+1)(y*2-1) and right child is (x+1)(y*2)
 
-	public int pathSum(int[] nums) {
-        if (nums == null || nums.length == 0) return 0;
-        
-        // map represents the tree, key is the node position, value is node's value
+    public int pathSum(int[] nums) {
+        if (nums == null || nums.length == 0)
+            return 0;
+
+        // map represents the tree, key is the node position, value is node's
+        // value
         Map<Integer, Integer> map = new HashMap<>();
         for (int num : nums) {
-        	map.put(num / 10, num % 10);        	
+            map.put(num / 10, num % 10);
         }
         dfs(map, nums[0] / 10, 0);
         return sum;
     }
-	
-	private int sum;
-	
-	private void dfs(Map<Integer, Integer> map, int node, int currentSum) {
-		int level = node / 10, pos = node % 10;
-		int left = (level+1) * 10 + (2*pos-1);
-		int right = (level+1) * 10 + (2*pos);
-		
-		currentSum += map.get(node);
-		if (!map.containsKey(left) && !map.containsKey(right)) { // leaf node, add to sum
-			sum += currentSum;
-		}
-		else {
-			if (map.containsKey(left)) dfs(map, left, currentSum);
-			if (map.containsKey(right)) dfs(map, right, currentSum);
-		}
-	}
+
+    private int sum;
+
+    private void dfs(Map<Integer, Integer> map, int node, int currentSum) {
+        int level = node / 10, pos = node % 10;
+        int left = (level + 1) * 10 + (2 * pos - 1);
+        int right = (level + 1) * 10 + (2 * pos);
+
+        currentSum += map.get(node);
+        if (!map.containsKey(left) && !map.containsKey(right)) { // leaf node,
+                                                                 // add to sum
+            sum += currentSum;
+        } else {
+            if (map.containsKey(left))
+                dfs(map, left, currentSum);
+            if (map.containsKey(right))
+                dfs(map, right, currentSum);
+        }
+    }
 }

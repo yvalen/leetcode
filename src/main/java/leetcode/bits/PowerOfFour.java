@@ -13,14 +13,27 @@ package leetcode.bits;
  * 0x55555555 -> 0101 0101 0101 0101 0101 0101 0101 0101
  */
 public class PowerOfFour {
-	public boolean isPowerOfFour(int num) {
-        return (num > 0 && 
-        		(num & (num-1)) == 0 && 
-        		(num & 0x55555555) != 0);  // need to check !=0 here, cannot use ==1 since the result could be bigger than 1
+    public boolean isPowerOfFour(int num) {
+        return (num > 0 && (num & (num - 1)) == 0 && (num & 0x55555555) != 0); // need
+                                                                               // to
+                                                                               // check
+                                                                               // !=0
+                                                                               // here,
+                                                                               // cannot
+                                                                               // use
+                                                                               // ==1
+                                                                               // since
+                                                                               // the
+                                                                               // result
+                                                                               // could
+                                                                               // be
+                                                                               // bigger
+                                                                               // than
+                                                                               // 1
     }
-	
-	public boolean isPowerOfFour_withInteger(int num) {
+
+    public boolean isPowerOfFour_withInteger(int num) {
         return (num > 0 && Integer.bitCount(num) == 1 && Integer.numberOfTrailingZeros(num) % 2 == 0);
     }
-	
+
 }

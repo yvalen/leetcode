@@ -14,25 +14,24 @@ package leetcode.greedy;
  * Difficulty: hard
  */
 public class PatchingArray {
-	public int minPatches(int[] nums, int n) {
+    public int minPatches(int[] nums, int n) {
         int patches = 0, i = 0;
-        long miss = 1;  // use long to prevent overflow
+        long miss = 1; // use long to prevent overflow
         while (miss <= n) {
-        	if (i < nums.length && nums[i] <= miss) {
-        		miss += nums[i++];
-        	}
-        	else {
-        		miss += miss;
-        		patches++;
-        	}
+            if (i < nums.length && nums[i] <= miss) {
+                miss += nums[i++];
+            } else {
+                miss += miss;
+                patches++;
+            }
         }
         return patches;
     }
-	
-	public static void main(String[] args) {
-		PatchingArray pa = new PatchingArray();
-		int[] nums = {1, 2, 31, 33};
-		int n  = 2147483647;
-		System.out.println(pa.minPatches(nums, n));
-	}
+
+    public static void main(String[] args) {
+        PatchingArray pa = new PatchingArray();
+        int[] nums = { 1, 2, 31, 33 };
+        int n = 2147483647;
+        System.out.println(pa.minPatches(nums, n));
+    }
 }

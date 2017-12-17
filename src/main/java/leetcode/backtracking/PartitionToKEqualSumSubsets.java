@@ -14,33 +14,41 @@ package leetcode.backtracking;
  * Similar Questions: 416(PartitionEqualSubsetSum)
  */
 public class PartitionToKEqualSumSubsets {
-	// The dfs process is to find a subset of nums[] which sum equals to sum/k. 
-	// We use an array visited[] to record which element in nums[] is used. 
-	// Each time when we get a cur_sum = sum/k, we will start from position 0 in 
-	// nums[] to look up the elements that are not used yet and find another cur_sum = sum/k.
-	// we need to test every possible combination until we find one with backtracking
-	public boolean canPartitionKSubsets(int[] nums, int k) {
-        if (nums == null || nums.length == 0) return false;
-        
+    // The dfs process is to find a subset of nums[] which sum equals to sum/k.
+    // We use an array visited[] to record which element in nums[] is used.
+    // Each time when we get a cur_sum = sum/k, we will start from position 0 in
+    // nums[] to look up the elements that are not used yet and find another
+    // cur_sum = sum/k.
+    // we need to test every possible combination until we find one with
+    // backtracking
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        if (nums == null || nums.length == 0)
+            return false;
+
         int sum = 0;
-        for (int num : nums) sum += num;
-		
-        if (sum % k != 0) return false;
-        
+        for (int num : nums)
+            sum += num;
+
+        if (sum % k != 0)
+            return false;
+
         sum /= k;
         return canPartition(nums, new boolean[nums.length], 0, sum, k, 0);
     }
 
-	private boolean canPartition(int[] nums, boolean[] visited, int currentSum, int target, int k, int start) {
-		if (k == 1) return true;
-		if (currentSum == target) return canPartition(nums, visited, 0, target, k-1, 0);
-		for (int i = start; i < nums.length; i++) {
-			if (!visited[i]) {
-				visited[i] = true;
-				if (canPartition(nums, visited, currentSum+nums[i], target, k, i+1)) return true;
-				visited[i] = false; // back track
-			}
-		}
-		return false;
-	}
+    private boolean canPartition(int[] nums, boolean[] visited, int currentSum, int target, int k, int start) {
+        if (k == 1)
+            return true;
+        if (currentSum == target)
+            return canPartition(nums, visited, 0, target, k - 1, 0);
+        for (int i = start; i < nums.length; i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                if (canPartition(nums, visited, currentSum + nums[i], target, k, i + 1))
+                    return true;
+                visited[i] = false; // back track
+            }
+        }
+        return false;
+    }
 }

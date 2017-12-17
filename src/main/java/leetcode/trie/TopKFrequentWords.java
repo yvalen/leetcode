@@ -30,32 +30,32 @@ import java.util.PriorityQueue;
  * Similar Questions: 347(TopKFrequentElements)
  */
 public class TopKFrequentWords {
-	public List<String> topKFrequent_withPriorityQueue(String[] words, int k) {
+    public List<String> topKFrequent_withPriorityQueue(String[] words, int k) {
         Map<String, Integer> countMap = new HashMap<>();
         for (String word : words) {
-        	countMap.put(word, countMap.getOrDefault(word, 0)+1);
+            countMap.put(word, countMap.getOrDefault(word, 0) + 1);
         }
-        
-        PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(k, 
-        		(a, b) -> a.getValue()==b.getValue() ? b.getKey().compareTo(a.getKey()) : a.getValue()-b.getValue());
+
+        PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(k, (a, b) -> a.getValue() == b.getValue()
+                ? b.getKey().compareTo(a.getKey()) : a.getValue() - b.getValue());
         for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
-        	if (pq.size() < k) {
-        		pq.offer(entry);
-        	}
-        	else {
-        		Map.Entry<String, Integer> top = pq.peek();
-        		if (top.getValue() < entry.getValue() || (top.getValue()== entry.getValue() && top.getKey().compareTo(entry.getKey())>0)) {
-        			pq.poll();pq.offer(entry);
-        		}
-        	}
+            if (pq.size() < k) {
+                pq.offer(entry);
+            } else {
+                Map.Entry<String, Integer> top = pq.peek();
+                if (top.getValue() < entry.getValue()
+                        || (top.getValue() == entry.getValue() && top.getKey().compareTo(entry.getKey()) > 0)) {
+                    pq.poll();
+                    pq.offer(entry);
+                }
+            }
         }
-        
+
         LinkedList<String> result = new LinkedList<>();
-        while(!pq.isEmpty()) {
-        	result.addFirst(pq.poll().getKey());
+        while (!pq.isEmpty()) {
+            result.addFirst(pq.poll().getKey());
         }
         return result;
     }
-	
 
 }

@@ -11,17 +11,19 @@ package leetcode.bits;
  * - Length of the array will not exceed 10^4.
  */
 public class TotalHammingDistance {
-	// Time complexity: O(nlogv) - v is the max value in nums
-	public int totalHammingDistance(int[] nums) {
-		int totalDistance = 0, n = nums.length;
-		// check each individual bit
-		for (int i = 0; i< 32; i++) {
-			int count = 0; // count of numbers that has ith bit set
-			for (int num : nums) {
-				count += (num >> i) & 1;
-			}
-			totalDistance += count * (n - count); // count numbers set, n-count not set, combination is count*(n-count)
-		}
-		return totalDistance;
+    // Time complexity: O(nlogv) - v is the max value in nums
+    public int totalHammingDistance(int[] nums) {
+        int totalDistance = 0, n = nums.length;
+        // check each individual bit
+        for (int i = 0; i < 32; i++) {
+            int count = 0; // count of numbers that has ith bit set
+            for (int num : nums) {
+                count += (num >> i) & 1;
+            }
+            totalDistance += count * (n - count); // count numbers set, n-count
+                                                  // not set, combination is
+                                                  // count*(n-count)
+        }
+        return totalDistance;
     }
 }

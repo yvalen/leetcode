@@ -9,18 +9,17 @@ package leetcode.array;
  * a positive integer and will not exceed 10,000
  */
 public class MaxConsecutiveOnes {
-	public int findMaxConsecutiveOnes(int[] nums) {
+    public int findMaxConsecutiveOnes(int[] nums) {
         int max = 0, count = 0;
         for (int num : nums) {
-        	if (num == 0) {
-        		count = 0;
-        	}
-        	else {
-        		count++;
-        		max = Integer.max(max, count);
-        	}
+            if (num == 0) {
+                count = 0;
+            } else {
+                count++;
+                max = Integer.max(max, count);
+            }
         }
-		
-		return max;
+
+        return max;
     }
 }

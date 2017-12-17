@@ -21,41 +21,38 @@ import java.util.Stack;
  * Difficulty: medium
  */
 public class MiniParser {
-	public NestedInteger deserialize(String s) {
-		if (!s.startsWith("[")) return new NestedInteger(Integer.parseInt(s));
-		
-		Stack<NestedInteger> stack = new Stack<>();
-		NestedInteger ni = new NestedInteger();
-		boolean isNegative = false;
-		int num = 0;
-		for (char c : s.toCharArray()) {
-			if (c == '[') {
-				stack.push(ni);
-				ni = new NestedInteger();
-			}
-			else if (Character.isDigit(c)) {
-				num = num * 10 + (c -'0');
-			}
-			else if (c == '-') {
-				isNegative = true;
-			}
-			else if (c == ',') {
-				ni.add(new NestedInteger(num * (isNegative ? -1 : 1)));
-				num = 0;
-				isNegative = false;
-			}
-			else if (c == ']') {
-				NestedInteger tmp = ni;
-				ni = stack.pop();
-				ni.add(tmp);
-			}
-		}
-		return ni;
+    public NestedInteger deserialize(String s) {
+        if (!s.startsWith("["))
+            return new NestedInteger(Integer.parseInt(s));
+
+        Stack<NestedInteger> stack = new Stack<>();
+        NestedInteger ni = new NestedInteger();
+        boolean isNegative = false;
+        int num = 0;
+        for (char c : s.toCharArray()) {
+            if (c == '[') {
+                stack.push(ni);
+                ni = new NestedInteger();
+            } else if (Character.isDigit(c)) {
+                num = num * 10 + (c - '0');
+            } else if (c == '-') {
+                isNegative = true;
+            } else if (c == ',') {
+                ni.add(new NestedInteger(num * (isNegative ? -1 : 1)));
+                num = 0;
+                isNegative = false;
+            } else if (c == ']') {
+                NestedInteger tmp = ni;
+                ni = stack.pop();
+                ni.add(tmp);
+            }
+        }
+        return ni;
     }
-	
-	public static void main(String[] args) {
-		MiniParser mp = new MiniParser();
-		String s = "[123,[456,[789]]]";
-		System.out.println(mp.deserialize(s));
-	}
+
+    public static void main(String[] args) {
+        MiniParser mp = new MiniParser();
+        String s = "[123,[456,[789]]]";
+        System.out.println(mp.deserialize(s));
+    }
 }

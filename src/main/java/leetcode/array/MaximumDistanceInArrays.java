@@ -25,56 +25,46 @@ import java.util.List;
  * Difficulty: easy
  */
 public class MaximumDistanceInArrays {
-	public int maxDistance(List<List<Integer>> arrays) {
-        int min = arrays.get(0).get(0), max = arrays.get(0).get(arrays.get(0).size()-1);
-		int result = Integer.MIN_VALUE;
-		for (int i = 1; i < arrays.size(); i++) {
-			int currentMin = arrays.get(i).get(0), currentMax = arrays.get(i).get(arrays.get(i).size()-1);
-			result = Math.max(result, currentMax-min);
-			result = Math.max(result, max-currentMin);
-			min = Math.min(min, currentMin);
-			max = Math.max(max, currentMax);
-		}
-		return result;
-		/*
-        int[] firstMin = {-1, 10000}, secondMin = {-1, 10000};
-        int[] firstMax = {-1, -10000}, secondMax = {-1, -10000};
-        for (int i = 0; i < arrays.size(); i++) {
-        	int currentMin = arrays.get(i).get(0), currentMax = arrays.get(i).get(arrays.get(i).size()-1);
-        	if (firstMin[1] > currentMin) {
-        		secondMin[0] = firstMin[0];
-        		secondMin[1] = firstMin[1];
-        		firstMin[0] = i;
-        		firstMin[1] = currentMin;
-        	}
-        	else if (secondMin[1] > currentMin) {
-        		secondMin[0] = i;
-        		secondMin[1] = currentMin;
-        	}
-        	if (firstMax[1] < currentMax) {
-        		secondMax[0] = firstMax[0];
-        		secondMax[1] = firstMax[1];
-        		firstMax[0] = i;
-        		firstMax[1] = currentMax;
-        	}
-        	else if (secondMax[1] < currentMax) {
-        		secondMax[0] = i;
-        		secondMax[1] = currentMax;
-        	}
+    public int maxDistance(List<List<Integer>> arrays) {
+        int min = arrays.get(0).get(0), max = arrays.get(0).get(arrays.get(0).size() - 1);
+        int result = Integer.MIN_VALUE;
+        for (int i = 1; i < arrays.size(); i++) {
+            int currentMin = arrays.get(i).get(0), currentMax = arrays.get(i).get(arrays.get(i).size() - 1);
+            result = Math.max(result, currentMax - min);
+            result = Math.max(result, max - currentMin);
+            min = Math.min(min, currentMin);
+            max = Math.max(max, currentMax);
         }
-        
-        if (firstMin[0] != firstMax[0]) return firstMax[1] - firstMin[1];
-        
-        return Math.max(firstMax[1]-secondMin[1], secondMax[1]-firstMin[1]);
-        */
+        return result;
+        /*
+         * int[] firstMin = {-1, 10000}, secondMin = {-1, 10000}; int[] firstMax
+         * = {-1, -10000}, secondMax = {-1, -10000}; for (int i = 0; i <
+         * arrays.size(); i++) { int currentMin = arrays.get(i).get(0),
+         * currentMax = arrays.get(i).get(arrays.get(i).size()-1); if
+         * (firstMin[1] > currentMin) { secondMin[0] = firstMin[0]; secondMin[1]
+         * = firstMin[1]; firstMin[0] = i; firstMin[1] = currentMin; } else if
+         * (secondMin[1] > currentMin) { secondMin[0] = i; secondMin[1] =
+         * currentMin; } if (firstMax[1] < currentMax) { secondMax[0] =
+         * firstMax[0]; secondMax[1] = firstMax[1]; firstMax[0] = i; firstMax[1]
+         * = currentMax; } else if (secondMax[1] < currentMax) { secondMax[0] =
+         * i; secondMax[1] = currentMax; } }
+         * 
+         * if (firstMin[0] != firstMax[0]) return firstMax[1] - firstMin[1];
+         * 
+         * return Math.max(firstMax[1]-secondMin[1], secondMax[1]-firstMin[1]);
+         */
     }
-	
-	public static void main(String[] args) {
-		MaximumDistanceInArrays mda = new MaximumDistanceInArrays ();
-		List<List<Integer>> arrays = Arrays.asList(
-				Arrays.asList(1, 4),
-				Arrays.asList(0, 5) 
-		); // expected output should be 4 instead of 5
-		System.out.println(mda.maxDistance(arrays));
-	}
+
+    public static void main(String[] args) {
+        MaximumDistanceInArrays mda = new MaximumDistanceInArrays();
+        List<List<Integer>> arrays = Arrays.asList(Arrays.asList(1, 4), Arrays.asList(0, 5)); // expected
+                                                                                              // output
+                                                                                              // should
+                                                                                              // be
+                                                                                              // 4
+                                                                                              // instead
+                                                                                              // of
+                                                                                              // 5
+        System.out.println(mda.maxDistance(arrays));
+    }
 }

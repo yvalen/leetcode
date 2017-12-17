@@ -37,49 +37,53 @@ import java.util.Queue;
  * Difficulty: medium
  */
 public class KillProcess {
-	public List<Integer> killProcess_bfs(List<Integer> pid, List<Integer> ppid, int kill) {
-		if (pid.size() != ppid.size()) return Collections.emptyList();
-		
-		Map<Integer, List<Integer>> adjList = new HashMap<>(pid.size());
-		for (int i = 0; i < pid.size(); i++) {
-			adjList.putIfAbsent(ppid.get(i), new ArrayList<>());
-			adjList.get(ppid.get(i)).add(pid.get(i));
-		}
-	
+    public List<Integer> killProcess_bfs(List<Integer> pid, List<Integer> ppid, int kill) {
+        if (pid.size() != ppid.size())
+            return Collections.emptyList();
+
+        Map<Integer, List<Integer>> adjList = new HashMap<>(pid.size());
+        for (int i = 0; i < pid.size(); i++) {
+            adjList.putIfAbsent(ppid.get(i), new ArrayList<>());
+            adjList.get(ppid.get(i)).add(pid.get(i));
+        }
+
         List<Integer> result = new ArrayList<>();
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(kill);
         while (!queue.isEmpty()) {
-        	Integer current = queue.poll();
-        	if (adjList.containsKey(current)) queue.addAll(adjList.get(current));
-        	result.add(current);
+            Integer current = queue.poll();
+            if (adjList.containsKey(current))
+                queue.addAll(adjList.get(current));
+            result.add(current);
         }
-        
+
         return result;
     }
 
-	public List<Integer> killProcess_dfs(List<Integer> pid, List<Integer> ppid, int kill) {
-		if (pid.size() != ppid.size()) return Collections.emptyList();
-		
-		Map<Integer, List<Integer>> adjList = new HashMap<>(pid.size());
-		for (int i = 0; i < pid.size(); i++) {
-			adjList.putIfAbsent(ppid.get(i), new ArrayList<>());
-			adjList.get(ppid.get(i)).add(pid.get(i));
-		}
-	
+    public List<Integer> killProcess_dfs(List<Integer> pid, List<Integer> ppid, int kill) {
+        if (pid.size() != ppid.size())
+            return Collections.emptyList();
+
+        Map<Integer, List<Integer>> adjList = new HashMap<>(pid.size());
+        for (int i = 0; i < pid.size(); i++) {
+            adjList.putIfAbsent(ppid.get(i), new ArrayList<>());
+            adjList.get(ppid.get(i)).add(pid.get(i));
+        }
+
         List<Integer> result = new ArrayList<>();
         result.add(kill);
         dfs(adjList, result, kill);
         return result;
     }
-	
-	private void dfs(Map<Integer, List<Integer>> adjList, List<Integer> result, int kill) {
-		if (!adjList.containsKey(kill)) return;
-		
-		for (Integer i : adjList.get(kill)) {
-			result.add(i);
-			dfs(adjList, result, i);
-		}
-	}
+
+    private void dfs(Map<Integer, List<Integer>> adjList, List<Integer> result, int kill) {
+        if (!adjList.containsKey(kill))
+            return;
+
+        for (Integer i : adjList.get(kill)) {
+            result.add(i);
+            dfs(adjList, result, i);
+        }
+    }
 
 }

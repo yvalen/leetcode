@@ -27,20 +27,21 @@ package leetcode.tree;
  * Similar Questions: 250(CountUnivalueSubtree), 437(Path Sum III), 572(SubtreeOfAnotherTree)
  */
 public class LongestUnivaluePath {
-	public int longestUnivaluePath(TreeNode root) {
-		int[] result = new int[1]; // global max
-		postorder(root, result);
+    public int longestUnivaluePath(TreeNode root) {
+        int[] result = new int[1]; // global max
+        postorder(root, result);
         return result[0];
     }
-	
-	private int postorder(TreeNode root, int[] result) {
-		if (root == null) return 0;
-		
-		int left = postorder(root.left, result);
-		int right = postorder(root.right, result);
-		int resultl = root.left != null && root.left.val == root.val ? left + 1 : 0;
-		int resultr = root.right != null && root.right.val == root.val ? right + 1 : 0;
-		result[0] = Math.max(result[0], resultl + resultr);
-		return Math.max(resultl, resultr);
-	}
+
+    private int postorder(TreeNode root, int[] result) {
+        if (root == null)
+            return 0;
+
+        int left = postorder(root.left, result);
+        int right = postorder(root.right, result);
+        int resultl = root.left != null && root.left.val == root.val ? left + 1 : 0;
+        int resultr = root.right != null && root.right.val == root.val ? right + 1 : 0;
+        result[0] = Math.max(result[0], resultl + resultr);
+        return Math.max(resultl, resultr);
+    }
 }

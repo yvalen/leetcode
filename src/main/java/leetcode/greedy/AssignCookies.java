@@ -20,31 +20,31 @@ import java.util.Arrays;
  * Difficulty: easy
  */
 public class AssignCookies {
-	public int findContentChildren(int[] g, int[] s) {
-        if (g == null || g.length == 0 || s == null || s.length == 0) return 0;
-        
+    public int findContentChildren(int[] g, int[] s) {
+        if (g == null || g.length == 0 || s == null || s.length == 0)
+            return 0;
+
         Arrays.sort(g);
         Arrays.sort(s);
-        
+
         int contentChildren = 0;
         for (int i = 0, j = 0; i < g.length && j < s.length;) {
-        	if (s[j] >= g[i]) {
-        		i++;
-        		j++;
-        		contentChildren++;
-        	}
-        	else {
-        		j++;
-        	}
+            if (s[j] >= g[i]) {
+                i++;
+                j++;
+                contentChildren++;
+            } else {
+                j++;
+            }
         }
-        
+
         return contentChildren;
     }
-	
-	public static void main(String[] args) {
-		AssignCookies ac = new AssignCookies();
-		//int[] g = {1, 2, 3}, s = {1, 1};
-		int[] g = {1, 2}, s = {1, 2, 3};
-		System.out.println(ac.findContentChildren(g, s));
-	}
+
+    public static void main(String[] args) {
+        AssignCookies ac = new AssignCookies();
+        // int[] g = {1, 2, 3}, s = {1, 1};
+        int[] g = { 1, 2 }, s = { 1, 2, 3 };
+        System.out.println(ac.findContentChildren(g, s));
+    }
 }

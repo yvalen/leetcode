@@ -8,19 +8,19 @@ import java.util.Arrays;
  * The digits are stored such that the most significant digit is at the head of the list.
  */
 public class PlusOne {
-	public int[] plusOne(int[] digits) {
+    public int[] plusOne(int[] digits) {
         int n = digits.length;
         for (int i = n - 1; i >= 0; i--) {
-        	if (digits[i] < 9 )  {
-        		digits[i]++;
-        		return digits;
-        	}
-        	digits[i] = 0;
+            if (digits[i] < 9) {
+                digits[i]++;
+                return digits;
+            }
+            digits[i] = 0;
         }
-        int[] result = new int[n+1];
+        int[] result = new int[n + 1];
         result[0] = 1;
         // no need to copy digits over because every element is 0
         return result;
     }
-	
+
 }

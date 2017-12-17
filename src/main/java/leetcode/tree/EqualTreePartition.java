@@ -40,23 +40,27 @@ import java.util.Map;
  * Difficulty: medium
  */
 public class EqualTreePartition {
-	// The idea is to use a hash table to record all the different sums of each subtree in the tree. 
-	// If the total sum of the tree is sum, we just need to check if the hash table constains sum/2.
-	public boolean checkEqualTree(TreeNode root) {
-		Map<Integer, Integer> sumMap = new HashMap<>();
-		int sum = getSum(root, sumMap);
-		
-		// special handling for root=0, sum of left=-k, sum of right=k
-		// sum%0==0 and there should exist another subtree whose sum equals to 0
-		if (sum == 0) return sumMap.getOrDefault(0, 0) > 1;
- 		
-		return (sum % 2 == 0) && sumMap.containsKey(sum/2);
-	}
-	
-	private int getSum(TreeNode root, Map<Integer, Integer> sumMap) {
-		if (root == null) return 0;
-		int sum = root.val + getSum(root.left, sumMap) + getSum(root.right, sumMap);
-		sumMap.put(sum,  sumMap.getOrDefault(sum, 0) + 1);
-		return sum;
-	}
+    // The idea is to use a hash table to record all the different sums of each
+    // subtree in the tree.
+    // If the total sum of the tree is sum, we just need to check if the hash
+    // table constains sum/2.
+    public boolean checkEqualTree(TreeNode root) {
+        Map<Integer, Integer> sumMap = new HashMap<>();
+        int sum = getSum(root, sumMap);
+
+        // special handling for root=0, sum of left=-k, sum of right=k
+        // sum%0==0 and there should exist another subtree whose sum equals to 0
+        if (sum == 0)
+            return sumMap.getOrDefault(0, 0) > 1;
+
+        return (sum % 2 == 0) && sumMap.containsKey(sum / 2);
+    }
+
+    private int getSum(TreeNode root, Map<Integer, Integer> sumMap) {
+        if (root == null)
+            return 0;
+        int sum = root.val + getSum(root.left, sumMap) + getSum(root.right, sumMap);
+        sumMap.put(sum, sumMap.getOrDefault(sum, 0) + 1);
+        return sum;
+    }
 }

@@ -20,26 +20,26 @@ import java.util.stream.Collectors;
  * anagrams is a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.
  */
 public class GroupAnagrams {
-	public List<List<String>> groupAnagrams(String[] strs) {
+    public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> map = new HashMap<>();
-		
-		for (String str : strs) {
-			char[] chars = str.toCharArray();
-			Arrays.sort(chars);
-			String key = new String(chars);
-			List<String> list =  map.getOrDefault(key, new ArrayList<>());
-			list.add(str);
-			map.put(key, list);
-		}
-		
-		return new ArrayList<List<String>>(map.values());
+
+        for (String str : strs) {
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
+            List<String> list = map.getOrDefault(key, new ArrayList<>());
+            list.add(str);
+            map.put(key, list);
+        }
+
+        return new ArrayList<List<String>>(map.values());
     }
-	
-	public static void main(String[] args) {
-		GroupAnagrams g = new GroupAnagrams();
-		
-		String[] strs = {"", ""};
-		System.out.println(g.groupAnagrams(strs));
-		
-	}
+
+    public static void main(String[] args) {
+        GroupAnagrams g = new GroupAnagrams();
+
+        String[] strs = { "", "" };
+        System.out.println(g.groupAnagrams(strs));
+
+    }
 }

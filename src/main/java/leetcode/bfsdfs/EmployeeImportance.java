@@ -26,56 +26,60 @@ import java.util.Queue;
  * Difficulty: easy
  */
 public class EmployeeImportance {
-	private static class Employee {
-		// It's the unique id of each node;
-	    // unique id of this employee
-	    public int id;
-	    // the importance value of this employee
-	    public int importance;
-	    // the id of direct subordinates
-	    public List<Integer> subordinates;
-	}
-	
-	public int getImportance_bfs(List<Employee> employees, int id) {
-		if (employees == null || employees.isEmpty()) return 0;
-		 
-		Map<Integer, Employee> map = new HashMap<>();
-		for (Employee e : employees) {
-			map.put(e.id, e);
-		}
-		
-		if (!map.containsKey(id)) return 0;
-	
-		int result = 0;
-		Queue<Employee> queue = new LinkedList<>();
-		queue.offer(map.get(id));
-		while (!queue.isEmpty()) {
-			Employee current = queue.poll();
-			result += current.importance;
-			for (Integer s : current.subordinates) {
-				queue.offer(map.get(s));
-			}
-		}
-		return result;
+    private static class Employee {
+        // It's the unique id of each node;
+        // unique id of this employee
+        public int id;
+        // the importance value of this employee
+        public int importance;
+        // the id of direct subordinates
+        public List<Integer> subordinates;
     }
-	
-	public int getImportance_dfs(List<Employee> employees, int id) {
-		if (employees == null || employees.isEmpty()) return 0;
-		Map<Integer, Employee> map = new HashMap<>();
-		for (Employee e : employees) {
-			map.put(e.id, e);
-		}
-		if (!map.containsKey(id)) return 0;
-		
-		return dfs(map, id);
-	}
-	
-	private int dfs(Map<Integer, Employee> map, int id) {
-		Employee e = map.get(id);
-		int result = e.importance;
-		for (int s : e.subordinates) {
-			result += dfs(map, s);
-		}
-		return result;
-	}
+
+    public int getImportance_bfs(List<Employee> employees, int id) {
+        if (employees == null || employees.isEmpty())
+            return 0;
+
+        Map<Integer, Employee> map = new HashMap<>();
+        for (Employee e : employees) {
+            map.put(e.id, e);
+        }
+
+        if (!map.containsKey(id))
+            return 0;
+
+        int result = 0;
+        Queue<Employee> queue = new LinkedList<>();
+        queue.offer(map.get(id));
+        while (!queue.isEmpty()) {
+            Employee current = queue.poll();
+            result += current.importance;
+            for (Integer s : current.subordinates) {
+                queue.offer(map.get(s));
+            }
+        }
+        return result;
+    }
+
+    public int getImportance_dfs(List<Employee> employees, int id) {
+        if (employees == null || employees.isEmpty())
+            return 0;
+        Map<Integer, Employee> map = new HashMap<>();
+        for (Employee e : employees) {
+            map.put(e.id, e);
+        }
+        if (!map.containsKey(id))
+            return 0;
+
+        return dfs(map, id);
+    }
+
+    private int dfs(Map<Integer, Employee> map, int id) {
+        Employee e = map.get(id);
+        int result = e.importance;
+        for (int s : e.subordinates) {
+            result += dfs(map, s);
+        }
+        return result;
+    }
 }

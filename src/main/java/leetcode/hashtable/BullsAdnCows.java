@@ -23,35 +23,38 @@ import java.util.Set;
  * You may assume that the secret number and your friend's guess only contain digits, and their lengths are always equal.
  */
 public class BullsAdnCows {
-	public String getHint(String secret, String guess) {
-		if (secret == null || secret.length() == 0 || guess == null || guess.length() == 0) return "0A0B";
-        
-		int bulls = 0, cows = 0;
-		int[] count = new int[10]; // record the appearance of the digit, digit in secret will increase the count, digit in guess will decrease the count
+    public String getHint(String secret, String guess) {
+        if (secret == null || secret.length() == 0 || guess == null || guess.length() == 0)
+            return "0A0B";
+
+        int bulls = 0, cows = 0;
+        int[] count = new int[10]; // record the appearance of the digit, digit
+                                   // in secret will increase the count, digit
+                                   // in guess will decrease the count
         for (int i = 0; i < Math.min(secret.length(), guess.length()); i++) {
-        	char s = secret.charAt(i) , g = guess.charAt(i);
-        	if (s == g) {
-        		bulls++;
-        	}
-        	else {
-        		// if previous part of guess contains the digit in secret 
-        		if (count[s-'0']++ < 0) cows++;
-        		
-        		// if previous part of secret contains the digit in guess 
-        		if (count[g-'0']-- > 0) cows++;
-        	}
+            char s = secret.charAt(i), g = guess.charAt(i);
+            if (s == g) {
+                bulls++;
+            } else {
+                // if previous part of guess contains the digit in secret
+                if (count[s - '0']++ < 0)
+                    cows++;
+
+                // if previous part of secret contains the digit in guess
+                if (count[g - '0']-- > 0)
+                    cows++;
+            }
         }
-        
+
         return bulls + "A" + cows + "B";
     }
-	
-	
-	public static void main(String[] args) {
-		BullsAdnCows bc = new BullsAdnCows();
-		//String secret = "1807", guess = "7810";
-		//String secret = "1123", guess = "0111";
-		String secret = "1122", guess = "2211";
-		
-		System.out.println(bc.getHint(secret, guess));
-	}
+
+    public static void main(String[] args) {
+        BullsAdnCows bc = new BullsAdnCows();
+        // String secret = "1807", guess = "7810";
+        // String secret = "1123", guess = "0111";
+        String secret = "1122", guess = "2211";
+
+        System.out.println(bc.getHint(secret, guess));
+    }
 }

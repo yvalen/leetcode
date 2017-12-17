@@ -27,41 +27,42 @@ import java.util.stream.IntStream;
  * return [2], since 2 happens twice, however -5 only occur once. 
  */
 public class MostFrequentSubtreeSum {
-	private int maxCount;
-	
-	public int[] findFrequentTreeSum(TreeNode root) {
-		if (root == null) return new int[0];
-		Map<Integer, Integer> sumCounts = new HashMap<>();
-		findFrequentTreeSum_helper(root, sumCounts);
-		List<Integer> result = new LinkedList<>();
-		for (Map.Entry<Integer, Integer> entry : sumCounts.entrySet()) {
-			if (entry.getValue() == maxCount) result.add(entry.getKey());
-		}
-		return result.stream().mapToInt(Integer::intValue).toArray();
+    private int maxCount;
+
+    public int[] findFrequentTreeSum(TreeNode root) {
+        if (root == null)
+            return new int[0];
+        Map<Integer, Integer> sumCounts = new HashMap<>();
+        findFrequentTreeSum_helper(root, sumCounts);
+        List<Integer> result = new LinkedList<>();
+        for (Map.Entry<Integer, Integer> entry : sumCounts.entrySet()) {
+            if (entry.getValue() == maxCount)
+                result.add(entry.getKey());
+        }
+        return result.stream().mapToInt(Integer::intValue).toArray();
     }
-	
-	private Integer findFrequentTreeSum_helper(TreeNode root, Map<Integer, Integer> sumCounts) {
-		Integer sum = root.val; 
-		sum += root.left != null ? findFrequentTreeSum_helper(root.left, sumCounts) : 0;
-		sum += root.right != null ? findFrequentTreeSum_helper(root.right, sumCounts) : 0;
-		int count = sumCounts.getOrDefault(sum, 0) + 1;
-		sumCounts.put(sum, count);
-		maxCount = Integer.max(count, maxCount);
-		return sum;
-	}
-	
-	public static void main(String[] args) {
-		MostFrequentSubtreeSum s = new MostFrequentSubtreeSum();
-		/*
-		TreeNode root = new TreeNode(5);
-		root.left = new TreeNode(2);
-		root.right = new TreeNode(-3);
-		*/
-		
-		TreeNode root = SerializeDeserialize.deserialize_bfs("3,1,5,0,2,4,6,null,null,null,3");
-		System.out.println(SerializeDeserialize.serialize_bfs(root));
-		
-		int[] result = s.findFrequentTreeSum(root);
-		IntStream.of(result).forEach(System.out::println);
-	}
+
+    private Integer findFrequentTreeSum_helper(TreeNode root, Map<Integer, Integer> sumCounts) {
+        Integer sum = root.val;
+        sum += root.left != null ? findFrequentTreeSum_helper(root.left, sumCounts) : 0;
+        sum += root.right != null ? findFrequentTreeSum_helper(root.right, sumCounts) : 0;
+        int count = sumCounts.getOrDefault(sum, 0) + 1;
+        sumCounts.put(sum, count);
+        maxCount = Integer.max(count, maxCount);
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        MostFrequentSubtreeSum s = new MostFrequentSubtreeSum();
+        /*
+         * TreeNode root = new TreeNode(5); root.left = new TreeNode(2);
+         * root.right = new TreeNode(-3);
+         */
+
+        TreeNode root = SerializeDeserialize.deserialize_bfs("3,1,5,0,2,4,6,null,null,null,3");
+        System.out.println(SerializeDeserialize.serialize_bfs(root));
+
+        int[] result = s.findFrequentTreeSum(root);
+        IntStream.of(result).forEach(System.out::println);
+    }
 }

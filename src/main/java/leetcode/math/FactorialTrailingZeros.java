@@ -10,16 +10,16 @@ package leetcode.math;
  * So we just count how many 5 factors in all number from 1 to n.
  */
 public class FactorialTrailingZeros {
-	public int trailingZeroes(int n) {
-        return n == 0? 0 : n/5 + trailingZeroes(n/5);
+    public int trailingZeroes(int n) {
+        return n == 0 ? 0 : n / 5 + trailingZeroes(n / 5);
     }
-	
-	public int trailingZeroes_iterative(int n) {
-		int result = 0;
-		while (n > 0) {
-			result += n / 5;
-			n = n/5;
-		}
-		return result;
-	}
+
+    public int trailingZeroes_iterative(int n) {
+        int result = 0;
+        while (n > 0) {
+            result += n / 5;
+            n = n / 5;
+        }
+        return result;
+    }
 }

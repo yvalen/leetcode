@@ -15,48 +15,54 @@ package leetcode.string;
  * Similar Questions: 28(StrStr), 686
  */
 public class RepeatedSubstringPattern {
-	public boolean repeatedSubstringPattern_bruteforce(String s) {
-		int n = s.length();
-		for (int i = 1; i <= n / 2; i++) {
-			if (n % i != 0) continue;
-			if (match(s.substring(0, i), s)) return true;
-		}
-		return false;
+    public boolean repeatedSubstringPattern_bruteforce(String s) {
+        int n = s.length();
+        for (int i = 1; i <= n / 2; i++) {
+            if (n % i != 0)
+                continue;
+            if (match(s.substring(0, i), s))
+                return true;
+        }
+        return false;
     }
-	
-	private boolean match(String prefix, String s) {
-		if (prefix.equals(s)) return true;
-		
-		if (prefix.length() > s.length() || !s.startsWith(prefix)) return false;
-		
-		return match(prefix, s.substring(prefix.length()));
-	}
-	
-	
-    // The length of the repeating substring must be a divisor of the length of the input string
+
+    private boolean match(String prefix, String s) {
+        if (prefix.equals(s))
+            return true;
+
+        if (prefix.length() > s.length() || !s.startsWith(prefix))
+            return false;
+
+        return match(prefix, s.substring(prefix.length()));
+    }
+
+    // The length of the repeating substring must be a divisor of the length of
+    // the input string
     // Search for all possible divisor of str.length, starting for length/2
-    // If i is a divisor of length, repeat the substring from 0 to i the number of times i is contained in s.length
+    // If i is a divisor of length, repeat the substring from 0 to i the number
+    // of times i is contained in s.length
     // If the repeated substring is equals to the input str return true
-	public boolean repeatedSubstringPattern(String s) {
-		int n = s.length();
-		for (int i = n / 2; i > 0; i--) {
-			if (n % i != 0) continue;
-			StringBuilder sb = new StringBuilder();
-			String pattern = s.substring(0, i);
-			int j = n / i;
-			while (j-- > 0) {
-				sb.append(pattern);
-			}
-			if (sb.toString().equals(s)) return true;
-		}
-		return false;
-		
+    public boolean repeatedSubstringPattern(String s) {
+        int n = s.length();
+        for (int i = n / 2; i > 0; i--) {
+            if (n % i != 0)
+                continue;
+            StringBuilder sb = new StringBuilder();
+            String pattern = s.substring(0, i);
+            int j = n / i;
+            while (j-- > 0) {
+                sb.append(pattern);
+            }
+            if (sb.toString().equals(s))
+                return true;
+        }
+        return false;
+
     }
-	
-	
-	public static void main(String[] args) {
-		RepeatedSubstringPattern rsp = new RepeatedSubstringPattern();
-		String s = "bb";
-		System.out.println(rsp.repeatedSubstringPattern_bruteforce(s));
-	}
+
+    public static void main(String[] args) {
+        RepeatedSubstringPattern rsp = new RepeatedSubstringPattern();
+        String s = "bb";
+        System.out.println(rsp.repeatedSubstringPattern_bruteforce(s));
+    }
 }

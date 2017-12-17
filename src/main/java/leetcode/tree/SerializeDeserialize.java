@@ -27,100 +27,104 @@ import java.util.stream.Stream;
  * Similar Questions: 449(SerializationBST), 652(FindDuplicateSubtree)
  */
 public class SerializeDeserialize {
-	//
-	// BFS
-	//
-	public static String serialize_bfs(TreeNode root) {
-		if (root == null) return null;
-		
+    //
+    // BFS
+    //
+    public static String serialize_bfs(TreeNode root) {
+        if (root == null)
+            return null;
+
         StringBuilder sb = new StringBuilder();
         Queue<TreeNode> nodeQueue = new LinkedList<>();
         nodeQueue.offer(root);
         while (!nodeQueue.isEmpty()) {
-        	TreeNode current = nodeQueue.poll();
-        	if (current == null) {
-        		sb.append("null").append(",");
-        	}
-        	else {
-        		sb.append(current.val).append(",");
-        		nodeQueue.offer(current.left);
-        		nodeQueue.offer(current.right);
-        	}
+            TreeNode current = nodeQueue.poll();
+            if (current == null) {
+                sb.append("null").append(",");
+            } else {
+                sb.append(current.val).append(",");
+                nodeQueue.offer(current.left);
+                nodeQueue.offer(current.right);
+            }
         }
-        
-        return sb.toString();
-	}
 
-	public static TreeNode deserialize_bfs(String data) {
-		if (data == null) return null;
-		
-		String[] vals = data.split(",");
-		Queue<TreeNode> nodeQueue = new LinkedList<>();
-		TreeNode root = new TreeNode(Integer.valueOf(vals[0]));
-		nodeQueue.offer(root);
-		for (int i = 1; i < vals.length; i++) {
-			TreeNode node = nodeQueue.poll();
-			if (!vals[i].equals("null")) {
-				TreeNode left = new TreeNode(Integer.valueOf(vals[i]));
-				nodeQueue.offer(left);
-				node.left = left;
-			}
-			if (i < vals.length-1 && !vals[++i].equals("null")) {
-				TreeNode right = new TreeNode(Integer.valueOf(vals[i]));
-				nodeQueue.offer(right);
-				node.right = right;
-			}
-			
-		}
-		return root;
+        return sb.toString();
     }
 
-	//
-	// DFS preorder
-	//
-	public String serialize_dfs(TreeNode root) {
-		if (root == null) return null;
-		
+    public static TreeNode deserialize_bfs(String data) {
+        if (data == null)
+            return null;
+
+        String[] vals = data.split(",");
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        TreeNode root = new TreeNode(Integer.valueOf(vals[0]));
+        nodeQueue.offer(root);
+        for (int i = 1; i < vals.length; i++) {
+            TreeNode node = nodeQueue.poll();
+            if (!vals[i].equals("null")) {
+                TreeNode left = new TreeNode(Integer.valueOf(vals[i]));
+                nodeQueue.offer(left);
+                node.left = left;
+            }
+            if (i < vals.length - 1 && !vals[++i].equals("null")) {
+                TreeNode right = new TreeNode(Integer.valueOf(vals[i]));
+                nodeQueue.offer(right);
+                node.right = right;
+            }
+
+        }
+        return root;
+    }
+
+    //
+    // DFS preorder
+    //
+    public String serialize_dfs(TreeNode root) {
+        if (root == null)
+            return null;
+
         StringBuilder sb = new StringBuilder();
         buildString(root, sb);
         return sb.toString();
     }
-	
-	// pre order
-	private void buildString(TreeNode root, StringBuilder sb) {
-		if (root == null) {
-			sb.append("null").append(",");
-		} else {
-			sb.append(root.val).append(",");
-			buildString(root.left, sb);
-			buildString(root.right, sb);
-		}
-	}
 
-	public TreeNode deserialize_dfs(String data) {
-		if (data == null) return null;
-		Queue<String> dataList = new LinkedList<>();
-		dataList.addAll(Stream.of(data.split(",")).collect(Collectors.toList()));
-		return buildTree(dataList);
+    // pre order
+    private void buildString(TreeNode root, StringBuilder sb) {
+        if (root == null) {
+            sb.append("null").append(",");
+        } else {
+            sb.append(root.val).append(",");
+            buildString(root.left, sb);
+            buildString(root.right, sb);
+        }
     }
-	
-	private TreeNode buildTree(Queue<String> dataList) {
-		// remove the first element in each recursion
-		String val = dataList.remove();
-		if (val.equals("null")) return null;
-		TreeNode node = new TreeNode(Integer.valueOf(val));
-		node.left = buildTree(dataList);
-		node.right = buildTree(dataList);
-		return node;
-	}
-	
-	public static void main(String[] args) {
-		TreeNode root = new TreeNode(1);
-		root.left = new TreeNode(2);
-		root.right = new TreeNode(3);
-		root.right.left = new TreeNode(4);
-		root.right.right = new TreeNode(5);
-		SerializeDeserialize sd = new SerializeDeserialize();
-		System.out.println(sd.serialize_dfs(root));
-	}
+
+    public TreeNode deserialize_dfs(String data) {
+        if (data == null)
+            return null;
+        Queue<String> dataList = new LinkedList<>();
+        dataList.addAll(Stream.of(data.split(",")).collect(Collectors.toList()));
+        return buildTree(dataList);
+    }
+
+    private TreeNode buildTree(Queue<String> dataList) {
+        // remove the first element in each recursion
+        String val = dataList.remove();
+        if (val.equals("null"))
+            return null;
+        TreeNode node = new TreeNode(Integer.valueOf(val));
+        node.left = buildTree(dataList);
+        node.right = buildTree(dataList);
+        return node;
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.right.left = new TreeNode(4);
+        root.right.right = new TreeNode(5);
+        SerializeDeserialize sd = new SerializeDeserialize();
+        System.out.println(sd.serialize_dfs(root));
+    }
 }

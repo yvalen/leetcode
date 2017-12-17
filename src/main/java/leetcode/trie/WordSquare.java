@@ -54,80 +54,86 @@ import java.util.List;
  */
 public class WordSquare {
 
-	private static class TrieNode {
-		List<String> startsWith = new ArrayList<>();
-		TrieNode[] next = new TrieNode[26];  
-	}
-	
-	private class Trie {
-		private TrieNode root;
-		
-		Trie(String[] words) {
-			root = new TrieNode();
-			for (String word : words) {
-				TrieNode node = root;
-				for (char c : word.toCharArray()) {
-					int index = c - 'a';
-					if (node.next[index] == null) node.next[index] = new TrieNode();
-					node.next[index].startsWith.add(word);
-					node = node.next[index];
-				}
-			}	
-		}
-		
-		List<String> startsWith(String prefix) {
-			List<String> result = new ArrayList<>();
-			TrieNode node = root;
-			for (char c : prefix.toCharArray()) {
-				int index = c - 'a';
-				if (node.next[index] == null) return result;
-				node = node.next[index];
-			}
-			result.addAll(node.startsWith); // add to result outside the loop since we need to match the whole prefix
-			return result;
-		}
-	}
-	
-	public List<List<String>> wordSquares(String[] words) {
-		if (words == null || words.length == 0) return Collections.emptyList();
-		
-		Trie trie = new Trie(words);
-		List<List<String>> result = new ArrayList<>();
-		LinkedList<String> list = new LinkedList<>();
-		for (String word : words) {
-			list.add(word);
-			wordSquares_helper(trie, result, list, words[0].length());
-			list.removeLast();
-		}
-        
+    private static class TrieNode {
+        List<String> startsWith = new ArrayList<>();
+        TrieNode[] next = new TrieNode[26];
+    }
+
+    private class Trie {
+        private TrieNode root;
+
+        Trie(String[] words) {
+            root = new TrieNode();
+            for (String word : words) {
+                TrieNode node = root;
+                for (char c : word.toCharArray()) {
+                    int index = c - 'a';
+                    if (node.next[index] == null)
+                        node.next[index] = new TrieNode();
+                    node.next[index].startsWith.add(word);
+                    node = node.next[index];
+                }
+            }
+        }
+
+        List<String> startsWith(String prefix) {
+            List<String> result = new ArrayList<>();
+            TrieNode node = root;
+            for (char c : prefix.toCharArray()) {
+                int index = c - 'a';
+                if (node.next[index] == null)
+                    return result;
+                node = node.next[index];
+            }
+            result.addAll(node.startsWith); // add to result outside the loop
+                                            // since we need to match the whole
+                                            // prefix
+            return result;
+        }
+    }
+
+    public List<List<String>> wordSquares(String[] words) {
+        if (words == null || words.length == 0)
+            return Collections.emptyList();
+
+        Trie trie = new Trie(words);
+        List<List<String>> result = new ArrayList<>();
+        LinkedList<String> list = new LinkedList<>();
+        for (String word : words) {
+            list.add(word);
+            wordSquares_helper(trie, result, list, words[0].length());
+            list.removeLast();
+        }
+
         return result;
     }
-	
-	private void wordSquares_helper(Trie trie, List<List<String>> result, LinkedList<String> list, int len) {
-		if (list.size() == len) {
-			result.add(new ArrayList<>(list));
-			return;
-		}
-		
-		// get the prefix to process, collect all characters in the list at position list.size
-		StringBuilder prefixBuilder = new StringBuilder();
-		for (String word : list) {
-			prefixBuilder.append(word.charAt(list.size()));
-		}
-		
-		List<String> wordsWithPrefix = trie.startsWith(prefixBuilder.toString());
-		for (String candidate : wordsWithPrefix) {
-			list.add(candidate);
-			wordSquares_helper(trie, result, list, len);
-			list.removeLast(); // backtrack
-		}
-	}
-	
-	public static void main(String[] args) {
-		WordSquare ws = new WordSquare();
-		//String[] words = {"area","lead","wall","lady","ball"};
-		
-		String[] words = {"abat","baba","atan","atal"};
-		System.out.println(ws.wordSquares(words));
-	}
+
+    private void wordSquares_helper(Trie trie, List<List<String>> result, LinkedList<String> list, int len) {
+        if (list.size() == len) {
+            result.add(new ArrayList<>(list));
+            return;
+        }
+
+        // get the prefix to process, collect all characters in the list at
+        // position list.size
+        StringBuilder prefixBuilder = new StringBuilder();
+        for (String word : list) {
+            prefixBuilder.append(word.charAt(list.size()));
+        }
+
+        List<String> wordsWithPrefix = trie.startsWith(prefixBuilder.toString());
+        for (String candidate : wordsWithPrefix) {
+            list.add(candidate);
+            wordSquares_helper(trie, result, list, len);
+            list.removeLast(); // backtrack
+        }
+    }
+
+    public static void main(String[] args) {
+        WordSquare ws = new WordSquare();
+        // String[] words = {"area","lead","wall","lady","ball"};
+
+        String[] words = { "abat", "baba", "atan", "atal" };
+        System.out.println(ws.wordSquares(words));
+    }
 }
