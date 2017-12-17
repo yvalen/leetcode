@@ -9,6 +9,7 @@ import java.util.Queue;
 import java.util.Set;
 
 /*
+ * LEETCODE 301
  * Remove the minimum number of invalid parentheses in order to make the input string valid. Return all possible results.
  * Note: The input string may contain letters other than the parentheses ( and ).
  * Examples:
@@ -18,6 +19,7 @@ import java.util.Set;
  * 
  * Company: Facebook
  * Difficulty: hard
+ * Similar Questions: 20(ValidParentheses)
  */
 public class RemoveInvalidParentheses {
 

@@ -7,86 +7,93 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 /*
+ * LEETCODE 460
  * Design and implement a data structure for Least Frequently Used (LFU) cache. It should support the following operations: get and put.
  * get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
  * put(key, value) - Set or insert the value if the key is not already present. When the cache reaches its capacity, it should invalidate 
  * the least frequently used item before inserting a new item. For the purpose of this problem, when there is a tie (i.e., two or more keys 
  * that have the same frequency), the least recently used key would be evicted.
  * Follow up: could you do both operations in O(1) time complexity?
+ * 
+ * Company: Google, Amazon
+ * Difficulty: hard
+ * Similar Questions: 146(LRUCache), 
  */
 public class LFUCache {
-	
-	// hashmap + priority queue
 	/*
+	// hashmap + priority queue
 	private static class Node implements Comparable<Node> {
-		int key;
-		int val;
-		int count;
-		long ts;
-		
-		public Node(int key, int val, int count, long ts) {
-			super();
-			this.key = key;
-			this.val = val;
-			this.count = count;
-			this.ts = ts;
+        private int key;
+        private int value;
+        private int count;
+        private long ts;
+        
+        @Override
+		public String toString() {
+			return "Node [key=" + key + ", value=" + value + ", count=" + count + ", ts=" + ts + "]";
 		}
 
-		@Override
-		public int compareTo(Node o) {
-			if (this.count == o.count) {
-				return (int)(this.ts - o.ts);
-			}
-			return this.count - o.count;
-		}
-	}
+		Node(int key, int value, long ts) {
+            this.key = key;
+            this.value = value;
+            this.count = 1;
+            this.ts = ts;
+        }
+        
+        @Override
+        public int compareTo(Node other) {
+            return this.count == other.count? (int)(this.ts - other.ts) : this.count - other.count;
+        }
+    }
 	
 	private final Map<Integer, Node> map;
-	private final PriorityQueue<Node> minHeap;
-	private final int capacity;
-	private long accessCounter; // global counter of when the node is last accessed
-	public LFUCache(int capacity) {
+    private final PriorityQueue<Node> minHeap;
+    private long accessCounter; // global counter of when the node is last accessed
+    private final int capacity;
+    
+    public LFUCache(int capacity) {
         map = new HashMap<>();
         minHeap = new PriorityQueue<>();
         this.capacity = capacity;
     }
     
     public int get(int key) {
-    	Node node = map.get(key);
-    	if (node == null) return -1;
-    	minHeap.remove(node);
-    	node.count++;
-    	node.ts = accessCounter++;
-    	minHeap.add(node);
-    	return node.val;
+        Node node = map.get(key);
+        if (node == null) return -1;
+        minHeap.remove(node);
+        // need to update both count and ts for the node
+        node.count++;
+        node.ts = ++accessCounter;
+        minHeap.add(node);
+        return node.value;
     }
     
     public void put(int key, int value) {
-    	if (capacity == 0) {
+    	// need to check if capacity is 0 first
+        if (capacity == 0) {
             return;
         }
-    	
+        
     	Node node = map.get(key);
-    	long now = System.currentTimeMillis();
-    	if (node == null) {
-    		node = new Node(key, value, 1, accessCounter++);
-    		if (map.size() == capacity) {
-    			Node head = minHeap.poll();
-    			map.remove(head.key);
-    		}
-    	}
-    	else {
-    		minHeap.remove(node);
-    		node.val = value;
-    		node.count++;
-    		node.ts = accessCounter++;
-    		
-    	}
-    	minHeap.offer(node);
-		map.put(key, node);
+        accessCounter++;
+        if (node == null) {
+            if (map.size() == capacity) {
+                Node nodeToRemove = minHeap.poll();
+                map.remove(nodeToRemove.key);  // need to remove the key from map
+            }
+            node = new Node(key, value, accessCounter);
+            map.put(key, node);
+        }
+        else {
+            minHeap.remove(node);
+            node.value = value;
+            node.count++;
+            node.ts = accessCounter;
+        }
+        minHeap.add(node);
     }
-	*/
-	
+    */
+
 	//
 	// HashMap + double linked list + LinkedHashSet
 	//
@@ -106,7 +113,7 @@ public class LFUCache {
 		
 	}
 	
-	final Map<Integer, Integer> valueMap;
+	private final Map<Integer, Integer> valueMap;
 	private final Map<Integer, Node> nodeMap;
 	private final int capacity;
 	private Node head;
@@ -233,19 +240,19 @@ public class LFUCache {
 		
 	
 		c.put(1, 1);
-		System.out.println(c.valueMap);
+		//System.out.println(c.valueMap);
 		c.put(2,  2);
-		System.out.println(c.valueMap);
+		//System.out.println(c.valueMap);
 		int v1 = c.get(1);
 		System.out.println("v1=" + v1);
 		c.put(3,  3);
-		System.out.println(c.valueMap);
+		//System.out.println(c.valueMap);
 		int v2 = c.get(2);
 		System.out.println("v2=" + v2);
 		int v3 = c.get(3);
 		System.out.println("v3=" + v3);
 		c.put(4,  4);
-		System.out.println(c.valueMap);
+		//System.out.println(c.valueMap);
 		int v4 = c.get(1);
 		System.out.println("v4=" + v4);
 		int v5 = c.get(3);

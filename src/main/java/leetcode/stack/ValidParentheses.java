@@ -10,11 +10,12 @@ import java.util.Stack;
  * 
  * Company: Google, Airbnb, Facebook, Twitter, Zenefits, Amazon, Microsoft, Bloomberg
  * Difficulty: easy
+ * Similar Questions: 22(GenerateParentheses), 32(LongestValidParentheses), 301(RemoveInvalidParentheses)
  */
 public class ValidParentheses {
 	public boolean isValid_long(String s) {
 		if (s == null || s.isEmpty()) return true;
-		
+
 		Stack<Character> stack = new Stack<>();
 		for (int i = 0; i < s.length(); i++) {
 			char c = s.charAt(i);
@@ -30,11 +31,11 @@ public class ValidParentheses {
 			}
 		}
 		return stack.isEmpty(); // only return true when stack is empty
-    }
-	
+	}
+
 	public boolean isValid(String s) {
 		if (s == null || s.isEmpty()) return true;
-		
+
 		Stack<Character> stack = new Stack<>();
 		for (int i = 0; i < s.length(); i++) {
 			char c = s.charAt(i);
@@ -44,7 +45,7 @@ public class ValidParentheses {
 			else if (stack.isEmpty() || stack.pop() != c) return false;
 		}
 		return stack.isEmpty();
-    }
+	}
 
 
 }

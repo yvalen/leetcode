@@ -12,6 +12,7 @@ package leetcode.string;
  * 
  * Company: Apple
  * Difficulty: easy
+ * Similar Questions: 691
  */
 public class RansomNote {
 	public boolean canConstruct(String ransomNote, String magazine) {
