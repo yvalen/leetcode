@@ -47,16 +47,14 @@ public class FactorCombinations {
             return;
         }
 
-        // factors of an integer n (except for 1 and n) are always between 1 and
-        // sqrt(n)
-        // if the factor is bigger than sqrt(n), then it's next factor will be
-        // smaller than sqrt(n),
+        // factors of an integer n (except for 1 and n) are always between 1 and sqrt(n)
+        // if the factor is bigger than sqrt(n), then it's next factor will be smaller than sqrt(n),
         // so we only have to loop until the index reaches sqrt(n);
         for (int i = start; i * i <= n; i++) {
-            if (n % i != 0)
-                continue;
+            if (n % i != 0) continue;
             list.addLast(i);
-            getFactorsHelper(n / i, result, list, i);
+            // starts from i in recursion as a number can be used multiple times
+            getFactorsHelper(n / i, result, list, i); 
             list.removeLast();
         }
 
@@ -70,10 +68,10 @@ public class FactorCombinations {
 
     public static void main(String[] args) {
         FactorCombinations fc = new FactorCombinations();
-        // int n = 32;
+        int n = 32;
         // int n = 16;
         // int n = 12;
-        int n = 15;
+        //int n = 15;
         System.out.println(fc.getFactors(n));
     }
 }

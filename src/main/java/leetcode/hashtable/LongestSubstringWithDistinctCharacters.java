@@ -1,4 +1,4 @@
-package leetcode.string;
+package leetcode.hashtable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,24 +7,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/*
- * Given a string, find the length of the longest substring T that contains at most 2 distinct characters.
- * For example, Given s = “eceba”, T is "ece" which its length is 3.
- */
+
 public class LongestSubstringWithDistinctCharacters {
     // maintain a sliding window with 2 unique characters, store the last
-    // occurrence of each character
-    // as the value in the hashmap. When the size of the hashmap exceeds 2, we
-    // can traverse through the map to
+    // occurrence of each character as the value in the hashmap. 
+    // When the size of the hashmap exceeds 2, we can traverse through the map to
     // find the character with the left most index, and remove 1 character from
-    // our map. Since the range of characters
-    // is constrained, we should be able to find the left most index in constant
-    // time.
+    // our map. Since the range of characters is constrained, we should be able to 
+    // find the left most index in constant time.
 
     /*
-     * Given a string, find the length of the longest substring T that contains
-     * at most 2 distinct characters. For example, Given s = “eceba”, T is "ece"
-     * which its length is 3.
+     * LEETCODE 159
+     * Given a string, find the length of the longest substring T 
+     * that contains at most 2 distinct characters.
+     * For example, Given s = “eceba”, T is "ece" which its length is 3.
+     * 
+     * Company: Google
+     * Difficulty: hard
+     * Similar Questions: 3(LongestNonReaptingSubstring), 
      */
     public int lengthOfLongestSubstringTwoDistinct(String s) {
         if (s == null || s.isEmpty())

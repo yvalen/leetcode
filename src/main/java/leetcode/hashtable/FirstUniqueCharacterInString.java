@@ -3,6 +3,7 @@ package leetcode.hashtable;
 import java.util.Arrays;
 
 /*
+ * LEETCODE 387
  * Given a string, find the first non-repeating character in it and return it's index. If it doesn't exist, return -1.
  * Examples: 
  * s = "leetcode" return 0.
@@ -11,6 +12,7 @@ import java.util.Arrays;
  * 
  * Company: Amazon, Microsoft, Bloomberg
  * Difficulty: easy
+ * Similar Questions: 451(SortCharactersByFrequency)
  */
 public class FirstUniqueCharacterInString {
     public int firstUniqChar(String s) {

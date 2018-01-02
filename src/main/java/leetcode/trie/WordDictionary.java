@@ -1,11 +1,13 @@
 package leetcode.trie;
 
 /*
+ * LEETCODE 211
  * Design a data structure that supports the following two operations:
  * void addWord(word)
  * bool search(word)
- * search(word) can search a literal word or a regular expression string containing only letters a-z or .. A 
- * . means it can represent any one letter. For example:
+ * search(word) can search a literal word or a regular expression string 
+ * containing only letters a-z or .. A . means it can represent any one letter. 
+ * For example:
  * addWord("bad")
  * addWord("dad")
  * addWord("mad")
@@ -14,6 +16,10 @@ package leetcode.trie;
  * search(".ad") -> true
  * search("b..") -> true
  * Note: you may assume that all words are consist of lower case letters a-z. 
+ * 
+ * Company: Facebook
+ * Difficulty: medium
+ * Similar Questions: 208(Trie)
  */
 public class WordDictionary {
     private static class TrieNode {
@@ -43,13 +49,13 @@ public class WordDictionary {
     }
 
     private boolean search(String word, int index, TrieNode node) {
-        if (node == null)
-            return false;
-        if (index == word.length())
-            return node.isWord;
+        if (node == null) return false;
+        
+        // need to check if it is word here, it needs to be a word even with wild card
+        if (index == word.length()) return node.isWord;
 
         char c = word.charAt(index);
-        for (int i = 0; i < 26; i++) {
+        for (int i = 0; i < 26; i++) { // use int index here as c could be .
             if (c == '.' || (c - 'a') == i) {
                 if (search(word, index + 1, node.next[i]))
                     return true;

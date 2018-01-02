@@ -17,12 +17,11 @@ package leetcode.bfsdfs;
  * 
  * Company: Google
  * Difficulty: easy
- * Similar Questions: 695(MaxAreaOfIsland)
+ * Similar Questions: 695(MaxAreaOfIsland), 733(FloodFill)
  */
 public class IslandPerimeter {
     // 1. loop over the matrix and count the number of land cells
-    // 2. if the current cell is land, count if it has any right neighbor or
-    // down neighbor
+    // 2. if the current cell is land, count if it has any right neighbor or down neighbor
     // 3. the result is lands * 4 - neighbours * 2
     // Each land cell has 4 sides and to get the total potential number of sides
     // you would need to multiply the total number of lands by 4.

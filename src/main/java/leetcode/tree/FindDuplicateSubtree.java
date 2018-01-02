@@ -8,7 +8,8 @@ import java.util.Map;
 
 /*
  * LEETCODE 652
- * Given a binary tree, return all duplicate subtrees. For each kind of duplicate subtrees, you only need to return the root node of any one of them.
+ * Given a binary tree, return all duplicate subtrees. For each kind of duplicate subtrees, 
+ * you only need to return the root node of any one of them.
  * Two trees are duplicate if they have the same structure with same node values.
  * Example 1:
  *       1
@@ -31,22 +32,30 @@ import java.util.Map;
  * Similar Question: 297(SerializeDeserialize), 449(SerializationBST ), 606(ConstructStringFromBinaryTree)
  */
 public class FindDuplicateSubtree {
-    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
-        if (root == null)
-            return Collections.emptyList();
+    // Serialize each subtree, the serialization string is the unique representation of the tree.
+    // Perform a depth-first search, where the recursive function returns the serialization of the tree. 
+    // At each node, record the result in a map, and analyze the map after to determine duplicate subtrees.
+    // Time Complexity: O(N^2), where N is the number of nodes in the tree. We visit each node once, 
+    // but each creation of serial may take O(N) work.
+    // Space Complexity: O(N^2), the size of the map
+    public List<TreeNode> findDuplicateSubtrees_serialize(TreeNode root) {
+        if (root == null) return Collections.emptyList();
         List<TreeNode> result = new ArrayList<>();
-        postorder(root, new HashMap<>(), result);
+        dfs(root, new HashMap<>(), result);
         return result;
     }
 
-    private String postorder(TreeNode root, Map<String, Integer> map, List<TreeNode> result) {
-        if (root == null)
-            return "#"; // with null node set to # the tree can uniquely defined
-                        // using post order (or pre order), null has to be
-                        // represented by a char
-        String key = root.val + " " + postorder(root.left, map, result) + " " + postorder(root.right, map, result);
-        if (map.containsKey(key) && map.get(key) == 1)
+    private String dfs(TreeNode root, Map<String, Integer> map, List<TreeNode> result) {
+        if (root == null) {
+            // with null node set to # the tree can uniquely defined using post order (or pre order), 
+            // null has to be represented by a char
+            return "#";
+        }
+          
+        String key = root.val + " " + dfs(root.left, map, result) + " " + dfs(root.right, map, result);
+        if (map.containsKey(key) && map.get(key) == 1) {
             result.add(root);
+        }
         map.put(key, map.getOrDefault(key, 0) + 1);
         return key;
     }

@@ -20,12 +20,11 @@ package leetcode.math;
  * 
  * Company: Microsoft, Amazon
  * Difficulty: easy
- * Similar Questions: 
+ * Similar Questions: 263(Ugly Number), 264(Ugly Number II), 279(PerfectSquare)
  */
 public class CountPrimes {
     public int countPrimes(int n) {
-        if (n <= 2)
-            return 0;
+        if (n < 2) return 0;
 
         boolean[] notPrime = new boolean[n];
         int count = 0;

@@ -1,10 +1,10 @@
-package leetcode.string;
+package leetcode.hashtable;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 /*
+ * LEETCODE 205
  * Given two strings s and t, determine if they are isomorphic. Two strings are isomorphic if the characters in s can be replaced to get t.
  * All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may 
  * map to the same character but a character may map to itself.
@@ -13,6 +13,10 @@ import java.util.Map;
  * Given "foo", "bar", return false.
  * Given "paper", "title", return true.
  * Note: You may assume both s and t have the same length.
+ * 
+ * Company: LinkedIn
+ * Difficulty: easy
+ * Similar Questions: 290(WordPattern)
  */
 public class IsomorphicStrings {
     public boolean isIsomorphic_withMap(String s, String t) {
@@ -40,10 +44,11 @@ public class IsomorphicStrings {
         for (int i = 0; i < s.length(); i++) {
             int idx1 = s.charAt(i) - '0';
             int idx2 = t.charAt(i) - '0';
-            if (m1[idx1] != m2[idx2])
+            if (m1[idx1] != m2[idx2]) {
                 return false;
-            m1[idx1] = i + 1; // need to use i+1 since array is initialized with
-                              // 0
+            }
+            // need to use i+1 since array is initialized with 0
+            m1[idx1] = i + 1; 
             m2[idx2] = i + 1;
         }
         return true;

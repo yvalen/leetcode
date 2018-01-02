@@ -3,6 +3,7 @@ package leetcode.list;
 import java.util.Stack;
 
 /*
+ * LEETCODE 445
  * You are given two non-empty linked lists representing two non-negative integers. 
  * The most significant digit comes first and each of their nodes contain a single digit. 
  * Add the two numbers and return it as a linked list.
@@ -11,6 +12,10 @@ import java.util.Stack;
  * Example:
  * Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
  * Output: 7 -> 8 -> 0 -> 7
+ * 
+ * Company: Microsoft, Bloomberg
+ * Difficulty: medium
+ * Similar Questions: 2(AddTwoNumbers)
  */
 public class AddTwoNumbersII {
     public ListNode addTwoNumbers_long(ListNode l1, ListNode l2) {
@@ -105,16 +110,56 @@ public class AddTwoNumbersII {
 
         return (list.val == 0) ? list.next : list;
     }
+    
+    public ListNode addTwoNumbers_withReverse(ListNode l1, ListNode l2) {
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+        
+        // reverse input list first
+        l1 = reverse(l1);
+        l2 = reverse(l2);
+        
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+        int sum = 0;
+        while (l1 != null || l2 != null) {
+            sum = sum / 10;
+            if (l1 != null) {
+                sum += l1.val;
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                sum += l2.val;
+                l2 = l2.next;
+            }
+            current.next = new ListNode(sum % 10);
+            current = current.next;  // advance current pointer
+        }
+        if (sum >= 10) current.next = new ListNode(1); // need to check for equals to 10
+        
+        return reverse(dummy.next);
+    }
+    
+    private ListNode reverse(ListNode head) {
+        ListNode current = head, prev = null, next = null;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+    }
 
     public static void main(String[] args) {
         AddTwoNumbersII a = new AddTwoNumbersII();
-        int[] ary1 = { 7, 2, 4, 3 };
-        int[] ary2 = { 5, 6, 4 };
-        // int[] ary1 = {5};
-        // int[] ary2 = {5};
+        //int[] ary1 = { 7, 2, 4, 3 };
+        //int[] ary2 = { 5, 6, 4 };
+        int[] ary1 = {5};
+        int[] ary2 = {5};
         ListNode l1 = ListUtil.createList(ary1);
         ListNode l2 = ListUtil.createList(ary2);
-        ListNode l = a.addTwoNumbers(l1, l2);
+        ListNode l = a.addTwoNumbers_withReverse(l1, l2);
         ListUtil.printList(l);
     }
 }

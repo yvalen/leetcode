@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 /*
- * Given a string, we can "shift" each of its letter to its successive letter, for example: "abc" -> "bcd". 
+ * LEETCODE 249
+ * Given a string, we can "shift" each of its letter to its successive letter, 
+ * for example: "abc" -> "bcd". 
  * We can keep "shifting" which forms the sequence: "abc" -> "bcd" -> ... -> "xyz"
- * Given a list of strings which contains only lowercase alphabets, group all strings that belong to the same shifting sequence.
+ * Given a list of strings which contains only lowercase alphabets, group all strings 
+ * that belong to the same shifting sequence.
  * For example, given: ["abc", "bcd", "acef", "xyz", "az", "ba", "a", "z"],
  * A solution is:
  * [
@@ -20,6 +23,8 @@ import java.util.Map;
  * ]
  * 
  * Company: Google, Uber
+ * Difficulty: medium
+ * Similar Questions: 49(GroupAnagrams)
  */
 public class GroupShitedStrings {
     public List<List<String>> groupStrings(String[] strings) {
@@ -39,19 +44,19 @@ public class GroupShitedStrings {
 
     private String generateKey(String s) {
         StringBuilder sb = new StringBuilder();
+        // key for single character is ""
         for (int i = 1; i < s.length(); i++) {
             int diff = s.charAt(i) - s.charAt(i - 1);
-            sb.append('a' + (diff < 0 ? diff + 26 : diff)); // add 26 to diff if
-                                                            // it is negative.
-                                                            // handle cases like
-                                                            // az,ba
+            // add 26 to diff if it is negative. handle cases like az,ba
+            sb.append('a' + (diff < 0 ? diff + 26 : diff));
         }
         return sb.toString();
     }
 
     public static void main(String[] args) {
         GroupShitedStrings gss = new GroupShitedStrings();
-        String[] strings = { "abc", "bcd", "acef", "xyz", "az", "ba", "a", "z" };
+        //String[] strings = { "abc", "bcd", "acef", "xyz", "az", "ba", "a", "z" };
+        String[] strings = {  "a", "z" };
         System.out.println(gss.groupStrings(strings));
     }
 

@@ -1,14 +1,21 @@
 package leetcode.string;
 
-public class LongestPalindrome {
-    /*
-     * Given a string s, find the longest palindromic substring in s. You may
-     * assume that the maximum length of s is 1000. Example: Input: "babad"
-     * Output: "bab" Note: "aba" is also a valid answer. Example: Input: "cbbd"
-     * Output: "bb"
-     * 
-     * Company: Amazon, Microsoft, Bloomberg Difficulty: medium
-     */
+/*
+ * LEETCODE 5
+ * Given a string s, find the longest palindromic substring in s. 
+ * You may assume that the maximum length of s is 1000. 
+ * Example: 
+ * Input: "babad"
+ * Output: "bab" Note: "aba" is also a valid answer. 
+ * Example: 
+ * Input: "cbbd"
+ * Output: "bb"
+ * 
+ * Company: Amazon, Microsoft, Bloomberg 
+ * Difficulty: medium
+ */
+public class LongestPalindromeSubstring {
+    
     public String longestPalindrome(String s) {
         int start = 0, end = 0; // use to track the start and end position of
                                 // the longest palindrome
@@ -33,7 +40,7 @@ public class LongestPalindrome {
             right++;
         }
         return (right - left - 1); // should minus 1 since left and right are
-                                   // beyong boundry
+                                   // beyond boundry
 
     }
 
@@ -115,7 +122,7 @@ public class LongestPalindrome {
     }
 
     public static void main(String[] args) {
-        LongestPalindrome p = new LongestPalindrome();
+        LongestPalindromeSubstring p = new LongestPalindromeSubstring();
         String s = "bbbab";
         System.out.println(p.longestPalindromeSubseq(s));
 

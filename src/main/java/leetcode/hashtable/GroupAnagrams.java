@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /*
+ * LEETCODE 49
  * Given an array of strings, group anagrams together.
  * For example, given: ["eat", "tea", "tan", "ate", "nat", "bat"],
  * Return:
@@ -17,7 +18,12 @@ import java.util.stream.Collectors;
  * 	["bat"]
  * ]
  * Note: All inputs will be in lower-case.
- * anagrams is a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.
+ * anagrams is a word, phrase, or name formed by rearranging the letters of another, 
+ * such as cinema, formed from iceman.
+ * 
+ * Company: Facebook, Amazon, Bloomberg, Uber, Yelp
+ * Difficulty: medium
+ * Similar Questions: 242(ValidAnagram), 249(GroupShitedStrings)
  */
 public class GroupAnagrams {
     public List<List<String>> groupAnagrams(String[] strs) {
@@ -27,9 +33,8 @@ public class GroupAnagrams {
             char[] chars = str.toCharArray();
             Arrays.sort(chars);
             String key = new String(chars);
-            List<String> list = map.getOrDefault(key, new ArrayList<>());
-            list.add(str);
-            map.put(key, list);
+            map.putIfAbsent(key, new ArrayList<>());
+            map.get(key).add(str);
         }
 
         return new ArrayList<List<String>>(map.values());

@@ -1,16 +1,23 @@
-package leetcode.string;
+package leetcode.hashtable;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /*
- * Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+ * LEETCODE 76
+ * Given a string S and a string T, find the minimum window in S which will contain 
+ * all the characters in T in complexity O(n).
  * For example,
  * 	S = "ADOBECODEBANC"
  * 	T = "ABC"
  * Minimum window is "BANC".
- * Note: If there is no such window in S that covers all characters in T, return the empty string "".
- * If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S.
+ * Note: If there is no such window in S that covers all characters in T, return the 
+ * empty string "". If there are multiple such windows, you are guaranteed that there 
+ * will always be only one unique minimum window in S.
+ * 
+ * Company: Facebook, Uber, LinkedIn, Snapchat
+ * Difficulty: hard
+ * Similar Questions: 
  */
 public class MinimumWindowSubstring {
 
@@ -52,7 +59,44 @@ public class MinimumWindowSubstring {
         return result;
     }
 
+    // https://discuss.leetcode.com/topic/30941/here-is-a-10-line-template-that-can-solve-most-substring-problems
+    // 1. Use two pointers: left and right to represent a window.
+    // 2. Move right to find a valid window.
+    // 3. When a valid window is found, move left to find a smaller window.
+    // Time complexity: O(n) The inner while loop (while(counter==0) is always from the "begin", and the "begin" 
+    // never goes back. So the total running is roughly the first for loop time, plus the while loop and its inner 
+    // while loop: O(n)+O(2n) = O(n).
     public String minWindow(String s, String t) {
+        if (s == null || s.isEmpty() || t == null || t.isEmpty()) return "";
+
+        Map<Character, Integer> charCount = new HashMap<>();
+        for (Character c : t.toCharArray()) {
+            charCount.put(c, charCount.getOrDefault(c, 0)+1);
+        }
+
+        int left = 0, right = 0, count = t.length(), minLen = Integer.MAX_VALUE, begin = 0;
+        while (right < s.length()) {
+            Character rightChar = s.charAt(right);
+            if (charCount.containsKey(rightChar)) {
+                if (charCount.get(rightChar) > 0) count--;
+                charCount.put(rightChar, charCount.get(rightChar)-1);
+            }
+            right++;
+            while (count == 0) { // valid window
+                if (right-left < minLen) {
+                    minLen = right - left;
+                    begin = left;
+                }
+                Character leftChar = s.charAt(left);
+                if (charCount.containsKey(leftChar)) {
+                    if (charCount.get(leftChar) >= 0) count++;
+                    charCount.put(leftChar, charCount.get(leftChar)+1);
+                }
+                left++;
+            }
+        }
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(begin, begin+minLen);
+        /*
         String result = "";
 
         if (s == null || s.isEmpty() || t == null || t.isEmpty() || s.length() < t.length())
@@ -94,13 +138,15 @@ public class MinimumWindowSubstring {
         }
 
         return result;
+         */
     }
 
     public static void main(String[] args) {
         MinimumWindowSubstring m = new MinimumWindowSubstring();
 
-        // String s = "ADOBECODEBANC", t = "ABC";
-        String s = "cabwefgewcwaefgcf", t = "cae";
+         //String s = "ADOBECODEBANC", t = "ABC";
+         String s = "ADOBECODBANC", t = "ABC";
+        //String s = "cabwefgewcwaefgcf", t = "cae";
 
         // String s = "ADOBECA", t = "ABC";
         System.out.println("result=" + m.minWindow(s, t));

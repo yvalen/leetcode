@@ -1,6 +1,7 @@
 package leetcode.dp;
 
 /*
+ * LEETCODE 10
  * Implement regular expression matching with support for '.' and '*'.
  * '.' Matches any single character.
  * '*' Matches zero or more of the preceding element.
@@ -13,19 +14,27 @@ package leetcode.dp;
  * 	isMatch("aa", ".*") → true
  * 	isMatch("ab", ".*") → true
  * 	isMatch("aab", "c*a*b") → true
+ * 
+ * Company: Google, Facebook, Uber, Twitter, Airbnb
+ * Difficulty: hard
+ * Similar Questions: 44(WildcardMatching) 
  */
 public class RegularExpressionMatching {
 
     /*
-     * 1, If p.charAt(j) == s.charAt(i) : dp[i][j] = dp[i-1][j-1]; 2, If
-     * p.charAt(j) == '.' : dp[i][j] = dp[i-1][j-1]; 3, If p.charAt(j) == '*':
-     * here are two sub conditions: 1 if p.charAt(j-1) != s.charAt(i) : dp[i][j]
-     * = dp[i][j-2] //in this case, a* only counts as empty 2 if p.charAt(j-1)
-     * == s.charAt(i) or p.charAt(j-1) == '.': dp[i][j] = dp[i-1][j] //in this
-     * case, a* counts as multiple a or dp[i][j] = dp[i][j-1] // in this case,
-     * a* counts as single a or dp[i][j] = dp[i][j-2] // in this case, a* counts
-     * as empty
+     * 1, If p.charAt(j) == s.charAt(i) : dp[i][j] = dp[i-1][j-1]; 
+     * 2, If p.charAt(j) == '.' : dp[i][j] = dp[i-1][j-1]; 
+     * 3, If p.charAt(j) == '*': here are two sub conditions: 
+     * (1) if p.charAt(j-1) != s.charAt(i) : 
+     * dp[i][j] = dp[i][j-2] //in this case, a* only counts as empty 
+     * (2) if p.charAt(j-1) == s.charAt(i) or p.charAt(j-1) == '.': 
+     * dp[i][j] = dp[i-1][j] //in this case, a* counts as multiple a or 
+     * dp[i][j] = dp[i][j-1] // in this case, a* counts as single a or 
+     * dp[i][j] = dp[i][j-2] // in this case, a* counts as empty
+     * https://xiaokangstudynotes.com/2017/01/21/dynamic-programming-regular-expression-matching/
      */
+    // Time complexity: O(mn): m - length of s, n - length of p
+    // Space complexity: O(mn)
     public boolean isMatch_dp(String s, String p) {
         if (s == null || p == null)
             return false;
@@ -48,14 +57,12 @@ public class RegularExpressionMatching {
                     dp[i + 1][j + 1] = dp[i][j];
                 } else if (p.charAt(j) == '*') {
                     if (p.charAt(j - 1) == s.charAt(i) || p.charAt(j - 1) == '.') {
-                        dp[i + 1][j + 1] = dp[i][j + 1] || // a* is counted as
-                                                           // multiple a
+                        dp[i + 1][j + 1] = 
+                                dp[i][j + 1] || // a* is counted as multiple a
                                 dp[i + 1][j] || // a* is counted as a single a
                                 dp[i + 1][j - 1]; // a* is counted as empty
-
                     } else {
-                        dp[i + 1][j + 1] = dp[i + 1][j - 1]; // * is counted as
-                                                             // empty
+                        dp[i + 1][j + 1] = dp[i + 1][j - 1]; // a* is counted as empty
                     }
                 }
             }
@@ -118,7 +125,8 @@ public class RegularExpressionMatching {
     public static void main(String[] args) {
         RegularExpressionMatching r = new RegularExpressionMatching();
 
-        String s = "aa", p = "a*";
+        //String s = "aa", p = "a*";
+        String s = "", p = ".*";
         System.out.println(r.isMatch_recursive(s, p));
     }
 

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 /*
+ * LEETCODE 451
  * Given a string, sort it in decreasing order based on the frequency of characters.
  * Example 1: 
  * Input: "tree"
@@ -28,6 +29,7 @@ import java.util.PriorityQueue;
  * 
  * Company: Amazon, Google
  * Difficulty: medium
+ * Similar Questions: 347(TopKFrequentElements), 387(FirstUniqueCharacterInString)
  */
 public class SortCharactersByFrequency {
     public String frequencySort_heap(String s) {
@@ -39,6 +41,7 @@ public class SortCharactersByFrequency {
             frequencyMap.put(c, frequencyMap.getOrDefault(c, 0) + 1);
         }
 
+        // max heap, most frequent on top
         PriorityQueue<Map.Entry<Character, Integer>> pq = new PriorityQueue<>((x, y) -> y.getValue() - x.getValue());
         for (Map.Entry<Character, Integer> entry : frequencyMap.entrySet()) {
             pq.offer(entry);

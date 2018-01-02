@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 public class WordBreak {
 
     /**
+     * LEETCODE 139
      * Given a non-empty string s and a dictionary wordDict containing a list of
      * non-empty words, determine if s can be segmented into a space-separated
      * sequence of one or more dictionary words. You may assume the dictionary
@@ -21,8 +22,10 @@ public class WordBreak {
      * = ["leet", "code"]. Return true because "leetcode" can be segmented as
      * "leet code".
      * 
-     * Company: Google, Facebook, Uber, Yahoo, Amazon, Bloomberg, Pocket Gems
+     * Company: Google, Facebook, Uber, Yahoo, Amazon, Bloomberg, Pocket Gems, 
+     * Square, Coupang
      * Difficulty: medium
+     * Similar Questions: 140(Word Break II)
      */
     public boolean wordBreak_recursive(String s, List<String> wordDict) {
         if (s == null || s.length() == 0)
@@ -38,6 +41,7 @@ public class WordBreak {
      * recursive call for suffix returns true, we return true, otherwise try
      * next prefix. If we have tried all prefixes and none of them resulted in a
      * solution, we return false.
+     * Time complexity: O(n^n)
      */
     public boolean wordBreak_recursive_helper(String s, Set<String> dictSet) {
         if (dictSet.contains(s))
@@ -86,6 +90,7 @@ public class WordBreak {
     }
 
     /**
+     * LEETCODE 140
      * Given a non-empty string s and a dictionary wordDict containing a list of
      * non-empty words, add spaces in s to construct a sentence where each word
      * is a valid dictionary word. You may assume the dictionary does not
@@ -93,9 +98,11 @@ public class WordBreak {
      * given s = "catsanddog", dict = ["cat", "cats", "and", "sand", "dog"]. A
      * solution is ["cats and dog", "cat sand dog"].
      * 
-     * Company: Dropbox, Google, Uber, Snapchat, Twitter Difficulty: hard
+     * Company: Dropbox, Google, Uber, Snapchat, Twitter 
+     * Difficulty: hard
+     * Similar Questions: 139(Word Break), 472()
      */
-    public List<String> wordBreakII(String s, List<String> wordDict) {
+    public List<String> wordBreakII_dpBacktrack(String s, List<String> wordDict) {
         List<String> result = new ArrayList<>();
 
         if (s == null || s.length() == 0)
@@ -116,15 +123,14 @@ public class WordBreak {
             }
         }
 
-        if (dp[n] == null)
-            return result;
-        dfs(dp, s.length(), result, new ArrayList<>());
-
+        if (dp[n] == null) return result;
+        constructResult(dp, s.length(), result, new ArrayList<>());
         return result;
     }
-
-    private void dfs(List<String>[] dp, int end, List<String> result, List<String> backtrack) {
+   
+    private void constructResult(List<String>[] dp, int end, List<String> result, List<String> backtrack) {
         if (end <= 0) {
+            // we cannot modify list here as it will be used in the backtracking
             String str = backtrack.get(backtrack.size() - 1);
             for (int i = backtrack.size() - 2; i >= 0; i--) {
                 str += " " + backtrack.get(i);
@@ -135,7 +141,7 @@ public class WordBreak {
 
         for (String last : dp[end]) {
             backtrack.add(last);
-            dfs(dp, end - last.length(), result, backtrack);
+            constructResult(dp, end - last.length(), result, backtrack);
             backtrack.remove(backtrack.size() - 1);
         }
     }
@@ -163,26 +169,32 @@ public class WordBreak {
         return result;
     }
 
-    Map<Integer, List<String>> map = new HashMap<>(); // key is the current
-                                                      // start
-
+    // key is the current start index of the string currently considered
+    Map<Integer, List<String>> map = new HashMap<>(); 
     public List<String> wordBreakII_memorization(String s, List<String> wordDict) {
         return wordBreakII_memorization(s, wordDict, 0);
     }
 
+
+
+    // Time complexity: O(n^3)O. Size of recursion tree can go up to n^2​​. The creation of list takes n time.
+    // Space complexity: O(n^3)O(n​3​​).The depth of the recursion tree can go up to n and each activation record 
+    // can contains a string list of size n.
     private List<String> wordBreakII_memorization(String s, List<String> wordDict, int start) {
         if (map.containsKey(start))
             return map.get(start);
 
         List<String> result = new ArrayList<>();
         if (start == s.length()) {
+            // need to add an empty string to list
             result.add("");
+            return result;
         }
 
         for (int end = start + 1; end <= s.length(); end++) {
             String prefix = s.substring(start, end);
             if (wordDict.contains(prefix)) {
-                List<String> list = wordBreakII_bruteforce(s, wordDict, end);
+                List<String> list = wordBreakII_memorization(s, wordDict, end);
                 for (String l : list) {
                     result.add(prefix + (l.equals("") ? "" : " ") + l);
                 }
@@ -195,7 +207,7 @@ public class WordBreak {
     public static void main(String[] arg) {
         WordBreak w = new WordBreak();
 
-        String s = "catsanddog";
+        String s = "cata";
         List<String> wordDict = Arrays.asList("cat", "cats", "and", "sand", "dog");
 
         // String s = "aaaaaaa";

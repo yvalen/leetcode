@@ -1,6 +1,7 @@
 package leetcode.dp;
 
 /*
+ * LEETCODE 44
  * Implement wildcard pattern matching with support for '?' and '*'.
  * 	'?' Matches any single character.
  * 	'*' Matches any sequence of characters (including the empty sequence).
@@ -15,6 +16,10 @@ package leetcode.dp;
  *	isMatch("aa", "a*") → true
  *	isMatch("ab", "?*") → true
  *	isMatch("aab", "c*a*b") → false
+ *
+ * Company: Google, Facebook, Twitter, Snapchat, Two Sigma
+ * Difficulty: hard
+ * Similar Questions: 10(RegularExpressionMatching)
  */
 public class WildcardMatching {
 
@@ -22,7 +27,7 @@ public class WildcardMatching {
      * If(p[j-1]!='*') f(i, j) = f(i-1, j-1) && (s[i-1]==p[j-1] || p[j-1]=='?')
      * If(p[j-1]=='*') f(i, j) = f(i, j-1) || f(i-1, j) f(i,j-1) is true:
      * s[0:i-1] matches p[0:j-2] and * is not used here f(i-1,j) is true:
-     * s[0:i-2] matches p[0:j-1] and * is used to match s[i-1].
+     * s[0:i-2] matches p[0:j-1] and * is used to match s[i-1], f(i, j-1) is true
      */
     public boolean isMatch_dp(String s, String p) {
         if (s == null || p == null)
@@ -51,8 +56,7 @@ public class WildcardMatching {
 
     // greedy solution with idea of DFS
     // starj stores the position of last * in p
-    // last_match stores the position of the previous matched char in s after a
-    // *
+    // last_match stores the position of the previous matched char in s after a *
     // e.g.
     // s: a c d s c d
     // p: * c d
@@ -68,6 +72,7 @@ public class WildcardMatching {
     // since we don't know where the right match for * ends, we need to take a
     // guess (one branch in DFS),
     // and store the information(starj and last_match) so we can always backup
+    
     // to the last correct place and take another guess.
     // Complexity O(m*n): s=aaaab p=*ab
     public boolean isMatch_dfsGreedy(String s, String p) {
@@ -78,8 +83,8 @@ public class WildcardMatching {
         int lastStar = -1, lastMatch = -1;
         while (i < s.length()) {
             if (j < p.length() && isCharMatch(s, p, i, j)) {
-                // advance both pointers when (both characters match) or ('?'
-                // found in pattern)
+                // advance both pointers when (both characters match) or 
+                // ('?' found in pattern)
                 // note that p will not advance beyond its length
                 i++;
                 j++;
@@ -92,7 +97,7 @@ public class WildcardMatching {
             } else if (lastStar != -1) {
                 // current characters didn't match, last pattern pointer was *,
                 // current pattern pointer is not *
-                // only advancing pattern pointer
+                // only advancing string pointer
                 j = lastStar + 1;
                 i = ++lastMatch;
             } else {
@@ -114,7 +119,8 @@ public class WildcardMatching {
     public static void main(String[] args) {
         WildcardMatching w = new WildcardMatching();
 
-        String s = "aaaab", p = "*ab";
+        //String s = "aaaab", p = "*ab";
+        String s = "aaaab", p = "a*c";
         System.out.println(w.isMatch_dfsGreedy(s, p));
 
     }

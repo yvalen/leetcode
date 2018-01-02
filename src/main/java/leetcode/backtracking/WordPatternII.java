@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 /*
+ * LEETCODE 291
  * Given a pattern and a string str, find if str follows the same pattern. Here follow means a full match, 
  * such that there is a bijection between a letter in pattern and a non-empty substring in str.
  * Examples:
@@ -16,15 +17,22 @@ import java.util.Set;
  * 
  * Company: Dropbox, Uber
  * Difficulty: hard
+ * Similar Questions: 290(WordPattern)
  */
 public class WordPatternII {
+    /*
+     * use a character in the pattern to match different length of substrings in the input string, 
+     * keep trying till we go through the input string and the pattern.
+     * Time complexity: string length is n, and pattern string length is m, the problem is more like 
+     * slicing the string into m pieces. How many slicing ways? C(n^m). 
+     * For each slice, it takes O(n) to validate. So the total complexity is O(n * C(n^m))
+     */
     public boolean wordPatternMatch(String pattern, String str) {
         return isMatch(pattern, str, 0, 0, new HashMap<>(), new HashSet<>());
     }
 
     private boolean isMatch(String pattern, String str, int i, int j, Map<Character, String> map, Set<String> set) {
-        if (i == pattern.length())
-            return j == str.length();
+        if (i == pattern.length()) return j == str.length();
 
         // current char to match
         Character c = pattern.charAt(i);
@@ -54,17 +62,10 @@ public class WordPatternII {
 
         // first time match for c
         // for (int k = j; k < str.length(); k++) {
-        for (int k = j; k <= str.length() - (pattern.length() - i); k++) { // k
-                                                                           // is
-                                                                           // the
-                                                                           // end
-                                                                           // position
-                                                                           // of
-                                                                           // the
-                                                                           // sub
-                                                                           // string
-            String s = str.substring(j, k + 1); // try to match c with substring
-                                                // starting at j
+        for (int k = j; k <= str.length() - (pattern.length() - i); k++) { 
+            // k is the end position of the substring
+            // try to match c with substring starting at j
+            String s = str.substring(j, k + 1); 
 
             // s has been matched with other character in pattern, it cannot be
             // matched to c
@@ -75,11 +76,8 @@ public class WordPatternII {
             set.add(s);
             map.put(c, s);
 
-            if (isMatch(pattern, str, i + 1, k + 1, map, set)) { // return true
-                                                                 // if the rest
-                                                                 // matches,
-                                                                 // match str
-                                                                 // from k+1
+            if (isMatch(pattern, str, i + 1, k + 1, map, set)) {
+                // return true if the rest matches, match str from k+1
                 return true;
             }
 

@@ -1,14 +1,19 @@
 package leetcode.math;
 
 /*
+ * LEETCODE 67
  * Given two binary strings, return their sum (also a binary string).
  * For example,
  * 	a = "11"
  * 	b = "1"
  * Return "100". 
+ * 
+ * Company: Facebook
+ * Difficulty: easy
+ * Similar Questions: 2(AddTwoNumbers)
  */
 public class AddBinary {
-    public String addBinary(String a, String b) {
+    public String addBinary_old(String a, String b) {
         if (a == null || a.isEmpty())
             return b;
         if (b == null || b.isEmpty())
@@ -59,11 +64,33 @@ public class AddBinary {
 
         return sb.reverse().toString();
     }
+    
+    public String addBinary(String a, String b) {
+        if (a == null || a.isEmpty()) return b;
+        if (b == null || b.isEmpty()) return a;
+        
+        int sum = 0;
+        StringBuilder sb = new StringBuilder();
+        for (int i = a.length()-1, j = b.length()-1; i >= 0 || j >= 0;) {
+            sum /= 2;
+            if (i >= 0) {
+                sum += a.charAt(i--) - '0';  // need to subtract '0' to the value
+            }
+            if (j >= 0) {
+                sum += b.charAt(j--) - '0';
+            }
+            sb.append(sum % 2);
+        }
+        if (sum >= 2) sb.append(1);
+        
+        return sb.reverse().toString();
+    }
 
     public static void main(String[] args) {
         AddBinary add = new AddBinary();
-        // String a ="11", b = "1";
-        String a = "1010", b = "1011";
+        String a ="11", b = "1";
+        //String a = "1010", b = "1011";
+        //String a = "0", b = "0";
         System.out.println(add.addBinary(a, b));
     }
 }

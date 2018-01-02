@@ -70,7 +70,9 @@ public class LetterCombinationOfPhoneNumber {
                 for (int j = 0; j < key.length(); j++) {
                     list.add(s + key.charAt(j));
                 }
+                System.out.println(list);
             }
+            
         }
 
         return list;
@@ -80,7 +82,7 @@ public class LetterCombinationOfPhoneNumber {
         LetterCombinationOfPhoneNumber l = new LetterCombinationOfPhoneNumber();
 
         String digits = "23";
-        System.out.println(l.letterCombinations(digits));
+        System.out.println(l.letterCombinations_iterative(digits));
 
     }
 

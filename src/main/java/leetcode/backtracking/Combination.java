@@ -22,6 +22,7 @@ import java.util.List;
  * Similar Questions: 39(Combination Sum), 46(Permutations)
  */
 public class Combination {
+    // Time complexity: O(n^min(k, n-k))
     public List<List<Integer>> combine(int n, int k) {
         if (n <= 0 || k <= 0 || k > n)
             return Collections.emptyList();

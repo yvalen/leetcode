@@ -9,7 +9,8 @@ import java.util.Stack;
  * pop() -- Remove the element on top of the stack and return it.
  * top() -- Get the element on the top.
  * peekMax() -- Retrieve the maximum element in the stack.
- * popMax() -- Retrieve the maximum element in the stack, and remove it. If you find more than one maximum elements, only remove the top-most one.
+ * popMax() -- Retrieve the maximum element in the stack, and remove it. 
+ * If you find more than one maximum elements, only remove the top-most one.
  * Example 1:
  * MaxStack stack = new MaxStack();
  * stack.push(5); 
@@ -70,8 +71,9 @@ public class MaxStack {
 
         stack.pop();
         while (!tmp.isEmpty()) {
-            push(tmp.pop()); // use MaxStack.push instead of stack.push, this
-                             // will populate maxStack properly
+            // use MaxStack.push instead of stack.push, 
+            // this will populate maxStack properly
+            push(tmp.pop()); 
         }
 
         return result;

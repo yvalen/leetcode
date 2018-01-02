@@ -8,12 +8,15 @@ import java.util.List;
 import java.util.Queue;
 
 /*
- * For a undirected graph with tree characteristics, we can choose any node as the root. The result graph is then a rooted tree. 
- * Among all possible rooted trees, those with minimum height are called minimum height trees (MHTs). Given such a graph, write 
- * a function to find all the MHTs and return a list of their root labels.
- * Format: The graph contains n nodes which are labeled from 0 to n - 1. You will be given the number n and a list of undirected 
- * edges (each edge is a pair of labels). You can assume that no duplicate edges will appear in edges. Since all edges are undirected, 
- * [0, 1] is the same as [1, 0] and thus will not appear together in edges.
+ * For a undirected graph with tree characteristics, we can choose any node as the root. 
+ * The result graph is then a rooted tree. Among all possible rooted trees, those with 
+ * minimum height are called minimum height trees (MHTs). 
+ * Given such a graph, write a function to find all the MHTs and return a list of their 
+ * root labels.
+ * Format: The graph contains n nodes which are labeled from 0 to n - 1. You will be given 
+ * the number n and a list of undirected edges (each edge is a pair of labels). You can assume 
+ * that no duplicate edges will appear in edges. Since all edges are undirected, [0, 1] is the 
+ * same as [1, 0] and thus will not appear together in edges.
  * Example 1: Given n = 4, edges = [[1, 0], [1, 2], [1, 3]]
  *         0
  *         |
@@ -31,18 +34,20 @@ import java.util.Queue;
  *  	   5
  * 	return [3, 4]
  * Note:
- * (1) According to the definition of tree on Wikipedia: “a tree is an undirected graph in which any two vertices are connected by 
- * exactly one path. In other words, any connected graph without simple cycles is a tree.”
- * (2) The height of a rooted tree is the number of edges on the longest downward path between the root and a leaf. 
+ * (1) According to the definition of tree on Wikipedia: “a tree is an undirected graph in which 
+ * any two vertices are connected by exactly one path. In other words, any connected graph without 
+ * simple cycles is a tree.”
+ * (2) The height of a rooted tree is the number of edges on the longest downward path between the 
+ * root and a leaf. 
  * 
  * Company: Google
+ * Difficulty: medium
+ * Similar Questions: 207(Course Schedule), 210(Course Schedule II)
  */
 public class MinumumHeightTree {
 
-    // construct the graph, for each vertex as a root of the tree, calculate the
-    // height.
-    // compare the height with the minimum height, update the minimum if
-    // necessary.
+    // construct the graph, for each vertex as a root of the tree, calculate the height.
+    // compare the height with the minimum height, update the minimum if necessary.
     // Time complexity: O(n^2), getHeight - O(n)
     public List<Integer> findMinHeightTrees_bruteForce(int n, int[][] edges) {
         // if (edges == null || edges.length == 0) return InStream.;
@@ -87,8 +92,8 @@ public class MinumumHeightTree {
         return height + 1;
     }
 
-    // start from vertex with degree of 1 (leaf node). Remove the leaves, update
-    // the degrees of inner vertexes.
+    // start from vertex with degree of 1 (leaf node). 
+    // Remove the leaves, update the degrees of inner vertexes.
     // Then remove the new leaves. Doing so level by level until there are 2 or
     // 1 nodes left.
     // Time complexity - O(n), space complexity - O(n)

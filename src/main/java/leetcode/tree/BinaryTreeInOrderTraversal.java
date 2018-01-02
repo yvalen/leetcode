@@ -5,17 +5,32 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * InOrder: left -> root -> right
- *
+ * LEETCODE 94
+ * Given a binary tree, return the inorder(left -> root -> right) traversal of its nodes' values.
+ * For example:
+ * Given binary tree [1,null,2,3],
+ *    1
+ *     \
+ *     2
+ *    /
+ *   3
+ * return [1,3,2]. 
+ * 
+ * Company: Microsoft
+ * Difficulty: medium
+ * Similar Questions: 98, 144(BinaryTreePreOrderTraversal), 145, 173, 230, 272, 285
  */
-public class BinaryTreeInOrder {
-    /**
-     * Iterative with stack, algorithm 1) Create an empty stack S. 2) Initialize
-     * current node as root 3) Push the current node to S and set current =
-     * current->left until current is NULL 4) If current is NULL and stack is
-     * not empty then a) Pop the top item from stack. b) Print the popped item,
-     * set current = popped_item->right c) Go to step 3. 5) If current is NULL
-     * and stack is empty then we are done.
+public class BinaryTreeInOrderTraversal {
+    /*
+     * Iterative with stack, algorithm 
+     * 1) Create an empty stack S. 
+     * 2) Initialize current node as root 
+     * 3) Push the current node to S and set current = current->left until current is NULL 
+     * 4) If current is NULL and stack is not empty then 
+     *  a) Pop the top item from stack. 
+     *  b) Print the popped item, set current = popped_item->right 
+     *  c) Go to step 3. 
+     * 5) If current is NULL and stack is empty then we are done.
      */
     public static List<Integer> inorderTraversalIterative(TreeNode root) {
         List<Integer> result = new ArrayList<>();
@@ -28,8 +43,7 @@ public class BinaryTreeInOrder {
             } else {
                 node = nodeStack.pop();
                 result.add(node.val);
-                node = node.right; // last traversed node must not have a right
-                                   // child
+                node = node.right; // last traversed node must not have a right child
             }
         }
 

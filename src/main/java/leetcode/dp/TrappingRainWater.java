@@ -1,4 +1,4 @@
-package leetcode.array;
+package leetcode.dp;
 
 /*
  * LEETCODE 42

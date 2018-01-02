@@ -28,26 +28,24 @@ public class PalindromePermutationII {
         Map<Character, Integer> countMap = new HashMap<>();
         for (Character c : s.toCharArray()) {
             countMap.put(c, countMap.getOrDefault(c, 0) + 1);
-            oddCount += countMap.get(c) % 2 != 0 ? 1 : -1; // need to decrement
-                                                           // by one for event
-                                                           // count to offset
-                                                           // the increment in
-                                                           // the previous count
+            // need to decrement by one when even to offset the increment in the previous count
+            oddCount += countMap.get(c) % 2 != 0 ? 1 : -1; 
         }
 
         // palindrome can only have 1 odd count
         if (oddCount > 1)
             return Collections.emptyList();
 
+        // characters used to construct the palindrome
         List<Character> charList = new ArrayList<>();
         String mid = "";
         for (Map.Entry<Character, Integer> entry : countMap.entrySet()) {
             int count = entry.getValue();
-            if (count % 2 != 0)
-                mid = String.valueOf(entry.getKey());
+            if (count % 2 != 0) mid = String.valueOf(entry.getKey());
             // only need to use half of the string
-            for (int i = 0; i < count / 2; i++)
+            for (int i = 0; i < count / 2; i++) {
                 charList.add(entry.getKey());
+            }
         }
 
         List<String> result = new ArrayList<>();
@@ -58,17 +56,21 @@ public class PalindromePermutationII {
     private void helper(List<Character> charList, List<String> result, String mid, StringBuilder sb, boolean[] used) {
         if (sb.length() == charList.size()) {
             result.add(sb.toString() + mid + sb.reverse().toString());
-            sb.reverse(); // need to restore the order of sb for backtracking
+            // need to restore the order of sb to contiue with backtracking
+            // it is reversed when constructing the string added to result
+            sb.reverse(); 
             return;
         }
 
         for (int i = 0; i < charList.size(); i++) {
-            if (used[i])
-                continue;
+            if (used[i]) continue;
 
-            if (i > 0 && charList.get(i) == charList.get(i - 1) && !used[i - 1])
-                continue; // check !used[i-1] is faster than check used[i-1]
-
+            // prevent duplicate palindrome to be generated from repeated characters
+            // check !used[i-1] is faster than check used[i-1]
+            if (i > 0 && charList.get(i) == charList.get(i - 1) && !used[i - 1]) {
+                continue; 
+            }
+            
             used[i] = true;
             sb.append(charList.get(i));
             // System.out.println(sb.toString());
@@ -82,7 +84,8 @@ public class PalindromePermutationII {
         PalindromePermutationII pp = new PalindromePermutationII();
         // String s = "aabb";
         // String s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-        String s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        //String s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        String s = "aabbcc";
         System.out.println(pp.generatePalindromes(s));
     }
 }

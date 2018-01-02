@@ -5,10 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 
 /*
- * Given a sorted integer array where the range of elements are in the inclusive range [lower, upper], return its missing ranges.
+ * LEETCODE 163 
+ * Given a sorted integer array where the range of elements are in the inclusive range [lower, upper], 
+ * return its missing ranges.
  * For example, given [0, 1, 3, 50, 75], lower = 0 and upper = 99, return ["2", "4->49", "51->74", "76->99"]. 
  */
-public class MissingRangers {
+public class MissingRange {
 
     public List<String> findMissingRanges_long(int[] nums, int lower, int upper) {
         List<String> result = new ArrayList<>();
@@ -76,7 +78,7 @@ public class MissingRangers {
     }
 
     public static void main(String[] args) {
-        MissingRangers mr = new MissingRangers();
+        MissingRange mr = new MissingRange();
         // int[] nums = {0, 1, 3, 50, 75};
         // int lower = 0, upper = 99;
         // int[] nums = {};

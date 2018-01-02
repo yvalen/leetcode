@@ -4,18 +4,21 @@ import java.util.stream.IntStream;
 
 public class PaintHouse {
     /*
-     * LEETCODE 256 There are a row of n houses, each house can be painted with
-     * one of the three colors: red, blue or green. The cost of painting each
-     * house with a certain color is different. You have to paint all the houses
-     * such that no two adjacent houses have the same color. The cost of
-     * painting each house with a certain color is represented by a n x 3 cost
-     * matrix. For example, costs[0][0] is the cost of painting house 0 with
-     * color red; costs[1][2] is the cost of painting house 1 with color green,
-     * and so on... Find the minimum cost to paint all houses. Note: All costs
-     * are positive integers.
+     * LEETCODE 256 
+     * There are a row of n houses, each house can be painted with one of the 
+     * three colors: red, blue or green. The cost of painting each house with 
+     * a certain color is different. You have to paint all the houses such that 
+     * no two adjacent houses have the same color. The cost of painting each 
+     * house with a certain color is represented by a n x 3 cost matrix. 
+     * For example, costs[0][0] is the cost of painting house 0 with color red; 
+     * costs[1][2] is the cost of painting house 1 with color green, and so on... 
+     * Find the minimum cost to paint all houses. 
+     * Note: All costs are positive integers.
      * 
-     * Company: LinkedIn Difficulty: easy Similar Questions: 265(Paint House
-     * II), 276(PaintFence), 198(House Robber), 213(House Robber II)
+     * Company: LinkedIn 
+     * Difficulty: easy 
+     * Similar Questions: 265(Paint House II), 276(PaintFence), 198(House Robber), 
+     * 213(House Robber II)
      */
     public int minCost_withDPArray(int[][] costs) {
         if (costs == null || costs.length == 0 || costs[0].length != 3)
@@ -50,19 +53,23 @@ public class PaintHouse {
     }
 
     /*
-     * LEETCODE 265 There are a row of n houses, each house can be painted with
-     * one of the k colors. The cost of painting each house with a certain color
-     * is different. You have to paint all the houses such that no two adjacent
-     * houses have the same color. The cost of painting each house with a
-     * certain color is represented by a n x k cost matrix. For example,
-     * costs[0][0] is the cost of painting house 0 with color 0; costs[1][2] is
-     * the cost of painting house 1 with color 2, and so on... Find the minimum
-     * cost to paint all houses. Note: All costs are positive integers. Follow
-     * up: Could you solve it in O(nk) runtime?
+     * LEETCODE 265 
+     * There are a row of n houses, each house can be painted with one of the k colors. 
+     * The cost of painting each house with a certain color is different. You have to 
+     * paint all the houses such that no two adjacent houses have the same color. The 
+     * cost of painting each house with a certain color is represented by a n x k cost 
+     * matrix. For example, costs[0][0] is the cost of painting house 0 with color 0; 
+     * costs[1][2] is the cost of painting house 1 with color 2, and so on... 
+     * Find the minimum cost to paint all houses. 
+     * Note: All costs are positive integers. 
+     * Follow up: Could you solve it in O(nk) runtime?
      * 
-     * Company: Facebook Difficulty: medium Similar Questions: 256(Paint House),
-     * 276(PaintFence), 238(ProductOfArrayExceptSelf), 239(SlidingWindowMaximum)
+     * Company: Facebook 
+     * Difficulty: medium 
+     * Similar Questions: 256(Paint House), 276(PaintFence), 238(ProductOfArrayExceptSelf), 
+     * 239(SlidingWindowMaximum)
      */
+ // Complexity: time - O(nk^2), space O(nk)
     public int minCostII_withDPArray(int[][] costs) {
         if (costs == null || costs.length == 0 || costs[0].length == 0)
             return 0;
@@ -90,7 +97,7 @@ public class PaintHouse {
             return 0;
 
         // we need to know the min cost to the previous house of any color and
-        // if the color j is used on previous house to get prev min cost
+        // if the color j is used on previous house to get previous min cost
         // dp[currentHouse][currentColor] = (currentColor == prevMinColor?
         // prevSecondMin: prevMin) + costs[currentHouse][currentColor]
         int prevMin = 0, prevSecMin = 0, prevMinIdx = -1; // prevMin and

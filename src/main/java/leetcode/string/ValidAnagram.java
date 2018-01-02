@@ -7,12 +7,19 @@ import java.util.Map;
 import java.util.Set;
 
 /*
+ * LEETCODE 242
  * Given two strings s and t, write a function to determine if t is an anagram of s.
  * For example,
  * 	s = "anagram", t = "nagaram", return true.
  * 	s = "rat", t = "car", return false.
  * Note: You may assume the string contains only lowercase alphabets.
- * Follow up: What if the inputs contain unicode characters? How would you adapt your solution to such case?
+ * Follow up: What if the inputs contain unicode characters? 
+ * How would you adapt your solution to such case?
+ * 
+ * Company: Amazon, Uber, Yelp
+ * Difficulty: easy
+ * Similar Questions: 49(GroupAnagrams), 266(PalindromePermutation), 438(FindAllAnagrams)
+ *
  */
 public class ValidAnagram {
     public boolean isAnagram_withMap(String s, String t) {
@@ -58,12 +65,9 @@ public class ValidAnagram {
     }
 
     public boolean isAnagram_withArray(String s, String t) {
-        if ((s == null && t != null) || (s != null && t == null) || s.length() != t.length()) {
-            return false;
-        }
+        if (s == null || s.isEmpty()) return t == null || t.isEmpty();
 
-        // use an array to track appearance of 26 letters, index will be
-        // char-'a'
+        // use an array to track appearance of 26 letters, index will be char-'a'
         int[] alphabet = new int[26];
         for (int i = 0; i < s.length(); i++)
             alphabet[s.charAt(i) - 'a']++;

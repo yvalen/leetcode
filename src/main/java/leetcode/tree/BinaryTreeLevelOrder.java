@@ -8,16 +8,30 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
+
 public class BinaryTreeLevelOrder {
-    /**
-     * LEETCODE 102 Given a binary tree, return the level order traversal of its
-     * nodes' values. (ie, from left to right, level by level). For example:
-     * Given binary tree {3,9,20,#,#,15,7}, 3 / \ 9 20 / \ 15 7 return its level
-     * order traversal as: [ [3], [9,20], [15,7] ]
-     *
+    /*
+     * LEETCODE 102
+     * Given a binary tree, return the level order traversal of its nodes' values. 
+     * (ie, from left to right, level by level).
+     * For example:
+     * Given binary tree [3,9,20,null,null,15,7],
+     *     3
+     *    / \
+     *   9  20
+     *     /  \
+     *   15   7
+     * return its level order traversal as:
+     * [
+     *  [3],
+     *  [9,20],
+     *  [15,7]
+     * ]
+     * 
      * Company: Facebook, Microsoft, Amazon, Bloomberg, LinkedIn, Apple
-     * Difficulty: medium Similar Questions: 103(Binary Tree Level Order
-     * Traversal II), 107(Binary Tree Zigzag Level Order Traversal)
+     * Difficulty: medium
+     * Similar Questions: 103(Binary Tree Level Order Traversal II), 
+     * 107(Binary Tree Zigzag Level Order Traversal), 111(Minimum Depth of Binary Tree)
      * 314(BinaryTreeVerticalOrderTraversal), 637(AverageOfLevels)
      */
     public List<List<Integer>> levelOrder(TreeNode root) {
@@ -43,14 +57,25 @@ public class BinaryTreeLevelOrder {
         return result;
     }
 
-    /**
-     * LEETCODE 107 Given a binary tree, return the bottom-up level order
-     * traversal of its nodes' values. (ie, from left to right, level by level
-     * from leaf to root). For example, given binary tree {3,9,20,#,#,15,7},
-     * return [[15,7],[9, 20],[3]]
+    /*
+     * LEETCODE 107 
+     * Given a binary tree, return the bottom-up level order traversal of its nodes' values. 
+     * (ie, from left to right, level by level from leaf to root). 
+     * For example, given binary tree {3,9,20,#,#,15,7},
+     *     3
+     *    / \
+     *   9  20
+     *     /  \
+     *    15   7
+     * return its bottom-up level order traversal as:
+     * [
+     *  [15,7],
+     *  [9,20],
+     *  [3]
+     * ]
      * 
-     * Difficulty: easy Similar Questions: 102(Binary Tree Level Order
-     * Traversal), 637(AverageOfLevels)
+     * Difficulty: easy 
+     * Similar Questions: 102(Binary Tree Level Order Traversal), 637(AverageOfLevels)
      */
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         if (root == null)
@@ -76,14 +101,25 @@ public class BinaryTreeLevelOrder {
     }
 
     /*
-     * LEETCODE 103 Given a binary tree, return the zigzag level order traversal
-     * of its nodes' values. (ie, from left to right, then right to left for the
-     * next level and alternate between). For example: Given binary tree
-     * [3,9,20,null,null,15,7], 3 / \ 9 20 / \ 15 7 return its zigzag level
-     * order traversal as: [ [3], [20,9], [15,7] ]
+     * LEETCODE 103 
+     * Given a binary tree, return the zigzag level order traversal of its nodes' values. 
+     * (ie, from left to right, then right to left for the next level and alternate between). 
+     * For example: Given binary tree [3,9,20,null,null,15,7], 
+     *     3
+     *    / \
+     *   9  20
+     *     /  \
+     *    15   7
+     * return its bottom-up level order traversal as:
+     * [
+     *  [3],
+     *  [20, 9],
+     *  [15, 7]
+     * ]
      * 
-     * Company: Microsoft, Bloomberg, LinkedIn Difficulty: medium Similar
-     * Questions: 102(Binary Tree Level Order Traversal)
+     * Company: Microsoft, Bloomberg, LinkedIn 
+     * Difficulty: medium 
+     * Similar Questions: 102(Binary Tree Level Order Traversal)
      */
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         if (root == null)
@@ -108,14 +144,6 @@ public class BinaryTreeLevelOrder {
                 Collections.reverse(level);
             result.add(level);
             leftToRight = !leftToRight;
-            /*
-             * LinkedList<Integer> level = new LinkedList<>(); for (int i = 0; i
-             * < size; i++) { TreeNode node = q.poll(); if (leftToRight) {
-             * level.addLast(node.val); } else { level.addFirst(node.val); } if
-             * (node.left != null) { q.offer(node.left); } if (node.right !=
-             * null) { q.offer(node.right); } } leftToRight = !leftToRight;
-             * result.add(level);
-             */
         }
 
         return result;

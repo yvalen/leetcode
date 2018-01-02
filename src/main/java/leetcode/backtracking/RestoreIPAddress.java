@@ -5,8 +5,16 @@ import java.util.Collections;
 import java.util.List;
 
 /*
- * Given a string containing only digits, restore it by returning all possible valid IP address combinations.
- * For example: given "25525511135", return ["255.255.11.135", "255.255.111.35"]. (Order does not matter) 
+ * LEETCODE 93
+ * Given a string containing only digits, restore it by returning all possible 
+ * valid IP address combinations.
+ * For example: 
+ * given "25525511135", 
+ * return ["255.255.11.135", "255.255.111.35"]. (Order does not matter) 
+ * 
+ * Company: Uber
+ * Difficulty: medium
+ * Similar Questions: 725
  */
 public class RestoreIPAddress {
     public List<String> restoreIpAddresses(String s) {
@@ -16,11 +24,10 @@ public class RestoreIPAddress {
         List<String> result = new ArrayList<>();
         int len = s.length();
 
-        // 3-loop divides the string s into 4 substring: s1, s2, s3, s4. Check
-        // if each substring is valid.
+        // 3-loop divides the string s into 4 substring: s1, s2, s3, s4. 
+        // Check if each substring is valid.
         for (int i = 1; i < 4 && i < len - 2; i++) { // i is the end index of s1
-            for (int j = i + 1; j < i + 4 && j < len - 1; j++) { // j is the end
-                                                                 // index of s2
+            for (int j = i + 1; j < i + 4 && j < len - 1; j++) { // j is the end index of s2
                 for (int k = j + 1; k < j + 4 && k < len; k++) {
                     String s1 = s.substring(0, i), s2 = s.substring(i, j), s3 = s.substring(j, k), s4 = s.substring(k);
                     if (isValid(s1) && isValid(s2) && isValid(s3) && isValid(s4)) {
@@ -40,8 +47,9 @@ public class RestoreIPAddress {
     }
 
     public List<String> restoreIpAddresses_backtrack(String s) {
-        if (s == null || s.isEmpty() || s.length() < 4 || s.length() > 12)
+        if (s == null || s.length() < 4 || s.length() > 12) {
             return Collections.emptyList();
+        }
 
         List<String> result = new ArrayList<>();
         helper(s, result, "", 0);

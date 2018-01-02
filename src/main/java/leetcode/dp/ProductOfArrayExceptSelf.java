@@ -11,7 +11,7 @@ package leetcode.dp;
  * 
  * Company: Facebook, Microsoft, Amazon, LinkedIn, Apple
  * Difficulty: medium
- * Similar Questions: 152(MaxProductSubarray)
+ * Similar Questions: 42(TrappingRainWater), 152(MaxProductSubarray), 265(Paint House II)
  */
 public class ProductOfArrayExceptSelf {
     /*

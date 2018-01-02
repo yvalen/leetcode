@@ -5,7 +5,22 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-public class BinaryTreePreOrder {
+/*
+ * LEETCODE 144
+ * Given a binary tree, return the preorder(root->left->right) traversal of its nodes' values.
+ * For example:
+ * Given binary tree [1,null,2,3],
+ *    1
+ *     \
+ *     2
+ *    /
+ *   3
+ * return [1,2,3]. 
+ * 
+ * Difficulty: medium
+ * Similar Questions: 94(BinaryTreeInOrderTraversal), 255
+ */
+public class BinaryTreePreOrderTraversal {
 
     public List<Integer> preorderTraversal_recursive(TreeNode root) {
         List<Integer> result = new LinkedList<>();

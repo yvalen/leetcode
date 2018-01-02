@@ -3,15 +3,22 @@ package leetcode.tree;
 import java.util.Stack;
 
 /*
+ * LEETCODE 230
  * Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.
  * Note: You may assume k is always valid, 1 ≤ k ≤ BST's total elements.
  * Follow up: What if the BST is modified (insert/delete operations) often and you need to find the 
  * kth smallest frequently? How would you optimize the kthSmallest routine?
+ * https://leetcode.com/problems/kth-smallest-element-in-a-bst/discuss/63659
+ * add a count field in the BST node class, it will take O(n) time when we calculate the count value 
+ * for the whole tree, but after that, it will take O(logn) time when insert/delete a node or calculate 
+ * the kth smallest element.
  * 
  * Compant: Google, Uber, Bloomberg
  * Difficulty: medium
+ * Similar Questions: 94(BinaryTreeInOrderTraversal), 671(SecondMinimumNode)
  */
 public class KthSmallestElementInBST {
+    // Time complexity: O(n) 
     public int kthSmallest_inorderIterative(TreeNode root, int k) {
         Stack<TreeNode> stack = new Stack<>();
         TreeNode node = root;
@@ -47,12 +54,12 @@ public class KthSmallestElementInBST {
         return inorder(node.right, k);
     }
 
-    public int kthSmallest(TreeNode root, int k) {
+    public int kthSmallest_binarySearch(TreeNode root, int k) {
         int count = countNodes(root.left);
         if (k <= count) {
-            return kthSmallest(root.left, k);
+            return kthSmallest_binarySearch(root.left, k);
         } else if (k > count + 1) {
-            return kthSmallest(root.right, k - count - 1); // i is counted as
+            return kthSmallest_binarySearch(root.right, k - count - 1); // i is counted as
                                                            // current node
         }
         return root.val;

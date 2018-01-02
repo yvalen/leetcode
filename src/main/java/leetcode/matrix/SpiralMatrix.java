@@ -8,10 +8,20 @@ import java.util.stream.IntStream;
 
 public class SpiralMatrix {
     /**
+     * LEETCODE 56
      * Given a matrix of m x n elements (m rows, n columns), return all elements
-     * of the matrix in spiral order. For example, given the following matrix: [
-     * [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ] You should return
-     * [1,2,3,6,9,8,7,4,5].
+     * of the matrix in spiral order. 
+     * For example, given the following matrix: 
+     * [
+     *  [ 1, 2, 3 ], 
+     *  [ 4, 5, 6 ], 
+     *  [ 7, 8, 9 ]
+     * ] 
+     * You should return [1,2,3,6,9,8,7,4,5].
+     * 
+     * Company: Google, Uber, Microsoft
+     * Difficulty: medium
+     * Similar Questions: 59(Spiral Matrix II)
      */
     public List<Integer> spiralOrder_revursive(int[][] matrix) {
         List<Integer> result = new LinkedList<>();
@@ -89,13 +99,18 @@ public class SpiralMatrix {
             result.add(matrix[i][colStart]);
         }
 
+        // recurse to the next layer
         sprialOrderHelper(matrix, rowStart + 1, rowEnd - 1, colStart + 1, colEnd - 1, result);
     }
 
     /**
+     * LEETCODE 59
      * Given an integer n, generate a square matrix filled with elements from 1
      * to n2 in spiral order. For example, given n = 3, you should return the
      * following matrix: [ [ 1, 2, 3 ], [ 8, 9, 4 ], [ 7, 6, 5 ] ]
+     * 
+     * Difficulty: medium
+     * Similar Questions: 54(Spiral Matrix)
      */
     public int[][] generateMatrix(int n) {
         if (n <= 0) {

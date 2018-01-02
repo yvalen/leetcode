@@ -4,13 +4,19 @@ import leetcode.list.ListNode;
 import leetcode.list.ListUtil;
 
 /*
+ * LEETCODE 147
  * Sort a linked list using insertion sort.
+ * 
+ * Difficulty: medium
+ * Similar Questions: 148(SortList)
  * 
  * Advantage of insertion sort:
  * - simple implementation
  * - efficient for small data set
- * - more efficient in practice in practice than other O(n^2) algorithms such as selection sort and bubble sort
- * - adaptive, efficient for data sets that are already sustantially sorted: O(nk) when each element in the input is no more than k place away from its sorted position
+ * - more efficient in practice in practice than other O(n^2) algorithms such as 
+ * selection sort and bubble sort
+ * - adaptive, efficient for data sets that are already sustantially sorted: O(nk) 
+ * when each element in the input is no more than k place away from its sorted position
  * - stable, doesn't change the relative order of elements with equal keys
  * - in-place, only requires constant amount O(1) of additional memory space
  * - online, can sort a list as it receives it
@@ -53,12 +59,8 @@ public class InsertionSortList {
         ListNode current = head, prev = dummy, next = null;
         while (current != null) {
             next = current.next; // save the next node first
-            while (prev.next != null && prev.next.val < current.val) { // use
-                                                                       // prev.next
-                                                                       // to
-                                                                       // find
-                                                                       // the
-                                                                       // position
+            // use prev.next to find the position
+            while (prev.next != null && prev.next.val < current.val) { 
                 prev = prev.next;
             }
             current.next = prev.next;

@@ -38,13 +38,12 @@ public class MovingAverage {
     }
 
     public double next(int val) {
-        if (count < size)
-            count++;
+        if (count < size) count++; // need to keep track the count to calculate the average
         sum -= window[index];
         sum += val;
         window[index] = val;
         index = (index + 1) % size;
-        return sum / count;
+        return (double) sum / count; // need to cast sum to double first, otherwise precision will be lost
 
         /*
          * if (deque.size() == this.size) { sum -= deque.removeFirst(); }

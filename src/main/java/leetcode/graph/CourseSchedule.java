@@ -12,7 +12,7 @@ import java.util.Stack;
 import leetcode.array.ArrayUtil;
 
 /*
- * Kahn's algorithm
+ * Kahn's algorithm: time complexity O(V+E)
  * L ← Empty list that will contain the sorted elements
  * S ← Set of all nodes with no incoming edges
  * while S is non-empty do
@@ -48,22 +48,27 @@ import leetcode.array.ArrayUtil;
 
 public class CourseSchedule {
     /*
-     * LEETCODE 207 There are a total of n courses you have to take, labeled
-     * from 0 to n - 1. Some courses may have prerequisites, for example to take
-     * course 0 you have to first take course 1, which is expressed as a pair:
-     * [0,1] Given the total number of courses and a list of prerequisite pairs,
-     * is it possible for you to finish all courses? For example: 2, [[1,0]]
+     * LEETCODE 207 
+     * There are a total of n courses you have to take, labeled from 0 to n - 1. 
+     * Some courses may have prerequisites, for example to take course 0 you have 
+     * to first take course 1, which is expressed as a pair: [0,1] 
+     * Given the total number of courses and a list of prerequisite pairs, is it 
+     * possible for you to finish all courses? 
+     * For example: 
+     * 2, [[1,0]]
      * There are a total of 2 courses to take. To take course 1 you should have
-     * finished course 0. So it is possible. 2, [[1,0],[0,1]] There are a total
-     * of 2 courses to take. To take course 1 you should have finished course 0,
-     * and to take course 0 you should also have finished course 1. So it is
-     * impossible. Note: The input prerequisites is a graph represented by a
-     * list of edges, not adjacency matrices. You may assume that there are no
-     * duplicate edges in the input prerequisites. This problem can be converted
-     * to finding if a graph contains a cycle.
+     * finished course 0. So it is possible. 
+     * 2, [[1,0],[0,1]] 
+     * There are a total of 2 courses to take. To take course 1 you should have finished 
+     * course 0, and to take course 0 you should also have finished course 1. So it is
+     * impossible. 
+     * Note: The input prerequisites is a graph represented by a list of edges, not adjacency 
+     * matrices. You may assume that there are no duplicate edges in the input prerequisites. 
+     * This problem can be converted to finding if a graph contains a cycle.
      * 
-     * Company: Uber, Apple, Zenefits, Yelp Difficulty: medium Similar
-     * Questions: 261(GraphValidTree), 310(MinumumHeightTree)
+     * Company: Uber, Apple, Zenefits, Yelp 
+     * Difficulty: medium 
+     * Similar Questions: 261(GraphValidTree), 310(MinumumHeightTree), 210(Course Schedule II)
      */
     // Time Complexity: O(V+E)
     public boolean canFinish_bfs(int numCourses, int[][] prerequisites) {
@@ -72,7 +77,6 @@ public class CourseSchedule {
         }
 
         // array stores the number of prereq count for each course
-        // used to find
         int[] prereqCount = new int[numCourses];
 
         // build graph with adjacency list representation
@@ -124,9 +128,8 @@ public class CourseSchedule {
     // traverses all the courses (nodes) that can be
     // taken subsequently. If we ever encounter the a course we have already
     // visited , then we know there is a cycle.
-    // Time complexity: O(V+E^2)
-    // O(E) solution:
-    // https://discuss.leetcode.com/topic/28672/o-e-solution-dfs-based
+    // Time complexity: O(V+E)
+    // O(E) solution: https://discuss.leetcode.com/topic/28672/o-e-solution-dfs-based
     public boolean canFinish_dfs(int numCourses, int[][] prerequisites) {
         if (numCourses == 0 || prerequisites == null || prerequisites.length == 0 || prerequisites[0].length == 0) {
             return true;
@@ -176,14 +179,17 @@ public class CourseSchedule {
     //
 
     /*
-     * LEETCODE 210 Extension of canFinish Given the total number of courses and
-     * a list of prerequisite pairs, return the ordering of courses you should
-     * take to finish all courses. There may be multiple correct orders, you
-     * just need to return one of them. If it is impossible to finish all
-     * courses, return an empty array
+     * LEETCODE 210 
+     * Extension of canFinish Given the total number of courses and a list of 
+     * prerequisite pairs, return the ordering of courses you should take to 
+     * finish all courses. There may be multiple correct orders, you just need 
+     * to return one of them. If it is impossible to finish all courses, return 
+     * an empty array
      * 
-     * Company: Facebook, Zenefits Difficulty: medium Similar Questions:
-     * 269(AlienDictionary), 310(MinumumHeightTree), 444(SequenceReconstruction)
+     * Company: Facebook, Zenefits 
+     * Difficulty: medium 
+     * Similar Questions: 207(Course Schedule), 269(AlienDictionary), 310(MinumumHeightTree), 
+     * 444(SequenceReconstruction)
      */
     public int[] findOrder_bfs(int numCourses, int[][] prerequisites) {
         int[] result = new int[numCourses];

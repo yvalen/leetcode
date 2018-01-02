@@ -5,13 +5,14 @@ import java.util.Queue;
 
 public class MergeList {
 
-    /**
-     * LEETCODE 21 Merge two sorted linked lists and return it as a new list.
-     * The new list should be made by splicing together the nodes of the first
-     * two lists.
+    /*
+     * LEETCODE 21
+     * Merge two sorted linked lists and return it as a new list. The new list 
+     * should be made by splicing together the nodes of the first two lists.
      * 
-     * Company: Microsoft, Amazon, LinkedIn, Apple Difficulty: easy Similar
-     * Questions: 244(WordDistiance)
+     * Company: Microsoft, Amazon, LinkedIn, Apple 
+     * Difficulty: easy 
+     * Similar Questions: 23(Merge k Sorted Lists), 88(MergeSortedArray), 244(WordDistiance)
      */
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if (l1 == null)
@@ -59,15 +60,17 @@ public class MergeList {
         return head;
     }
 
-    /**
-     * LEETCODE 23 Merge k sorted linked lists and return it as one sorted list.
+    /*
+     * LEETCODE 23 
+     * Merge k sorted linked lists and return it as one sorted list.
      * Analyze and describe its complexity.
      * 
-     * Company: Google, Facebook, Microsoft, Amazon, Uber, LinkedIn, Twitter,
-     * Airbnb, IXL Difficulty: hard Similar Questions: 21(Merge Two Sorted
-     * Lists)
+     * Company: Google, Facebook, Microsoft, Amazon, Uber, LinkedIn, Twitter, Airbnb, IXL 
+     * Difficulty: hard 
+     * Similar Questions: 21(Merge Two Sorted Lists)
      */
-    // Time complexity: O(nlogk)
+    // Time complexity: O(nlogk), n is the number of nodes in the final list, k is the number of lists
+    // Space complexity: O(k), size of the heap
     public ListNode mergeKLists_withMinHeap(ListNode[] lists) {
         if (lists == null || lists.length == 0)
             return null;
@@ -75,15 +78,15 @@ public class MergeList {
         ListNode dummy = new ListNode(0);
         ListNode current = dummy;
 
-        Queue<ListNode> minHeap = new PriorityQueue<>(lists.length, (ListNode o1, ListNode o2) -> o1.val - o2.val);
+        Queue<ListNode> minHeap = new PriorityQueue<>(lists.length, (o1, o2) -> o1.val - o2.val);
 
         // insert the first element of each list into priority queue
         // elements in priority queue are ordered according to their natural
         // ordering
         // natural ordering for primitive type is ascending order
         for (ListNode list : lists) {
-            if (list != null) { // need to check for null here because the list
-                                // element could be null, e.g. [[]]
+            if (list != null) { 
+                // need to check for null here because the list element could be null, e.g. [[]]
                 minHeap.add(list);
             }
         }
@@ -104,11 +107,16 @@ public class MergeList {
     }
 
     // Divide and Conquer
+    // Pair up k lists and merge each pair.
+    // After the first pairing, k lists are merged into k/2 lists with average 2N/k length, 
+    // then k/4, k/8 and so on.
+    // Repeat this procedure until we get the final sorted linked list.
+    // Time complexity : O(Nlogk): merge two list takes O(n)
+    // space complexity: O(logk) for recursion stack
     // 1. If there is a single list, return it as the result
     // 2. If there are two lists, return their merged lists as the result
     // 3. Split the list into two halves, recursively merge the lower half and
-    // the upper half,
-    // and then return the merge of the two halves as the result
+    // the upper half, and then return the merge of the two halves as the result
     public ListNode mergeKLists_divideConquer(ListNode[] lists) {
         if (lists == null)
             return null;

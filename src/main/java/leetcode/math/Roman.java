@@ -42,42 +42,32 @@ public class Roman {
         int result = symbolValueMap.get(s.charAt(s.length() - 1));
 
         // walk the string from back to front, if one letter is less than its
-        // latter one, this letter is subtracted;
-        // otherwise, it is added
+        // latter one, this letter is subtracted; otherwise, it is added
         for (int i = s.length() - 2; i >= 0; i--) {
             int val = symbolValueMap.get(s.charAt(i));
             if (val < symbolValueMap.get(s.charAt(i + 1))) {
+                // only do subtraction when r, "DCXXI"
                 result -= val;
             } else {
                 result += val;
             }
         }
         return result;
-
-        /*
-         * int result = 0; char prev = '#'; // the last letter is always added.
-         * walk the string from back to front, // if one letter is less than its
-         * latter one, this letter is subtracted. for (int i = s.length() - 1; i
-         * >= 0; i--) { char c = s.charAt(i); int val = map.get(c); if (val <
-         * result && c != prev) { result -= val; // only do subtraction when
-         * current character is different from the following character, "DCXXI"
-         * } else { result += val; } prev = c; } return result;
-         */
     }
 
     /*
      * LEETCODE 12 Given an integer, convert it to a roman numeral. Input is
      * guaranteed to be within the range from 1 to 3999.
      * 
-     * Company: Twitter Difficulty: medium Similar Questions: 13(Roman to
-     * Integer), 273(IntegerToEnglishWords)
+     * Company: Twitter 
+     * Difficulty: medium 
+     * Similar Questions: 13(Roman to Integer), 273(IntegerToEnglishWords)
      */
     private static final String[] M = { "", "M", "MM", "MMM" }; // thousand
     private static final String[] C = { "", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM" }; // hundred
     private static final String[] X = { "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC" }; // 10-100
-    private static final String[] I = { "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX" }; // <
-                                                                                                      // 10
-
+    private static final String[] I = { "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX" }; // < 10
+    
     public String intToRoman(int num) {
         if (num <= 0)
             return "";

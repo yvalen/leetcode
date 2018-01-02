@@ -15,32 +15,22 @@ package leetcode.math;
  */
 public class AddStrings {
     public String addStrings(String num1, String num2) {
-        if (num1 == null || num1.isEmpty())
-            return num2;
-        if (num2 == null || num2.isEmpty())
-            return num1;
+        if (num1 == null || num1.isEmpty()) return num2;
+        if (num2 == null || num2.isEmpty()) return num1;
 
         StringBuilder sb = new StringBuilder();
-        int carry = 0;
-        for (int i = num1.length() - 1, j = num2.length() - 1; i >= 0 || j >= 0; i--, j--) { // check
-                                                                                             // i>=0
-                                                                                             // ||
-                                                                                             // j>=0
-                                                                                             // so
-                                                                                             // that
-                                                                                             // we
-                                                                                             // don't
-                                                                                             // need
-                                                                                             // another
-                                                                                             // loop
-            // need to add carry to val so that we can get proper carry by using
-            // val for the next iteration
-            int val = (i >= 0 ? num1.charAt(i) - '0' : 0) + (j >= 0 ? num2.charAt(j) - '0' : 0) + carry;
-            sb.append(val % 10);
-            carry = val > 9 ? 1 : 0;
+        int sum = 0;
+        for (int i = num1.length() - 1, j = num2.length()-1; i >= 0 || j >= 0;) {
+            sum /= 10;
+            if (i >= 0) {
+                sum += num1.charAt(i--) - '0';
+            }
+            if (j >= 0) {
+                sum += num2.charAt(j--) - '0';
+            }
+            sb.append(sum % 10);
         }
-        if (carry == 1)
-            sb.append(1); // need to check carry at the end
+        if (sum >= 10) sb.append(sum/10);
         return sb.reverse().toString();
     }
 

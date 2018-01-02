@@ -10,7 +10,8 @@ import java.util.Set;
  * 
  * Company: Google, Uber, Bloomberg
  * Difficulty: easy
- * Similar Questions: 267(PalindromePermutationII)
+ * Similar Questions: 242(ValidAnagram), 267(PalindromePermutationII),
+ * 409(LongestPalindrome), 5(LongestPalindromeSubstring)
  */
 public class PalindromePermutation {
     public boolean canPermutePalindrome(String s) {
@@ -24,8 +25,8 @@ public class PalindromePermutation {
             else
                 charSet.add(c);
         }
-        return charSet.size() <= 1; // size == 0 - even number, size == 1 - odd
-                                    // number
+        // size == 0 - even number, size == 1 - odd number
+        return charSet.size() <= 1; 
     }
 
     public static void main(String[] args) {

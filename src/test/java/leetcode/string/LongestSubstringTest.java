@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import leetcode.hashtable.LongestNonReaptingSubstring;
+
 public class LongestSubstringTest {
 	private static final String TEST_STRING_1 = "abcabcbb";
 	private static final String TEST_STRING_2 = "bbbbb";

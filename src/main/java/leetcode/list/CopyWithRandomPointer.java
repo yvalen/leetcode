@@ -3,15 +3,15 @@ package leetcode.list;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * LEETCODE 138 A linked list is given such that each node contains an
- * additional random pointer which could point to any node in the list or null.
- * Return a deep copy of the list.
- * http://fisherlei.blogspot.com/2013/11/leetcode-copy-list-with-random-pointer.
- * html
+/*
+ * LEETCODE 138 
+ * A linked list is given such that each node contains an additional random pointer 
+ * which could point to any node in the list or null. Return a deep copy of the list.
+ * http://fisherlei.blogspot.com/2013/11/leetcode-copy-list-with-random-pointer.html
  * 
- * Company: Amazon, Microsoft, Bloomberg, Uber Difficulty: medium Similar
- * Questions: 133(CloneGraph)
+ * Company: Amazon, Microsoft, Bloomberg, Uber 
+ * Difficulty: medium 
+ * Similar Questions: 133(CloneGraph)
  */
 public class CopyWithRandomPointer {
     class RandomListNode {

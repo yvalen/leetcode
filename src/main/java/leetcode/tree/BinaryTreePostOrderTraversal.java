@@ -5,8 +5,23 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+/*
+ * LEETCODE 145 
+ * Given a binary tree, return the postorder(left->right->root) traversal of its nodes' values.
+ * For example:
+ * Given binary tree {1,#,2,3},
+ *    1
+ *     \
+ *     2
+ *    /
+ *   3
+ * return [3,2,1].
+ * 
+ * Difficulty: hard
+ * Similar Questions: 94(BinaryTreeInOrderTraversal)
+ */
 // http://articles.leetcode.com/binary-tree-post-order-traversal/
-public class BinaryTreePostOrder {
+public class BinaryTreePostOrderTraversal {
     public List<Integer> postorderTraversal_recursive(TreeNode root) {
         List<Integer> result = new LinkedList<>();
         postorderTraversal_recursive_helper(root, result);
@@ -41,13 +56,8 @@ public class BinaryTreePostOrder {
         while (!nodeStack.isEmpty()) {
             TreeNode current = nodeStack.peek();
 
-            if (prev == null // handle root node
-                    || prev.left == current || prev.right == current // traverse
-                                                                     // down if
-                                                                     // prev is
-                                                                     // current's
-                                                                     // parent
-            ) {
+            if (prev == null || prev.left == current || prev.right == current){ 
+                // traverse down if prev is current's parent or current is root
                 if (current.left != null) {
                     // keep going down the left sub tree
                     nodeStack.push(current.left);
@@ -128,8 +138,7 @@ public class BinaryTreePostOrder {
      * left-right-root .
      */
     public List<Integer> postorderTraversal(TreeNode root) {
-        if (root == null)
-            return Collections.emptyList();
+        if (root == null) return Collections.emptyList();
 
         List<Integer> result = new LinkedList<>();
         Stack<TreeNode> nodeStack = new Stack<>();

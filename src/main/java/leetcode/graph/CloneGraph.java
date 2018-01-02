@@ -33,13 +33,8 @@ public class CloneGraph {
             UndirectedGraphNode original = nodeQueue.poll();
             for (UndirectedGraphNode neighbor : original.neighbors) {
                 if (nodeMap.containsKey(neighbor)) {
-                    nodeMap.get(original).neighbors.add(nodeMap.get(neighbor)); // use
-                                                                                // nodeMap.get(original)
-                                                                                // to
-                                                                                // get
-                                                                                // the
-                                                                                // current
-                                                                                // node
+                    // use map to get the clone for original
+                    nodeMap.get(original).neighbors.add(nodeMap.get(neighbor));
                 } else {
                     UndirectedGraphNode neighborClone = new UndirectedGraphNode(neighbor.label);
                     nodeMap.put(neighbor, neighborClone);

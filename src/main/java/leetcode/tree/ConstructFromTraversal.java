@@ -87,6 +87,6 @@ public class ConstructFromTraversal {
         int[] inorder = { 1, 2, 3, 4 };
         TreeNode root = c.buildTree_preorderInOrder(preorder, inorder);
 
-        System.out.println(BinaryTreeInOrder.inorderTraversalIterative(root));
+        System.out.println(BinaryTreeInOrderTraversal.inorderTraversalIterative(root));
     }
 }

@@ -8,8 +8,9 @@ import java.util.Queue;
 
 /*
  * LEETCODE 314
- * Given a binary tree, return the vertical order traversal of its nodes' values. (ie, from top to bottom, column by column).
- * If two nodes are in the same row and column, the order should be from left to right.
+ * Given a binary tree, return the vertical order traversal of its nodes' values. 
+ * (ie, from top to bottom, column by column). If two nodes are in the same row 
+ * and column, the order should be from left to right.
  * Examples: 
  * Given binary tree [3,9,20,null,null,15,7],
  *        3
@@ -38,7 +39,8 @@ import java.util.Queue;
  * 	[8],
  * 	[7]
  * ]
- * Given binary tree [3,9,8,4,0,1,7,null,null,null,2,5] (0's right child is 2 and 1's left child is 5),
+ * Given binary tree [3,9,8,4,0,1,7,null,null,null,2,5] 
+ * (0's right child is 2 and 1's left child is 5),
  *        3
  *       / \
  *      9   20 
@@ -74,10 +76,9 @@ public class BinaryTreeVerticalOrderTraversal {
         Queue<Integer> colq = new LinkedList<>();
         nodeq.offer(root);
         colq.offer(0);
-        int minCol = 0, maxCol = 0; // minCol and maxCol is the range of the
-                                    // current col numbers, use them to decide
-                                    // whether to prepend to the list or append
-                                    // to the list
+        // minCol and maxCol is the range of the current col numbers,
+        // use them to decide whether to prepend to the list or append to the list
+        int minCol = 0, maxCol = 0; 
         result.add(new ArrayList<>()); // add a list to result for col 0
         while (!nodeq.isEmpty()) {
             TreeNode node = nodeq.poll();

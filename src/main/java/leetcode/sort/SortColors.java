@@ -3,17 +3,17 @@ package leetcode.sort;
 import java.util.stream.IntStream;
 
 /*
- * Given an array with n objects colored red, white or blue, sort them so that objects of the same color are adjacent, 
- * with the colors in the order red, white and blue. Here, we will use the integers 0, 1, and 2 to represent the color 
- * red, white, and blue respectively.
+ * LEETCODE 75
+ * Given an array with n objects colored red, white or blue, sort them so that objects of the same 
+ * color are adjacent, with the colors in the order red, white and blue. Here, we will use the integers 
+ * 0, 1, and 2 to represent the color red, white, and blue respectively.
  * Note:You are not suppose to use the library's sort function for this problem. 
  * 
  * Company: Pocket Gems, Microsoft, Facebook
  * Difficulty: Medium
  */
 public class SortColors {
-    // The solution requires the use of tracking 3 positions, the Low, Mid and
-    // High.
+    // The solution requires the use of tracking 3 positions, the Low, Mid and High.
     // We assume that the mid is the "Unknown" area that we must evaluate.
     // If we encounter a 0, we know that it will be on the low end of the array,
     // and if we encounter a 2, we know it will be on the high end of the array.
@@ -66,15 +66,13 @@ public class SortColors {
         int lo = 0, mid = 0, hi = nums.length - 1;
         while (mid <= hi) {
             if (nums[mid] == 0) {
-                // exch(nums, lo, mid); // no need to do swap because we know
-                // the value to put at lo
+                // no need to do swap because we know the value to put at lo
                 nums[mid] = nums[lo];
                 nums[lo] = 0;
                 mid++;
                 lo++;
             } else if (nums[mid] == 2) {
-                // exch(nums, mid, hi);
-                // mid++; // cannot increment mid here because we need to
+                // cannot increment mid here because we need to
                 // process the element that has just been swapped here
                 nums[mid] = nums[hi];
                 nums[hi] = 2;

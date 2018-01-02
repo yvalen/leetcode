@@ -11,7 +11,8 @@ package leetcode.list;
  * 
  * Company: Microsoft, Bloomberg, Amazon, Airbnb, Adobe
  * Difficulty: medium
- * Similar Questions: 
+ * Similar Questions: 67(AddBinary), 43(MultiplyString), 371(SumOfTwoIntegers), 415(AddStrings)
+ * 445(AddTwoNumbersII)
  */
 public class AddTwoNumbers {
     public ListNode addTwoNumbers_andnullcheck(ListNode l1, ListNode l2) {

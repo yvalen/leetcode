@@ -4,9 +4,12 @@ import leetcode.list.ListNode;
 import leetcode.list.ListUtil;
 
 /*
+ * LEETCODE 148
  * Sort a linked list in O(n log n) time using constant space complexity.
  * http://www.cprogramming.com/tutorial/computersciencetheory/sortcomp.html
  * 
+ * Difficulty: medium
+ * Similar Questions: 21(Merge Two Sorted Lists), 75(SortColors), 147(InsertionSortList)
  */
 public class SortList {
     // top down recursion, O(logN) call stack space

@@ -17,7 +17,7 @@ import java.util.PriorityQueue;
  * 
  * Company: Pocket Gem, Yelp
  * Difficulty: medium
- * Similar Questions: 692(TopKFrequentWords)
+ * Similar Questions: 387, 451(SortCharactersByFrequency), 692(TopKFrequentWords)
  */
 public class TopKFrequentElements {
     private static final class Element implements Comparable<Element> {
@@ -50,13 +50,11 @@ public class TopKFrequentElements {
             countMap.put(num, countMap.getOrDefault(num, 0) + 1);
         }
 
-        // PriorityQueue<Element> pq = new PriorityQueue<>(k);
+        // smaller count on top
         PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>(k,
                 (e1, e2) -> e1.getValue() - e2.getValue());
         for (Map.Entry<Integer, Integer> entry : countMap.entrySet()) {
-            // Element elem = new Element(entry.getKey(), entry.getValue());
             if (pq.size() < k) {
-                // pq.offer(elem);
                 pq.offer(entry);
             }
             // else if (pq.peek().compareTo(elem) < 0) {
@@ -87,8 +85,8 @@ public class TopKFrequentElements {
 
         // for each element at position i in bucket, i is the frequency,
         // bucket.get(i) is the number that has that frequency
-        List<List<Integer>> bucket = new ArrayList<>(maxCount);
-        for (int i = 0; i <= maxCount; i++) {
+        List<List<Integer>> bucket = new ArrayList<>(maxCount+1);
+        for (int i = 0; i <= maxCount; i++) { // need to start from 0 here as list size is not fixed
             bucket.add(new ArrayList<>());
         }
 
@@ -113,6 +111,6 @@ public class TopKFrequentElements {
         TopKFrequentElements tkfe = new TopKFrequentElements();
         int[] nums = { 1, 1, 1, 2, 2, 3 };
         int k = 2;
-        System.out.println(tkfe.topKFrequent_heap(nums, k));
+        System.out.println(tkfe.topKFrequent_bucketSort(nums, k));
     }
 }

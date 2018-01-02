@@ -1,19 +1,25 @@
 package leetcode.trie;
 
 /*
+ * LEETCODE 208
  * Implement a trie with insert, search, and startsWith methods.
  * Note: you may assume that all inputs are consist of lowercase letters a-z.
  * 
  * Company: Google, Uber, Facebook, Microsoft, Twitter, Bloomberg
  * Difficulty: medium
+ * Similar Questions: 211(WordDictionary), 642(AutocompleteSystem),
+ * 648(ReplaceWords), 676(MagicDictionary)
  */
 public class Trie {
     private static class Node {
-        boolean endOfWord;
+        private boolean endOfWord;
         private Node[] next = new Node[26];
     }
 
     private Node root;
+    
+    // Time complexity: number of array access for search and insert is 
+    // at most 1 plus the length if the key
 
     /** Initialize your data structure here. */
     public Trie() {
@@ -26,10 +32,8 @@ public class Trie {
     }
 
     private Node insert(Node node, String word, int index) {
-        if (node == null)
-            node = new Node();
+        if (node == null) node = new Node();
         if (index == word.length()) {
-
             node.endOfWord = true;
             return node;
         }
@@ -40,16 +44,8 @@ public class Trie {
 
     /** Returns if the word is in the trie. */
     public boolean search(String word) {
-        return search(root, word, 0, false);
-    }
-
-    private boolean search(Node node, String word, int index, boolean prefixOnly) {
-        if (node == null)
-            return false;
-        if (index == word.length()) {
-            return prefixOnly ? true : node.endOfWord;
-        }
-        return search(node.next[word.charAt(index) - 'a'], word, index + 1, prefixOnly);
+        Node node = search(root, word, 0);
+        return node != null && node.endOfWord;
     }
 
     /**
@@ -57,7 +53,14 @@ public class Trie {
      * prefix.
      */
     public boolean startsWith(String prefix) {
-        return search(root, prefix, 0, true);
+        Node node = search(root, prefix, 0);
+        return node != null;
+    }
+    
+    private Node search(Node node, String word, int d) {
+        if (node == null) return null;
+        if (d == word.length()) return node;
+        return search(node.next[word.charAt(d)-'a'], word, d+1);
     }
 
     //
