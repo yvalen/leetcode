@@ -13,9 +13,8 @@ import leetcode.list.ListUtil;
  * Advantage of insertion sort:
  * - simple implementation
  * - efficient for small data set
- * - more efficient in practice in practice than other O(n^2) algorithms such as 
- * selection sort and bubble sort
- * - adaptive, efficient for data sets that are already sustantially sorted: O(nk) 
+ * - more efficient in practice than other O(n^2) algorithms such as selection sort and bubble sort
+ * - adaptive, efficient for data sets that are already substantially sorted: O(nk) 
  * when each element in the input is no more than k place away from its sorted position
  * - stable, doesn't change the relative order of elements with equal keys
  * - in-place, only requires constant amount O(1) of additional memory space

@@ -233,8 +233,8 @@ public class CourseSchedule {
         // LinkedList<Integer> result = new LinkedList<>();
         Stack<Integer> stack = new Stack<>();
         for (int i = 0; i < numCourses; i++) {
-            if (!findOrder_dfsHelper(i, visitStatus, graph, stack)) { // has
-                                                                      // cycle
+            if (!findOrder_dfsHelper(i, visitStatus, graph, stack)) { 
+                // has cycle
                 return new int[0];
             }
         }

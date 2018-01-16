@@ -12,26 +12,35 @@ import java.util.Set;
 
 public class WordLadder {
     /*
+     * LEETCODE 127
      * Given two words (beginWord and endWord), and a dictionary's word list,
      * find the length of shortest transformation sequence from beginWord to
-     * endWord, such that: - Only one letter can be changed at a time. - Each
-     * transformed word must exist in the word list. Note that beginWord is not
-     * a transformed word. For example, given beginWord = "hit" endWord = "cog"
-     * wordList = ["hot","dot","dog","lot","log","cog"] As one shortest
-     * transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog", return its
-     * length 5. Note: Return 0 if there is no such transformation sequence. All
-     * words have the same length. All words contain only lowercase alphabetic
-     * characters. You may assume no duplicates in the word list. You may assume
-     * beginWord and endWord are non-empty and are not the same.
+     * endWord, such that: 
+     * - Only one letter can be changed at a time. 
+     * - Each transformed word must exist in the word list. Note that beginWord 
+     * is not a transformed word. 
+     * For example, given beginWord = "hit" endWord = "cog"
+     * wordList = ["hot","dot","dog","lot","log","cog"] 
+     * As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog", 
+     * return its length 5. 
+     * Note: 
+     * - Return 0 if there is no such transformation sequence. 
+     * - All words have the same length. 
+     * - All words contain only lower case alphabetic characters. 
+     * - You may assume no duplicates in the word list. 
+     * - You may assume beginWord and endWord are non-empty and are not the same.
+     * 
+     * Company: Facebook, Amazon, LinkedIn, Yelp, Snapchat
+     * Difficulty: medium
+     * Similar Questions: 126(Word Ladder II), 433
      */
-    // l - word length, n -
+    // Time complexity: O(nl), l - word length, n - number of words in the list
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        Set<String> dict = new HashSet<>();
-        dict.addAll(wordList);
-
-        HashSet<String> visited = new HashSet<>(); // keep track of words that
-                                                   // have been checked
-
+        Set<String> dict = new HashSet<>(wordList);
+        
+        // keep track of words that have been checked
+        //HashSet<String> visited = new HashSet<>(); 
+        
         Queue<String> q = new LinkedList<>();
         q.offer(beginWord);
         int len = 1;
@@ -40,14 +49,13 @@ public class WordLadder {
             int qlen = q.size();
             for (int i = 0; i < qlen; i++) {
                 String s = q.poll();
-                Set<String> nextWords = getNextWords(s, dict, visited);
+                Set<String> nextWords = getNextWords(s, dict);
                 for (String word : nextWords) {
                     if (word.equals(endWord)) {
                         return len;
                     }
                     q.offer(word);
-                    // visited.add(word); // we can remove word from dict to
-                    // avoid using visited at all
+                    // remove word from dict to avoid using visited at all
                     dict.remove(word);
                 }
             }
@@ -59,13 +67,13 @@ public class WordLadder {
     // return all words in dictionary that differs from s by one character and
     // hasn't been visited
     // l = s.length O(l*26) -> O(l)
-    private Set<String> getNextWords(String s, Set<String> dict, Set<String> visited) {
+    private Set<String> getNextWords(String s, Set<String> dict) {
         Set<String> nextWords = new HashSet<>();
         char[] chars = s.toCharArray();
         for (int i = 0; i < s.length(); i++) {
             char c = chars[i];
-            for (char j = 'a'; j <= 'z'; j++) { // test all possible chars for
-                                                // position i
+            for (char j = 'a'; j <= 'z'; j++) { 
+                // test all possible chars for position i
                 chars[i] = j;
                 String str = new String(chars);
                 if (dict.contains(str)) {
@@ -79,28 +87,42 @@ public class WordLadder {
     }
 
     /*
+     * LEETCODE 126
      * Given two words (beginWord and endWord), and a dictionary's word list,
      * find all shortest transformation sequence(s) from beginWord to endWord,
-     * such that - Only one letter can be changed at a time - Each transformed
-     * word must exist in the word list. Note that beginWord is not a
-     * transformed word. For example, given beginWord = "hit" endWord = "cog"
-     * wordList = ["hot","dot","dog","lot","log","cog"] Return [
-     * ["hit","hot","dot","dog","cog"], ["hit","hot","lot","log","cog"] ]
+     * such that 
+     * - Only one letter can be changed at a time 
+     * - Each transformed word must exist in the word list. 
+     * Note that beginWord is not a transformed word. 
+     * For example, given beginWord = "hit" endWord = "cog"
+     * wordList = ["hot","dot","dog","lot","log","cog"] 
+     * Return [["hit","hot","dot","dog","cog"], ["hit","hot","lot","log","cog"] ]
+     * Note:
+     *  - Return an empty list if there is no such transformation sequence.
+     *  - All words have the same length.
+     *  - All words contain only lower case alphabetic characters.
+     *  - You may assume no duplicates in the word list.
+     *  - You may assume beginWord and endWord are non-empty and are not the same.
+     * 
+     * Company: Amazon, Yelp
+     * Difficulty: hard
+     * Similar Questions: 127(Word Ladder)
      */
     public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
         List<List<String>> result = new ArrayList<>();
 
-        Set<String> dict = new HashSet<>();
-        dict.addAll(wordList);
+        Set<String> dict = new HashSet<>(wordList);
 
-        Map<String, Integer> distanceMap = new HashMap<>(); // distance from the
-                                                            // starting word
+        // distance from the starting word
+        Map<String, Integer> distanceMap = new HashMap<>(); 
         distanceMap.put(beginWord, 0);
 
         Map<String, List<String>> neighborMap = new HashMap<>();
 
         // populate the shortest path graph
         bfs(beginWord, endWord, dict, neighborMap, distanceMap);
+        System.out.println(neighborMap);
+        System.out.println(distanceMap);
 
         // output shortest paths
         dfs(beginWord, endWord, neighborMap, distanceMap, result, new LinkedList<>());
@@ -108,23 +130,26 @@ public class WordLadder {
         return result;
     }
 
-    private void bfs(String beginWord, String endWord, Set<String> dict, Map<String, List<String>> neighborMap,
-            Map<String, Integer> distanceMap) {
-        Queue<String> q = new LinkedList<>();
-        q.offer(beginWord);
-        while (!q.isEmpty()) {
-            int qlen = q.size();
+    // use bfs to trace every node's distance from the start node (level by level).
+    // with BFS we can be sure that the distance of each node is the shortest one , 
+    // because once we have visited a node, we update the distance , if we first met one node ,
+    // it must be the shortest distance. if we met the node again ,its distance must not be less 
+    // than the distance we first met and set.
+    private void bfs(String beginWord, String endWord, Set<String> dict, 
+            Map<String, List<String>> neighborMap, Map<String, Integer> distanceMap) {
+        Queue<String> queue = new LinkedList<>();
+        queue.offer(beginWord);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
             boolean found = false;
-            for (int i = 0; i < qlen; i++) {
-                String word = q.poll();
-                if (!neighborMap.containsKey(word)) {
-                    neighborMap.put(word, new ArrayList<>());
-                }
-
+            while (size-- > 0) {
+                String word = queue.poll();
+                //neighborMap.putIfAbsent(word, new ArrayList<>());
                 int currentDistance = distanceMap.get(word);
                 List<String> neighbors = getNeighbors(word, dict);
+                neighborMap.put(word, neighbors);
                 for (String neighbor : neighbors) {
-                    neighborMap.get(word).add(neighbor); // add neighbor
+                    //neighborMap.get(word).add(neighbor); // add neighbor
 
                     // skip visited neighbor
                     if (!distanceMap.containsKey(neighbor)) {
@@ -133,28 +158,30 @@ public class WordLadder {
                         if (neighbor.equals(endWord)) {
                             found = true;
                         } else {
-                            q.offer(neighbor);
+                            queue.offer(neighbor);
                         }
                     }
                 }
             }
 
-            if (found)
-                break; // shortest path found, no need to go to the next level
+            if (found) {
+                // shortest path found, no need to go to the next level
+                break;
+            }
         }
     }
 
     private void dfs(String beginWord, String endWord, Map<String, List<String>> neighborMap,
             Map<String, Integer> distanceMap, List<List<String>> result, LinkedList<String> wordList) {
+        // add beginWord to list here so that the last word will be added to backtracked properly
         wordList.add(beginWord);
         if (beginWord.equals(endWord)) {
             result.add(new ArrayList<>(wordList));
-            // cannot return from here because we need to do backtrack on
-            // wordList
+            // cannot return from here because we need to do backtrack on wordList
         } else {
             List<String> neighbors = neighborMap.get(beginWord);
-            if (neighbors != null) { // need to do null check because the graph
-                                     // is not fully populated
+            // need to do null check because the graph is not fully populated
+            if (neighbors != null) {
                 for (String neighbor : neighbors) {
                     if (distanceMap.get(neighbor) == distanceMap.get(beginWord) + 1) {
                         dfs(neighbor, endWord, neighborMap, distanceMap, result, wordList);
@@ -181,6 +208,7 @@ public class WordLadder {
             }
             chars[i] = original;
         }
+        
 
         return neighbors;
     }

@@ -115,10 +115,11 @@ public class EncodeDecodeString {
 
     public static void main(String[] args) {
         EncodeDecodeString codec = new EncodeDecodeString();
-        // List<String> strs = Arrays.asList("");
-        List<String> strs = Collections.emptyList();
+        List<String> strs = Arrays.asList("", "");
+        //List<String> strs = Collections.emptyList();
         // List<String> strs = Arrays.asList("3OSUiNAP4fkGt49##[w");
         // System.out.println(codec.decode(codec.encode(strs)));
-        System.out.println(codec.decode_withEscape(codec.encode_withEscape(strs)));
+        //System.out.println(codec.decode_withEscape(codec.encode_withEscape(strs)));
+        System.out.println(codec.decode(codec.encode(strs)));
     }
 }

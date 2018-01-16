@@ -10,10 +10,11 @@ public class CombinationSum {
     /*
      * LEETCODE 39 
      * Given a set of candidate numbers (C) (without duplicates) and a target number (T), 
-     * find all unique combinations in C where the candidate numbers sums to T. The same 
-     * repeated number may be chosen from C unlimited number of times. 
-     * Note: All numbers (including target) will be positive integers. The solution set 
-     * must not contain duplicate combinations. 
+     * find all unique combinations in C where the candidate numbers sums to T. 
+     * The same repeated number may be chosen from C unlimited number of times. 
+     * Note: 
+     * - All numbers (including target) will be positive integers. 
+     * - The solution set must not contain duplicate combinations. 
      * For example, given candidate set [2, 3, 6, 7] and target 7,
      * a solution set is: [ [7], [2, 2, 3]]
      *
@@ -45,7 +46,7 @@ public class CombinationSum {
 
         for (int i = start; i < candidates.length; i++) { 
             // i should start from start instead of 0,
-            // otherwise there will be duplicate combos
+            // otherwise there will be duplicate combinations
             list.addLast(candidates[i]);
             // start should be from i because the same number can be resued
             helper1(candidates, target - candidates[i], result, list, i); 
@@ -93,6 +94,8 @@ public class CombinationSum {
             
             if (i > start && candidates[i] == candidates[i - 1]) {
                 // skip duplicates since the one at start position has been used
+                // without this check, duplicate combinations will be generated
+                // e.g. [10,1,2,7,6,1,5], 8 => [[1,1,6],[1,2,5],[1,7],[1,2,5],[1,7],[2,6]]
                 continue;
             }
           

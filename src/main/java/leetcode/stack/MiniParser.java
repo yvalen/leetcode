@@ -3,6 +3,7 @@ package leetcode.stack;
 import java.util.Stack;
 
 /*
+ * LEETCODE 385
  * Given a nested list of integers represented as a string, implement a parser to deserialize it.
  * Each element is either an integer, or a list -- whose elements may also be integers or other lists.
  * Note: You may assume that the string is well-formed:
@@ -26,25 +27,35 @@ public class MiniParser {
             return new NestedInteger(Integer.parseInt(s));
 
         Stack<NestedInteger> stack = new Stack<>();
-        NestedInteger ni = new NestedInteger();
+        NestedInteger ni = null; // initialize to null
         boolean isNegative = false;
         int num = 0;
-        for (char c : s.toCharArray()) {
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
             if (c == '[') {
-                stack.push(ni);
+                if (ni != null) { 
+                    stack.push(ni); 
+                }
                 ni = new NestedInteger();
             } else if (Character.isDigit(c)) {
                 num = num * 10 + (c - '0');
             } else if (c == '-') {
                 isNegative = true;
-            } else if (c == ',') {
+            } else if (c == ',' && s.charAt(i-1) != ']') {
                 ni.add(new NestedInteger(num * (isNegative ? -1 : 1)));
                 num = 0;
                 isNegative = false;
             } else if (c == ']') {
-                NestedInteger tmp = ni;
-                ni = stack.pop();
-                ni.add(tmp);
+                if (Character.isDigit(s.charAt(i-1))) {
+                    ni.add(new NestedInteger(num * (isNegative ? -1 : 1)));
+                    num = 0;
+                    isNegative = false;
+                }
+                if (!stack.isEmpty()) {
+                    NestedInteger top = stack.pop();
+                    top.add(ni);
+                    ni = top;
+                }
             }
         }
         return ni;
@@ -52,7 +63,9 @@ public class MiniParser {
 
     public static void main(String[] args) {
         MiniParser mp = new MiniParser();
-        String s = "[123,[456,[789]]]";
+        //String s = "[123,[456,[789]]]";
+        //String s = "[]";
+        String s = "[[]]";
         System.out.println(mp.deserialize(s));
     }
 }

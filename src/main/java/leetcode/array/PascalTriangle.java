@@ -5,16 +5,31 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Pascal's triangle may be constructed in the following manner: In row 0 (the
- * topmost row), there is a unique nonzero entry 1. Each entry of each
- * subsequent row is constructed by adding the number above and to the left with
- * the number above and to the right, treating blank entries as 0.
+ * Pascal's triangle may be constructed in the following manner: 
+ * In row 0 (the topmost row), there is a unique nonzero entry 1. 
+ * Each entry of each subsequent row is constructed by adding the 
+ * number above and to the left with the number above and to the right, 
+ * treating blank entries as 0.
+ * 
+ * https://www.programiz.com/c-programming/examples/pyramid-pattern
  */
 public class PascalTriangle {
     /**
-     * Given numRows, generate the first numRows of Pascal's triangle. For
-     * example, given numRows = 5, return [ [1], [1,1], [1,2,1], [1,3,3,1],
-     * [1,4,6,4,1] ]
+     * LEETCODE 118
+     * Given numRows, generate the first numRows of Pascal's triangle. 
+     * For example, given numRows = 5, 
+     * return 
+     * [ 
+     *      [1], 
+     *     [1,1], 
+     *    [1,2,1], 
+     *   [1,3,3,1], 
+     *  [1,4,6,4,1] 
+     * ]
+     * 
+     * Company: Twitter, Apple
+     * Difficulty: easy
+     * Similar Questions: 119(Pascal's Triangle II)
      */
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> result = new ArrayList<>(numRows);
@@ -40,9 +55,14 @@ public class PascalTriangle {
     }
 
     /**
-     * Given an index k, return the kth row of the Pascal's triangle. For
-     * example, given k = 3, return [1,3,3,1]. Note: could you optimize your
-     * algorithm to use only O(k) extra space?
+     * LEETCODE 119
+     * Given an index k, return the kth row of the Pascal's triangle. 
+     * For example, given k = 3, return [1,3,3,1]. 
+     * Note: could you optimize your algorithm to use only O(k) extra space?
+     * 
+     * Company: Amazon
+     * Difficulty: easy
+     * Similar Questions: 118(Pascal's Triangle)
      */
     public List<Integer> getRow(int rowIndex) {
         List<Integer> result = new ArrayList<>();
@@ -51,16 +71,19 @@ public class PascalTriangle {
             return Collections.emptyList();
 
         result.add(1);
-        for (int i = 0; i <= rowIndex; i++) {
-            if (i == 0)
-                continue;
-
+        for (int i = 1; i <= rowIndex; i++) {
+            for (int j = i-1; j >= 1; j--) {
+                result.set(j, result.get(j-1) + result.get(j));
+            }
+            
+            /*
             int prev = 1;
             for (int j = 1; j < i; j++) {
                 int curr = result.get(j);
                 result.set(j, prev + curr);
                 prev = curr;
-            }
+            }*/
+            
             result.add(1);
         }
 
@@ -73,7 +96,7 @@ public class PascalTriangle {
         // List<List<Integer>> result = triangle.generate(5);
         // result.stream().forEach(System.out::println);
 
-        List<Integer> row = triangle.getRow(0);
+        List<Integer> row = triangle.getRow(3);
         System.out.println(row);
     }
 }

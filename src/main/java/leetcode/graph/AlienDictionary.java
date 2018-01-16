@@ -172,16 +172,19 @@ public class AlienDictionary {
     private boolean dfs(Map<Character, Set<Character>> graph, Character v, StringBuilder sb, boolean[] visited,
             boolean[] onStack) {
         onStack[v - 'a'] = true;
-        visited[v - 'a'] = true;
         System.out.println("v=" + v + " adj=" + graph.get(v));
         if (graph.get(v) != null) {
             for (Character neighbor : graph.get(v)) {
+                if (onStack[neighbor - 'a']) {
+                    // need to check whether there is cycle first 
+                    // if call dfs before this, will get into an infinite loop for z,x,z 
+                    return false;
+                }
+                
                 if (!visited[neighbor - 'a']) {
                     if (!dfs(graph, neighbor, sb, visited, onStack))
                         return false;
-                } else if (onStack[neighbor - 'a']) {
-                    return false;
-                }
+                } 
             }
         }
         sb.append(v);
@@ -193,11 +196,11 @@ public class AlienDictionary {
         AlienDictionary ad = new AlienDictionary();
         // String[] words = {"wrt", "wrf", "er", "ett", "rftt"};
         // String[] words = {"z", "x"};
-        // String[] words = {"z", "x", "z"};
+        String[] words = {"z", "x", "z"};
         // String[] words = {"za","zb","ca","cb"}; // expect "abzc"
         // String[] words = {"z", "z"};
         // String[] words = {"wrt", "wrtkj"};
-        String[] words = { "wrtkj", "wrt" };
+        //String[] words = { "wrtkj", "wrt" };
         // String[] words = {"ab", "adc"};
         // String[] words = {"wnlt"};
         System.out.println(ad.alienOrder_dfs(words));

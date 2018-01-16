@@ -2,11 +2,16 @@ package leetcode.tree;
 
 import java.util.Stack;
 
-/**
- * Implement an iterator over a binary search tree (BST). Your iterator will be
- * initialized with the root node of a BST. Note: next() and hasNext() should
- * run in average O(1) time and uses O(h) memory, where h is the height of the
- * tree.
+/*
+ * LEETCODE 173
+ * Implement an iterator over a binary search tree (BST). 
+ * Your iterator will be initialized with the root node of a BST. 
+ * Note: next() and hasNext() should run in average O(1) time and 
+ * uses O(h) memory, where h is the height of the tree.
+ * 
+ * Company: Google, Facebook, Microsoft, LinkedIn
+ * Difficulty: medium
+ * Similar Questions: 251(Vector2D)
  */
 public class BSTIterator {
     private Stack<TreeNode> nodeStack;

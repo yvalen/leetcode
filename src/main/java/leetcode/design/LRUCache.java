@@ -6,15 +6,29 @@ import java.util.Map;
 
 /*
  * LEETCODE 146
- * Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put.
- * get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
- * put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate 
- * the least recently used item before inserting a new item.
+ * Design and implement a data structure for Least Recently Used (LRU) cache. 
+ * It should support the following operations: get and put.
+ * get(key) - Get the value (will always be positive) of the key if the key 
+ * exists in the cache, otherwise return -1.
+ * put(key, value) - Set or insert the value if the key is not already present. 
+ * When the cache reached its capacity, it should invalidate the least recently 
+ * used item before inserting a new item.
  * Follow up: Could you do both operations in O(1) time complexity?
  * 
- * Company: Google, Facebook, Amazon, Microsoft, Bloomberg, Uber, Twitter, Snapchat, Zenefits, Yahoo, Palantir
+ * Company: Google, Facebook, Amazon, Microsoft, Bloomberg, Uber, Twitter, Snapchat, 
+ * Zenefits, Yahoo, Palantir
  * Difficulty: hard
  * Similar Questions: 604(CompressedStringIterator)
+ * 
+ * https://github.com/google/guava/blob/master/guava/src/com/google/common/cache/LocalCache.java
+ * http://highscalability.com/blog/2016/1/25/design-of-a-modern-cache.html
+ * Concurrency:
+ * 1. single relock, low throughput
+ * 2. separate read and write lock, read can be fast
+ * 3. lock striping: split the cache into smaller regions, hot entries could cause some 
+ * locks to be more contented than others. 
+ * 4. commit log: store all the mutations into logs rather than update immediately. And 
+ * then some background processes will execute all the logs asynchronously. 
  */
 public class LRUCache {
 

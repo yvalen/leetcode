@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /*
+ * LEETCODE 251
  * Implement an iterator to flatten a 2d vector.
  * For example, Given 2d vector =
  * [
@@ -14,8 +15,14 @@ import java.util.NoSuchElementException;
  * 	[3],
  * 	[4,5,6]
  * ]
- * By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,2,3,4,5,6].
- * Follow up: As an added challenge, try to code it using only iterators in C++ or iterators in Java. 
+ * By calling next repeatedly until hasNext returns false, the order of elements 
+ * returned by next should be: [1,2,3,4,5,6].
+ * Follow up: As an added challenge, try to code it using only iterators in C++ 
+ * or iterators in Java. 
+ * 
+ * Company Google, Twitter, Airbnb, Zenefits
+ * Difficulty: medium
+ * Similar Questions: 173(BSTIterator), 218(ZigZagIterator)
  */
 public class Vector2D implements Iterator<Integer> {
     private Iterator<List<Integer>> i;
@@ -27,6 +34,7 @@ public class Vector2D implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
+        // need to use loop here to handle empty list element
         while ((j == null || !j.hasNext()) && i.hasNext()) {
             j = i.next().iterator();
         }
@@ -40,27 +48,6 @@ public class Vector2D implements Iterator<Integer> {
         hasNext(); // need to call hasNext() to initialize/update j
         return j.next();
     }
-
-    /*
-     * private final List<List<Integer>> vec2d; private final int size; private
-     * int index; private Iterator<Integer> itr;
-     * 
-     * public Vector2D(List<List<Integer>> vec2d) { this.vec2d = vec2d; size =
-     * vec2d.size(); index = 0; if (vec2d != null && vec2d.size() > 0) { itr =
-     * vec2d.get(0).iterator(); } }
-     * 
-     * @Override public boolean hasNext() { if (itr == null) return false;
-     * 
-     * if (itr.hasNext()) return true;
-     * 
-     * while (!itr.hasNext() && index < size-1) { // need to loop here to handle
-     * empty list index++; itr = vec2d.get(index).iterator(); }
-     * 
-     * return itr.hasNext(); }
-     * 
-     * @Override public Integer next() { return (itr == null) ? null :
-     * itr.next(); }
-     */
 
     public static void main(String[] args) {
         // List<List<Integer>> vec2d = Arrays.asList(Arrays.asList(1, 2),

@@ -14,6 +14,7 @@ package leetcode.math;
  * and convert just that chunk to words.
  * - There are many edge cases. What are some good test cases? Does your code work with input such as 0? Or 1000010? 
  * (middle chunk is zero and should not be printed out)
+ * http://2000clicks.com/graeme/LangNumbersMillionsAndBillionsAndZillions.htm
  * 
  * Company: Microsoft, Facebook
  * Difficulty: Hard
@@ -48,8 +49,8 @@ public class IntegerToEnglishWords {
     // additional white space at the end
     private String helper(int num) {
         if (num == 0) {
-            // reurn empty string instead of calling LESS_THAN_20[num] for 0 
-            // so that white space is handled
+            // return empty string here so that we can append a white
+            // space in the next if 
             return ""; 
         }
           

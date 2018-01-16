@@ -3,13 +3,15 @@ package leetcode.dp;
 import leetcode.array.SubArray;
 
 /**
- * LEETCODE 53 Find the contiguous subarray within an array (containing at least
- * one number) which has the largest sum. For example, given the array
- * [-2,1,-3,4,-1,2,1,-5,4], the contiguous subarray [4,-1,2,1] has the largest
- * sum = 6.
+ * LEETCODE 53 
+ * Find the contiguous subarray within an array (containing at least
+ * one number) which has the largest sum. 
+ * For example, given the array [-2,1,-3,4,-1,2,1,-5,4], the contiguous
+ * subarray [4,-1,2,1] has the largest sum = 6.
  * 
- * Company: Microsoft, Bloomberg, LinkedIn Difficukty: easy Similar Question:
- * 121(Best time to buy and sell stock),
+ * Company: Microsoft, Bloomberg, LinkedIn 
+ * Difficulty: easy 
+ * Similar Question: 121(Best time to buy and sell stock),
  */
 public class MaximumSumSubArray {
     public int maxSubArray_dpTwoDArray(int[] nums) {
@@ -30,8 +32,7 @@ public class MaximumSumSubArray {
     // Kandane's Algorithm
     // if we know the maximum subarray sum ending at position i (call this Bi)
     // the maximum subarray sum ending at position i+1 either includes the
-    // maximum
-    // subarray sum ending at i as a prefix or it doesn't
+    // maximum subarray sum ending at i as a prefix or it doesn't
     public int maxSubArray_dpOneDArray(int[] nums) {
         int n = nums.length, max = nums[0];
         int[] dp = new int[n];

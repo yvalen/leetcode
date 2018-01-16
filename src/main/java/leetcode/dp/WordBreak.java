@@ -18,9 +18,9 @@ public class WordBreak {
      * Given a non-empty string s and a dictionary wordDict containing a list of
      * non-empty words, determine if s can be segmented into a space-separated
      * sequence of one or more dictionary words. You may assume the dictionary
-     * does not contain duplicate words. For example, given s = "leetcode", dict
-     * = ["leet", "code"]. Return true because "leetcode" can be segmented as
-     * "leet code".
+     * does not contain duplicate words. 
+     * For example, given s = "leetcode", dict = ["leet", "code"]. 
+     * Return true because "leetcode" can be segmented as "leet code".
      * 
      * Company: Google, Facebook, Uber, Yahoo, Amazon, Bloomberg, Pocket Gems, 
      * Square, Coupang
@@ -100,7 +100,7 @@ public class WordBreak {
      * 
      * Company: Dropbox, Google, Uber, Snapchat, Twitter 
      * Difficulty: hard
-     * Similar Questions: 139(Word Break), 472()
+     * Similar Questions: 139(Word Break), 472(ConcatenatedWords)
      */
     public List<String> wordBreakII_dpBacktrack(String s, List<String> wordDict) {
         List<String> result = new ArrayList<>();
@@ -128,21 +128,24 @@ public class WordBreak {
         return result;
     }
    
-    private void constructResult(List<String>[] dp, int end, List<String> result, List<String> backtrack) {
+    private void constructResult(List<String>[] dp, int end, List<String> result, List<String> list) {
         if (end <= 0) {
             // we cannot modify list here as it will be used in the backtracking
-            String str = backtrack.get(backtrack.size() - 1);
-            for (int i = backtrack.size() - 2; i >= 0; i--) {
-                str += " " + backtrack.get(i);
+            // since we start from the end of dp, list is populated with the from 
+            // the last word to the first, first is at the end of the list
+            // construct the result starting from the end
+            String str = list.get(list.size() - 1);
+            for (int i = list.size() - 2; i >= 0; i--) {
+                str += " " + list.get(i);
             }
             result.add(str);
             return;
         }
 
         for (String last : dp[end]) {
-            backtrack.add(last);
-            constructResult(dp, end - last.length(), result, backtrack);
-            backtrack.remove(backtrack.size() - 1);
+            list.add(last);
+            constructResult(dp, end - last.length(), result, list);
+            list.remove(list.size() - 1);
         }
     }
 
@@ -177,8 +180,8 @@ public class WordBreak {
 
 
 
-    // Time complexity: O(n^3)O. Size of recursion tree can go up to n^2​​. The creation of list takes n time.
-    // Space complexity: O(n^3)O(n​3​​).The depth of the recursion tree can go up to n and each activation record 
+    // Time complexity: O(n^3). Size of recursion tree can go up to n^2​​. The creation of list takes n time.
+    // Space complexity: O(n^3).The depth of the recursion tree can go up to n and each activation record 
     // can contains a string list of size n.
     private List<String> wordBreakII_memorization(String s, List<String> wordDict, int start) {
         if (map.containsKey(start))
@@ -191,7 +194,7 @@ public class WordBreak {
             return result;
         }
 
-        for (int end = start + 1; end <= s.length(); end++) {
+        for (int end = start + 1; end <= s.length(); end++) { // need to use <= here as end is exclusive
             String prefix = s.substring(start, end);
             if (wordDict.contains(prefix)) {
                 List<String> list = wordBreakII_memorization(s, wordDict, end);
@@ -207,7 +210,8 @@ public class WordBreak {
     public static void main(String[] arg) {
         WordBreak w = new WordBreak();
 
-        String s = "cata";
+        //String s = "cata";
+        String s = "catsanddog";
         List<String> wordDict = Arrays.asList("cat", "cats", "and", "sand", "dog");
 
         // String s = "aaaaaaa";
@@ -216,7 +220,7 @@ public class WordBreak {
         // String s = "a";
         // List<String> wordDict = Arrays.asList("a");
 
-        List<String> result = w.wordBreakII_memorization(s, wordDict);
+        List<String> result = w.wordBreakII_dpBacktrack(s, wordDict);
         System.out.println(result);
     }
 }

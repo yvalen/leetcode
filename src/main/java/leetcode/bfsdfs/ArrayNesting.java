@@ -1,9 +1,12 @@
 package leetcode.bfsdfs;
 
 /*
- * A zero-indexed array A consisting of N different integers is given. The array contains all integers in the range [0, N - 1].
- * Sets S[K] for 0 <= K < N are defined as follows: S[K] = { A[K], A[A[K]], A[A[A[K]]], ... }. Sets S[K] are finite for each K 
- * and should NOT contain duplicates. Write a function that given an array A consisting of N integers, return the size of the 
+ * LEETCODE 565
+ * A zero-indexed array A consisting of N different integers is given. 
+ * The array contains all integers in the range [0, N - 1].
+ * Sets S[K] for 0 <= K < N are defined as follows: S[K] = { A[K], A[A[K]], 
+ * A[A[A[K]]], ... }. Sets S[K] are finite for each K and should NOT contain duplicates. 
+ * Write a function that given an array A consisting of N integers, return the size of the 
  * largest set S[K] for this array.
  * Example 1:
  * Input: A = [5,4,0,3,1,6,2]
@@ -19,11 +22,13 @@ package leetcode.bfsdfs;
  * 
  * Company: Apple
  * Difficulty: medium
+ * Similar Questions: 339(Nested List Weight Sum), 364(Nested List Weight Sum II)
+ * 341(NestedIterator)
  */
 public class ArrayNesting {
     // start from every number find circle in those index-pointer-chain.
     // mark every number in the traversal as visited since A contains only
-    // distict numbers
+    // distinct numbers
     public int arrayNesting_recursive(int[] nums) {
         if (nums == null || nums.length == 0)
             return 0;

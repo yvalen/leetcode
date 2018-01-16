@@ -17,11 +17,13 @@ import java.util.Map;
 public class Roman {
 
     /*
-     * LEETCODE 13 Given a roman numeral, convert it to an integer. Input is
-     * guaranteed to be within the range from 1 to 3999.
+     * LEETCODE 13 
+     * Given a roman numeral, convert it to an integer. 
+     * Input is guaranteed to be within the range from 1 to 3999.
      * 
      * Company: Facebook, Microsoft, Bloomberg, Uber, Facebook, Yahoo
-     * Difficulty: easy Similar Questions: 12(Integer to Roman)
+     * Difficulty: easy 
+     * Similar Questions: 12(Integer to Roman)
      */
     private static final Map<Character, Integer> symbolValueMap = new HashMap<>();
     static {
@@ -56,8 +58,9 @@ public class Roman {
     }
 
     /*
-     * LEETCODE 12 Given an integer, convert it to a roman numeral. Input is
-     * guaranteed to be within the range from 1 to 3999.
+     * LEETCODE 12 
+     * Given an integer, convert it to a roman numeral. 
+     * Input is guaranteed to be within the range from 1 to 3999.
      * 
      * Company: Twitter 
      * Difficulty: medium 

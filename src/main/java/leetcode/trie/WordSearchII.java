@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import leetcode.backtracking.WordSearch;
+
 /*
- * Given a 2D board and a list of words from the dictionary, find all words in the board. Each word must be constructed 
- * from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. 
- * The same letter cell may not be used more than once in a word. 
- * For example, given words = ["oath","pea","eat","rain"] and board =
+ * LEETCODE 212
+ * Given a 2D board and a list of words from the dictionary, find all words in the board. 
+ * Each word must be constructed from letters of sequentially adjacent cell, where "adjacent" 
+ * cells are those horizontally or vertically neighboring. The same letter cell may not be used 
+ * more than once in a word. 
+ * For example, 
+ * given words = ["oath","pea","eat","rain"] and board =
  * [
  * 	['o','a','a','n'],
  * 	['e','t','a','e'],
@@ -20,6 +25,7 @@ import java.util.List;
  * 
  * Company: Microsoft, Google, Airbnb
  * Difficulty: hard
+ * Similar Questions: 79(WordSearch)
  */
 public class WordSearchII {
     // DFS + backtrack + trie
@@ -88,5 +94,18 @@ public class WordSearchII {
         }
 
         board[row][col] = c; // backtrack, restore the cell value
+    }
+    
+    public static void main(String[] args) {
+        WordSearchII w = new WordSearchII();
+        char[][] board = {
+                { 'o', 'a', 'a', 'n' }, 
+                { 'e', 't', 'a', 'e' }, 
+                { 'i', 'h', 'k', 'r' },
+                { 'i', 'f', 'l', 'v' } 
+                };
+        String[] words = { "oath", "pea", "eat", "rain" };
+        System.out.println(w.findWords(board, words));
+      
     }
 }

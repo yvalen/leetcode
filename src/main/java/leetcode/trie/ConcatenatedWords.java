@@ -8,12 +8,16 @@ import java.util.List;
 import java.util.Set;
 
 /*
- * Given a list of words (without duplicates), please write a program that returns all concatenated words in the given list of words.
- * A concatenated word is defined as a string that is comprised entirely of at least two shorter words in the given array.
+ * LEETCODE 472
+ * Given a list of words (without duplicates), please write a program that returns all 
+ * concatenated words in the given list of words.
+ * A concatenated word is defined as a string that is comprised entirely of at least two 
+ * shorter words in the given array.
  * Example:
  * Input: ["cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"]
  * Output: ["catsdogcats","dogcatsdog","ratcatdogcat"]
- * Explanation: "catsdogcats" can be concatenated by "cats", "dog" and "cats"; "dogcatsdog" can be concatenated by "dog", "cats" and "dog"; 
+ * Explanation: "catsdogcats" can be concatenated by "cats", "dog" and "cats"; "dogcatsdog" 
+ * can be concatenated by "dog", "cats" and "dog"; 
  * "ratcatdogcat" can be concatenated by "rat", "cat", "dog" and "cat".
  * Note:
  * - The number of elements of the given array will not exceed 10,000
@@ -21,6 +25,8 @@ import java.util.Set;
  * - All the input string will only include lower case letters.
  * - The returned elements order does not matter.
  * 
+ * Difficulty: hard
+ * Similar Questions: 140(Word Break II)
  */
 public class ConcatenatedWords {
     public List<String> findAllConcatenatedWordsInADict_dp(String[] words) {
@@ -44,9 +50,11 @@ public class ConcatenatedWords {
 
     // returns true if s can be formed by words in dict, similar to word break
     private boolean canForm(String s, Set<String> dict) {
-        if (dict.isEmpty())
-            return false; // need to have this check for "". without it "" will
-                          // be included in the result
+        if (dict.isEmpty()) {
+            // need to have this check for "". without it "" will
+            // be included in the result    
+            return false; 
+        }
 
         int n = s.length();
         boolean[] dp = new boolean[n + 1];

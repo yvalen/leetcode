@@ -2,6 +2,7 @@ package leetcode.design;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class RandomizedCollection {
     public boolean insert(int val) {
         boolean exists = map.containsKey(val);
         list.add(val);
-        map.putIfAbsent(val, new LinkedHashSet<>());
+        map.putIfAbsent(val, new LinkedHashSet<>()); // use LinkedHashedSet for fast iteratiom
         map.get(val).add(list.size()-1);
         return exists;
     }
@@ -69,7 +70,8 @@ public class RandomizedCollection {
         
         // get the index for the first occurrence of val
         int index = map.get(val).iterator().next();   
-        // remove this index from map
+        // remove this index from map, should do this before updating the last element
+        // to handle case where the last element is the same as the val to be removed
         map.get(val).remove(index);
         // update list and map if val is in the middle
         if (index < list.size() - 1) {
@@ -79,8 +81,9 @@ public class RandomizedCollection {
             map.get(lastVal).remove(lastIndex);
             map.get(lastVal).add(index);
         }
-        list.remove(list.size()-1);
+        
         if (map.get(val).isEmpty()) map.remove(val);
+        list.remove(list.size()-1);
      
         return true;
     }
@@ -92,5 +95,16 @@ public class RandomizedCollection {
         return list.get(idx);
     }
    
+    public static void main(String[] args) {
+        RandomizedCollection rc = new RandomizedCollection();
+        rc.insert(0);
+        rc.insert(1);
+        rc.insert(2);
+        rc.insert(3);
+        rc.insert(3);
+        System.out.println(rc.remove(2));
+        System.out.println(rc.remove(3));
+        System.out.println(rc.remove(0));
+    }
 
 }

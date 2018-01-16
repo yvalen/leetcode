@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+// https://www.mathsisfun.com/combinatorics/combinations-permutations.html
 public class Permutations {
     /*
      * LEETCODE 46 

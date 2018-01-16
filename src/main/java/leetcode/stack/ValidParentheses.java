@@ -4,13 +4,15 @@ import java.util.Stack;
 
 /*
  * LEETCODE 20
- * Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
- * The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+ * Given a string containing just the characters '(', ')', '{', '}', '[' and ']', 
+ * determine if the input string is valid. The brackets must close in the correct 
+ * order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
  * Test cases: "[", ")"
  * 
  * Company: Google, Airbnb, Facebook, Twitter, Zenefits, Amazon, Microsoft, Bloomberg
  * Difficulty: easy
- * Similar Questions: 22(GenerateParentheses), 32(LongestValidParentheses), 301(RemoveInvalidParentheses)
+ * Similar Questions: 22(GenerateParentheses), 32(LongestValidParentheses), 
+ * 301(RemoveInvalidParentheses)
  */
 public class ValidParentheses {
     public boolean isValid_long(String s) {

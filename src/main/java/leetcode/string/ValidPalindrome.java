@@ -2,13 +2,15 @@ package leetcode.string;
 
 public class ValidPalindrome {
     /*
-     * LEETCODE 125 Given a string, determine if it is a palindrome, considering
+     * LEETCODE 125 
+     * Given a string, determine if it is a palindrome, considering
      * only alphanumeric characters and ignoring cases. For example,
      * "A man, a plan, a canal: Panama" is a palindrome. "race a car" is not a
      * palindrome. we define empty string as valid palindrome.
      * 
-     * Company: Facebook, Microsoft, Uber, Zenefits Difficulty: easy Similar
-     * Questions: 234(PalindromeLinkedList), 680(Valid Palindrome II)
+     * Company: Facebook, Microsoft, Uber, Zenefits 
+     * Difficulty: easy 
+     * Similar Questions: 234(PalindromeLinkedList), 680(Valid Palindrome II)
      */
     public boolean isPalindrome(String s) {
         if (s == null || s.isEmpty())

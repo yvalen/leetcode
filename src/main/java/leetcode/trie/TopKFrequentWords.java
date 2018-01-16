@@ -28,7 +28,6 @@ import java.util.PriorityQueue;
  * - Input words contain only lower case letters.
  * Follow up:
  * - Try to solve it in O(n log k) time and O(n) extra space.
- * - Can you solve it in O(n) time with only O(k) extra space?
  * 
  * Company: Amazon, Bloomberg, Uber, Yelp, PocketGems
  * Difficulty: medium

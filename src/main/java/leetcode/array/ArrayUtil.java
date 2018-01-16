@@ -15,6 +15,13 @@ public final class ArrayUtil {
         }
         System.out.println();
     }
+    
+    public static void printArray(double[] nums, String separator) {
+        for (int i = 0; i < nums.length; i++) {
+            System.out.print(Double.toString(nums[i]) + separator);
+        }
+        System.out.println();
+    }
 
     public static void printArray(boolean[] nums, String separator) {
         for (int i = 0; i < nums.length; i++) {
