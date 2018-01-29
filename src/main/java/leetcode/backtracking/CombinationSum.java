@@ -87,7 +87,7 @@ public class CombinationSum {
 
         for (int i = start; i < candidates.length; i++) {
             if (target - candidates[i] < 0) {
-                // since candidates is sorted, need to check further if
+                // since candidates is sorted, no need to check further if
                 // candidate is greater than target
                 break;
             }

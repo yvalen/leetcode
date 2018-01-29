@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.stream.IntStream;
 
 // http://www.sigmainfy.com/blog/summary-of-ksum-problems.html
+// https://www.sigmainfy.com/blog/k-sum-problem-analysis-recursive-implementation-lower-bound.html
 public class Sum {
     /**
      * LEETCODE 1 
@@ -150,9 +151,8 @@ public class Sum {
 
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(nums);
-        for (int i = 0; i < nums.length - 2; i++) {
-            if (i > 0 && nums[i] == nums[i - 1])
-                continue;
+        for (int i = 0; i < nums.length - 2; i++) { // don't need to go to the end
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
             int target = 0 - nums[i];
             for (int j = i + 1, k = nums.length - 1; j < k;) {
                 // skip the same value to de-dup for the two pointers -2,0,0,2,2
@@ -198,14 +198,16 @@ public class Sum {
     }
 
     /**
-     * LEETCODE 16 Given an array S of n integers, find three integers in S such
-     * that the sum is closest to a given number, target. Return the sum of the
-     * three integers. You may assume that each input would have exactly one
-     * solution. For example, given array S = {-1 2 1 -4}, and target = 1. The
+     * LEETCODE 16 
+     * Given an array S of n integers, find three integers in S such that the sum
+     * is closest to a given number, target. Return the sum of the three integers. 
+     * You may assume that each input would have exactly one solution. 
+     * For example, given array S = {-1 2 1 -4}, and target = 1. The
      * sum that is closest to the target is 2. (-1 + 2 + 1 = 2)
      * 
-     * Company: Bloomberg Difficulty: medium Similar Questions: 15(3sum),
-     * 259(ThreeSumSmaller)
+     * Company: Bloomberg 
+     * Difficulty: medium 
+     * Similar Questions: 15(3sum), 259(ThreeSumSmaller)
      */
     public int threeSumClosest(int[] nums, int target) {
         Arrays.sort(nums);
@@ -267,11 +269,11 @@ public class Sum {
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(nums);
         int n = nums.length;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n-3; i++) {
             if (i > 0 && nums[i] == nums[i - 1])
                 continue;
 
-            for (int j = i + 1; j < n; j++) {
+            for (int j = i + 1; j < n-2; j++) {
                 if (j > i + 1 && nums[j] == nums[j - 1])
                     continue;
 

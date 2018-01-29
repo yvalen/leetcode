@@ -4,9 +4,11 @@ import java.util.Arrays;
 
 /*
  * LEETCODE 259
- * Given an array of n integers nums and a target, find the number of index triplets i, j, k with 0 <= i < j < k < n that satisfy
- * the condition nums[i] + nums[j] + nums[k] < target.For example, given nums = [-2, 0, 1, 3], and target = 2. Return 2. Because 
- * there are two triplets which sums are less than 2:
+ * Given an array of n integers nums and a target, find the number of index 
+ * triplets i, j, k with 0 <= i < j < k < n that satisfy the condition 
+ * nums[i] + nums[j] + nums[k] < target.
+ * For example, given nums = [-2, 0, 1, 3], and target = 2. Return 2. 
+ * Because there are two triplets which sums are less than 2:
  * [-2, 0, 1]
  * [-2, 0, 3]
  * Follow up: Could you solve it in O(n^2) runtime? 
@@ -26,12 +28,9 @@ public class ThreeSumSmaller {
         Arrays.sort(nums);
 
         int count = 0;
-        for (int i = 0; i < nums.length - 2; i++) { // cannot check for nums[i]
-                                                    // <= target here because
-                                                    // the following number may
-                                                    // make the total smaller,
-                                                    // i.e -4,-1,-1,0,1,2
-                                                    // target=5
+        // cannot check for nums[i] <= target here because the following number
+        // may make the total smaller, i.e -4,-1,-1,0,1,2 target=5
+        for (int i = 0; i < nums.length - 2; i++) { 
             for (int j = i + 1, k = nums.length - 1; j < k;) {
                 int sum = nums[i] + nums[j] + nums[k];
                 if (sum < target) {

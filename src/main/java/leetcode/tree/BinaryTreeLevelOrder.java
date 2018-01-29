@@ -131,17 +131,20 @@ public class BinaryTreeLevelOrder {
         boolean leftToRight = true;
         while (!queue.isEmpty()) {
             int size = queue.size();
-            List<Integer> level = new ArrayList<>();
+            LinkedList<Integer> level = new LinkedList<>();
             while (size-- > 0) {
                 TreeNode current = queue.poll();
-                level.add(current.val);
+                if (leftToRight) {
+                    level.addLast(current.val);
+                }
+                else {
+                    level.addFirst(current.val);
+                }
                 if (current.left != null)
                     queue.offer(current.left);
                 if (current.right != null)
                     queue.offer(current.right);
             }
-            if (!leftToRight)
-                Collections.reverse(level);
             result.add(level);
             leftToRight = !leftToRight;
         }

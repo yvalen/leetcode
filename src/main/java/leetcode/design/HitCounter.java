@@ -64,4 +64,8 @@ public class HitCounter {
         }
         return total;
     }
+    
+    public static void main(String[] args) {
+        System.out.println((System.currentTimeMillis() / 1000) %10);
+    }
 }

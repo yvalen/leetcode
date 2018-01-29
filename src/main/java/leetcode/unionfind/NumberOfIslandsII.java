@@ -6,12 +6,15 @@ import java.util.List;
 
 /*
  * LEETCODE 305
- * A 2d grid map of m rows and n columns is initially filled with water. We may perform an addLand operation which 
- * turns the water at position (row, col) into a land. Given a list of positions to operate, count the number of islands 
- * after each addLand operation. An island is surrounded by water and is formed by connecting adjacent lands horizontally 
- * or vertically. You may assume all four edges of the grid are all surrounded by water.
+ * A 2d grid map of m rows and n columns is initially filled with water. 
+ * We may perform an addLand operation which turns the water at position 
+ * (row, col) into a land. Given a list of positions to operate, count the 
+ * number of islands after each addLand operation. An island is surrounded 
+ * by water and is formed by connecting adjacent lands horizontally or vertically. 
+ * You may assume all four edges of the grid are all surrounded by water.
  * Example: given m = 3, n = 3, positions = [[0,0], [0,1], [1,2], [2,1]].
- * Initially, the 2d grid grid is filled with water. (Assume 0 represents water and 1 represents land).
+ * Initially, the 2d grid grid is filled with water. 
+ * (Assume 0 represents water and 1 represents land).
  * 0 0 0
  * 0 0 0
  * 0 0 0
@@ -36,7 +39,8 @@ import java.util.List;
  * 0 0 1   Number of islands = 3
  * 0 1 0
  * We return the result as an array: [1, 1, 2, 3]
- * Challenge: can you do it in time complexity O(k log mn), where k is the length of the positions?
+ * Challenge: can you do it in time complexity O(k log mn), 
+ * where k is the length of the positions?
  * 
  * Company: Google
  * Difficult: hard
@@ -52,6 +56,7 @@ public class NumberOfIslandsII {
 
         UnionFind(int m, int n) {
             ids = new int[m * n];
+            // need to fill ids with -1 as 0 is a valid id (1st element)
             Arrays.fill(ids, -1);
             this.m = m;
             this.n = n;

@@ -44,14 +44,15 @@ public class InsertIntervals {
             i++;
         }
 
-        // add all intervals overlaps with newInterval
+        // add all intervals overlaps with newInterval, an overlap is
+        // interval.end >= newInterval.start && interval.start <= newInterval.end
         // we should update newInterval with the current min and max
         while (i < n && intervals.get(i).start <= newInterval.end) {
             newInterval.start = Math.min(newInterval.start, intervals.get(i).start);
             newInterval.end = Math.max(newInterval.end, intervals.get(i).end);
             i++;
         }
-        result.add(newInterval);
+        result.add(newInterval); // need to add merged interval to result
 
         // add the rest
         if (i < n)

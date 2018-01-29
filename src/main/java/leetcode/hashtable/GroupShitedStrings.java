@@ -34,11 +34,11 @@ public class GroupShitedStrings {
         Map<String, List<String>> map = new HashMap<>();
         for (String s : strings) {
             String key = generateKey(s);
-            List<String> list = map.getOrDefault(key, new ArrayList<>());
-            list.add(s);
-            map.put(key, list);
+            map.putIfAbsent(key, new ArrayList<>());
+            map.get(key).add(s);
         }
-
+        System.out.println(map);
+        
         return new ArrayList<>(map.values());
     }
 
@@ -55,8 +55,8 @@ public class GroupShitedStrings {
 
     public static void main(String[] args) {
         GroupShitedStrings gss = new GroupShitedStrings();
-        //String[] strings = { "abc", "bcd", "acef", "xyz", "az", "ba", "a", "z" };
-        String[] strings = {  "a", "z" };
+        String[] strings = { "abc", "bcd", "acef", "xyz", "az", "ba", "a", "z" };
+        //String[] strings = {  "a", "z" };
         System.out.println(gss.groupStrings(strings));
     }
 

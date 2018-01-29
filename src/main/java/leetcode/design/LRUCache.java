@@ -23,7 +23,7 @@ import java.util.Map;
  * https://github.com/google/guava/blob/master/guava/src/com/google/common/cache/LocalCache.java
  * http://highscalability.com/blog/2016/1/25/design-of-a-modern-cache.html
  * Concurrency:
- * 1. single relock, low throughput
+ * 1. single lock, low throughput
  * 2. separate read and write lock, read can be fast
  * 3. lock striping: split the cache into smaller regions, hot entries could cause some 
  * locks to be more contented than others. 
@@ -78,9 +78,8 @@ public class LRUCache {
     }
 
     public int get(int key) {
+        if (!map.containsKey(key)) return -1;
         Node node = map.get(key);
-        if (node == null)
-            return -1;
         remove(node);
         addLast(node);
         return node.value;
@@ -90,23 +89,23 @@ public class LRUCache {
         Node node = map.get(key);
         if (node == null) {
             if (map.size() >= capacity) {
-                int keyToRemove = head.next.key;
+                map.remove(head.next.key);
                 remove(head.next);
-                map.remove(keyToRemove);
             }
             node = new Node(key, value);
-            addLast(node);
             map.put(key, node);
         } else {
-            remove(node);
-            addLast(node);
             node.value = value;
+            remove(node);
         }
+        addLast(node);
     }
 
     private void remove(Node node) {
         node.prev.next = node.next;
         node.next.prev = node.prev;
+        node.prev = null;
+        node.next = null;
     }
 
     private void addLast(Node node) {

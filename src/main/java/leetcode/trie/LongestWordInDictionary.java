@@ -19,7 +19,7 @@ import java.util.Stack;
  * However, "apple" is lexicographically smaller than "apply".
  * Note:
  * - All the strings in the input will only contain lower case letters.
- * -The length of words will be in the range [1, 1000].
+ * - The length of words will be in the range [1, 1000].
  * - The length of words[i] will be in the range [1, 30].
  * 
  * Company: Pinterest

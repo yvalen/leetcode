@@ -42,8 +42,8 @@ public class DecodeWays {
         int[] dp = new int[n + 1]; // dp[i] is the number of ways to decode
         // substring (i, end);
         dp[n] = 1; // only one way when string is empty
-        dp[n - 1] = s.charAt(n - 1) == '0' ? 0 : 1; // if last char is 0, it
-        // cannot be used; otherwise
+        // if last char is 0, it cannot be used; otherwise there is one way
+        dp[n - 1] = s.charAt(n - 1) == '0' ? 0 : 1;
         // there is one way
         for (int i = n - 2; i >= 0; i--) {
             if (s.charAt(i) == '0')

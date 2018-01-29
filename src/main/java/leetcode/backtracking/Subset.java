@@ -30,9 +30,9 @@ public class Subset {
 
         for (int i = start; i < nums.length; i++) {
             list.addLast(nums[i]);
-            subsets_helper(nums, result, list, i + 1); // use i+1 as start only
-                                                       // scan element after the
-                                                       // current element
+            // use i+1 as start only scan element after the
+            // current element
+            subsets_helper(nums, result, list, i + 1); 
             list.removeLast();
         }
     }

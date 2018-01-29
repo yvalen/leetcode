@@ -1,8 +1,13 @@
 package leetcode.string;
 
 /*
+ * LEETCODE 161
  * Given two strings S and T, determine if they are both one edit distance apart.
  * One edit means remove/add/change 1 character.
+ * 
+ * Company: Facebook, Uber, Twitter, Snapchat
+ * Difficulty: medium
+ * Similar Questions: 72(EditDistance)
  */
 public class OneEditDistance {
     public boolean isOneEditDistance(String s, String t) {
@@ -68,45 +73,38 @@ public class OneEditDistance {
     }
 
     public boolean isOneEditDistance_withCharArray(String s, String t) {
-        if (s == null)
-            return t == null ? false : t.length() == 1;
-        if (t == null)
-            return s.length() == 1;
-
-        if (s.length() > t.length()) {
-            String temp = s;
-            s = t;
-            t = temp;
-        }
+        if (s == null) return t == null ? false : t.length() == 1;
+        if (t == null) return s.length() == 1;
 
         int sLen = s.length(), tLen = t.length();
-        if (tLen - sLen > 1)
-            return false;
+        if (sLen > tLen) return isOneEditDistance(t, s);
+        if (tLen > sLen+1) return false;
 
-        boolean firstDiff = false;
         int i = 0, j = 0;
+        boolean firstDiff = false;
         while (i < sLen && j < tLen) {
             if (s.charAt(i) == t.charAt(j)) {
                 i++;
                 j++;
-                continue;
             }
-
-            if (firstDiff)
-                return false;
-            firstDiff = true;
-
-            if (sLen == tLen) {
-                i++;
-                j++;
-            } else {
-                j++;
+            else {
+                if (firstDiff) return false;
+                firstDiff = true;
+                if (sLen == tLen) {
+                    // replace
+                    i++;
+                    j++;
+                }
+                else {
+                    // delete
+                    j++;
+                }
             }
         }
 
-        // if all chars are the same, make sure j is at the last char of t to
-        // handle ("a", "")
-        return firstDiff || j == tLen - 1;
+        // if all chars are the same, make sure j is at the 
+        // last char of t to handle ("a", "")
+        return firstDiff || j == tLen-1;
     }
 
     public static void main(String[] args) {

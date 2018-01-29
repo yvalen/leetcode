@@ -71,22 +71,26 @@ public class WordSearchII {
         if (row < 0 || row == board.length || col < 0 || col == board[0].length)
             return;
 
-        if (board[row][col] == '#')
-            return; // cell is visited
+        if (board[row][col] == '#') {
+            // cell is visited
+            return; 
+        }
 
         char c = board[row][col];
-        if (node.next[c - 'a'] == null)
-            return; // stop current dfs if no word match
-
-        board[row][col] = '#'; // mark the cell as visited, same letter can only
-                               // be used once in a word
-
+        if (node.next[c - 'a'] == null) {
+            // stop current dfs if no word match
+            return;
+        }
+        
         node = node.next[c - 'a'];
-        if (node != null && node.word != null) {
+        if (node.word != null) {
             result.add(node.word);
             node.word = null; // de-dup
         }
-
+        
+        // mark the cell as visited, same letter can only be used once in a word
+        board[row][col] = '#';
+        
         // dfs
         for (int[] offset : OFFSETS) {
             int i = row + offset[0], j = col + offset[1];

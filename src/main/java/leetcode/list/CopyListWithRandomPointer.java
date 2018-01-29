@@ -13,13 +13,17 @@ import java.util.Map;
  * Difficulty: medium 
  * Similar Questions: 133(CloneGraph)
  */
-public class CopyWithRandomPointer {
-    class RandomListNode {
+public class CopyListWithRandomPointer {
+    private static class RandomListNode {
         int label;
         RandomListNode next, random;
 
         RandomListNode(int x) {
             this.label = x;
+        }
+        @Override
+        public String toString() {
+            return "RandomListNode [label=" + label + "]";
         }
     };
 
@@ -46,17 +50,31 @@ public class CopyWithRandomPointer {
         }
 
         // break the copy of list
-        current = head;
-        RandomListNode newHead = head.next, next = null;
+        RandomListNode newHead = head.next, next = null, copy = null;
+        RandomListNode dummy = new RandomListNode(0);
+        RandomListNode copyItr = dummy;
         while (current != null) {
             next = current.next.next;
-            if (next != null)
+            
+            
+            copy = current.next;
+            copyItr.next = copy;
+            copyItr = copy;
+            current.next = next;
+            current = next;
+            
+            /*
+            if (next != null) {
                 current.next.next = next.next;
+            }
             current.next = null;
             current = next;
+            */
         }
 
         return newHead;
+        //return dummy.next;
+       
     }
 
     public RandomListNode copyRandomList_withMap(RandomListNode head) {
@@ -82,4 +100,14 @@ public class CopyWithRandomPointer {
         return newHead;
     }
 
+    public static void main(String[] args) {
+        CopyListWithRandomPointer cr = new CopyListWithRandomPointer();
+        RandomListNode head = new RandomListNode(1);
+        head.next = new RandomListNode(2);
+        head.next.next = new RandomListNode(3);
+        head.next.next.next = new  RandomListNode(4);
+        head.random = head.next.next;
+        head.next.random = head.next.next.next;
+        cr.copyRandomList_withAdditionalNode(head);
+    }
 }

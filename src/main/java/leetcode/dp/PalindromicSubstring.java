@@ -3,16 +3,20 @@ package leetcode.dp;
 import leetcode.matrix.MatrixUtil;
 
 /*
- * Given a string, your task is to count how many palindromic substrings in this string. The substrings with different 
- * start indexes or end indexes are counted as different substrings even they consist of same characters.
+ * LEETCODE 647
+ * Given a string, your task is to count how many palindromic substrings in
+ * this string. The substrings with different start indexes or end indexes 
+ * are counted as different substrings even they consist of same characters.
  * Example 1: Input: "abc" Output: 3
  * Explanation: Three palindromic strings: "a", "b", "c".
  * Example 2: Input: "aaa" Output: 6
  * Explanation: Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
  * Note: The input string length won't exceed 1000.
  * 
- * Company: LinkedIn
+ * Company: Facebook, LinkedIn
  * Difficulty: medium
+ * Similar Questions: 5(Longest Palindromic Substring), 
+ * 516(Longest Palindromic Subsequence)
  */
 public class PalindromicSubstring {
     // Time complexity: O(n^3), Space complexity: O(1)
@@ -50,8 +54,8 @@ public class PalindromicSubstring {
     }
 
     // There are 2N-1 possible centers for the palindrome: we could have a
-    // center at S[0],
-    // between S[0] and S[1], at S[1], between S[1] and S[2], at S[2], etc.
+    // center at S[0], between S[0] and S[1], at S[1], between S[1] and S[2], 
+    // at S[2], etc.
     // Time complexity: O(n^2), Space complexity: O(1)
     private int count;
 

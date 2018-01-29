@@ -28,35 +28,29 @@ public class MaxAreaOfIsland {
     private static final int[][] DIRS = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
 
     public int maxAreaOfIsland(int[][] grid) {
-        if (grid == null || grid.length == 0)
-            return 0;
-
-        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        if (grid == null || grid.length == 0) return 0;
 
         int maxArea = 0;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] == 1 && !visited[i][j]) {
-                    int[] area = new int[1]; // need to initialize area before
-                                             // calculating each island
-                    dfs(grid, visited, i, j, area);
+                if (grid[i][j] == 1) {
+                    int[] area = new int[1];
+                    dfs(grid, i, j, area);
                     maxArea = Math.max(maxArea, area[0]);
                 }
+
             }
         }
         return maxArea;
     }
 
-    private void dfs(int[][] grid, boolean[][] visited, int row, int col, int[] area) {
-        if (visited[row][col])
-            return;
-
-        visited[row][col] = true;
+    private void dfs(int[][] grid, int row, int col, int[] area) {
         area[0]++;
+        grid[row][col] = 0;
         for (int[] dir : DIRS) {
             int x = row + dir[0], y = col + dir[1];
-            if (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length && grid[x][y] == 1 && !visited[x][y]) {
-                dfs(grid, visited, x, y, area);
+            if (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length && grid[x][y] == 1) {
+                dfs(grid, x, y, area);
             }
         }
     }

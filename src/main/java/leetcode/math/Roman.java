@@ -36,9 +36,29 @@ public class Roman {
         symbolValueMap.put('M', 1000);
     }
 
+    private static final int[] VALUES = new int[26];
+    static {
+        VALUES['I'-'A'] = 1;
+        VALUES['V'-'A'] = 5;
+        VALUES['X'-'A'] = 10;
+        VALUES['L'-'A'] = 50;
+        VALUES['C'-'A'] = 100;
+        VALUES['D'-'A'] = 500;
+        VALUES['M'-'A'] = 1000;
+    }
+    
     public int romanToInt(String s) {
-        if (s == null || s.isEmpty())
-            return 0;
+        /*
+        int num = VALUES[s.charAt(s.length()-1)-'A'];
+        for (int i = s.length() - 2; i >= 0; i--) {
+            int val = VALUES[s.charAt(i)-'A'];
+            int prev = VALUES[s.charAt(i+1)-'A'];
+            if (val <  prev) num -= val;
+            else num += val;
+        }
+        return num;
+         */
+       
 
         // the last letter is always added
         int result = symbolValueMap.get(s.charAt(s.length() - 1));
@@ -82,7 +102,8 @@ public class Roman {
         Roman r = new Roman();
 
         // String s = "DCXXI";
-        String s = "XXI";
+        //String s = "XXI";
+        String s = "MCMXCVI";
         System.out.println(r.romanToInt(s));
     }
 

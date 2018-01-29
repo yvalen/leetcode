@@ -1,16 +1,20 @@
 package leetcode.greedy;
 
 /**
+ * LEETCODE 122
  * Say you have an array for which the ith element is the price of a given stock
  * on day i. Design an algorithm to find the maximum profit. You may complete as
  * many transactions as you like (ie, buy one and sell one share of the stock
  * multiple times). However, you may not engage in multiple transactions at the
  * same time (ie, you must sell the stock before you buy again).
- * http://www.sigmainfy.com/blog/leetcode-best-time-to-buy-and-sell-stock-ii.
- * html https://leetcode.com/articles/best-time-buy-and-sell-stock-ii/
+ * http://www.sigmainfy.com/blog/leetcode-best-time-to-buy-and-sell-stock-ii.html 
+ * https://leetcode.com/articles/best-time-buy-and-sell-stock-ii/
  * 
- * Company: Bloomberg Difficulty: easy Similar Questions: 121, 123, 188,
- * 309(BuyAndSellStockWithCoolDown)
+ * Company: Bloomberg 
+ * Difficulty: easy 
+ * Similar Questions: 121(Best Time to Buy and Sell Stock), 
+ * 123(Best Time to Buy and Sell Stock III), 
+ * 188(Best Time to Buy and Sell Stock IV), 309(BuyAndSellStockWithCoolDown)
  */
 public class BuyAndSellStockII {
     // Time complexity: O(n), Space complexity: O(1)

@@ -88,6 +88,7 @@ public class WordBreak {
         }
         return dp[n];
     }
+    
 
     /**
      * LEETCODE 140
@@ -124,6 +125,7 @@ public class WordBreak {
         }
 
         if (dp[n] == null) return result;
+        for (List<String> list : dp ) System.out.println(list); 
         constructResult(dp, s.length(), result, new ArrayList<>());
         return result;
     }
@@ -199,7 +201,7 @@ public class WordBreak {
             if (wordDict.contains(prefix)) {
                 List<String> list = wordBreakII_memorization(s, wordDict, end);
                 for (String l : list) {
-                    result.add(prefix + (l.equals("") ? "" : " ") + l);
+                    result.add(prefix + (l.equals("") ? "" : " ") + l); // need to use equals to compare
                 }
             }
         }

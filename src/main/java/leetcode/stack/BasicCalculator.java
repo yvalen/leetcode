@@ -2,6 +2,8 @@ package leetcode.stack;
 
 import java.util.Stack;
 
+import javafx.scene.layout.StackPane;
+
 public class BasicCalculator {
     /*
      * LEETCODE 224 
@@ -90,8 +92,8 @@ public class BasicCalculator {
      * Difficulty: medium 
      * Similar Questions: 244(BasicCalculator), 282(ExpressionAddOperators)
      */
-    // perform multiplication and division first (they are on the lower level in the expression tree), 
-    // then subtract and addition.
+    // perform multiplication and division first (they are on the lower level 
+    // in the expression tree), then subtract and addition.
     public int calculateII(String s) {
         int result = 0;
         if (s == null || s.length() == 0)
@@ -108,6 +110,7 @@ public class BasicCalculator {
             
             // process the last number, cannot use else if as it could be end of string
             if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || i == s.length() - 1) { 
+                /*
                 if (op == '*' || op == '/') { 
                     // subtract the top element from result before multiply/divide
                     result -= stack.peek();
@@ -126,22 +129,126 @@ public class BasicCalculator {
                     stack.push(stack.pop() / number);
                     break;
                 }
-                op = ch;
-                number = 0;
                 // update result with the number just pushed onto stack
                 result += stack.peek(); 
+                */
+                
+                switch (op) {
+                case '+':
+                    stack.push(number);
+                    break;
+                case '-':
+                    stack.push(-number);
+                    break;
+                case '*':
+                    stack.push(stack.pop() * number);
+                    break;
+                case '/':
+                    stack.push(stack.pop() / number);
+                    break;
+                }
+                op = ch;
+                number = 0;
             }
         }
+        
+        while (!stack.isEmpty()) result += stack.pop();
         return result;
     }
 
+    
+    /*
+     * LEETCODE 772
+     * Implement a basic calculator to evaluate a simple expression string.
+     * The expression string contains only non-negative integers, +, -, *, / 
+     * operators , open ( and closing parentheses ) and empty spaces . The 
+     * integer division should truncate toward zero. You may assume that the 
+     * given expression is always valid. All intermediate results will be in 
+     * the range of [-2147483648, 2147483647].
+     * Some examples:
+     * "1 + 1" = 2
+     * " 6-4 / 2 " = 4
+     * "2*(5+5*2)/3+(6/2+8)" = 21
+     * "(2+6* 3+5- (3*14/7+2)*5)+3"=-12
+     * Note: Do not use the eval built-in library function.
+     * 
+     * Company: Microsoft, Pocket Gem, Hulu, Houzz, Doordash, Jingchi
+     * Difficulty: hard
+     * Similar Questions: 224(Basic Calculator),  227(Basic Calculator II),
+     * 770(Basic Calculator IV)
+     */
+    public int calculateIII(String s) {
+        if (s == null || s.isEmpty()) return 0;
+        
+        int result = 0, num = 0;
+        Stack<Integer> numStack = new Stack<>();
+        Stack<Character> opStack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == ' ') continue;
+            if (Character.isDigit(c)) {
+                num = c - '0';
+                while (i < s.length() - 1 && Character.isDigit(s.charAt(i+1))) {
+                    num = num * 10 + num;
+                    i++;
+                }
+                numStack.push(num);
+                num = 0; // reset the number to 0 before next calculation
+            }
+            else if (c == '(') {
+                opStack.push(c);
+            }
+            else if (c == ')') {
+                while (opStack.peek() != '(') {
+                    numStack.push(performOperation(opStack.pop(), numStack.pop(), numStack.pop()));
+                }
+                opStack.pop(); // get rid of '(' in the ops stack
+            }
+            else if (c == '+' || c == '-' || c == '*' || c == '/') {
+               while (!opStack.isEmpty() && hasPrecedence(c, opStack.peek())) {
+                   numStack.push(performOperation(opStack.pop(), numStack.pop(), numStack.pop()));
+               }
+               opStack.push(c);
+            }
+        }
+        
+        while (!opStack.isEmpty()) {
+            numStack.push(performOperation(opStack.pop(), numStack.pop(), numStack.pop()));
+        }
+        return numStack.pop();
+    }
+    
+    private int performOperation(char c, int b, int a) {
+        switch (c){
+        case '+' : return a + b;
+        case '-': return a - b;
+        case '*': return a * b;
+        case '/': return b == 0 ? 0 :  a /b;
+        }
+        return 0;
+    }
+    
+    // helper function to check precedence of current operator 
+    // and the top operator in the ops stack, op1 is current
+    private static boolean hasPrecedence(char op1, char op2) {
+        if (op2 == '(' || op2 == ')') return false;
+        if ((op1 == '*' || op1 == '/') && (op2 == '+' || op2 == '-')) return false;
+        return true;
+    }
+    
     public static void main(String[] args) {
         BasicCalculator bc = new BasicCalculator();
         // String s = "2147483647";
         // System.out.println(bc.calculate(s));
 
-        // String s = "3+2*2";
-        String s = "3-2+5";
-        System.out.println(bc.calculateII(s));
+       // String s = "3+2*2";
+        //String s = "2*2+3";
+        //String s = "3-2+5";
+        //System.out.println(bc.calculateII(s));
+        
+        String s = "1 + 1";
+        //String s = " 6-4 / 2 ";
+        //String s = "2*(5+5*2)/3+(6/2+8)" ;
+        System.out.println(bc.calculateIII(s));
     }
 }

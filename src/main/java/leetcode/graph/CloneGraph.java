@@ -68,8 +68,7 @@ public class CloneGraph {
         if (node == null)
             return null;
         // need to use a map to remember nodes cloned and corresponding cloned
-        // node
-        // otherwise won't be able to able to handle self loop
+        // node, otherwise won't be able to able to handle self loop
         Map<UndirectedGraphNode, UndirectedGraphNode> visited = new HashMap<>();
         return dfs(node, visited);
     }

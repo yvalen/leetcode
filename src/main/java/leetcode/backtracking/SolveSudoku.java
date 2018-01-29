@@ -26,12 +26,8 @@ public class SolveSudoku {
                 for (char v = '1'; v <= '9'; v++) {
                     if (canFillCellWithValue(board, i, j, v)) {
                         board[i][j] = v;
-
-                        if (solve(board)) {
-                            return true;
-                        } else {
-                            board[i][j] = '.';
-                        }
+                        if (solve(board)) return true;
+                        board[i][j] = '.';
                     }
                 }
                 return false;
@@ -45,7 +41,7 @@ public class SolveSudoku {
         for (int i = 0; i < board.length; i++) {
             int blockX = blockRow + i / 3;
             int blockY = blockCol + i % 3;
-            // need to check board[i][y] != '.' here because we can fill value in empty cell
+            // ???need to check board[i][y] != '.' here because we can fill value in empty cell
             if (board[i][y] != '.' && board[i][y] == value)
                 return false;
             if (board[x][i] != '.' && board[x][i] == value)

@@ -7,10 +7,13 @@ import java.util.List;
 
 /*
  * LEETCODE 300
- * Given an unsorted array of integers, find the length of longest increasing subsequence.
- * For example, given [10, 9, 2, 5, 3, 7, 101, 18], the longest increasing subsequence is 
- * [2, 3, 7, 101], therefore the length is 4. Note that there may be more than one LIS combination, 
- * it is only necessary for you to return the length. Your algorithm should run in O(n2) complexity.
+ * Given an unsorted array of integers, find the length of longest 
+ * increasing subsequence.
+ * For example, given [10, 9, 2, 5, 3, 7, 101, 18], the longest 
+ * increasing subsequence is [2, 3, 7, 101], therefore the length is 4. 
+ * Note that there may be more than one LIS combination, it is only 
+ * necessary for you to return the length. Your algorithm should run in 
+ * O(n^2) complexity.
  * Follow up: Could you improve it to O(n log n) time complexity? 
  * 
  * Company: Microsoft
@@ -18,6 +21,15 @@ import java.util.List;
  */
 public class LongestIncreasingSubsequence {
     // Time complexity: O(n^2) Space complexity: O(n)
+    // dp[i] represents the length of the longest increasing subsequence possible 
+    // considering the array elements up to the i​th​​ index only ,by necessarily 
+    // including the i​th​​ element. In order to find out dp[i], we need to try to 
+    // append the current element(nums[i]) in every possible increasing subsequences 
+    // up to the (i−1)th​​ index(including the (i−1)th index), such that the new sequence 
+    // formed by adding the current element is also an increasing subsequence. Thus, we 
+    // can easily determine dp[i]dp[i]dp[i] using: dp[i]=max(dp[j])+1, 0≤j<i.
+    // At the end, the maximum out of all the dp[i]dp[i]dp[i]'s to determine the final result.
+    // LISlength=max(dp[i]),∀0≤i<n
     public int lengthOfLIS(int[] nums) {
         if (nums == null)
             return 0;
@@ -36,14 +48,6 @@ public class LongestIncreasingSubsequence {
             }
             maxLen = Math.max(maxLen, dp[i]);
         }
-
-        /*
-         * int maxLen = Integer.MIN_VALUE; for (int i = 0; i < n; i++) { int len
-         * = Integer.MIN_VALUE; for (int j = 0; j < i; j++) { if (nums[i] >
-         * nums[j]) { len = Integer.max(len, dp[j]); } } dp[i] = len ==
-         * Integer.MIN_VALUE ? 1 : len + 1; maxLen = Integer.max(maxLen, dp[i]);
-         * }
-         */
 
         return maxLen;
     }
@@ -80,6 +84,7 @@ public class LongestIncreasingSubsequence {
         if (nums == null || nums.length == 0)
             return 0;
 
+        // dp[i] store the increasing subsequence formed by including ith element
         int[] dp = new int[nums.length];
         int len = 0;
         for (int num : nums) {

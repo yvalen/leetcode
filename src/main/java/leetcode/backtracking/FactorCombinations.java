@@ -66,6 +66,28 @@ public class FactorCombinations {
 
     }
 
+    private void getFactors(int target, int start, List<List<Integer>> result, LinkedList<Integer> list) {
+        if (target < 1) return;
+        if (target == 1) {
+            if (list.size() > 1) {
+                // need to check list size to exclude list with target itself
+                // this is because we are checking i <= target in backtrack
+                result.add(new ArrayList<>(list));
+            }
+            return;
+        }
+        
+        for (int i = start; i <= target; i++) {
+            if (target % i != 0) continue;
+            list.add(i);
+            // start the next check using i instead of start
+            // otherwise there will be duplicates
+            getFactors(target/i, i, result, list);
+            list.removeLast();
+        }
+    }
+    
+    
     public static void main(String[] args) {
         FactorCombinations fc = new FactorCombinations();
         int n = 32;

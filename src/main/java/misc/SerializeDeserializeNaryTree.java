@@ -1,4 +1,4 @@
-package leetcode.tree;
+package misc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +34,13 @@ public class SerializeDeserializeNaryTree {
     }
     
     // Read charcter
-    // If it is ''(", new node is added to current parent in the tree. Push it to a stack. 
-    // The newly inserted node becomes current parent.
-    // If it is '')", pop from the stack. Parent is updated.
+    // If it is ''(", new node is added to current parent in the tree. 
+    // Push it to a stack. The newly inserted node becomes current parent.
+    // If it is '')", pop from the stack. Parent is updated with the next 
+    // element on stack
     public TreeNode deserialize(String data) {
+        return deserialize(new StringBuilder(data));
+        /*
         Stack<TreeNode> stack = new Stack<>();
         TreeNode root = null, parent = null;
         int pos = 0;
@@ -66,10 +69,32 @@ public class SerializeDeserializeNaryTree {
                 }
                 pos++;
             }
+            
         }
         return root;
+        */
     }
  
+    private TreeNode deserialize(StringBuilder sb) {
+        if (sb.length() == 0) return null;
+        if (sb.charAt(0) == '(') {
+            sb.deleteCharAt(0);
+            int val = 0, i = 0;
+            while (Character.isDigit(sb.charAt(i))) {
+                val = val * 10 + (sb.charAt(i++) - '0');
+            }
+            TreeNode node = new TreeNode(val);
+            sb.delete(0, i);
+            while (sb.charAt(0) != ')') {
+                node.children.add(deserialize(sb));
+            }
+            sb.deleteCharAt(0); // need to delete )
+            return node;
+        }
+        return null;
+    }
+    
+    
     public static void main(String[] args) {
         SerializeDeserializeNaryTree codec = new SerializeDeserializeNaryTree();
         String data = "(14(20)(3(5)(61))(42(7)))";

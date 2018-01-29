@@ -29,6 +29,8 @@ public class ArrayNesting {
     // start from every number find circle in those index-pointer-chain.
     // mark every number in the traversal as visited since A contains only
     // distinct numbers
+    // the numbers are always form a ring, and no matter which number of this 
+    // ring you start with total count will always be same, so no need to step on it one more time
     public int arrayNesting_recursive(int[] nums) {
         if (nums == null || nums.length == 0)
             return 0;

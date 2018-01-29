@@ -53,24 +53,19 @@ public class BuyAndSellStock {
             maxProfit = Math.max(maxProfit, prices[i] - minPrice);
         }
         return maxProfit;
-
-        /*
-         * int maxProfit = 0, minPrice = prices[0]; for (int i = 1; i <
-         * prices.length; i++) { maxProfit = Math.max(maxProfit, prices[i] -
-         * minPrice); minPrice = Math.min(minPrice, prices[i]); } return
-         * maxProfit;
-         */
     }
 
     /**
-     * LEETCODE 123 Say you have an array for which the ith element is the price
-     * of a given stock on day i. Design an algorithm to find the maximum
-     * profit. You may complete at most two transactions. You may not engage in
-     * multiple transactions at the same time (ie, you must sell the stock
-     * before you buy again).
+     * LEETCODE 123 
+     * Say you have an array for which the ith element is the price of a given 
+     * stock on day i. Design an algorithm to find the maximum profit. You may 
+     * complete at most two transactions. You may not engage in multiple 
+     * transactions at the same time (ie, you must sell the stock before you buy 
+     * again).
      * 
-     * Difficulty: hard Similar Questions: 122(BuyAndSellStockII), 121, 188,
-     * 689(MaxSumOfNonOverlappingSubArrays)
+     * Difficulty: hard 
+     * Similar Questions: 122(BuyAndSellStockII), 121(Best Time to Buy and Sell Stock)
+     * 188(Best Time to Buy and Sell Stock IV),689(MaxSumOfNonOverlappingSubArrays)
      */
     public int maxProfit3(int[] prices) {
         if (prices == null || prices.length == 0)
@@ -114,14 +109,16 @@ public class BuyAndSellStock {
     }
 
     /**
-     * LEETCODE 188 Say you have an array for which the ith element is the price
+     * LEETCODE 188 
+     * Say you have an array for which the ith element is the price
      * of a given stock on day i. Design an algorithm to find the maximum
      * profit. You may complete at most k transactions. Note: You may not engage
      * in multiple transactions at the same time (ie, you must sell the stock
      * before you buy again).
      * 
-     * Difficulty: hard Similar Questions: 121(Best Time to Buy and Sell Stock),
-     * 123(Best Time to Buy and Sell Stock III), 122(BuyAndSellStockII)
+     * Difficulty: hard 
+     * Similar Questions: 121(Best Time to Buy and Sell Stock), 122(BuyAndSellStockII)
+     * 123(Best Time to Buy and Sell Stock III)
      */
     // dp[k][i]: max profit up to day i (included) with at most k transactions
     // (global optimal objective)
@@ -133,10 +130,9 @@ public class BuyAndSellStock {
     // 2. g[k][i] = max_{j=0,...,i-1} (p[i] - p[j] + f[k-1][j-1])
     // This means if we don't sell at day i, then dp[k][i] is just dp[k][i-1];
     // otherwise dp[k][i] will be the max profit that we can achieve if we sell
-    // at day i
-    // Since we will sell at day i anyway, that means we need to buy at a
-    // certain previous day,
-    // for a particular j, the best we can have is p[i] - p[j] + f[k-1][j-1].
+    // at day i. Since we will sell at day i anyway, that means we need to buy at 
+    // a certain previous day, for a particular j, the best we can have is 
+    // p[i] - p[j] + f[k-1][j-1].
     // dp[0][j] = 0 - 0 transaction makes 0 profit
     // dp[i][0] = 0 - cannot make any transaction if there is only one price
     public int maxProfit4_twoDArray(int k, int[] prices) {
@@ -164,33 +160,12 @@ public class BuyAndSellStock {
                 // update the max profit of doing i-1 transaction at j-1 day and
                 // buy the stock at prices[j], this will be used in the next
                 // iteration
-                // localMax = Math.max(localMax, dp[i-1][j] - prices[j]); //
-                // allow buy and sell on same day
-                profit = Math.max(profit, dp[i - 1][j - 1] - prices[j]); // not
-                                                                         // allow
-                                                                         // buy
-                                                                         // and
-                                                                         // sell
-                                                                         // on
-                                                                         // same
-                                                                         // day,
-                                                                         // buy
-                                                                         // stock
-                                                                         // at
-                                                                         // jth
-                                                                         // day,
-                                                                         // this
-                                                                         // will
-                                                                         // be
-                                                                         // used
-                                                                         // to
-                                                                         // calculate
-                                                                         // the
-                                                                         // profit
-                                                                         // in
-                                                                         // the
-                                                                         // next
-                                                                         // iteration
+                // allow buy and sell on same day will be
+                // localMax = Math.max(localMax, dp[i-1][j] - prices[j]); 
+                // 
+                // not allow buy and sell on same day, stock at jth day will be 
+                // used to calculate the profit in the next iteration
+                profit = Math.max(profit, dp[i - 1][j - 1] - prices[j]); 
             }
         }
 
@@ -212,22 +187,17 @@ public class BuyAndSellStock {
         }
 
         // Every trade has once sell and once buy.Buy goes first and sell goes
-        // after buy.
-        // So the sell result is dependent on the buy,and the buy is dependent
-        // on the sell in last trade(j-1th)
+        // after buy. So the sell result is dependent on the buy, and the buy 
+        // is dependent on the sell in last trade(j-1th)
         int[] buy = new int[k + 1];
         int[] sell = new int[k + 1];
         Arrays.fill(buy, Integer.MIN_VALUE);
         for (int i = 0; i < prices.length; i++) {
             for (int j = 1; j <= k; j++) {
-                sell[j] = Integer.max(sell[j], buy[j] + prices[i]); // whether
-                                                                    // to sell
-                                                                    // at
-                                                                    // prices[i]
-                buy[j] = Integer.max(buy[j], sell[j - 1] - prices[i]); // whether
-                                                                       // to buy
-                                                                       // at
-                                                                       // prices[i]
+                // whether to sell at prices[i]
+                sell[j] = Integer.max(sell[j], buy[j] + prices[i]); 
+                // whether to buy at prices[i]    
+                buy[j] = Integer.max(buy[j], sell[j - 1] - prices[i]);
             }
             System.out.println("i=" + i);
             System.out.print("sell: ");

@@ -17,7 +17,8 @@ import java.util.PriorityQueue;
  * 
  * Company: Pocket Gem, Yelp
  * Difficulty: medium
- * Similar Questions: 387, 451(SortCharactersByFrequency), 692(TopKFrequentWords)
+ * Similar Questions: 215(KthLargestElement), 451(SortCharactersByFrequency), 692(TopKFrequentWords)
+ * 659
  */
 public class TopKFrequentElements {
     private static final class Element implements Comparable<Element> {

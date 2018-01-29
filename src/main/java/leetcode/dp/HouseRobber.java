@@ -12,18 +12,20 @@ import leetcode.tree.TreeNode;
 public class HouseRobber {
 
     /**
-     * LEETCODE 198 You are a professional robber planning to rob houses along a
-     * street. Each house has a certain amount of dp stashed, the only
-     * constraint stopping you from robbing each of them is that adjacent houses
-     * have security system connected and it will automatically contact the
-     * police if two adjacent houses were broken into on the same night. Given a
-     * list of non-negative integers representing the amount of dp of each
-     * house, determine the maximum amount of dp you can rob tonight without
+     * LEETCODE 198 
+     * You are a professional robber planning to rob houses along a street. 
+     * Each house has a certain amount of dp stashed, the only constraint stopping 
+     * you from robbing each of them is that adjacent houses have security system 
+     * connected and it will automatically contact the police if two adjacent houses 
+     * were broken into on the same night. 
+     * Given a list of non-negative integers representing the amount of money of each
+     * house, determine the maximum amount of money you can rob tonight without
      * alerting the police.
      * 
-     * Company: LinkedIn, Airbnb Difficulty: easy Similar Questions: 256(Paint
-     * House), 276(PaintFence), 213(House Robber II), 152(MaxProductArray),
-     * 213(House Robber II) 337(House Robber III)
+     * Company: LinkedIn, Airbnb 
+     * Difficulty: easy 
+     * Similar Questions: 256(PaintHouse), 276(PaintFence), 213(House Robber II), 
+     * 152(MaxProductArray), 213(House Robber II) 337(House Robber III)
      */
     public int rob_withDPArray(int[] nums) {
         if (nums == null || nums.length == 0)
@@ -82,17 +84,20 @@ public class HouseRobber {
     }
 
     /**
-     * LEETCODE 213 After robbing those houses on that street, the thief has
-     * found himself a new place for his thievery so that he will not get too
-     * much attention. This time, all houses at this place are arranged in a
-     * circle. That means the first house is the neighbor of the last one.
-     * Meanwhile, the security system for these houses remain the same as for
-     * those in the previous street. Given a list of non-negative integers
-     * representing the amount of money of each house, determine the maximum
-     * amount of money you can rob tonight without alerting the police.
+     * LEETCODE 213 
+     * After robbing those houses on that street, the thief has found himself 
+     * a new place for his thievery so that he will not get too much attention. 
+     * This time, all houses at this place are arranged in a circle. That means 
+     * the first house is the neighbor of the last one. Meanwhile, the security 
+     * system for these houses remain the same as for those in the previous street. 
+     * Given a list of non-negative integers representing the amount of money of 
+     * each house, determine the maximum amount of money you can rob tonight without 
+     * alerting the police.
      * 
-     * Company: Microsoft Difficulty: medium Similar Questions: 256(Paint
-     * House), 276(PaintFence), 198(House Robber), 337(House Robber III)
+     * Company: Microsoft 
+     * Difficulty: medium 
+     * Similar Questions: 256(PaintHouse), 276(PaintFence), 198(House Robber), 
+     * 337(House Robber III)
      */
     // https://discuss.leetcode.com/topic/14375/simple-ac-solution-in-java-in-o-n-with-explanation
     public int robCircle(int[] nums) {
@@ -104,7 +109,10 @@ public class HouseRobber {
 
         // return Math.max(robCircleHelper(nums, 0, nums.length-2),
         // robCircleHelper(nums, 1, nums.length-1));
-        return Math.max(robWithStartEnd(nums, 0, nums.length - 2), robWithStartEnd(nums, 1, nums.length - 1));
+        
+        // break the circle by choosing rob the first or not rob the first
+        return Math.max(robWithStartEnd(nums, 0, nums.length - 2), 
+                robWithStartEnd(nums, 1, nums.length - 1));
 
     }
 
@@ -129,30 +137,41 @@ public class HouseRobber {
     }
 
     /*
-     * LEETCODE 337 The thief has found himself a new place for his thievery
-     * again. There is only one entrance to this area, called the "root."
-     * Besides the root, each house has one and only one parent house. After a
-     * tour, the smart thief realized that
-     * "all houses in this place forms a binary tree". It will automatically
-     * contact the police if two directly-linked houses were broken into on the
-     * same night. Determine the maximum amount of money the thief can rob
-     * tonight without alerting the police. Example 1: 3 / \ 2 3 \ \ 3 1 Maximum
-     * amount of money the thief can rob = 3 + 3 + 1 = 7. Example 2: 3 / \ 4 5 /
-     * \ \ 1 3 1 Maximum amount of money the thief can rob = 4 + 5 = 9.
+     * LEETCODE 337 
+     * The thief has found himself a new place for his thievery again. There is 
+     * only one entrance to this area, called the "root." Besides the root, each 
+     * house has one and only one parent house. After a tour, the smart thief 
+     * realized that "all houses in this place forms a binary tree". It will 
+     * automatically contact the police if two directly-linked houses were broken 
+     * into on the same night. Determine the maximum amount of money the thief can 
+     * rob tonight without alerting the police. 
+     * Example 1: 
+     *      3
+     *     / \
+     *    2   3
+     *     \   \ 
+     *      3   1
+     * Maximum amount of money the thief can rob = 3 + 3 + 1 = 7. 
+     * Example 2:
+     *         3
+     *        / \
+     *       4   5
+     *      / \   \ 
+     *     1   3   1
+     * Maximum amount of money the thief can rob = 4 + 5 = 9.
      * 
-     * Company: Uber Difficulty: medium Similar Questions: 198(House Robber),
-     * 213(House Robber II)
+     * Company: Uber 
+     * Difficulty: medium 
+     * Similar Questions: 198(House Robber), 213(House Robber II)
      */
-    public int robTree_dfs(TreeNode root) { // bfs won't work here because you
-                                            // can rob elements from consecutive
-                                            // levels as long as the elements
-                                            // are not linked
+    public int robTree_dfs(TreeNode root) {
+        // bfs won't work here because you can rob elements from consecutive
+        // levels as long as the elements are not linked
         int[] result = robTreeHelper(root);
         return Integer.max(result[0], result[1]);
     }
 
-    // first element of the returned array contains the value if root is not
-    // robbed
+    // first element of the returned array contains the value if root is not robbed 
     // second element of the returned array contains the value if root is robbed
     private int[] robTreeHelper(TreeNode root) {
         int[] result = new int[2];
@@ -161,8 +180,7 @@ public class HouseRobber {
 
         int[] left = robTreeHelper(root.left);
         int[] right = robTreeHelper(root.right);
-        // root is not robbed, choose the max value from the result of left and
-        // right
+        // root is not robbed, choose the max value from the result of left and right
         result[0] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
         // root is robbed, left and right cannot be robbed
         result[1] = root.val + left[0] + right[0];

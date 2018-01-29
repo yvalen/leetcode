@@ -35,6 +35,8 @@ public class MinStack {
 
     public void push(int x) {
         stack.push(x);
+        // need to check if minStack is empty for the first element
+        // also should check for equal here to handle duplicate elements
         if (minStack.isEmpty() || x <= minStack.peek()) {
             minStack.push(x);
         }

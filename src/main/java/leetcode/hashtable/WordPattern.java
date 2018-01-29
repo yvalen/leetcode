@@ -32,11 +32,22 @@ public class WordPattern {
         for (int i = 0; i < pattern.length(); i++) {
             char p = pattern.charAt(i);
             String s = strAry[i];
-            if (!mapP.getOrDefault(p, -1).equals(mapS.getOrDefault(s, -1)))
+            // need to use equals here as map.get(...) return an Integer object
+            // no primitive value here so no auto boxing
+            if (!mapP.getOrDefault(p, -1).equals(mapS.getOrDefault(s, -1))) {
                 return false;
+            }
+              
             mapS.put(s, i);
             mapP.put(p, i);
         }
         return true;
+    }
+    
+    public static void main(String[] args) { 
+        WordPattern wp = new WordPattern();
+        String pattern = "ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccdd";
+        String str = "s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s t t";
+        System.out.println(wp.wordPattern(pattern, str));
     }
 }

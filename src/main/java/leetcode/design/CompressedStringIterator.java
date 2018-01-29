@@ -83,8 +83,8 @@ public class CompressedStringIterator {
                 index++;
             }
         }
-        count--; // always decrement by one since we need to move forward by i
-                 // in each next
+        // always decrement by one since we need to move forward by i in each next
+        count--; 
         return current;
     }
 

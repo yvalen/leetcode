@@ -77,8 +77,8 @@ public class LFUCache {
 
         Node(int count) {
             this.count = count;
-            this.keys = new LinkedHashSet<>(); // use LinkedHashSet to preserve
-                                               // the insertion order
+            // use LinkedHashSet to preserve the insertion order
+            this.keys = new LinkedHashSet<>(); 
         }
 
     }

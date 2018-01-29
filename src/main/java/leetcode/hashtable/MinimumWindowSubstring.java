@@ -66,7 +66,7 @@ public class MinimumWindowSubstring {
     // Time complexity: O(n) The inner while loop (while(counter==0) is always from the "begin", and the "begin" 
     // never goes back. So the total running is roughly the first for loop time, plus the while loop and its inner 
     // while loop: O(n)+O(2n) = O(n).
-    public String minWindow(String s, String t) {
+    public String minWindow_withMap(String s, String t) {
         if (s == null || s.isEmpty() || t == null || t.isEmpty()) return "";
 
         Map<Character, Integer> charCount = new HashMap<>();
@@ -140,6 +140,30 @@ public class MinimumWindowSubstring {
         return result;
          */
     }
+    
+    public String minWindow(String s, String t) {
+        if (s == null || s.isEmpty() || t == null || t.isEmpty()) return "";
+
+        int[] charCount = new int[256];
+        for (Character c : t.toCharArray()) {
+            charCount[c]++;
+        }
+        
+        int minLen = Integer.MAX_VALUE, begin = 0;
+        for (int left = 0, right = 0, count = t.length(); right < s.length(); right++) {
+            if (charCount[s.charAt(right)]-- > 0) {
+                count--;
+            }
+            while (count == 0) {
+                if (right-left+1 < minLen) {
+                    minLen = right - left + 1;
+                    begin = left;
+                }
+                if (charCount[s.charAt(left++)]++ >= 0) count++;
+            }
+        }
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(begin, begin+minLen);
+    }
 
     public static void main(String[] args) {
         MinimumWindowSubstring m = new MinimumWindowSubstring();
@@ -149,7 +173,7 @@ public class MinimumWindowSubstring {
         //String s = "cabwefgewcwaefgcf", t = "cae";
 
         // String s = "ADOBECA", t = "ABC";
-        System.out.println("result=" + m.minWindow(s, t));
+        System.out.println("result=" + m.minWindow_withMap(s, t));
     }
 
 }

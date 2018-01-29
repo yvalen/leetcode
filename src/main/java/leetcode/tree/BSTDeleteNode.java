@@ -55,12 +55,14 @@ public class BSTDeleteNode {
             // set root to point to its successor
             root = findMin(root.right);
             
-            // set the right link of root (which is supposed to point to the BST containing
-            // all the keys larger that root.val) to deleteMin(t.right)
+            // set the right link of root (which is supposed to point to 
+            // the BST containing all the keys larger that root.val) to 
+            // deleteMin(t.right)
             root.right = deleteMin(t.right);
             
-            // set the left link of root to t.left (all the keys less than the deleted node and its successor
-            // need to set the left child after right, otherwise it will be in an infinite loop
+            // set the left link of root to t.left (all the keys less than 
+            // the deleted node and its successor need to set the left child 
+            // after right, otherwise it will be in an infinite loop
             root.left = t.left;
         }
         return root;

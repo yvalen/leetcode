@@ -1,5 +1,11 @@
 package leetcode.trie;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
+
 /*
  * LEETCODE 208
  * Implement a trie with insert, search, and startsWith methods.
@@ -97,12 +103,39 @@ public class Trie {
         return node != null;
     }
 
+    public List<String> keysWithPrefix(String prefix) {
+        // find the node for prefix first
+        Node node = find(prefix);
+     
+        LinkedList<String> keys = new LinkedList<>();
+        collect(node, prefix, keys);
+        return keys;
+    }
+    
+    private void collect(Node node, String prefix, LinkedList<String> keys) {
+        if (node == null) return;
+        if (node.endOfWord) keys.add(prefix);
+        for (int i = 0; i < 26; i++) {
+            collect(node.next[i], prefix+((char)(i+'a')), keys);
+        }
+    }
+    
     public static void main(String[] args) {
         Trie obj = new Trie();
+        /*
         String word = "shells", prefix = "she";
         // String word = "shells", prefix = "shec";
         obj.insert_iterative(word);
         System.out.println(obj.search_iterative(word));
         System.out.println(obj.startsWith_iterative(prefix));
+        */
+        
+        obj.insert_iterative("she");
+        obj.insert_iterative("sells");
+        obj.insert_iterative("sea");
+        obj.insert_iterative("by");
+        obj.insert_iterative("sea");
+        obj.insert_iterative("shore");
+        System.out.println(obj.keysWithPrefix("se"));
     }
 }

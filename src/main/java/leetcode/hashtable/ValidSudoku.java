@@ -34,6 +34,25 @@ public class ValidSudoku {
     }
 
     private boolean isValidCell(char[][] board, int x, int y) {
+        if (board[x][y] == '.') return true;
+        char val = board[x][y];
+        int blockRow = 3 * (x / 3), blockCol = 3 * (y / 3);
+        for (int i = 0; i < board.length; i++) {
+            if (board[i][y] == val && i != x) {
+                return false;
+            }
+            
+            if (board[x][i] == val && i != y) {
+                return false;
+            }
+           
+            int blockX = blockRow + i / 3, blockY = blockCol + i % 3;
+            if (board[blockX][blockY] == val && blockX != x && blockY != y) {
+                return false;
+            }
+        }
+        return true;
+        /*
         char cellValue = board[x][y];
         if (cellValue == '.') return true;
         if (!Character.isDigit(cellValue) || Character.getNumericValue(cellValue) < 1
@@ -68,6 +87,7 @@ public class ValidSudoku {
         }
 
         return true;
+        */
     }
 
     public boolean isValidSudoku_withSet(char[][] board) {
