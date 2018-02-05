@@ -144,6 +144,7 @@ public class CanIWin {
     public static void main(String[] args) {
         CanIWin ciw = new CanIWin();
         int maxChoosableInteger = 6, desiredTotal = 16;
-        System.out.println(ciw.canIWin(maxChoosableInteger, desiredTotal));
+        //System.out.println(ciw.canIWin(maxChoosableInteger, desiredTotal));
+        System.out.println(1 << maxChoosableInteger);
     }
 }

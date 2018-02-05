@@ -114,10 +114,9 @@ public class OptimalDivision {
         if (n == 2)
             return String.valueOf(nums[0]) + "/" + String.valueOf(nums[1]);
 
-        StringBuilder sb = new StringBuilder(); // cannot initialize with
-                                                // StringBuilder(nums[0]), since
-                                                // it will be used as
-                                                // StringBuilder(int capacity)
+        // cannot initialize with StringBuilder(nums[0]), 
+        // since it will be used as StringBuilder(int capacity)
+        StringBuilder sb = new StringBuilder(); 
         sb.append(nums[0]).append("/(").append(nums[1]);
         for (int i = 2; i < nums.length; i++) {
             sb.append("/").append(nums[i]);

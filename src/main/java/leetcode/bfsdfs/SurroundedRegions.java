@@ -6,6 +6,7 @@ import java.util.Queue;
 import leetcode.array.ArrayUtil;
 
 /*
+ * LEETCODE 130
  * Given a 2D board containing 'X' and 'O' (the letter O), capture all regions surrounded by 'X'.
  * A region is captured by flipping all 'O's into 'X's in that surrounded region. For example,
  * X X X X
@@ -19,6 +20,8 @@ import leetcode.array.ArrayUtil;
  * X O X X
  */
 public class SurroundedRegions {
+    private static final int[][] DIRS = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+
     class Point {
         int x;
         int y;
@@ -46,29 +49,14 @@ public class SurroundedRegions {
             return;
 
         int m = board.length, n = board[0].length;
-        Queue<Point> queue = new LinkedList<>();
-
-        // enqueue all O on the edge and replace them with +
+        Queue<int[]> queue = new LinkedList<>();
         for (int i = 0; i < m; i++) {
-            if (board[i][0] == 'O') {
-                queue.offer(new Point(i, 0));
-                board[i][0] = '+';
-            }
-            if (board[i][n - 1] == 'O') {
-                queue.offer(new Point(i, n - 1));
-                board[i][n - 1] = '+';
-            }
+            enqueueO(board, i, 0, queue);
+            enqueueO(board, i, n-1, queue);
         }
-
         for (int j = 0; j < n; j++) {
-            if (board[0][j] == 'O') {
-                queue.offer(new Point(0, j));
-                board[0][j] = '+';
-            }
-            if (board[m - 1][j] == 'O') {
-                queue.offer(new Point(m - 1, j));
-                board[m - 1][j] = '+';
-            }
+            enqueueO(board, 0, j, queue);
+            enqueueO(board, m-1, j, queue);
         }
 
         System.out.println("before bfs\n");
@@ -76,28 +64,13 @@ public class SurroundedRegions {
 
         // bfs, change all cells that connects to O in edge to +
         while (!queue.isEmpty()) {
-            Point p = queue.poll();
-            // System.out.println("Process " + p);
-            // need to check all 4 neighbors
-            if (p.x < m - 1 && board[p.x + 1][p.y] == 'O') {
-                // System.out.println("enqueue " + new Point(p.x+1, p.y));
-                queue.offer(new Point(p.x + 1, p.y));
-                board[p.x + 1][p.y] = '+';
-            }
-            if (p.x > 0 && board[p.x - 1][p.y] == 'O') {
-                // System.out.println("enqueue " + new Point(p.x-1, p.y));
-                queue.offer(new Point(p.x - 1, p.y));
-                board[p.x - 1][p.y] = '+';
-            }
-            if (p.y < n - 1 && board[p.x][p.y + 1] == 'O') {
-                // System.out.println("enqueue " + new Point(p.x, p.y+1));
-                queue.offer(new Point(p.x, p.y + 1));
-                board[p.x][p.y + 1] = '+';
-            }
-            if ((p.y > 0 && board[p.x][p.y - 1] == 'O')) {
-                // System.out.println("enqueue " + new Point(p.x, p.y-1));
-                queue.offer(new Point(p.x, p.y - 1));
-                board[p.x][p.y - 1] = '+';
+            int[] current = queue.poll();
+            for (int[] dir : DIRS) {
+                int x = current[0]+dir[0], y = current[1]+dir[1];
+                if (x > 0 && x <m-1 && y > 0 && y < n-1 && board[x][y] == 'O') {
+                    board[x][y] = '+';
+                    queue.offer(new int[] {x, y});
+                }
             }
         }
 
@@ -106,6 +79,13 @@ public class SurroundedRegions {
 
         // update board, O -> X, + -> O
         updateBoard(board);
+    }
+
+    private void enqueueO(char[][] board, int row, int col, Queue<int[]> queue) {
+        if (board[row][col] == 'O') {
+            queue.offer(new int[] {row, col});
+            board[row][col] = '+';
+        }
     }
 
     private void updateBoard(char[][] board) {

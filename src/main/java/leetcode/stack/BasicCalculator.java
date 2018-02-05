@@ -25,15 +25,12 @@ public class BasicCalculator {
         // new number
         // 3. '-': same as above
         // 4. '(': push the previous result and the sign into the stack, set
-        // result to 0,
-        // just calculate the new result within the parenthesis.
+        // result to 0, just calculate the new result within the parenthesis.
         // 5. ')': pop out the top two numbers from stack, first one is the sign
-        // before this pair of parenthesis,
-        // second is the temporary result before this pair of parenthesis. We
-        // add them together.
-        // Finally if there is only one number, from the above solution, we
-        // haven't add the number to the result,
-        // so we do a check see if the number is zero.
+        // before this pair of parenthesis, second is the temporary result before 
+        // this pair of parenthesis. We add them together.
+        // 6. Finally if there is only one number, from the above solution, we
+        // haven't add the number to the result, so we do a check see if the number is zero.
 
         int result = 0;
         if (s == null || s.length() == 0)

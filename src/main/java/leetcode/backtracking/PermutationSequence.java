@@ -57,11 +57,9 @@ public class PermutationSequence {
     }
 
     // https://discuss.leetcode.com/topic/17348/explain-like-i-m-five-java-solution-in-o-n
-    // For n numbers, permutations can be divided into n groups with (n - 1)!
-    // elements in each group.
-    // Thus, k / (n - 1)! is the group index among the current n (to be) sorted
-    // groups, and k % (n - 1)!
-    // is the sequence number k for next iteration.
+    // For n numbers, permutations can be divided into n groups with (n - 1)! elements
+    // in each group. Thus, k / (n - 1)! is the group index among the current n (to be) 
+    // sorted groups, and k % (n - 1)! is the sequence number k for next iteration.
     // Complexity: time - O(n^2) as list.remove(i) is O(n), space - O(n)
     public String getPermutation_withFactorial(int n, int k) {
         if (n <= 0 || k <= 0)

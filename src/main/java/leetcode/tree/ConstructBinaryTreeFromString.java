@@ -97,5 +97,28 @@ public class ConstructBinaryTreeFromString {
 
         return node;
     }
+    
+    public TreeNode str2tree(StringBuilder sb) {
+        if (sb.length() == 0) return null;
+        if (sb.charAt(0) == '(') sb.deleteCharAt(0);
+        int i = 0;
+        while (i < sb.length() && (sb.charAt(i) != '(' && sb.charAt(i) != ')')) {
+            //System.out.println("i=" + i + " c=" + sb.charAt(i));
+            i++;
+        }
+        TreeNode node = new TreeNode(Integer.parseInt(sb.substring(0, i)));
+        sb.delete(0, i);
+        if (sb.length() > 0 && sb.charAt(0) == '(') {
+            sb.deleteCharAt(0);
+            node.left = str2tree(sb);
+            sb.deleteCharAt(0);
+            if (sb.length() > 0 && sb.charAt(0) == '(') {
+                sb.deleteCharAt(0);
+                node.right = str2tree(sb);
+                sb.deleteCharAt(0);
+            }
+        }
+        return node;
+    }
 
 }

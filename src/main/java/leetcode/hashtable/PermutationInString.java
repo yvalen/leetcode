@@ -28,6 +28,20 @@ public class PermutationInString {
         int[] charCount = new int[128];
         for (char c : s1.toCharArray()) charCount[c]++;
         
+        int start = 0, end = 0, count = s1.length();
+        while (end < s2.length()) {
+            if (charCount[s2.charAt(end++)-'a']-- > 0) {
+                count--;
+            }
+            while (count == 0) {
+                if (end-start == s1.length()) return true;
+                if (charCount[s2.charAt(start++)-'a']++ >= 0) {
+                    count++;
+                }
+            }
+        }
+        
+        /*
         int left = 0, right = 0, count = s1.length();
         while (right < s2.length()) {
             if (charCount[s2.charAt(right++)]-- > 0) count--;
@@ -36,7 +50,7 @@ public class PermutationInString {
                 if (charCount[s2.charAt(left)] >= 0) count++; 
                 charCount[s2.charAt(left++)]++;
             }
-        }
+        }*/
         
         return false;
     }

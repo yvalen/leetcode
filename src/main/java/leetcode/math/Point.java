@@ -1,8 +1,8 @@
 package leetcode.math;
 
 public class Point {
-    int x;
-    int y;
+    public int x;
+    public int y;
 
     public Point() {
         x = 0;
@@ -12,5 +12,10 @@ public class Point {
     public Point(int a, int b) {
         this.x = a;
         this.y = b;
+    }
+    
+    @Override
+    public String toString() {
+        return "Point [x=" + x + ", y=" + y + "]";
     }
 }

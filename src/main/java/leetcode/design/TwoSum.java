@@ -26,12 +26,7 @@ public class TwoSum {
      * @param number
      */
     public void add(int number) {
-        Integer count = elemCountMap.get(number);
-        if (count == null) {
-            elemCountMap.put(number, 1);
-        } else {
-            elemCountMap.put(number, count + 1);
-        }
+        elemCountMap.put(number, elemCountMap.getOrDefault(number, 0)+1);
     }
 
     /**

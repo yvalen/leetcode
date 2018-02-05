@@ -28,7 +28,7 @@ import java.util.Stack;
  * - The last four operations won't be called when stack is empty.
  * 
  * Company: LinkedIn
- * Difficulty: easy
+ * Difficulty: hard
  * Similar Questions: 155(MinStack)
  */
 public class MaxStack {

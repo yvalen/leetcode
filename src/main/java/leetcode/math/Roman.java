@@ -2,6 +2,8 @@ package leetcode.math;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
+
 
 /*
  * https://en.wikipedia.org/wiki/Roman_numerals
@@ -15,6 +17,8 @@ import java.util.Map;
  * Roman numeral system being basically decimal, each "place" is added separately, in descending sequence from left to right.
  */
 public class Roman {
+    // https://stackoverflow.com/questions/267399/how-do-you-match-only-valid-roman-numerals-with-a-regular-expression
+    private static final Pattern PATTERN = Pattern.compile("^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$");
 
     /*
      * LEETCODE 13 
@@ -48,18 +52,10 @@ public class Roman {
     }
     
     public int romanToInt(String s) {
-        /*
-        int num = VALUES[s.charAt(s.length()-1)-'A'];
-        for (int i = s.length() - 2; i >= 0; i--) {
-            int val = VALUES[s.charAt(i)-'A'];
-            int prev = VALUES[s.charAt(i+1)-'A'];
-            if (val <  prev) num -= val;
-            else num += val;
-        }
-        return num;
-         */
+       if (!PATTERN.matcher(s).matches()) {
+           throw new IllegalArgumentException("invalid input " + s);
+       }
        
-
         // the last letter is always added
         int result = symbolValueMap.get(s.charAt(s.length() - 1));
 
@@ -103,7 +99,8 @@ public class Roman {
 
         // String s = "DCXXI";
         //String s = "XXI";
-        String s = "MCMXCVI";
+        //String s = "MCMXCVI";
+        String s = "IIIIIV";
         System.out.println(r.romanToInt(s));
     }
 

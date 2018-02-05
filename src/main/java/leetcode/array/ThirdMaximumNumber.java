@@ -3,11 +3,14 @@ package leetcode.array;
 import java.util.TreeSet;
 
 /**
+ * LEETCODE 414
  * Given a non-empty array of integers, return the third maximum number in this
  * array. If it does not exist, return the maximum distinct number. The time
  * complexity must be in O(n).
  * 
- * Company: Amazon Difficulty: easy
+ * Company: Amazon 
+ * Difficulty: easy
+ * Similar Questions: 215(KthLargestElement)
  */
 public class ThirdMaximumNumber {
 
@@ -28,7 +31,8 @@ public class ThirdMaximumNumber {
     // O(1) space
     public int thirdMax(int[] nums) {
         Integer max1 = null, max2 = null, max3 = null;
-        for (Integer num : nums) {
+        for (Integer num : nums) { // use auto-boxing here
+            // skip duplicate
             if (num.equals(max1) || num.equals(max2) || num.equals(max3))
                 continue;
 

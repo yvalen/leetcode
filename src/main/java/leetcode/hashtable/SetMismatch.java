@@ -1,5 +1,6 @@
 package leetcode.hashtable;
 
+import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +55,20 @@ public class SetMismatch {
 
         return result;
     }
+    
+    public int[] findErrorNums_BitSet(int[] nums) {
+        int n = nums.length;
+        int actualSum = 0, dup = -1;
+        BitSet bitset = new BitSet(n+1);
+        for (int num : nums) {
+            actualSum += num;
+            if (bitset.get(num)) dup = num;
+            else bitset.set(num);
+        }
+        
+        int sum = n*(n+1)/2;
+        return new int[] {dup, sum - (actualSum-dup)};
+    }
 
     public int[] findErrorNums_noExtraSpace(int[] nums) {
         if (nums == null || nums.length == 0)
@@ -61,6 +76,8 @@ public class SetMismatch {
 
         int[] result = new int[2];
         for (int num : nums) {
+        		// need to use absolute value here as num could be modified
+        		// need to subtract 1 here as index is 0 based
             int index = Math.abs(num) - 1;
             if (nums[index] > 0)
                 nums[index] = -nums[index];

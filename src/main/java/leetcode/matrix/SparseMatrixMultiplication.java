@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * Given two sparse matrices A and B, return the result of AB. You may assume that A's column number is equal to B's row number.
+ * LEETCODE 311
+ * Given two sparse matrices A and B, return the result of AB. 
+ * You may assume that A's column number is equal to B's row number.
  * Example:
  * A = [
  * 	[ 1, 0, 0],
@@ -29,18 +31,25 @@ public class SparseMatrixMultiplication {
     public int[][] multiply(int[][] A, int[][] B) {
         int m = A.length, n = B[0].length;
         int[][] result = new int[m][n];
-
+        
         /*
-         * for (int i = 0; i < m; i++) { for (int j = 0; j < n; j++) { for (int
-         * k = 0; k < B.length; k++) { result[i][j] += A[i][k] * B[k][j]; } } }
-         */
-
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                for (int k = 0; k < A[0].length; k++) {
+                    result[i][j] += A[i][k] * B[k][j];    
+                }
+            }
+        }
+        */
+        
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < B.length; j++) {
                 if (A[i][j] != 0) { // only perform multiplication when the
                                     // element is non-zero
+                    System.out.println("use A:" + A[i][j] + " i="+i+" j="+j);
                     for (int k = 0; k < n; k++) {
                         if (B[j][k] != 0) {
+                            System.out.println("use B:" + B[j][k] + " k="+k);
                             result[i][k] += A[i][j] * B[j][k];
                         }
                     }
@@ -83,8 +92,8 @@ public class SparseMatrixMultiplication {
     public static void main(String[] arg) {
         SparseMatrixMultiplication smm = new SparseMatrixMultiplication();
         int[][] A = { { 1, 0, 0 }, { -1, 0, 3 } };
-        int[][] B = { { 7, 0, 0 }, { 0, 0, 0 }, { 0, 0, 1 } };
-        int[][] result = smm.multiply_LIL(A, B);
+        int[][] B = { { 7, 8, 9 }, { 0, 0, 0 }, { 0, 0, 1 } };
+        int[][] result = smm.multiply(A, B);
         MatrixUtil.print(result);
     }
 }

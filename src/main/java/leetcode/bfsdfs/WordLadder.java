@@ -43,10 +43,12 @@ public class WordLadder {
         
         Queue<String> q = new LinkedList<>();
         q.offer(beginWord);
-        int len = 1;
+        // start from 1 as we return right after we find endWord
+        // at that point, endWors is on the next level
+        int len = 1; 
         while (!q.isEmpty()) {
             len++;
-            int qlen = q.size();
+            int qlen = q.size(); // need to consume all words at the same level
             for (int i = 0; i < qlen; i++) {
                 String s = q.poll();
                 Set<String> nextWords = getNextWords(s, dict);
@@ -74,7 +76,9 @@ public class WordLadder {
             char c = chars[i];
             for (char j = 'a'; j <= 'z'; j++) { 
                 // test all possible chars for position i
-                chars[i] = j;
+                // no need to worry about the same word as it will be removed 
+                // from dict after being enqueued
+                chars[i] = j; 
                 String str = new String(chars);
                 if (dict.contains(str)) {
                     // if (dict.contains(str) && !visited.contains(str)) {
@@ -201,11 +205,13 @@ public class WordLadder {
             char original = chars[i];
             for (char c = 'a'; c <= 'z'; c++) {
                 chars[i] = c;
+                if (c == original) continue;
                 String neighbor = new String(chars);
                 if (dict.contains(neighbor)) {
                     neighbors.add(neighbor);
                 }
             }
+            System.out.println("i=" + i + " neighbors=" + neighbors);
             chars[i] = original;
         }
         
@@ -222,8 +228,10 @@ public class WordLadder {
 
         // String beginWord = "a", endWord = "c";
         // List<String> wordList = Arrays.asList("a","b","c");
-        System.out.println(w.findLadders(beginWord, endWord, wordList));
+        //System.out.println(w.findLadders(beginWord, endWord, wordList));
 
+        System.out.println(w.getNeighbors("lot", new HashSet<>(wordList)));
+        
     }
 
 }

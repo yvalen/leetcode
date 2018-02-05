@@ -37,8 +37,8 @@ import leetcode.array.ArrayUtil;
  * totally execute 4 units of time.
  * Note:
  * - Input logs will be sorted by timestamp, NOT log id.
- * - Your output should be sorted by function id, which means the 0th element of your output corresponds to the 
- * exclusive time of function 0.
+ * - Your output should be sorted by function id, which means the 0th element of 
+ * your output corresponds to the exclusive time of function 0.
  * - Two functions won't start or end at the same time.
  * - Functions could be called recursively, and will always end.
  * - 1 <= n <= 100

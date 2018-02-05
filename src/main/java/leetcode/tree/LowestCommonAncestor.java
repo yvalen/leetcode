@@ -1,11 +1,19 @@
 package leetcode.tree;
 
+import java.sql.Time;
+
 public class LowestCommonAncestor {
 
     /**
-     * Given a binary search tree (BST), find the lowest common ancestor (LCA)
-     * of two given nodes in the BST. (EASY)
+     * LEETCODE 235
+     * Given a binary search tree (BST), find the lowest common ancestor 
+     * (LCA) of two given nodes in the BST. 
+     * 
+     * Company: Facebook, Amazon, Twitter
+     * Difficulty: easy
+     * Similar Questions: 236(Lowest Common Ancestor of a Binary Tree)
      */
+    // Time complexity: O(h)
     public TreeNode LCAForBST(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || p == null || q == null)
             return null;
@@ -19,18 +27,24 @@ public class LowestCommonAncestor {
             } else {
                 root = root.right;
             }
-
         }
 
         return root;
     }
 
     /**
+     * LEETCODE 236
      * Given a binary tree, find the lowest common ancestor (LCA) of two given
-     * nodes in the BST. (MEDIUM) with parent pointer:
-     * http://articles.leetcode.com/lowest-common-ancestor-of-a-binary-tree-part
-     * -ii
+     * nodes in the BST.
+     * 
+     * Company: Facebook, Amazon, Microsoft, LinkedIn, Apple
+     * Difficulty: easy
+     * Similar Questions: 236(Lowest Common Ancestor of a Binary Tree)
+     * 
+     * with parent pointer:
+     * http://articles.leetcode.com/lowest-common-ancestor-of-a-binary-tree-part-ii
      */
+    // Time complexity: O(n)
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null)
             return null;

@@ -69,7 +69,7 @@ public class PaintHouse {
      * Similar Questions: 256(Paint House), 276(PaintFence), 238(ProductOfArrayExceptSelf), 
      * 239(SlidingWindowMaximum)
      */
- // Complexity: time - O(nk^2), space O(nk)
+    // Complexity: time - O(nk^2), space O(nk)
     public int minCostII_withDPArray(int[][] costs) {
         if (costs == null || costs.length == 0 || costs[0].length == 0)
             return 0;

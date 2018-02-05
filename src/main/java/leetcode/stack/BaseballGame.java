@@ -42,22 +42,30 @@ public class BaseballGame {
             return 0;
 
         Stack<Integer> stack = new Stack<>();
+        int sum = 0;
         for (String op : ops) {
+            int val = 0;
             if (op.equals("+")) {
-                Integer top = stack.pop();
-                Integer sum = top + stack.peek();
+                // need to pop the top one so that we can access the second one
+                int top = stack.pop(); 
+                val = stack.peek() + top; // shouldn't pop the second one off 
                 stack.push(top);
-                stack.push(sum);
-            } else if (op.equals("D")) {
-                stack.push(stack.peek() * 2);
-            } else if (op.equals("C")) {
-                stack.pop();
-            } else {
-                stack.push(Integer.parseInt(op));
+                stack.push(val);
             }
+            else if (op.equals("D")) {
+                val = 2 * stack.peek(); // should use peek here
+                stack.push(val);
+            }
+            else if (op.equals("C")) {
+                val = -1 * stack.pop();
+            }
+            else {
+                val = Integer.valueOf(op);
+                stack.push(val);
+            }
+            sum += val;
         }
-
-        return stack.stream().reduce(0, Integer::sum);
+        return sum;
     }
 
     public int calPoints(String[] ops) {
@@ -70,11 +78,11 @@ public class BaseballGame {
             int val = 0;
             if (op.equals("+")) {
                 val = list.getLast() + list.get(list.size() - 2); // we can use
-                                                                  // index of
-                                                                  // list to get
-                                                                  // the second
-                                                                  // to last
-                                                                  // element
+                // index of
+                // list to get
+                // the second
+                // to last
+                // element
                 list.add(val);
             } else if (op.equals("D")) {
                 val = list.getLast() * 2;

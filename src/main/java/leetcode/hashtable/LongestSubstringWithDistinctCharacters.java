@@ -84,11 +84,36 @@ public class LongestSubstringWithDistinctCharacters {
 
         return len;
     }
+    
+    public int lengthOfLongestSubstringTwoDistinct_slidingWindow(String s) {
+        if (s == null || s.isEmpty()) return 0;
+        
+        int[] charCount = new int[256];
+        int start = 0, end = 0, maxLen = 0, counter = 0;
+        while (end < s.length()) {
+            if (charCount[s.charAt(end++)]++ == 0) {
+                counter++;
+            }
+            while (counter > 2) {
+                if (charCount[s.charAt(start++)]-- == 1) {
+                    counter--;
+                }
+            }
+            maxLen = Math.max(maxLen, end-start);
+        }
+        return maxLen;
+    }
 
     /*
+     * LEETCODE 340
      * Given a string, find the length of the longest substring T that contains
-     * at most k distinct characters. For example, Given s = “eceba” and k = 2,
-     * T is "ece" which its length is 3.
+     * at most k distinct characters. 
+     * For example, Given s = “eceba” and k = 2, T is "ece" which its length is 3.
+     * 
+     * Company: Google, AppDynamics, Coupang
+     * Difficulty: hard
+     * Similar Questions: 159(Longest Substring with At Most Two Distinct Characters)
+     * 424()
      */
     // Time complexity: O(kn)
     public int lengthOfLongestSubstringKDistinct(String s, int k) {
@@ -114,6 +139,27 @@ public class LongestSubstringWithDistinctCharacters {
         }
         return len;
     }
+    
+    // Time complexity: O(n)
+    public int lengthOfLongestSubstringKDistinct_slidingWindow(String s, int k) {
+        if (s == null || s.isEmpty()) return 0;
+        
+        int[] charCount = new int[256];
+        int start = 0, end = 0, maxLen = 0, counter = 0;
+        while (end < s.length()) {
+            if (charCount[s.charAt(end++)]++ == 0) {
+                counter++;
+            }
+            while (counter > k) {
+                if (charCount[s.charAt(start++)]-- == 1) {
+                    counter--;
+                }
+            }
+            maxLen = Math.max(maxLen, end-start);
+        }
+        return maxLen;
+    }
+    
 
     public static void main(String[] args) {
         LongestSubstringWithDistinctCharacters lstd = new LongestSubstringWithDistinctCharacters();

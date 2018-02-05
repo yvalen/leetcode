@@ -5,15 +5,19 @@ import java.util.List;
 
 public class MajorityElement {
     /**
+     * LEETCODE 169
      * Given an array of size n, find the majority element. The majority element
      * is the element that appears more than ⌊ n/2 ⌋ times. You may assume that
      * the array is non-empty and the majority element always exist in the
      * array.
      * 
+     * Company: Zenefits, Adobe
+     * Difficulty: easy
+     * Similar Questions: 229(Majority Element II)
+     * 
      * Moore’s Voting Algorithm
      * http://www.cs.utexas.edu/~moore/best-ideas/mjrty/
-     * https://www.quora.com/What-is-the-proof-of-correctness-of-Moores-voting-
-     * algorithm
+     * https://www.quora.com/What-is-the-proof-of-correctness-of-Moores-voting-algorithm
      */
     public int majorityElement(int[] nums) {
         int result = nums[0], count = 1;

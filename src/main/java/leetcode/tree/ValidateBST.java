@@ -4,6 +4,8 @@ import java.util.Stack;
 
 public class ValidateBST {
     public boolean isValidBST(TreeNode root) {
+        // need to use Long.MIN_VALUE and Long.MAX_VALUE here to handle 
+        // tree with Integer.MAX_VALUE and Integer.MIN_VALEU as value
         return isValidBST_helper(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
 

@@ -2,8 +2,9 @@ package leetcode.tree;
 
 /*
  * LEETCODE 450
- * Given a root node reference of a BST and a key, delete the node with the given key in the BST. 
- * Return the root node reference (possibly updated) of the BST.
+ * Given a root node reference of a BST and a key, delete the node with the 
+ * given key in the BST. Return the root node reference (possibly updated) 
+ * of the BST. 
  * Basically, the deletion can be divided into two stages:
  * 	1. Search for a node to remove.
  * 	2. If the node is found, delete the node.
@@ -31,7 +32,7 @@ package leetcode.tree;
  * Company: Uber
  * Difficulty: medium
  */
-public class BSTDeleteNode {
+public class DeleteNodeInBST {
 
     // Complexity: O(h) every node along the path to be visited best case once
     // (delete leaf),
@@ -87,7 +88,7 @@ public class BSTDeleteNode {
         root.left.right = new TreeNode(4);
         root.right.right = new TreeNode(7);
 
-        BSTDeleteNode b = new BSTDeleteNode();
+        DeleteNodeInBST b = new DeleteNodeInBST();
         b.deleteNode(root, 3);
 
     }

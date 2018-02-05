@@ -17,13 +17,13 @@ public class PalindromeLinkedList {
         // break the list into two halves
         ListNode slow = head, fast = head, prev = null;
         while (fast != null && fast.next != null) {
-            prev = slow;
+            //prev = slow;
             slow = slow.next;
             fast = fast.next.next;
         }
 
         // slow is the head of the second half
-        prev.next = null;
+        //prev.next = null;
 
         // reverse the second half so that we don't need to worry about list
         // with odd number of nodes
@@ -32,7 +32,10 @@ public class PalindromeLinkedList {
 
         // compare the second half with the first half
         ListNode l1 = head, l2 = tail;
-        while (l1 != null && l2 != null) {
+        // only check l2 != null as we don't break the list in the middle
+        // l1 will never be null. for odd number of elements, l1 and l2 
+        // will point to the same element in the end
+        while (l2 != null) {
             if (l1.val != l2.val)
                 return false;
             l1 = l1.next;

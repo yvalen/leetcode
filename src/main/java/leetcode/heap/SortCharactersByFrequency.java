@@ -32,68 +32,64 @@ import java.util.PriorityQueue;
  * Similar Questions: 347(TopKFrequentElements), 387(FirstUniqueCharacterInString)
  */
 public class SortCharactersByFrequency {
-    public String frequencySort_heap(String s) {
-        if (s == null || s.length() <= 2)
-            return s;
+	public String frequencySort_heap(String s) {
+		if (s == null || s.length() <= 2)
+			return s;
 
-        Map<Character, Integer> frequencyMap = new HashMap<>();
-        for (Character c : s.toCharArray()) {
-            frequencyMap.put(c, frequencyMap.getOrDefault(c, 0) + 1);
-        }
+		Map<Character, Integer> frequencyMap = new HashMap<>();
+		for (Character c : s.toCharArray()) {
+			frequencyMap.put(c, frequencyMap.getOrDefault(c, 0) + 1);
+		}
 
-        // max heap, most frequent on top
-        PriorityQueue<Map.Entry<Character, Integer>> pq = new PriorityQueue<>((x, y) -> y.getValue() - x.getValue());
-        for (Map.Entry<Character, Integer> entry : frequencyMap.entrySet()) {
-            pq.offer(entry);
-        }
+		// max heap, most frequent on top
+		PriorityQueue<Map.Entry<Character, Integer>> pq = new PriorityQueue<>((x, y) -> y.getValue() - x.getValue());
+		for (Map.Entry<Character, Integer> entry : frequencyMap.entrySet()) {
+			pq.offer(entry);
+		}
 
-        StringBuilder sb = new StringBuilder();
-        while (!pq.isEmpty()) { // cannot iterate through pq since pq is not
-                                // sorted internally
-            Map.Entry<Character, Integer> entry = pq.poll();
-            int frequency = entry.getValue();
-            while (frequency-- > 0)
-                sb.append(entry.getKey());
-        }
-        return sb.toString();
-    }
+		StringBuilder sb = new StringBuilder();
+		while (!pq.isEmpty()) { // cannot iterate through pq since pq is not
+			// sorted internally
+			Map.Entry<Character, Integer> entry = pq.poll();
+			int frequency = entry.getValue();
+			while (frequency-- > 0)
+				sb.append(entry.getKey());
+		}
+		return sb.toString();
+	}
 
-    public String frequencySort_bucketSort(String s) {
-        if (s == null || s.length() <= 2)
-            return s;
+	public String frequencySort_bucketSort(String s) {
+		if (s == null || s.length() <= 2)
+			return s;
 
-        Map<Character, Integer> frequencyMap = new HashMap<>();
-        int maxFrequency = 0;
-        for (Character c : s.toCharArray()) {
-            int frequency = frequencyMap.getOrDefault(c, 0) + 1;
-            frequencyMap.put(c, frequency);
-            maxFrequency = Math.max(maxFrequency, frequency);
-        }
+		Map<Character, Integer> frequencyMap = new HashMap<>();
+		int maxFrequency = 0;
+		for (char c : s.toCharArray()) {
+			frequencyMap.put(c, frequencyMap.getOrDefault(c, 0)+1);
+			maxFrequency = Math.max(maxFrequency, frequencyMap.get(c));
+		}
 
-        List<List<Character>> bucket = new ArrayList<>(maxFrequency + 1);
-        for (int i = 0; i <= maxFrequency; i++) {
-            bucket.add(new ArrayList<>());
-        }
+		List<Character>[] bucket = (List<Character>[]) new List[maxFrequency];
+		for (Map.Entry<Character, Integer> entry : frequencyMap.entrySet()) {
+			int index = entry.getValue()-1;
+			if (bucket[index] == null) bucket[index] = new ArrayList<>();
+			bucket[index].add(entry.getKey());
+		}
 
-        for (Map.Entry<Character, Integer> entry : frequencyMap.entrySet()) {
-            bucket.get(entry.getValue()).add(entry.getKey());
-        }
+		StringBuilder sb = new StringBuilder();
+		for (int i = bucket.length-1; i >= 0; i--) {
+			if (bucket[i] == null) continue;
+			for (char c : bucket[i]) {
+				for (int j = 0; j <= i; j++) sb.append(c);
+			}
+		}
 
-        StringBuilder sb = new StringBuilder();
-        for (int i = maxFrequency; i > 0; i--) {
-            List<Character> charList = bucket.get(i);
-            for (Character c : charList) {
-                int freq = i;
-                while (freq-- > 0)
-                    sb.append(c);
-            }
-        }
-        return sb.toString();
-    }
+		return sb.toString();
+	}
 
-    public static void main(String[] args) {
-        SortCharactersByFrequency scf = new SortCharactersByFrequency();
-        String s = "raaeaedere";
-        System.out.println(scf.frequencySort_heap(s));
-    }
+	public static void main(String[] args) {
+		SortCharactersByFrequency scf = new SortCharactersByFrequency();
+		String s = "raaeaedere";
+		System.out.println(scf.frequencySort_heap(s));
+	}
 }

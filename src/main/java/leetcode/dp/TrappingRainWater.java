@@ -2,13 +2,15 @@ package leetcode.dp;
 
 /*
  * LEETCODE 42
- * Given n non-negative integers representing an elevation map where the width of each bar is 1, 
- * compute how much water it is able to trap after raining.
+ * Given n non-negative integers representing an elevation map where 
+ * the width of each bar is 1, compute how much water it is able to 
+ * trap after raining.
  * For example, given [0,1,0,2,1,0,1,3,2,1,2,1], return 6. 
  * 
  * Company: Google, Amazon, Bloomberg, Twitter, Apple, Zenefits
  * Difficulty: hard
- * Similar Questions: 11(ContainerWithMostWater), 238(ProductOfArrayExceptSelf), 407(TrappingRainWaterII)
+ * Similar Questions: 11(ContainerWithMostWater), 238(ProductOfArrayExceptSelf), 
+ * 407(TrappingRainWaterII)
  */
 public class TrappingRainWater {
     //
@@ -57,7 +59,7 @@ public class TrappingRainWater {
     // similarly when max_left[i] > max_right[i], the water trapped depends upon
     // the right_max, index 8 through 11
     // Time complexity: O(n), one pass Space complexity: O(1)
-    public int trap_twoPointers(int[] height) {
+    public static int trap_twoPointers(int[] height) {
         int l = 0, r = height.length - 1;
         int maxLeft = 0, maxRight = 0, max = 0;
         while (l < r) {
@@ -73,5 +75,10 @@ public class TrappingRainWater {
         }
 
         return max;
+    }
+    
+    public static void main(String[] args) {
+        int[] height = {0,1,0,2,1,0,1,3,2,1,2,1};
+        System.out.println(trap_twoPointers(height));
     }
 }

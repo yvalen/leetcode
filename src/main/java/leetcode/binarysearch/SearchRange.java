@@ -70,6 +70,23 @@ public class SearchRange {
 
         return result;
 
+        //return new int[] {findPosition(nums, target, true), findPosition(nums, target, false)};
+    }
+    
+    private int findPosition(int[] nums, int target, boolean first) {
+        int pos = -1;
+        int lo = 0, hi = nums.length-1;
+        while (lo <= hi) {
+            int mid = lo + (hi-lo)/2;
+            if (nums[mid] == target) {
+                pos = mid;
+                if (first) hi = mid-1;
+                else lo = mid+1;
+            }
+            else if (nums[mid] < target) lo = mid + 1;
+            else hi = mid - 1;
+        }
+        return pos;
     }
 
     public int[] searchRange_divideAndConquer(int[] nums, int target) {

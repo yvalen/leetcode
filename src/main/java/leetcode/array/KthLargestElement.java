@@ -24,9 +24,13 @@ public class KthLargestElement {
 
         PriorityQueue<Integer> pq = new PriorityQueue<>(k);
         for (int num : nums) {
-            pq.offer(num);
-            if (pq.size() > k)
+            if (pq.size() < k) {
+                pq.offer(num);
+            }
+            else if (pq.peek() < num) {
                 pq.poll();
+                pq.offer(num);
+            }
         }
 
         return pq.peek();

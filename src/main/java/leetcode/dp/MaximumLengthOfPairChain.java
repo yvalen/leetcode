@@ -17,6 +17,7 @@ import java.util.Arrays;
  * Similar Questions: 300(LongestIncreasingSubsequence)
  */
 public class MaximumLengthOfPairChain {
+	// Time complexity: O(n^2)
     public int findLongestChain(int[][] pairs) {
         if (pairs == null || pairs.length == 0)
             return 0;

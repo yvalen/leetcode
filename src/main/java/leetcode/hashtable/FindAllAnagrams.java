@@ -37,6 +37,21 @@ public class FindAllAnagrams {
         }
         
         List<Integer> result = new ArrayList<>();
+        int start = 0, end = 0, count = p.length();
+        while (end < s.length()) {
+            if (charCount[s.charAt(end++)-'a']-- > 0) {
+                count--;
+            }
+            while (count == 0) {
+                if (end-start == p.length()) result.add(start);
+                if (charCount[s.charAt(start++)-'a']++ >= 0) {
+                    count++;
+                }
+            }
+            
+        }
+        
+        /*
         int left = 0, right = 0, count = p.length();
         while (right < s.length()) {
             // move right every time, decrement count if current char exists in p
@@ -54,7 +69,7 @@ public class FindAllAnagrams {
                 }
                 charCount[s.charAt(left++)-'a']++;
             }
-        }
+        }*/
         
         /*
         for (int i = 0; i <= s.length() - p.length(); i++) {
@@ -76,7 +91,8 @@ public class FindAllAnagrams {
         FindAllAnagrams faa = new FindAllAnagrams();
         //String s = "cbaebabacd", p = "abc";
         //String s = "abab", p = "ab";
-        String s = "abcabc", p = "abc";
+        //String s = "abcabc", p = "abc";
+        String s = "acbab", p = "ab";
         System.out.println(faa.findAnagrams(s, p));
     }
 }

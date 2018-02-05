@@ -26,6 +26,9 @@ public class MergeList {
             if (l1 == null) {
                 current.next = l2;
                 break; // no need to go further
+                
+                
+                
             } else if (l2 == null) {
                 current.next = l1;
                 break; // no need to go further

@@ -34,7 +34,22 @@ public class SecondMinimumNode {
     // If the root value of a subtree == k, keep searching its children
     // else, return the root value because it is the minimum of current subtree.
     public int findSecondMinimumValue(TreeNode root) {
-        return findMin(root, root.val);
+        if (root == null || (root.left == null && root.right == null)) return -1;
+        
+        int left = root.left.val;
+        if (left == root.val) { // if value same as root value, need to find the next candidate
+            left = findSecondMinimumValue(root.left);
+        }
+        int right = root.right.val;
+        if (right == root.val) {
+            right = findSecondMinimumValue(root.right);
+        }
+       
+        if (left != -1 && right != -1) return Math.min(left, right);
+        if (left == -1) return right;
+        return left;     
+        
+        //return findMin(root, root.val);
     }
 
     private int findMin(TreeNode root, int min) {

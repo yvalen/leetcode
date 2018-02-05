@@ -21,7 +21,7 @@ import java.util.Queue;
  * Difficulty: medium
  * Similar Questions: 116(PopulateNextRightPointer), 545(BoundaryOfBinaryTree)
  */
-public class RightSideView {
+public class BinaryTreeRightSideView {
     public List<Integer> rightSideView_bfs(TreeNode root) {
         if (root == null)
             return Collections.emptyList();
@@ -43,7 +43,7 @@ public class RightSideView {
         }
         return result;
     }
-
+   
     // pre order, right first then left
     public List<Integer> rightSideView_dfs(TreeNode root) {
         List<Integer> result = new LinkedList<>();

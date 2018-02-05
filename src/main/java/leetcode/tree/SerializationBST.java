@@ -1,5 +1,9 @@
 package leetcode.tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
 /*
  * LEETCODE 449
  * Serialization is the process of converting a data structure or object into a sequence of bits 
@@ -19,44 +23,47 @@ package leetcode.tree;
 public class SerializationBST {
     // Time complexity: O(nlogn) - average,  O(n^2) - worst case unbalanced tree
     public String serialize(TreeNode root) {
-        if (root == null)
-            return null;
+        if (root == null) return null;
         StringBuilder sb = new StringBuilder();
-        serialize_helper(root, sb);
+        
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            sb.append(node.val).append(",");
+            if (node.right != null) stack.push(node.right);
+            if (node.left != null) stack.push(node.left);
+        }
+        
+        //serialize_helper(root, sb);
         return sb.toString();
     }
 
     // pre order
     private void serialize_helper(TreeNode root, StringBuilder sb) {
-        if (root == null)
-            return;
+        if (root == null) return;
         sb.append(root.val).append(",");
         serialize_helper(root.left, sb);
         serialize_helper(root.right, sb);
     }
 
     public TreeNode deserialize(String data) {
-        if (data == null)
-            return null;
+        if (data == null) return null;
         String[] dataAry = data.split(",");
-        int[] pos = new int[1];
-        pos[0] = 0;
-        return deserialize_helper(dataAry, pos, Long.MIN_VALUE, Long.MAX_VALUE);
+        Queue<Integer> queue = new LinkedList<>();
+        for (String d : dataAry) queue.offer(Integer.parseInt(d));
+        return buildTree(queue);
     }
-
-    private TreeNode deserialize_helper(String[] dataAry, int[] pos, long min, long max) {
-        if (pos[0] == dataAry.length)
-            return null;
-
-        int val = Integer.valueOf(dataAry[pos[0]]);
-
-        if (val < min || val > max)
-            return null;
-
-        TreeNode node = new TreeNode(val);
-        pos[0]++;
-        node.left = deserialize_helper(dataAry, pos, min, val);
-        node.right = deserialize_helper(dataAry, pos, val, max);
-        return node;
+    
+    // Time complexity: O(nlogn) average, O(n^2) for unbalanced tree
+    private TreeNode buildTree(Queue<Integer> queue) {
+        if (queue.isEmpty()) return null;
+        
+        TreeNode root = new TreeNode(queue.poll());
+        Queue<Integer> left = new LinkedList<>();
+        while (!queue.isEmpty() && queue.peek() < root.val) left.offer(queue.poll());
+        root.left = buildTree(left);
+        root.right = buildTree(queue);
+        return root;
     }
 }

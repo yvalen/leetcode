@@ -30,19 +30,11 @@ public class ImageSmoother {
         int m = M.length, n = M[0].length;
         int[][] result = new int[m][n];
 
-        int[] offset = new int[] { -1, 0, 1 };
         int[][] dirs = new int[][] { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 }, { -1, 0 }, { 0, -1 }, { -1, -1 },
                 { 1, -1 }, { -1, 1 } };
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 int count = 0, sum = 0;
-                /*
-                 * for (int rowOffset : offset) { int row = i + rowOffset; for
-                 * (int colOffset : offset) { int col = j + colOffset; if (row
-                 * >= 0 && col >= 0 && row < m && col < n) { count++; sum +=
-                 * M[row][col]; } } }
-                 */
-
                 for (int[] dir : dirs) {
                     int row = i + dir[0], col = j + dir[1];
                     if (row >= 0 && col >= 0 && row < m && col < n) {

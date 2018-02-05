@@ -27,8 +27,8 @@ import java.util.Stack;
  * Example 2
  * Input:
  *	      ____1_____
- *  	 /          \
- *  	2            3
+ *  	 	 /          \
+ *  	    2            3
  *	   / \          / 
  *	  4   5        6   
  *       / \      / \
@@ -39,7 +39,7 @@ import java.util.Stack;
  * 
  * Company: Amazon
  * Difficulty: medium
- * Similar Questions: 199(RightSideView), 116(PopulateNextRightPointer)
+ * Similar Questions: 199(BinaryTreeRightSideView), 116(PopulateNextRightPointer)
  */
 public class BoundaryOfBinaryTree {
     // divide this problem into three subproblems- left boundary, leaves and
@@ -54,6 +54,9 @@ public class BoundaryOfBinaryTree {
         List<Integer> result = new ArrayList<>();
         result.add(root.val);
         addLeftBoundary(root.left, result);
+        // add leaves separately for left and right
+        // cannot use add leaves for root here as we 
+        // need to add root before everything else
         addLeaves(root.left, result);
         addLeaves(root.right, result);
         addRightBoundary(root.right, result);
@@ -105,5 +108,15 @@ public class BoundaryOfBinaryTree {
             addRightBoundary(root.left, result);
         }
         result.add(root.val);
+    }
+    
+    public static void main(String[] args) {
+    		TreeNode root = new TreeNode(1);
+    		root.right = new TreeNode(2);
+    		root.right.left = new TreeNode(3);
+    		root.right.right = new TreeNode(4);
+    		
+    		BoundaryOfBinaryTree bbt = new BoundaryOfBinaryTree();
+    		System.out.println(bbt.boundaryOfBinaryTree(root));
     }
 }

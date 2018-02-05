@@ -27,8 +27,8 @@ public class LongestIncreasingSubsequence {
     // append the current element(nums[i]) in every possible increasing subsequences 
     // up to the (i−1)th​​ index(including the (i−1)th index), such that the new sequence 
     // formed by adding the current element is also an increasing subsequence. Thus, we 
-    // can easily determine dp[i]dp[i]dp[i] using: dp[i]=max(dp[j])+1, 0≤j<i.
-    // At the end, the maximum out of all the dp[i]dp[i]dp[i]'s to determine the final result.
+    // can easily determine dp[i] using: dp[i]=max(dp[j])+1, 0≤j<i.
+    // At the end, the maximum out of all the dp[i]'s to determine the final result.
     // LISlength=max(dp[i]),∀0≤i<n
     public int lengthOfLIS(int[] nums) {
         if (nums == null)

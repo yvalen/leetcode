@@ -67,23 +67,16 @@ public class PascalTriangle {
     public List<Integer> getRow(int rowIndex) {
         List<Integer> result = new ArrayList<>();
 
-        if (rowIndex < 0)
-            return Collections.emptyList();
+        // rowIndex 0 is valid and should return 1
+        if (rowIndex < 0) return Collections.emptyList();
 
         result.add(1);
+        // i starts from 1 which is the 2nd row as the first row 
+        // has been created outside the loop
         for (int i = 1; i <= rowIndex; i++) {
             for (int j = i-1; j >= 1; j--) {
                 result.set(j, result.get(j-1) + result.get(j));
             }
-            
-            /*
-            int prev = 1;
-            for (int j = 1; j < i; j++) {
-                int curr = result.get(j);
-                result.set(j, prev + curr);
-                prev = curr;
-            }*/
-            
             result.add(1);
         }
 

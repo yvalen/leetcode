@@ -52,7 +52,7 @@ public class BinaryTreeUpsideDown {
 
     public TreeNode upsideDownBinaryTree_iterative(TreeNode root) {
         TreeNode current = root;
-        // prev - parent of current node, next - left child of current nide,
+        // prev - parent of current node, next - left child of current node,
         // temp - right child of current node's parent
         TreeNode prev = null, next = null, temp = null;
         while (current != null) {

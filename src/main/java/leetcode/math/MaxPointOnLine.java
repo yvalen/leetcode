@@ -21,6 +21,7 @@ import java.util.Map;
  * Similar Questions: 356
  */
 public class MaxPointOnLine {
+    // Time complexity: O(n^2) Space : O(n)
     public int maxPoints(Point[] points) {
         if (points == null)
             return 0;
@@ -29,8 +30,9 @@ public class MaxPointOnLine {
 
         int result = 0, n = points.length;
         // stores the count of points with slope y/x, x is the key of
-        // the outer map and y is the key of the inner mao
-        Map<Integer, Map<Integer, Integer>> map = new HashMap<>();
+        // the outer map and y is the key of the inner map
+        //Map<Integer, Map<Integer, Integer>> map = new HashMap<>();
+        Map<String, Integer> map = new HashMap<>();
         for (int i = 0; i < n; i++) {
             // reset the map for the next point
             map.clear();
@@ -51,10 +53,15 @@ public class MaxPointOnLine {
                     x /= gcd;
                     y /= gcd;
                 }
-
+                
+                /*
                 map.computeIfAbsent(x, v -> new HashMap<>()).put(
                         y, map.get(x).getOrDefault(y, 0) + 1);
                 max = Math.max(max, map.get(x).get(y));
+                */
+                String key = String.valueOf(x) + ":" + String.valueOf(y);
+                map.put(key, map.getOrDefault(key, 0)+1);
+                max = Math.max(max, map.get(key));
             }
             result = Math.max(result, max + samep + 1);
         }
@@ -72,6 +79,11 @@ public class MaxPointOnLine {
             a = tmp;
         }
         return a;
+    }
+    
+    public static void main(String[] args) {
+        MaxPointOnLine mpl = new MaxPointOnLine();
+        System.out.println(mpl.generateGCD(8, 12));
     }
 
 }

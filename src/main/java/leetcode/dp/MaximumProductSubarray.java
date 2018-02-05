@@ -2,14 +2,16 @@ package leetcode.dp;
 
 /*
  * LEETCODE 152
- * Find the contiguous subarray within an array (containing at least one number) which has the largest product.
- * For example, given the array [2,3,-2,4], the contiguous subarray [2,3] has the largest product = 6.
+ * Find the contiguous subarray within an array (containing at least one 
+ * number) which has the largest product. For example, given the array 
+ * [2,3,-2,4], the contiguous subarray [2,3] has the largest product = 6.
  * 
  * Company: LinkedIn
  * Difficulty: medium
- * Similar Questions: 53(MaximumSubArray), 198(House Robber), 238(ProductOfArrayExceptSelf)
+ * Similar Questions: 53(MaximumSubArray), 198(House Robber), 
+ * 238(ProductOfArrayExceptSelf)
  */
-public class MaxProductSubarray {
+public class MaximumProductSubarray {
     public int maxProduct(int[] nums) {
         int maxProduct = nums[0], minProduct = nums[0], result = nums[0];
 

@@ -37,7 +37,7 @@ public class WordDistance {
         int distance = Integer.MAX_VALUE;
         for (int i = 0, j = 0; i < list1.size() && j < list2.size();) {
             int idx1 = list1.get(i), idx2 = list2.get(j);
-            distance = Integer.min(distance, Math.abs(idx2 - idx1));
+            distance = Math.min(distance, Math.abs(idx2 - idx1));
             if (idx1 < idx2)
                 i++;
             else

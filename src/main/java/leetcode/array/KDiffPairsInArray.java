@@ -6,13 +6,17 @@ import java.util.Map;
 
 /*
  * LEETCODE 532
- * Given an array of integers and an integer k, you need to find the number of unique k-diff pairs in the array. 
- * Here a k-diff pair is defined as an integer pair (i, j), where i and j are both numbers in the array and their absolute difference is k.
+ * Given an array of integers and an integer k, you need to find the 
+ * number of unique k-diff pairs in the array. Here a k-diff pair is 
+ * defined as an integer pair (i, j), where i and j are both numbers 
+ * in the array and their absolute difference is k.
  * Example 1: Input: [3, 1, 4, 1, 5], k = 2 Output: 2
  * Explanation: There are two 2-diff pairs in the array, (1, 3) and (3, 5).
- * Although we have two 1s in the input, we should only return the number of unique pairs.
+ * Although we have two 1s in the input, we should only return the 
+ * number of unique pairs.
  * Example 2: Input:[1, 2, 3, 4, 5], k = 1 Output: 4
- * Explanation: There are four 1-diff pairs in the array, (1, 2), (2, 3), (3, 4) and (4, 5).
+ * Explanation: There are four 1-diff pairs in the array, 
+ * (1, 2), (2, 3), (3, 4) and (4, 5).
  * Example 3:
  * Input: [1, 3, 1, 5, 4], k = 0 Output: 1
  * Explanation: There is one 0-diff pair in the array, (1, 1).
@@ -33,40 +37,17 @@ public class KDiffPairsInArray {
         Arrays.sort(nums);
         int count = 0;
 
-        for (int i = 0, j = 1; i < nums.length - 1 && j < nums.length;) {
-            int diff = nums[j] - nums[i];
-            if (diff == k) {
-                count++;
-                while (j < nums.length && nums[j + 1] == nums[j])
-                    j++;
-            } else if (diff < k)
-                j++;
-            else {
-                while (i < nums.length - 1 && nums[i] == nums[i - 1])
-                    i++;
-                j = i + 1;
-            }
-            /*
-             * if ((i > 0 && nums[i] == nums[i-1]) || diff > k) { i++; } else if
-             * (diff < k || j <= i) j++; else { count++; i++; }
-             */
+        for (int i = 0, j = 1; i < nums.length-1 && j < nums.length;) {
+        		int diff = nums[j]- nums[i];
+        		if ((i > 0 && nums[i] == nums[i-1]) || diff > k) {
+        			i++;
+        		}
+        		else if (diff < k || j <= i) j++;
+        		else {
+        			count++;
+        			i++;
+        		}
         }
-
-        /*
-         * for (int i = 0, j = 1; i < nums.length-1 && j < nums.length;) { int
-         * diff = nums[j]- nums[i]; if ((i > 0 && nums[i] == nums[i-1]) || //
-         * need to check dup for i diff > k) { i++; } else if (diff < k || j <=
-         * i) j++; else { count++; i++; } }
-         */
-
-        /*
-         * for (int i = 0; i < nums.length-1; i++) { for (int j = i+1; j <
-         * nums.length; j++) { int diff = nums[j]- nums[i]; if (diff == k)
-         * count++; else if (diff > k) break; while (j < nums.length-1 &&
-         * nums[j+1] == nums[j]) j++; // need to skip duplicate after 1st j }
-         * while (i < nums.length-1 && nums[i+1] == nums[i]) i++; // need to
-         * skip duplicate after 1st i }
-         */
 
         return count;
     }

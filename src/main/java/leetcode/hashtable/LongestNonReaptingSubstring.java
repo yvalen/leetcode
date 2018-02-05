@@ -106,7 +106,8 @@ public class LongestNonReaptingSubstring {
                     counter--;
                 }
             }
-            // no repeat char now
+            // no repeat char now, should use end-start instead of end-start+1 as
+            // end has been advanced already
             maxLen = Math.max(maxLen, end-start);
         }
         return maxLen;

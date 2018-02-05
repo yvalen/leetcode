@@ -45,24 +45,21 @@ public class SolveEquation {
         int[] result = new int[2]; // first element is the coefficient, second
                                    // is the constant
 
-        // regex,
+        // regex, split on + or -, and + and - will be in the right hand side
         // https://stackoverflow.com/questions/10804732/what-is-the-difference-between-and-in-regex
         // x+5-2x => {x, +5, -2x}
-        String[] tokens = s.split("(?=[+-])"); // ()for match group; ?= for
-                                               // match and include in res; [+-]
-                                               // means + or -;
+        // () for match group; 
+        // ?= for match and include in res, positive look ahead, the split char will in the right hand side
+        // [+-] means + or -;
+        String[] tokens = s.split("(?=[+-])"); 
         for (String token : tokens) {
             if (token.equals("x") || token.equals("+x"))
                 result[0]++;
             else if (token.equals("-x"))
                 result[0]--;
             else if (token.contains("x")) {
-                result[0] += Integer.parseInt(token.substring(0, token.length() - 1)); // need
-                                                                                       // to
-                                                                                       // include
-                                                                                       // the
-                                                                                       // sign
-                                                                                       // here
+            		// need to include the sign here
+                result[0] += Integer.parseInt(token.substring(0, token.length() - 1)); 
             } else {
                 result[1] += Integer.parseInt(token);
             }

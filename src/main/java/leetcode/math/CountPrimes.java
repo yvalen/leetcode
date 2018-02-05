@@ -40,7 +40,7 @@ public class CountPrimes {
             if (!notPrime[i]) {
                 count++;
                 // start from p^2, need to check i< Math.sqrt(n), otherwise it will cause the 
-                // array index out of boud when i*j exceeds Integer.MAX_VALUE
+                // array index out of bound when i*j exceeds Integer.MAX_VALUE
                 for (int j = i; i< Math.sqrt(n) && i * j < n; j++) { 
                 //for (int j = 2; i * j < n; j++) { 
                     notPrime[i * j] = true;

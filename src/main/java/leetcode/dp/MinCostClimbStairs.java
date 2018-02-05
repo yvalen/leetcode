@@ -1,7 +1,5 @@
 package leetcode.dp;
 
-import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
-
 /*
  * LEETCODE 746
  * On a staircase, the i-th step has some non-negative cost cost[i] assigned (0 indexed).
@@ -24,7 +22,7 @@ import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
  * Difficulty: easy
  * Similar Questions: 70(ClimbStairs)
  */
-public class MinCostCLimbStairs {
+public class MinCostClimbStairs {
     public int minCostClimbingStairs(int[] cost) {
         int n = cost.length;
         if (n <= 0) return 0;
@@ -52,7 +50,7 @@ public class MinCostCLimbStairs {
     }   
     
     public static void main(String[] args) {
-        MinCostCLimbStairs mc = new MinCostCLimbStairs();
+        MinCostClimbStairs mc = new MinCostClimbStairs();
         int[] cost = {10, 15, 20};
         //int[] cost = {1, 100, 1, 1, 1, 100, 1, 1, 100, 1};
         //int[] cost = {1, 0, 0, 1};

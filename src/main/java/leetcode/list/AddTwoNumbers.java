@@ -16,14 +16,24 @@ package leetcode.list;
  */
 public class AddTwoNumbers {
     public ListNode addTwoNumbers_andnullcheck(ListNode l1, ListNode l2) {
-        if (l1 == null)
-            return l2;
-        if (l2 == null)
-            return l1;
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
 
         ListNode dummy = new ListNode(0);
         ListNode current = dummy;
         int carry = 0;
+        while (l1 != null || l2 != null) {
+            int val = (l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val) + carry;
+            carry = val / 10;
+            current.next = new ListNode(val%10);
+            if (l1 != null) l1 = l1.next;
+            if (l2 != null) l2 = l2.next;
+            current = current.next;
+        }
+        // need to check for carry in the end
+        if (carry > 0) current.next = new ListNode(carry);
+
+        /*
         while (l1 != null && l2 != null) {
             int val = l1.val + l2.val + carry;
             carry = val >= 10 ? 1 : 0;
@@ -44,6 +54,7 @@ public class AddTwoNumbers {
 
         if (carry == 1)
             current.next = new ListNode(1);
+         */
 
         return dummy.next;
     }

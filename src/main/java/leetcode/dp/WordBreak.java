@@ -57,7 +57,7 @@ public class WordBreak {
         return false;
     }
 
-    // Time complexity: O(n^2), Space complexity: O(n)
+    // Time complexity: O(n^3), substring is O(n), Space complexity: O(n)
     public boolean wordBreak_dp(String s, List<String> wordDict) {
         if (s == null || s.length() == 0)
             return true;

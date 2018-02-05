@@ -103,7 +103,7 @@ public class MeetingRoom {
         return heap.size();
     }
 
-    
+    // http://www.zrzahid.com/maximum-number-of-overlapping-intervals/
     public Interval intervalWithMostMeetings(Interval[] intervals) {
         int n = intervals.length;
         int[] start = new int[n];
@@ -117,9 +117,9 @@ public class MeetingRoom {
         
         int maxCount = 1, count = 1;
         Interval interval = new Interval(start[0], end[0]);
-        for (int i = 1, j = 0; i < n;) {
+        for (int i = 0, j = 0; i < n;) {
             if (start[i] < end[j]) {
-                count++;  // increment room count for each start
+                count++;  // new range starts, increment room count 
                 if (maxCount < count) {
                     interval.start = start[i];
                     interval.end = end[j];
@@ -150,8 +150,9 @@ public class MeetingRoom {
 
         //Interval[] intervals = { new Interval(2, 15), new Interval(36, 45), new Interval(9, 29), new Interval(16, 23),
         //        new Interval(4, 9) };
-        Interval[] intervals = { new Interval(1, 10), new Interval(2, 3), new Interval(5, 8), new Interval(4, 7)};
-        //System.out.println(m.minMeetingRooms(intervals));
-        System.out.println(m.intervalWithMostMeetings(intervals));
+        //Interval[] intervals = { new Interval(1, 10), new Interval(2, 3), new Interval(5, 8), new Interval(4, 7)};
+        Interval[] intervals = { new Interval(0, 2), new Interval(1, 5), new Interval(3, 7), new Interval(4, 6), new Interval(7, 8)};
+        System.out.println(m.minMeetingRooms(intervals));
+        //System.out.println(m.intervalWithMostMeetings(intervals));
     }
 }

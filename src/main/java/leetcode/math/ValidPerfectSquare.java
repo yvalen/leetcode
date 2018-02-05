@@ -1,13 +1,16 @@
 package leetcode.math;
 
 /*
- * Given a positive integer num, write a function which returns True if num is a perfect square else False.
+ * LEETCODE 367
+ * Given a positive integer num, write a function which returns 
+ * True if num is a perfect square else False.
  * Note: Do not use any built-in library function such as sqrt.
  * Example 1: Input: 16 Returns: True
  * Example 2: Input: 14 Returns: False
  * 
  * Company: LinkedIn
  * Difficulty: easy
+ * Similar Questions: 69(SquareRoot), 367(ValidPerfectSquare)
  */
 public class ValidPerfectSquare {
 
@@ -27,6 +30,19 @@ public class ValidPerfectSquare {
     }
 
     public boolean isPerfectSquare_binarySearch(int num) {
+        int lo = 1, hi = num;
+        while (lo <= hi) {
+            int mid = lo+(hi-lo)/2;
+            int div = num / mid;
+            if (mid == div) {
+                return (num % mid == 0);
+            }
+            else if (mid > div) hi = mid-1;
+            else lo = mid+1;
+        }
+        return false;
+        
+        /*
         long lo = 1, hi = num; // use long to prevent overflow
         while (lo <= hi) {
             long mid = lo + (hi - lo) / 2;
@@ -39,6 +55,7 @@ public class ValidPerfectSquare {
                 hi = mid - 1;
         }
         return false;
+        */
     }
 
     public static void main(String[] args) {

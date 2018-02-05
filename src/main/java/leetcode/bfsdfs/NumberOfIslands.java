@@ -36,6 +36,7 @@ public class NumberOfIslands {
     // - mark the explored island cells with 0
     // - once finish exploring that island increment the island counts
     // Time complexity O(mn)
+    // Space Complexity O(mn) in case grid is filled with land and dfs goes by mn deep
     public int numIslands_dfs(char[][] grid) {
         if (grid == null || grid.length == 0 || grid[0].length == 0)
             return 0;
@@ -68,6 +69,7 @@ public class NumberOfIslands {
     //
     // BFS
     // Time complexity O(mn)
+    // Space Complexity O(min(m, n)) in case grid is filled with land, size of queue can grow up to min(m, n)
     public int numIslands_bfs(char[][] grid) {
         if (grid == null || grid.length == 0 || grid[0].length == 0)
             return 0;
