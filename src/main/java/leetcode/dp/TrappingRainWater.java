@@ -54,8 +54,7 @@ public class TrappingRainWater {
     }
 
     // based on DP approach, we notice that as long as the max_right[i] >
-    // max_left[i], the water trapped depends upon the left_max, index 0 through
-    // 6.
+    // max_left[i], the water trapped depends upon the left_max, index 0 through 6
     // similarly when max_left[i] > max_right[i], the water trapped depends upon
     // the right_max, index 8 through 11
     // Time complexity: O(n), one pass Space complexity: O(1)

@@ -1,7 +1,5 @@
 package leetcode.tree;
 
-import java.sql.Time;
-
 public class LowestCommonAncestor {
 
     /**
