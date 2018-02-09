@@ -19,6 +19,12 @@ import java.util.Map;
  * Company: LinkedIn
  * Difficulty: easy
  * Similar Questions: 290(WordPattern)
+ * 
+ * Follow up: if given you a list of words, and how to group the input into each isomorphic groups.
+ * egg->122
+ * add->122 
+ * dee->122
+ * key: 122-> {egg,add,dee}
  */
 public class IsomorphicStrings {
     public boolean isIsomorphic_withMap(String s, String t) {

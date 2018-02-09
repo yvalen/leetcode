@@ -61,24 +61,11 @@ public class CountAndSay {
          */
         for (int i = 2; i <= n; i++) {
             StringBuilder sb = new StringBuilder();
-            for (int j = 0, count = 0; j < result.length(); j++) { // end and
-                                                                   // count
-                                                                   // start from
-                                                                   // 0
+            // end and count start from 0
+            for (int j = 0, count = 0; j < result.length(); j++) { 
                 count++; // always increment count since it starts from 0
-                if (j == result.length() - 1 || result.charAt(j) != result.charAt(j + 1)) { // check
-                                                                                            // for
-                                                                                            // last
-                                                                                            // char
-                                                                                            // here
-                                                                                            // so
-                                                                                            // that
-                                                                                            // no
-                                                                                            // special
-                                                                                            // handling
-                                                                                            // outside
-                                                                                            // the
-                                                                                            // loop
+                // check for last char here that no special handling outside the loop
+                if (j == result.length() - 1 || result.charAt(j) != result.charAt(j + 1)) { 
                     sb.append(count).append(result.charAt(j));
                     count = 0; // reset count to 0
                 }

@@ -1,12 +1,19 @@
 package leetcode.dp;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /*
+ * LEETCODE 322
  * You are given coins of different denominations and a total amount of money amount. 
  * Write a function to compute the fewest number of coins that you need to make up that amount. 
  * If that amount of money cannot be made up by any combination of the coins, return -1.
  * Example 1: coins = [1, 2, 5], amount = 11 return 3 (11 = 5 + 5 + 1)
  * Example 2: coins = [2], amount = 3 return -1.
  * Note: You may assume that you have an infinite number of each kind of coin. 
+ * 
+ * Difficulty: medium
  */
 public class CoinChange {
     public int coinChange(int[] coins, int amount) {
@@ -19,6 +26,7 @@ public class CoinChange {
             int min = Integer.MAX_VALUE;
             for (int j = 0; j < coins.length; j++) {
                 if (coins[j] <= i) {
+                		// cannot do plus one here, it may cause overflow
                     min = Integer.min(min, dp[i - coins[j]]);
                 }
             }
@@ -27,7 +35,7 @@ public class CoinChange {
 
         return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
     }
-
+   
     public static void main(String[] args) {
         CoinChange c = new CoinChange();
 

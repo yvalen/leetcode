@@ -3,8 +3,10 @@ package leetcode.backtracking;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class CombinationSum {
     /*
@@ -52,6 +54,37 @@ public class CombinationSum {
             helper1(candidates, target - candidates[i], result, list, i); 
             list.removeLast();
         }
+    }
+    
+    // Time complexity: O(n*target) , n is the number of candidates
+    public List<List<Integer>> combinationSum1_dp(int[] candidates, int target) {
+    		Arrays.sort(candidates);
+    		// store the result for all i < target
+    		Map<Integer, List<List<Integer>>> map = new HashMap<>();
+    		
+    		for (int i = 1; i <= target; i++) { // run through all targets from 1 to target
+    			List<List<Integer>> combos = new ArrayList<>();
+    			// run through all candidates <= i
+    			for (int j = 0; j < candidates.length && candidates[j] <= i; j++) {
+    				// special case when current target is equal to current candidate
+    				if (i == candidates[j]) {
+    					combos.add(Arrays.asList(candidates[j]));
+    				}
+    				else if (candidates[j] <= i) {
+    					List<List<Integer>> combo = map.get(i-candidates[j]);
+    					for (List<Integer> list : combo) {
+    						if (candidates[j] <= list.get(0)) { // de-dup
+    							List<Integer> l = new ArrayList<>();
+    							l.add(candidates[j]);
+    							l.addAll(list);
+    							combos.add(l);
+    						}
+    					}
+    				}
+    			}
+    			map.put(i, combos);
+    		}
+    		return map.get(target);
     }
 
     /*
@@ -152,9 +185,10 @@ public class CombinationSum {
 
     public static void main(String[] args) {
         CombinationSum c = new CombinationSum();
-        // int[] candidates = {2, 3, 6, 7};
-        // int target = 7;
+        int[] candidates = {2, 3, 6, 7};
+        int target = 7;
         // System.out.println(c.combinationSum1(candidates, target));
+        System.out.println(c.combinationSum1_dp(candidates, target));
 
         // int[] candidates = {10, 1, 2, 7, 6, 1, 5};
         // int target = 8;
@@ -165,5 +199,6 @@ public class CombinationSum {
         // int k = 3, n = 15;
         // System.out.println(c.combinationSum3(k, n));
 
+        
     }
 }

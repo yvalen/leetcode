@@ -23,6 +23,10 @@ package leetcode.list;
  * Similar Questions:
  *
  * http://www.geeksforgeeks.org/write-a-function-to-get-the-intersection-point-of-two-linked-lists/
+ * Follow up: list may contain cycle
+ * 1. If one contains cycle and the second doesn’t, they can’t intersect.
+ * 2. Both have cycles: use length
+ * http://www.martinxia.me/2015/07/08/how-to-tell-if-two-linked-lists-intersect-v-s-how-to-detect-linked-list-cycle/
  */
 public class IntersectionOfTwoLinkedList {
 

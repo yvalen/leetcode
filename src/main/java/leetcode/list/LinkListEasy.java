@@ -3,21 +3,6 @@ package leetcode.list;
 public class LinkListEasy {
 
     /**
-     * Write a function to delete a node (except the tail) in a singly linked
-     * list, given only access to that node. Supposed the linked list is 1 -> 2
-     * -> 3 -> 4 and you are given the third node with value 3, the linked list
-     * should become 1 -> 2 -> 4 after calling your function.
-     */
-    public void deleteNode(ListNode node) {
-        if (node == null || node.next == null) {
-            throw new IllegalArgumentException("invalid node");
-        }
-
-        node.val = node.next.val;
-        node.next = node.next.next;
-    }
-
-    /**
      * Remove all elements from a linked list of integers that have value val.
      * Example Given: 1 --> 2 --> 6 --> 3 --> 4 --> 5 --> 6, val = 6 Return: 1
      * --> 2 --> 3 --> 4 --> 5

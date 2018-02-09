@@ -2,6 +2,24 @@ package leetcode.string;
 
 import leetcode.array.ArrayUtil;
 
+/*
+ * LEETCODE 28
+ * Implement strStr(). Return the index of the first occurrence of needle 
+ * in haystack, or -1 if needle is not part of haystack.
+ * Example 1:
+ * Input: haystack = "hello", needle = "ll"
+ * Output: 2
+ * Example 2:
+ * Input: haystack = "aaaaa", needle = "bba"
+ * Output: -1
+ * 
+ * Company: Facebook, Apple, Pocket Gem, Microsoft
+ * Difficulty: easy
+ * Similar Questions: 214(ShortestPalindrome), 459(RepeatedSubstringPattern)
+ * 
+ * rolling hash: 
+ * https://discuss.leetcode.com/topic/8568/my-ac-java-solution-rolling-hash-but-hash-function-is-very-simple/2?show=24823
+ */
 public class StrStr {
     public int strStr(String haystack, String needle) {
         if (haystack == null || needle == null || needle.length() > haystack.length()) {

@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /*
- * Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.
+ * LEETCODE 120
+ * Given a triangle, find the minimum path sum from top to bottom. 
+ * Each step you may move to adjacent numbers on the row below.
  * For example, given the following triangle
  * [
  * 	  [2],
@@ -16,6 +18,8 @@ import java.util.List;
  * 
  * dp[k][i] = min(dp[k+1][i], dp[k+1][i+1]) + triangle[k][i];
  * O(n) space: dp[i] = min(dp[i], dp[i+1]) + triangle[k][i]; 
+ * 
+ * Difficulty: medium
  */
 public class Triangle {
 

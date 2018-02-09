@@ -1,6 +1,13 @@
 package leetcode.design;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+import com.sun.swing.internal.plaf.metal.resources.metal_zh_TW;
+
 /*
+ * LEETCODE 362
  * Design a hit counter which counts the number of hits received in the past 5 minutes. 
  * Each function accepts a timestamp parameter (in seconds granularity) and you may assume 
  * that calls are being made to the system in chronological order (ie, the timestamp is 
@@ -30,22 +37,45 @@ package leetcode.design;
  * // get hits at timestamp 301, should return 3.
  * counter.getHits(301); 
  * 
+ * https://nuttynanaus.wordpress.com/2014/03/09/software-engineer-interview-questions/
+ * 
  * Follow up: What if the number of hits per second could be very large? Does your design scale? 
  * Concurrency: http://www.nurkiewicz.com/2014/03/simplifying-readwritelock-with-java-8.html
+ * http://blog.gainlo.co/index.php/2016/09/12/dropbox-interview-design-hit-counter/
  * 
  * Company: Dropbox, Google
  * Difficulty: medium
  */
 public class HitCounter {
-    private final int[] hits;
-    private final int[] timestamps;
+	private static final int CAPACITY = 300;
+	private int[] hits;
+	//private final int[] timestamps;
+	private int lastTimestamp;
+	private int lastPos;
+	private int totalHits;
 
-    public HitCounter() {
-        hits = new int[300];
-        timestamps = new int[300];
-    }
+	public HitCounter() {
+		hits = new int[CAPACITY];
 
-    public void hit(int timestamp) {
+		//hits = new int[300];
+		// timestamps = new int[300];
+	}
+
+	private void adjust(int timestamp) {
+		int gap = Math.min(CAPACITY, timestamp-lastTimestamp);
+		for (int i = 0; i < gap; i++) {
+			lastPos = (lastPos+1) % CAPACITY;
+			totalHits -= hits[lastPos];
+			hits[lastPos] = 0;
+		}
+		lastTimestamp = timestamp;
+	}
+	
+	public void hit(int timestamp) {
+		adjust(timestamp);
+		hits[lastPos]++;
+		totalHits++;
+		/*
         int idx = timestamp % 300;
         if (timestamps[idx] != timestamp) {
             timestamps[idx] = timestamp;
@@ -53,19 +83,76 @@ public class HitCounter {
         } else {
             hits[idx]++;
         }
-    }
+		 */
+	}
 
-    public int getHits(int timestamp) {
-        int total = 0;
-        for (int i = 0; i < 300; i++) {
-            if (timestamp - timestamps[i] < 300) {
-                total += hits[i];
-            }
-        }
-        return total;
-    }
-    
-    public static void main(String[] args) {
-        System.out.println((System.currentTimeMillis() / 1000) %10);
-    }
+	public int getHits(int timestamp) {
+		int total = 0;
+		int gap = Math.min(CAPACITY, timestamp-lastTimestamp);
+		for (int i = 0, idx = lastPos; i < gap; i++) {
+			total += hits[idx];
+			idx = (idx-1) % CAPACITY;
+		}
+		return total;
+		
+		//adjust(timestamp);
+		//return totalHits;
+		/*
+		int total = 0;
+		for (int i = 0; i < 300; i++) {
+			if (timestamp - timestamps[i] < 300) {
+				total += hits[i];
+			}
+		}
+		return total;
+		*/
+	}
+	
+	
+	//
+	// with map
+	// 
+	private static class Entry {
+		private int timestamp;
+		private int count;
+	}
+	private Entry[] entries;
+	public HitCounter(int n) {
+		entries = new Entry[300];
+		for (int i = 0; i < 300; i++) {
+			entries[i] = new Entry();
+		}
+	}
+	public void hit_withEntry(int timestamp) {
+		Entry entry = entries[timestamp % 300];
+		if (entry.timestamp != timestamp) {
+			entry.timestamp = timestamp;
+			entry.count = 1;
+		}
+		else {
+			entry.count++;
+		}
+	}
+	public int getHits_withEntry(int timestamp) {
+		int sum = 0;
+		for (int i = 0; i < 300; i++) {
+			Entry entry = entries[i];
+			if (timestamp - entry.timestamp < 300) {
+				sum += entry.count;
+			}
+		}
+		return sum;
+	}
+	
+
+	public static void main(String[] args) {
+		HitCounter hc = new HitCounter();
+		hc.hit(1);
+		hc.hit(2);
+		hc.hit(3);
+		System.out.println(hc.getHits(4));
+		hc.hit(300);
+		System.out.println(hc.getHits(300));
+		System.out.println(hc.getHits(301));
+	}
 }

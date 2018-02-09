@@ -3,6 +3,7 @@ package leetcode.array;
 import java.util.ArrayList;
 import java.util.List;
 
+// http://dmac.rutgers.edu/Workshops/WGUnifyingTheory/Slides/cormode.pdf
 public class MajorityElement {
     /**
      * LEETCODE 169
@@ -19,6 +20,12 @@ public class MajorityElement {
      * http://www.cs.utexas.edu/~moore/best-ideas/mjrty/
      * https://www.quora.com/What-is-the-proof-of-correctness-of-Moores-voting-algorithm
      */
+	// Start with a counter set to zero.  For each item:
+	// – If counter is zero, pick up the item, set counter to 1
+	// – Else, if item is same as item in hand, increment counter
+	// – Else, decrement counter
+	// Each decrement pairs up two different items and cancels them out.
+	// Since majority occurs > N/2 times, not all of its occurrence can be canceled out
     public int majorityElement(int[] nums) {
         int result = nums[0], count = 1;
         for (int i = 1; i < nums.length; i++) {
@@ -37,8 +44,13 @@ public class MajorityElement {
     }
 
     /**
+     * LEETCODE 229
      * Given an integer array of size n, find all elements that appear more than
      * ⌊ n/3 ⌋ times. The algorithm should run in linear time and in O(1) space.
+     * 
+     * Company: Zenefits
+     * Difficulty: medium
+     * Similar Questions: 169(Majority Element)
      */
     public List<Integer> majorityElement2(int[] nums) {
         int r1 = 0, r2 = 1; // initialize with any two different numbers

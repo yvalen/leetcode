@@ -20,43 +20,61 @@ import java.util.NoSuchElementException;
  * Follow up: As an added challenge, try to code it using only iterators in C++ 
  * or iterators in Java. 
  * 
- * Company Google, Twitter, Airbnb, Zenefits
+ * Company: Google, Twitter, Airbnb, Zenefits
  * Difficulty: medium
  * Similar Questions: 173(BSTIterator), 218(ZigZagIterator)
  */
 public class Vector2D implements Iterator<Integer> {
-    private Iterator<List<Integer>> i;
-    private Iterator<Integer> j;
+	private Iterator<List<Integer>> listItr;
+	private Iterator<Integer> itr;
 
-    public Vector2D(List<List<Integer>> vec2d) {
-        i = vec2d.iterator();
-    }
+	public Vector2D(List<List<Integer>> vec2d) {
+		listItr = vec2d.iterator();
+		advance();
+	}
 
-    @Override
-    public boolean hasNext() {
-        // need to use loop here to handle empty list element
-        while ((j == null || !j.hasNext()) && i.hasNext()) {
-            j = i.next().iterator();
-        }
-        return j == null ? false : j.hasNext(); // need to do null check for j
-                                                // for [] as input
-    }
+	@Override
+	public boolean hasNext() {
+		return (itr != null && itr.hasNext());	
+		/*
+		// need to use loop here to handle empty list element
+		while ((itr == null || !itr.hasNext()) && listItr.hasNext()) {
+			itr = listItr.next().iterator();
+		}
+		return itr == null ? false : itr.hasNext(); // need to do null check for j
+		// for [] as input
+		 * */
+		 
+	}
 
-    @Override
-    public Integer next() {
+	@Override
+	public Integer next() {
+		Integer result = itr.next();
+		advance();
+		return result;
+		/*
         // if (!hasNext()) throw new NoSuchElementException();
         hasNext(); // need to call hasNext() to initialize/update j
-        return j.next();
-    }
+        return itr.next();
+		 */
+	}
 
-    public static void main(String[] args) {
-        // List<List<Integer>> vec2d = Arrays.asList(Arrays.asList(1, 2),
-        // Arrays.asList(3), Arrays.asList(4, 5, 6));
-        List<List<Integer>> vec2d = Arrays.asList(Collections.emptyList(), Collections.emptyList(), Arrays.asList(-1));
-        Vector2D v2d = new Vector2D(vec2d);
-        while (v2d.hasNext()) {
-            System.out.print(v2d.next() + " ");
-        }
-    }
+	private void advance() {
+		// need to use loop here to handle empty list element
+		
+		while ((itr == null || !itr.hasNext()) && listItr.hasNext()) {
+			itr = listItr.next().iterator();
+		}
+	}
+
+	public static void main(String[] args) {
+		// List<List<Integer>> vec2d = Arrays.asList(Arrays.asList(1, 2),
+		// Arrays.asList(3), Arrays.asList(4, 5, 6));
+		List<List<Integer>> vec2d = Arrays.asList(Collections.emptyList(), Collections.emptyList(), Arrays.asList(-1));
+		Vector2D v2d = new Vector2D(vec2d);
+		while (v2d.hasNext()) {
+			System.out.print(v2d.next() + " ");
+		}
+	}
 
 }
