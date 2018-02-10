@@ -12,7 +12,7 @@ package leetcode.tree;
  *    /    
  *   4     
  * Output: "1(2(4))(3)"
- * Explanation: Originallay it needs to be "1(2(4)())(3()())", but you need to omit all the unnecessary empty parenthesis pairs. 
+ * Explanation: Originally it needs to be "1(2(4)())(3()())", but you need to omit all the unnecessary empty parenthesis pairs. 
  * And it will be "1(2(4))(3)".
  * Example 2: Input: Binary tree: [1,2,3,null,4]
  *        1
@@ -64,8 +64,8 @@ public class ConstructStringFromBinaryTree {
         }
 
         if (root.right != null) {
-            if (root.left == null)
-                sb.append("()");
+        		// need to check for empty left tree here
+            if (root.left == null) sb.append("()");
             sb.append("(");
             helper(root.right, sb);
             sb.append(")");

@@ -42,6 +42,8 @@ public class BinaryTreeUpsideDown {
             return root;
 
         TreeNode newRoot = upsideDownBinaryTree(root.left);
+        // need to use root instead of newRoot here,
+        // as root are still pointing the its old children
         root.left.left = root.right;
         root.left.right = root;
         // need to nullify both root.left and root.right

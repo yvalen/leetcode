@@ -44,6 +44,7 @@ public class MaxStack {
 
     public void push(int x) {
         stack.push(x);
+        // need to push element equals to current max to maxStack
         if (maxStack.isEmpty() || x >= maxStack.peek())
             maxStack.push(x);
     }

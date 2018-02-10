@@ -139,6 +139,7 @@ public class NestedListWeightSum {
             }
         }
         
+        // need to check for empty list here, otherwise will be in infinite loop
         return sum += nextLevel.isEmpty() ? 0 : depthSumInverse(nextLevel, sum);
     }
 }

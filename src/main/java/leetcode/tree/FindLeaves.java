@@ -38,8 +38,11 @@ public class FindLeaves {
     }
 
     private int height(TreeNode root, List<List<Integer>> result) {
-        if (root == null)
+        if (root == null) {
+        		// return -1 here as result is zero based, leave node should 
+        		// have height of 0
             return -1;
+        }
 
         int h = 1 + Math.max(height(root.left, result), height(root.right, result));
         if (result.size() == h)

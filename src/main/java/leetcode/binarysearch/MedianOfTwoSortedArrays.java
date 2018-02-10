@@ -10,7 +10,7 @@ package leetcode.binarysearch;
  * Company: Google, Microsoft, Apple, Zenefits, Yahoo, Adobe, Dropbox
  * Difficulty: hard
  */
-public class MedianOfSortedArrays {
+public class MedianOfTwoSortedArrays {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         if (nums1.length > nums2.length) return findMedianSortedArrays(nums2, nums1);
         
@@ -49,7 +49,7 @@ public class MedianOfSortedArrays {
     }
     
     public static void main(String[] args) {
-        MedianOfSortedArrays msa = new MedianOfSortedArrays ();
+        MedianOfTwoSortedArrays msa = new MedianOfTwoSortedArrays ();
         int[] nums1 = {1, 2}, nums2 = {3, 4};
         System.out.println(msa.findMedianSortedArrays(nums1, nums2));
     }

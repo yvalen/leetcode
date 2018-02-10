@@ -57,6 +57,7 @@ public class SlidingWindowMaximum {
             dq.addLast(i);;
 
             // head element is always the max in range
+            // need to start populating result when i is the last element in the first window
             if (i >= k - 1) {
                 result[j++] = nums[dq.peekFirst()]; // need to use peek here
             }
