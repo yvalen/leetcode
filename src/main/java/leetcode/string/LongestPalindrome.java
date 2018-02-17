@@ -124,7 +124,8 @@ public class LongestPalindrome {
 
     public static void main(String[] args) {
         LongestPalindrome p = new LongestPalindrome();
-        String s = "bbbab";
+        //String s = "bbbab";
+        String s = "bb";
         System.out.println(p.longestPalindromeSubseq(s));
 
     }

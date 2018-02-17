@@ -38,7 +38,8 @@ public class MeetingRoom {
      * 
      * Company: Google, Faceboo, Snapchat, Uber
      * Difficulty: medium 
-     * Similar Questions: 252(Meeting Room), 56(Merge Interval), 452
+     * Similar Questions: 252(Meeting Room), 56(Merge Interval), 
+     * 452(MinimumNumberOfArrowsToBurstBallon )
      */
     public int minMeetingRooms(Interval[] intervals) {
         if (intervals == null || intervals.length == 0)
@@ -63,6 +64,7 @@ public class MeetingRoom {
         // compare with the second end because the first end's room is already taken.
         // One thing is also good to know: meetings start is always smaller than end.
         // Whenever we pass a end, one room is released.
+        /*
         int count = 1;
         for (int i = 1, j = 0; i < n; i++) {
             if (start[i] < end[j])
@@ -72,6 +74,23 @@ public class MeetingRoom {
         }
 
         return count;
+        */
+        
+        int count = 0, minRooms = 0;
+        for (int i = 0, j = 0; i < n;) {
+           // System.out.println("i=" + i + " start=" + start[i] + " j="+j+" end="+ end[j]);
+            if (start[i] < end[j]) {
+                count++;
+                i++;
+                minRooms = Math.max(count, minRooms);
+            }
+            else {
+                count--;
+                j++;
+            }
+           // System.out.println("count=" + count);
+        }
+        return minRooms;
     }
 
     public int minMeetingRooms_withHeap(Interval[] intervals) {

@@ -2,7 +2,10 @@ package leetcode.sort;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import leetcode.array.Interval;
 
@@ -81,4 +84,27 @@ public class MergeIntervals {
         return result;
     }
 
+    public List<Interval> merge_withPriorityQueue(List<Interval> intervals) {
+        if (intervals == null || intervals.isEmpty()) return Collections.emptyList();
+        
+        intervals.sort((a, b)->a.start-b.start);
+        // stores interval order by end time desc
+        PriorityQueue<Interval> pq = new PriorityQueue<>((a,b)->b.end-a.end);
+        
+        for (Interval interval : intervals) {
+            if (!pq.isEmpty() && pq.peek().end >= interval.start) {
+                Interval top = pq.poll();
+                //System.out.println("top: start="+top.start + " end=" + top.end);
+                interval.end = Math.max(interval.end, top.end);
+                interval.start = Math.min(interval.start, top.start);
+            }
+            
+            pq.offer(interval);
+            //System.out.println("add to pq: start="+interval.start + " end=" + interval.end);
+        }
+        
+        LinkedList<Interval> result = new LinkedList<>();
+        while (!pq.isEmpty()) result.addFirst(pq.poll());
+        return result;
+    }
 }

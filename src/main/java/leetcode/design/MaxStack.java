@@ -1,6 +1,13 @@
 package leetcode.design;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Stack;
+import java.util.TreeMap;
+
+import javafx.scene.control.CheckBoxTreeItem.TreeModificationEvent;
 
 /*
  * LEETCODE 716
@@ -32,14 +39,13 @@ import java.util.Stack;
  * Similar Questions: 155(MinStack)
  */
 public class MaxStack {
+    /*
     private Stack<Integer> stack;
     private Stack<Integer> maxStack;
-    private Stack<Integer> tmp;
-
+   
     public MaxStack() {
         stack = new Stack<>();
         maxStack = new Stack<>();
-        tmp = new Stack<>();
     }
 
     public void push(int x) {
@@ -66,6 +72,7 @@ public class MaxStack {
 
     public int popMax() {
         int result = maxStack.pop();
+        Stack<Integer> tmp = new Stack<>();
         while (stack.peek() != result) {
             tmp.push(stack.pop());
         }
@@ -79,17 +86,90 @@ public class MaxStack {
 
         return result;
     }
+    */
+    
+    private static class Node {
+        private int val;
+        private Node prev;
+        private Node next;
+        Node(int val) {
+            this.val = val;
+        }
+    }
+    
+    private Node head;
+    private Node tail;
+    private TreeMap<Integer, List<Node>> map;
+    
+    public MaxStack() {
+        head = new Node(0);
+        tail = head;
+        map = new TreeMap<>();
+    }
+    
+    public void push(int x) {
+        map.putIfAbsent(x, new ArrayList<>());
+        Node node = new Node(x);
+        node.prev = tail;
+        tail.next = node;
+        tail = node;
+        map.get(x).add(tail);
+    }
+    
+    public int pop() {
+        int key = tail.val;
+        map.get(key).remove(tail);
+        if (map.get(key).isEmpty()) {
+            map.remove(key);
+        }
+        removeNode(tail);
+        return key;
+    }
+    
+    public int top() {
+        return tail.val;
+    }
 
+    public int peekMax() {
+        return map.lastKey();
+    }
+
+    public int popMax() {
+        Map.Entry<Integer, List<Node>> entry = map.lastEntry();
+        int key = entry.getKey();
+        List<Node> nodes = entry.getValue();
+        Node nodeToRemove = nodes.get(nodes.size()-1);
+        nodes.remove(nodes.size()-1);
+        if (nodes.isEmpty()) {
+            map.remove(key);
+        }
+        removeNode(nodeToRemove);
+        return key;
+    }
+    
+    private void removeNode(Node node) {
+        node.prev.next = node.next;
+        if (node.next != null) {
+            node.next.prev = node.prev;
+        }
+        else {
+            tail = node.prev;
+        }
+        node.next = null;
+        node.prev = null;
+    }
+    
     public static void main(String[] args) {
         MaxStack maxStack = new MaxStack();
         maxStack.push(5);
         maxStack.push(1);
+        maxStack.push(5);
         /*
          * maxStack.push(2); maxStack.push(2); maxStack.push(5);
          * maxStack.push(4); maxStack.push(3);
          */
         System.out.println(maxStack.popMax());
-        System.out.println(maxStack.peekMax());
+        System.out.println(maxStack.top());
     }
 
 }

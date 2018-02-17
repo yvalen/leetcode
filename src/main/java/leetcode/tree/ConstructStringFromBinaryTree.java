@@ -64,7 +64,7 @@ public class ConstructStringFromBinaryTree {
         }
 
         if (root.right != null) {
-        		// need to check for empty left tree here
+            // need to check for empty left tree here
             if (root.left == null) sb.append("()");
             sb.append("(");
             helper(root.right, sb);

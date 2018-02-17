@@ -52,7 +52,7 @@ public class NextPermutation {
         // Find largest index j such that j ≥ i and array[j] > array[i − 1]
         int j = nums.length - 1;
         // don't do j> i here as it can be ith element
-        // need to find the smallest elemnt in suffix that is GREATER than nums[i-1]
+        // need to find the smallest element in suffix that is GREATER than nums[i-1]
         while (nums[j] <= nums[i - 1]) { 
             j--;
         }

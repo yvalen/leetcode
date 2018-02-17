@@ -77,6 +77,7 @@ public class CanIWin {
 
             used[i] = true; 
             // Minimax, whether the other player will lose
+            // minus one here as used is 0 based
             if (!helper(desiredTotal - i - 1, used, map)) { 
                 map.put(key, true);
                 used[i] = false;

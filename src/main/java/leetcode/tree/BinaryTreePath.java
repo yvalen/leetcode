@@ -12,7 +12,8 @@ import java.util.Stack;
  *      1 
  *     / \ 
  *    2   3 
- *    \ 5 
+ *         \ 
+ *          5 
  * All root-to-leaf paths are: ["1->3->5", "1->2"]
  * 
  * Company: Google, Facebook, Apple 

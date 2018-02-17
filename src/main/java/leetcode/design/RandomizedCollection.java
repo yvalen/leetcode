@@ -56,7 +56,7 @@ public class RandomizedCollection {
     public boolean insert(int val) {
         boolean exists = map.containsKey(val);
         list.add(val);
-        map.putIfAbsent(val, new LinkedHashSet<>()); // use LinkedHashedSet for fast iteratiom
+        map.putIfAbsent(val, new LinkedHashSet<>()); // use LinkedHashedSet for fast iteration
         map.get(val).add(list.size()-1);
         return exists;
     }

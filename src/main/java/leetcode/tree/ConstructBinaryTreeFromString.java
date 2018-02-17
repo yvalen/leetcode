@@ -100,8 +100,8 @@ public class ConstructBinaryTreeFromString {
     
     public TreeNode str2tree(StringBuilder sb) {
         if (sb.length() == 0) return null;
-        if (sb.charAt(0) == '(') sb.deleteCharAt(0);
         int i = 0;
+        // cannot use isDigit as we need to take - as well
         while (i < sb.length() && (sb.charAt(i) != '(' && sb.charAt(i) != ')')) {
             //System.out.println("i=" + i + " c=" + sb.charAt(i));
             i++;

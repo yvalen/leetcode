@@ -19,6 +19,9 @@ package leetcode.math;
  * radical sign or radix. The term whose root is being considered is known as the 
  * radicand. The radicand is the number or expression underneath the radical sign, 
  * 
+ * Newton Method to calculate nth root
+ * https://en.wikipedia.org/wiki/Nth_root_algorithm
+ * 
  * Company: Bloomberg, Facebook, Apple
  * Difficulty: easy
  * Similar Questions: 50(Pow)
@@ -53,12 +56,28 @@ public class SquareRoot {
                 hi = mid - 1;
             else
                 lo = mid + 1;
+            System.out.println("lo="+lo + " hi="+ hi + " mid=" +mid);
         }
 
         return hi;
     }
     
+    // √ N ≈ ½(N/A + A)
+    public int mySqrt_newtonMethod(int x) {
+        long r = x;
+        while (r*r > x) {
+            r = (r+x/r)/2;
+        }
+        return (int)r;
+    }
+    
     public float mySqrt_float(int x) {
+        float r = x;
+        while (r*r > x) {
+            r = (r+x/r)/2;
+        }
+        return r;
+        /*
         float lo = 1.0f, hi = x;
         float mid = lo + (hi - lo) / 2;
         while (Math.abs(mid*mid-x) > 0.00001) {
@@ -68,19 +87,32 @@ public class SquareRoot {
         }
 
         return mid;
+        */
+    }
+    
+    // https://en.wikipedia.org/wiki/Nth_root_algorithm
+    public static float cubicRoot(int x) {
+        float r = x;
+        while (r*r*r > x) {
+            r = (x/(r*r) + 2*r) /3;
+        }
+        return r;
     }
 
     public static void main(String[] args) {
         SquareRoot s = new SquareRoot();
-        // int x = 2;
-        // System.out.println(s.mySqrt(x));
+        //int x = 8;
+        //System.out.println(s.mySqrt_useRight(x));
 
         /*
         for (int i = 0; i <= 21; i++) {
             System.out.println("i=" + i + " sqrt=" + s.mySqrt_useRight(i));
         }*/
 
-        int x = 5;
-        System.out.println(s.mySqrt_float(x));
+        //int x = 8;
+        //System.out.println(s.mySqrt_float(x));
+        
+        int x = 10;
+        System.out.println(cubicRoot(x));
     }
 }

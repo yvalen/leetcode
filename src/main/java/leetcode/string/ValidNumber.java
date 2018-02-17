@@ -48,7 +48,7 @@ public class ValidNumber {
         // check for exponential
         if (i < n && isNumber && s.charAt(i) == 'e') {
             i++;
-            isNumber = false; // need to make sure there is digits afetr e
+            isNumber = false; // need to make sure there is digits after e
             if (i < n && (s.charAt(i) == '+' || s.charAt(i) == '-'))
                 i++;
             while (i < n && Character.isDigit(s.charAt(i))) {

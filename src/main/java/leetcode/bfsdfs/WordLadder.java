@@ -162,6 +162,7 @@ public class WordLadder {
                         if (neighbor.equals(endWord)) {
                             found = true;
                         } else {
+                            // shouldn't remove neighbor from dict as we need to all combination
                             queue.offer(neighbor);
                         }
                     }

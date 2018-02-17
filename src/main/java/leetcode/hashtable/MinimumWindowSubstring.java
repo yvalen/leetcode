@@ -84,7 +84,9 @@ public class MinimumWindowSubstring {
             right++;
             while (count == 0) { // valid window
                 if (right-left < minLen) {
-                    minLen = right - left;
+                    // use right-left instead of right-left+1 as 
+                    // right has already incremented
+                    minLen = right - left; 
                     begin = left;
                 }
                 Character leftChar = s.charAt(left);

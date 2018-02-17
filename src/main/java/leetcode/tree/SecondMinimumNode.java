@@ -31,9 +31,17 @@ import java.util.Stack;
  * Similar Questions: 230(KthSmallestElementInBST)
  */
 public class SecondMinimumNode {
-    // If the root value of a subtree == k, keep searching its children
-    // else, return the root value because it is the minimum of current subtree.
+    
     public int findSecondMinimumValue(TreeNode root) {
+        if (root == null) return -1;
+        
+        int left = (root.left != null && root.left.val != root.val) ? root.left.val : findSecondMinimumValue(root.left);
+        int right = (root.right != null && root.right.val != root.val) ? root.right.val : findSecondMinimumValue(root.right);
+        
+        if (left == -1 || right == -1) return Math.max(left, right);
+        return Math.min(left, right);
+        
+        /*
         if (root == null || (root.left == null && root.right == null)) return -1;
         
         int left = root.left.val;
@@ -48,10 +56,13 @@ public class SecondMinimumNode {
         if (left != -1 && right != -1) return Math.min(left, right);
         if (left == -1) return right;
         return left;     
+        */
         
         //return findMin(root, root.val);
     }
-
+    
+    // If the root value of a subtree == k, keep searching its children
+    // else, return the root value because it is the minimum of current subtree.
     private int findMin(TreeNode root, int min) {
         if (root == null)
             return -1;
