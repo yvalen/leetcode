@@ -5,8 +5,9 @@ import java.util.PriorityQueue;
 
 /*
  * LEETCODE 295
- * Median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value. 
- * So the median is the mean of the two middle value.
+ * Median is the middle value in an ordered integer list. If the size of the 
+ * list is even, there is no middle value. So the median is the mean of the 
+ * two middle value.
  * Examples:
  * [2,3,4] , the median is 3
  * [2,3], the median is (2 + 3) / 2 = 2.5
@@ -24,8 +25,10 @@ import java.util.PriorityQueue;
  * Difficulty: hard
  */
 public class FindMedianFromDataStream {
-    private final PriorityQueue<Integer> minHeap;
-    private final PriorityQueue<Integer> maxHeap;
+    // store the larger half
+    private final PriorityQueue<Integer> minHeap; 
+    // store smaller half, will contain at most one more element than minHeap
+    private final PriorityQueue<Integer> maxHeap; 
 
     public FindMedianFromDataStream() {
         minHeap = new PriorityQueue<>();

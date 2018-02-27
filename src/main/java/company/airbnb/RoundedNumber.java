@@ -1,4 +1,4 @@
-package company;
+package company.airbnb;
 
 import java.util.Arrays;
 

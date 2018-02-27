@@ -20,7 +20,7 @@ import java.util.Map;
  * 
  * Company: Google, Airbnb
  * Difficulty: hard
- * zSimilar Questions: 5(LongestPalindromeSubstring), 214(ShortestPalindrome)
+ * Similar Questions: 5(LongestPalindromeSubstring), 214(ShortestPalindrome)
  */
 public class PalindromePairs {
     /*
@@ -158,7 +158,8 @@ public class PalindromePairs {
     
     public static void main(String[] args) {
         PalindromePairs pp = new PalindromePairs();
-        String[] words = {"a","abc","aba",""};
-        System.out.println(pp.palindromePairs_withTrie(words));
+        //String[] words = {"a","abc","aba",""};
+        String[] words = {"bat","tab","cat"};
+        System.out.println(pp.palindromePairs(words));
     }
 }

@@ -1,16 +1,24 @@
 package leetcode.dp;
 
-/**
+/*
+ * LEETCODE 303
  * Given an integer array nums, find the sum of the elements between indices i
- * and j (i ≤ j), inclusive. Example: given nums = [-2, 0, 3, -5, 2, -1]
- * sumRange(0, 2) -> 1 sumRange(2, 5) -> -1 sumRange(0, 5) -> -3 Note: You may
- * assume that the array does not change. There are many calls to sumRange
+ * and j (i ≤ j), inclusive. 
+ * Example: given nums = [-2, 0, 3, -5, 2, -1]
+ * sumRange(0, 2) -> 1 
+ * sumRange(2, 5) -> -1
+ * sumRange(0, 5) -> -3 
+ * Note: You may assume that the array does not change. There are many calls to sumRange
  * function.
+ * 
+ * Company: Palantir
+ * Difficulty: easy
+ * Similar Questions: 307(RangeSumQueryMutable)
  */
-public class RangeSumQuery {
+public class RangeSumQueryImmutable {
     private int[] sum;
 
-    public RangeSumQuery(int[] nums) {
+    public RangeSumQueryImmutable(int[] nums) {
         this.sum = new int[nums.length];
         if (nums.length == 0)
             return;

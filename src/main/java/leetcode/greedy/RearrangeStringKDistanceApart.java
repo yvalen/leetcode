@@ -8,8 +8,10 @@ import java.util.Queue;
 
 /*
  * LEETCODE 358
- * Given a non-empty string s and an integer k, rearrange the string such that the same characters are at least distance k from each other.
- * All input strings are given in lower case letters. If it is not possible to rearrange the string, return an empty string "".
+ * Given a non-empty string s and an integer k, rearrange the string such that 
+ * the same characters are at least distance k from each other.
+ * All input strings are given in lower case letters. If it is not possible to 
+ * rearrange the string, return an empty string "".
  * Example 1: s = "aabbcc", k = 3 Result: "abcabc"
  * The same letters are at least distance 3 from each other.
  * Example 2: s = "aaabc", k = 3  Answer: ""
@@ -35,10 +37,13 @@ public class RearrangeStringKDistanceApart {
 
         PriorityQueue<int[]> pq = new PriorityQueue<>(26, (a, b) -> a[1] == b[1] ? a[0] - b[0] : b[1] - a[1]);
         for (int i = 0; i < 26; i++) {
-            if (charCount[i] > 0)
+            if (charCount[i] > 0) {
+                // only add to pq if count > 0
                 pq.offer(new int[] { i, charCount[i] });
+            }
         }
 
+        // queue is used to “freeze” previous appeared char in the period of k.
         Queue<int[]> queue = new LinkedList<>();
         StringBuilder sb = new StringBuilder();
         while (!pq.isEmpty()) {
@@ -50,7 +55,9 @@ public class RearrangeStringKDistanceApart {
             if (queue.size() < k)
                 continue;
 
+            // release from wait queue if char is already k apart
             int[] w = queue.poll();
+            //note that char with 0 count still needs to be placed in waitQueue as a place holder
             if (w[1] > 0)
                 pq.offer(w);
         }

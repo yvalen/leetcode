@@ -20,7 +20,7 @@ import leetcode.array.ArrayUtil;
  * Difficulty: medium
  * Similar Questions: 123(BuyAndSellStock.maxProfit)
  */
-public class MaxSumOfNonOverlappingSubArrays {
+public class MaxSumOfThreeNonOverlappingSubArrays {
     // for middle interval [i, i+k-1], where k <= i <= n-2*k
     // the left interval is in range [0, i-1], the right interval is in range
     // [i+1, n-1]
@@ -38,7 +38,7 @@ public class MaxSumOfNonOverlappingSubArrays {
         // DP for starting index of the left max sum interval
         int[] posLeft = new int[n]; // posLeft[i] is the starting index for the
                                     // left intervals in [0,i]
-        for (int i = k, maxLeft = sum[k] - sum[0]; i < n; i++) { // start from
+        for (int i = k, maxLeft = sum[k] - sum[0]; i < n-2*k; i++) { // start from
                                                                  // interval
                                                                  // [0,k],
                                                                  // slides
@@ -64,7 +64,7 @@ public class MaxSumOfNonOverlappingSubArrays {
         int[] posRight = new int[n]; // posRight[i] is the starting index for
                                      // the right interval in [i, n-1]
         posRight[n - k] = n - k;
-        for (int i = n - k - 1, maxRight = sum[n] - sum[n - k]; i >= 0; i--) {
+        for (int i = n - k - 1, maxRight = sum[n] - sum[n - k]; i > k; i--) {
             if (sum[i + k] - sum[i] >= maxRight) {
                 maxRight = sum[i + k] - sum[i];
                 posRight[i] = i;
@@ -76,7 +76,7 @@ public class MaxSumOfNonOverlappingSubArrays {
         // test all possible middle interval
         int[] result = new int[3];
         int maxSum = 0;
-        for (int i = k; i <= n - 2 * k; i++) {
+        for (int i = k; i <= n - 2 * k; i++) { // should use <= hete
             int l = posLeft[i - 1], r = posRight[i + k];
             int s = (sum[i + k] - sum[i]) + (sum[l + k] - sum[l]) + (sum[r + k] - sum[r]);
             if (maxSum < s) {
@@ -91,7 +91,7 @@ public class MaxSumOfNonOverlappingSubArrays {
     }
 
     public static void main(String[] args) {
-        MaxSumOfNonOverlappingSubArrays msnosa = new MaxSumOfNonOverlappingSubArrays();
+        MaxSumOfThreeNonOverlappingSubArrays msnosa = new MaxSumOfThreeNonOverlappingSubArrays();
         int[] nums = { 1, 2, 1, 2, 6, 7, 5, 1 };
         int k = 2;
         ArrayUtil.printArray(msnosa.maxSumOfThreeSubarrays(nums, k));

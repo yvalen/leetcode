@@ -35,14 +35,21 @@ public class ValidPalindrome {
     }
 
     /*
-     * LEETCODE 680 Given a non-empty string s, you may delete at most one
-     * character. Judge whether you can make it a palindrome. Example 1: Input:
-     * "aba" Output: True Example 2: Input: "abca" Output: True Explanation: You
-     * could delete the character 'c'. Note: The string will only contain lower
-     * case characters a-z. The maximum length of the string is 50000.
+     * LEETCODE 680 
+     * Given a non-empty string s, you may delete at most one character. 
+     * Judge whether you can make it a palindrome. 
+     * Example 1: 
+     * Input: "aba" Output: True 
+     * Example 2: 
+     * Input: "abca" Output: True 
+     * Explanation: You could delete the character 'c'. 
+     * Note: 
+     * - The string will only contain lower case characters a-z. 
+     * - The maximum length of the string is 50000.
      * 
-     * Company: Facebook Difficulty: easy Similar Questions: 125(Valid
-     * Palindrome)
+     * Company: Facebook 
+     * Difficulty: easy 
+     * Similar Questions: 125(Valid Palindrome)
      */
     public boolean validPalindrome(String s) {
         if (s == null || s.length() <= 2)

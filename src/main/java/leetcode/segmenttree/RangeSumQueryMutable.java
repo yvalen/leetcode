@@ -3,8 +3,10 @@ package leetcode.segmenttree;
 import java.util.stream.IntStream;
 
 /*
- * Given an integer array nums, find the sum of the elements between indices i and j (i ≤ j), inclusive.
- * The update(i, val) function modifies nums by updating the element at index i to val.
+ * LEETCODE 307
+ * Given an integer array nums, find the sum of the elements between indices 
+ * i and j (i ≤ j), inclusive. The update(i, val) function modifies nums by 
+ * updating the element at index i to val.
  * Example: Given nums = [1, 3, 5]
  * sumRange(0, 2) -> 9
  * update(1, 2)
@@ -13,8 +15,8 @@ import java.util.stream.IntStream;
  * - The array is only modifiable by the update function.
  * - You may assume the number of calls to update and sumRange function is distributed evenly.
  * 
- * Company: 
  * Difficulty: medium
+ * Similar Questions: 303(RangeSumQuery)
  */
 public class RangeSumQueryMutable {
     /*

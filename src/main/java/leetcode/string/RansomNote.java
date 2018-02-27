@@ -2,10 +2,11 @@ package leetcode.string;
 
 /*
  * LEETCODE 383
- * Given an arbitrary ransom note string and another string containing letters from all the magazines, 
- * write a function that will return true if the ransom note can be constructed from the magazines; 
- * otherwise return false. Each letter in the magazine string can only be used once in your ransom note.
- * Note: You may assume that both strings contain only lowercase letters.
+ * Given an arbitrary ransom note string and another string containing letters 
+ * from all the magazines, write a function that will return true if the ransom 
+ * note can be constructed from the magazines; otherwise return false. 
+ * Each letter in the magazine string can only be used once in your ransom note.
+ * Note: You may assume that both strings contain only lower case letters.
  * canConstruct("a", "b") -> false
  * canConstruct("aa", "ab") -> false
  * canConstruct("aa", "aab") -> true

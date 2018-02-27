@@ -1,4 +1,4 @@
-package misc;
+package company.airbnb;
 
 import java.util.ArrayList;
 import java.util.Collections;

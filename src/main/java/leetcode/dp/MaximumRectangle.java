@@ -4,13 +4,19 @@ import java.util.Arrays;
 import java.util.Stack;
 
 /*
- * Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
+ * LEETCODE 85
+ * Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle 
+ * containing only 1's and return its area.
  * For example, given the following matrix:
  * 	1 0 1 0 0
  * 	1 0 1 1 1
  * 	1 1 1 1 1
  * 	1 0 0 1 0
  * Return 6. 
+ * 
+ * Company: Facebook, Apple, Airbnb
+ * Difficulty: medium
+ * Similar Questions: 221(MaximumSquare)
  */
 public class MaximumRectangle {
     // similar to largest rectangle in histogram
@@ -51,9 +57,14 @@ public class MaximumRectangle {
         return max;
     }
 
-    // proceeds row by row, starting from the first row. Let the maximal
-    // rectangle area at row i and column j
-    // be computed by [right(i,j) - left(i,j)]*height(i,j).
+    // proceeds row by row, starting from the first row. Let the maximal rectangle area
+    // at row i and column j be computed by [right(i,j) - left(i,j)]*height(i,j).
+    // left, right, and height can be determined by the information from previous row, 
+    // and also information from the current row.
+    // left(i,j) = max(left(i-1,j), cur_left), cur_left can be determined from the current row
+    // right(i,j) = min(right(i-1,j), cur_right), cur_right can be determined from the current row
+    // height(i,j) = height(i-1,j) + 1, if matrix[i][j]==‘1’
+    // height(i,j) = 0, if matrix[i][j]==‘0'
     public int maximalRectangle_dp(char[][] matrix) {
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
             return 0;
@@ -112,8 +123,11 @@ public class MaximumRectangle {
          * char[][] matrix = { {'1', '0', '1', '0', '0'}, {'1', '0', '1', '1',
          * '1'}, {'1', '1', '1', '1', '1'}, {'1', '0', '0', '1', '0'}, };
          */
-        char[][] matrix = { { '0', '0', '0', '1', '0', '0', '0' }, { '0', '0', '1', '1', '1', '0', '0' },
-                { '0', '1', '1', '1', '1', '1', '0' } };
+        char[][] matrix = { 
+                { '0', '0', '0', '1', '0', '0', '0' }, 
+                { '0', '0', '1', '1', '1', '0', '0' },
+                { '0', '1', '1', '1', '1', '1', '0' } 
+                };
         System.out.println(r.maximalRectangle_dp(matrix));
     }
 

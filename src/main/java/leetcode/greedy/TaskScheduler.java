@@ -9,12 +9,13 @@ import java.util.Queue;
 
 /*
  * LEETCODE 621
- * Given a char array representing tasks CPU need to do. It contains capital letters A to Z where 
- * different letters represent different tasks. Tasks could be done without original order. Each 
- * task could be done in one interval. For each interval, CPU could finish one task or just be idle.
- * However, there is a non-negative cooling interval n that means between two same tasks, there must 
- * be at least n intervals that CPU are doing different tasks or just be idle. You need to return the 
- * least number of intervals the CPU will take to finish all the given tasks.
+ * Given a char array representing tasks CPU need to do. It contains capital letters 
+ * A to Z where different letters represent different tasks. Tasks could be done without 
+ * original order. Each task could be done in one interval. For each interval, CPU could 
+ * finish one task or just be idle. However, there is a non-negative cooling interval n 
+ * that means between two same tasks, there must be at least n intervals that CPU are doing 
+ * different tasks or just be idle. You need to return the least number of intervals the 
+ * CPU will take to finish all the given tasks.
  * Example 1: Input: tasks = ['A','A','A','B','B','B'], n = 2 Output: 8
  * Explanation: A -> B -> idle -> A -> B -> idle -> A -> B.
  * Note:
@@ -27,29 +28,31 @@ import java.util.Queue;
  */
 public class TaskScheduler {
     /*
-     * Assume the most frequent letter(s) is with count k, then there are two
-     * cases: - When the whole frame is "loose" -- when there is still unused
-     * idle time in each chunk, result = (c[25] - 1) * (n + 1) + 25 - i where
-     * "25 - i" simply counts how many letters are with count k and n + 1 is the
-     * length of each chunk. Since we have k (in this case k == c[25]) chunks,
-     * the total length of the first k - 1 chunks == (k - 1) * (n + 1). For the
-     * last chunk, we don't need the "whole chunk" (i.e., if the chunk is
-     * "ABXXX", we only will need the "AB". Because there are no more
-     * "less frequent letters" left so we can remove the last three spaces) -
-     * When the frame is "dense" (fully filled), the length of each chunk > n +
-     * 1. In this case it could be: a) initially the number of letters with
+     * Assume the most frequent letter(s) is with count k, then there are two cases:
+     * - When the whole frame is "loose": when there is still unused idle time in each  
+     * chunk, result = (c[25] - 1) * (n + 1) + 25 - i where "25 - i" simply counts
+     * how many letters are with count k and n + 1 is the length of each chunk. 
+     * Since we have k (in this case k == c[25]) chunks, the total length of the 
+     * first k - 1 chunks == (k - 1) * (n + 1). For the last chunk, we don't need 
+     * the "whole chunk" (i.e., if the chunk is "ABXXX", we only will need the "AB". 
+     * Because there are no more "less frequent letters" left so we can remove the 
+     * last three spaces) 
+     * - When the frame is "dense" (fully filled), the length of each chunk > n + 1. 
+     * In this case it could be: a) initially the number of letters with
      * count k is > n + 1 so the frame is already "fully filled without space
      * left, or b) the length of each chunk is > n + 1 after insertion. We still
      * calculate the total length by adding up all the chunks, and it will ==
      * the length of the task at last.
      */
+    // Time complexity: O(n) iterate tasks array once, sorting O(26log26) ~ O(1)
+    // Space complexity: O(26) ~ O(1)
     public int leastInterval(char[] tasks, int n) {
         int[] taskCount = new int[26];
         for (char c : tasks) {
             taskCount[c - 'A']++;
         }
 
-        Arrays.sort(taskCount); // after sorting taskCount[25] is the hightest
+        Arrays.sort(taskCount); // after sorting taskCount[25] is the highest
                                 // count
 
         // count how many tasks have the max occurrence -> 25 -i
@@ -69,8 +72,7 @@ public class TaskScheduler {
             taskCount[c - 'A']++;
         }
 
-        // pq stores the number of instances left to be executed in descending
-        // order
+        // pq stores the number of instances left to be executed in descending order
         PriorityQueue<Integer> pq = new PriorityQueue<>(26, Collections.reverseOrder());
         for (int count : taskCount) {
             if (count > 0)

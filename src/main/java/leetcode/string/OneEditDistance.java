@@ -103,7 +103,7 @@ public class OneEditDistance {
         }
 
         // if all chars are the same, make sure j is at the 
-        // last char of t to handle ("a", "")
+        // last char of t to handle ("a", "") ("aa", "aab")
         return firstDiff || j == tLen-1;
     }
 

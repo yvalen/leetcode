@@ -10,7 +10,8 @@ import java.util.Set;
 
 /*
  * LEETCODE 301
- * Remove the minimum number of invalid parentheses in order to make the input string valid. Return all possible results.
+ * Remove the minimum number of invalid parentheses in order to make the input string valid. 
+ * Return all possible results.
  * Note: The input string may contain letters other than the parentheses ( and ).
  * Examples:
  * "()())()" -> ["()()()", "(())()"]
@@ -28,6 +29,17 @@ public class RemoveInvalidParentheses {
     // valid, if found valid ones on the current level,
     // put them to the final result list and we are done, otherwise, add them to
     // a queue and carry on to the next level.
+    // Time complexity:
+    // we handle the states level by level, in the worst case, we need to handle all 
+    // the levels, we can analyze the time complexity level by level and add them up 
+    // to get the final complexity. On the first level, there’s only one string which 
+    // is the input string s, let’s say the length of it is n, to check whether it’s valid, 
+    // we need O(n) time. On the second level, we remove one ( or ) from the first level, so 
+    // there are C(n, n-1) new strings, each of them has n-1 characters, and for each string, 
+    // we need to check whether it’s valid or not, thus the total time complexity on this level 
+    // is (n-1) x C(n, n-1). Come to the third level, total time complexity is (n-2) x C(n, n-2), 
+    // so on and so forth… Finally we have this formula:
+    // T(n) = n x C(n, n) + (n-1) x C(n, n-1) + … + 1 x C(n, 1) = n x 2^(n-1).
     public List<String> removeInvalidParentheses_bfs(String s) {
         if (s == null)
             return Collections.emptyList(); // don't return for empty s since it
@@ -41,7 +53,6 @@ public class RemoveInvalidParentheses {
         boolean found = false;
         while (!queue.isEmpty()) {
             String curr = queue.poll();
-
             if (isValid(curr)) {
                 result.add(curr);
                 found = true;

@@ -3,11 +3,15 @@ package leetcode.tree;
 import java.util.Stack;
 
 /*
- * Given a binary search tree and a node in it, find the in-order successor of that node in the BST.
+ * LEETCODE 285
+ * Given a binary search tree and a node in it, find the in-order successor 
+ * of that node in the BST.
  * Note: If the given node has no in-order successor in the tree, return null.
  * https://discuss.leetcode.com/topic/25076/share-my-java-recursive-solution
  * 
  * Company: Pocket Gems, Microsoft, Facebook
+ * Difficulty: medium
+ * Similar Questions: 94(BinaryTreeInOrderTraversal), 173(BSTIterator)
  */
 public class InOrderSuccessorInBST {
     // Inorder successor of p is either p's parent or the left most node in 's
@@ -39,7 +43,7 @@ public class InOrderSuccessorInBST {
                 // p is in the right sub tree, keep searching
                 node = node.right;
             } else {
-                // find p, successor has been assgined already
+                // find p, successor has been assigned already
                 break;
             }
         }
@@ -62,5 +66,23 @@ public class InOrderSuccessorInBST {
                                                             // p's right subtree
             return (left != null) ? left : root;
         }
+    }
+    
+    public TreeNode inorderSuccessor_inorderTraversal(TreeNode root, TreeNode p) {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode prev = null, current = root;
+        while (!stack.isEmpty() || current != null) {
+            if (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+            else {
+                current = stack.pop();
+                if (prev != null && prev == p) return current;
+                prev = current;
+                current = current.right;
+            }
+        }
+        return null;
     }
 }

@@ -58,10 +58,14 @@ public class Vector2D implements Iterator<Integer> {
         return itr.next();
 		 */
 	}
+	
+	@Override
+	public void remove() {
+	    itr.remove();
+	}
 
 	private void advance() {
 		// need to use loop here to handle empty list element
-		
 		while ((itr == null || !itr.hasNext()) && listItr.hasNext()) {
 			itr = listItr.next().iterator();
 		}

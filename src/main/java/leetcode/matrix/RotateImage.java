@@ -66,7 +66,7 @@ public class RotateImage {
 
         // swap symmetrically
         for (int i = 0; i < m; i++) {
-            for (int j = i + 1; j < n; j++) {
+            for (int j = i + 1; j < n; j++) { // j should start from i+1
                 int temp = matrix[i][j];
                 matrix[i][j] = matrix[j][i];
                 matrix[j][i] = temp;

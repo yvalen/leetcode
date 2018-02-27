@@ -9,7 +9,7 @@ import java.util.Queue;
 /*
  * LEETCODE 314
  * Given a binary tree, return the vertical order traversal of its nodes' values. 
- * (ie, from top to bottom, column by column). If two nodes are in the same row 
+ * (i.e, from top to bottom, column by column). If two nodes are in the same row 
  * and column, the order should be from left to right.
  * Examples: 
  * Given binary tree [3,9,20,null,null,15,7],
@@ -84,18 +84,14 @@ public class BinaryTreeVerticalOrderTraversal {
             TreeNode node = nodeq.poll();
             int col = colq.poll();
             if (col < minCol) {
-                List<Integer> l = new ArrayList<>();
-                l.add(node.val);
-                result.add(0, l);
+                result.add(0, new ArrayList<>());
                 minCol = col;
-            } else if (col > maxCol) {
-                List<Integer> l = new ArrayList<>();
-                l.add(node.val);
-                result.add(l);
-                maxCol = col;
-            } else {
-                result.get(col - minCol).add(node.val);
             }
+            else if (col > maxCol) {
+                result.add(new ArrayList<>());
+                maxCol = col;
+            }
+            result.get(col-minCol).add(node.val);
 
             if (node.left != null) {
                 nodeq.offer(node.left);

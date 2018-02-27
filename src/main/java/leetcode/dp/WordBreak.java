@@ -3,6 +3,7 @@ package leetcode.dp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -208,6 +209,28 @@ public class WordBreak {
         map.put(start, result);
         return result;
     }
+    
+    public int wordCount(String s, Set<String> dict) {
+        if (s == null || s.length() == 0) return 0;
+
+        int n = s.length();
+        int[] dp = new int[n+1];
+        dp[0] = 1;
+        int count = 0;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (dp[j] > 0 && dict.contains(s.substring(j, i))) {
+                    
+                    dp[i] = dp[j]+1;
+                    System.out.println(s.substring(j, i));
+                    System.out.println("i=" + i + " dp[i]=" + dp[i]);
+                    count++;
+                    //break;
+                }
+            }
+        }
+        return count;
+    }
 
     public static void main(String[] arg) {
         WordBreak w = new WordBreak();
@@ -222,7 +245,9 @@ public class WordBreak {
         // String s = "a";
         // List<String> wordDict = Arrays.asList("a");
 
-        List<String> result = w.wordBreakII_dpBacktrack(s, wordDict);
-        System.out.println(result);
+        //List<String> result = w.wordBreakII_dpBacktrack(s, wordDict);
+       // System.out.println(result);
+        
+        System.out.println(w.wordCount(s, new HashSet<>(wordDict)));
     }
 }

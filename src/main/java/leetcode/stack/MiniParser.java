@@ -28,8 +28,7 @@ public class MiniParser {
 
         Stack<NestedInteger> stack = new Stack<>();
         NestedInteger ni = null; // initialize to null
-        boolean isNegative = false;
-        int num = 0;
+        int num = 0, sign = 1;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (c == '[') {
@@ -40,16 +39,16 @@ public class MiniParser {
             } else if (Character.isDigit(c)) {
                 num = num * 10 + (c - '0');
             } else if (c == '-') {
-                isNegative = true;
+                sign = -1;
             } else if (c == ',' && s.charAt(i-1) != ']') {
-                ni.add(new NestedInteger(num * (isNegative ? -1 : 1)));
+                ni.add(new NestedInteger(num * sign));
                 num = 0;
-                isNegative = false;
+                sign = 1;
             } else if (c == ']') {
                 if (Character.isDigit(s.charAt(i-1))) {
-                    ni.add(new NestedInteger(num * (isNegative ? -1 : 1)));
+                    ni.add(new NestedInteger(num * sign));
                     num = 0;
-                    isNegative = false;
+                    sign = 1;
                 }
                 if (!stack.isEmpty()) {
                     NestedInteger top = stack.pop();

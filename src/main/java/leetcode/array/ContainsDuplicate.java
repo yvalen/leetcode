@@ -10,28 +10,36 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class ContainsDuplicate {
-    /**
+    /*
+     * LEETCODE 217
      * Given an array of integers, find if the array contains any duplicates.
      * Your function should return true if any value appears at least twice in
      * the array, and it should return false if every element is distinct.
+     * 
+     * Company: Airbnb, Palantir
+     * Difficulty: easy
+     * Similar Questons: 219(Contains Duplicate II), 220(Contains Duplicate III)
      */
     public boolean containsDuplicate(int[] nums) {
         Set<Integer> set = new HashSet<>();
-        for (int i = 0; i < nums.length; i++) {
-            if (set.contains(nums[i]))
-                return true;
-            set.add(nums[i]);
+        for (int num : nums) {
+            if (!set.add(num)) return true;
         }
 
         return false;
     }
 
-    /**
+    /*
+     * LEETCODE 219
      * Given an array of integers and an integer k, find out whether there are
      * two distinct indices i and j in the array such that nums[i] = nums[j] and
      * the difference between i and j is at most k.
+     * 
+     * Company: Airbnb, Palantir
+     * Difficulty: easy
+     * Similar Questions: 217(Contains Duplicate), 220(Contains Duplicate III)
      */
-    public boolean containsNearbyDuplicate(int[] nums, int k) {
+    public boolean containsNearbyDuplicate_withMap(int[] nums, int k) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(nums[i])) {
@@ -42,16 +50,37 @@ public class ContainsDuplicate {
         }
         return false;
     }
+    
+    // It iterates over the array using a sliding window. The front of the window is at i, 
+    // the rear of the window is k steps back. The elements within that window are maintained 
+    // using a Set. While adding new element to the set, if add() returns false, it means the 
+    // element already exists in the set. At that point, we return true. If the control reaches 
+    // out of for loop, it means that inner return true never executed, meaning no such 
+    // duplicate element was found.
+    public boolean containsNearbyDuplicate_slidingWindow(int[] nums, int k) {
+        Set<Integer> Set = new HashSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (i > k) Set.remove(nums[i-k-1]);
+            if (!Set.add(nums[i])) return true;
+        }
+        return false;
+    }
 
-    /**
+    /*
+     * LEETCODE 220
      * Given an array of integers, find out whether there are two distinct
      * indices i and j in the array such that the difference between nums[i] and
      * nums[j] is at most t and the difference between i and j is at most k.
+     * 
+     * Company: Airbnb, Palantir
+     * Difficulty: easy
+     * Similar Questions: 217(Contains Duplicate), 219(Contains Duplicate II)
      */
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
         if (nums == null || nums.length == 0 || k <= 0)
             return false;
-
+        // use long to prevent overflow when element in nums 
+        // is Integer.MAX_VALUE or Integer.MIN_VALUE
         TreeSet<Long> treeSet = new TreeSet<>();
         for (int i = 0; i < nums.length; i++) {
             Long val = Long.valueOf(nums[i]);

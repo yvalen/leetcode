@@ -29,14 +29,16 @@ public class WildcardMatching {
      * s[0:i-1] matches p[0:j-2] and * is not used here f(i-1,j) is true:
      * s[0:i-2] matches p[0:j-1] and * is used to match s[i-1], f(i, j-1) is true
      */
+    // Time complexity: O(mn), Space Complexity: O(mn)
     public boolean isMatch_dp(String s, String p) {
         if (s == null || p == null)
             return false;
 
-        // dp[i][j] indicates whether s(0...i) matches p(0...j)
+        // dp[i][j] indicates whether s(0...i-1) matches p(0...j-1)
         boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
         dp[0][0] = true;
         for (int j = 0; j < p.length(); j++) {
+            // s has nothing, to get dp[0][j] = true, p must be ‘*’, ‘**’, ‘***’,
             if (p.charAt(j) == '*') {
                 dp[0][j + 1] = dp[0][j];
             }

@@ -24,6 +24,7 @@ public class EditDistance {
         int[][] dp = new int[word1.length() + 1][word2.length() + 1];
 
         // boundary cases, convert string into empty string
+        // need to check for <= here
         for (int i = 0; i <= word1.length(); i++) {
             dp[i][0] = i;
         }
@@ -36,15 +37,10 @@ public class EditDistance {
                 if (word1.charAt(i) == word2.charAt(j)) {
                     dp[i + 1][j + 1] = dp[i][j];
                 } else {
-                    dp[i + 1][j + 1] = Integer.min(dp[i][j] + 1, // replace
-                                                                 // word1[i]
-                                                                 // with word[j]
-                            dp[i][j + 1] + 1); // delete word1[i] and convert
-                                               // word1(0...i-1) into
-                                               // word2(0...j) - dp[i][j+1]
-                    dp[i + 1][j + 1] = Integer.min(dp[i + 1][j + 1], dp[i + 1][j] + 1); // insert
-                                                                                        // at
-                                                                                        // word1[i]
+                    // dp[i][j] - replace word1[i] with word2[j]
+                    // dp[i][j+1] - delete word1[i], convert word1(0...i-1) into word2(0...j)
+                    // dp[i+1][j] - insert at word1[i]
+                    dp[i+1][j+1] = Math.min(dp[i][j], Math.min(dp[i][j+1], dp[i+1][j]))+1;
                 }
             }
         }
