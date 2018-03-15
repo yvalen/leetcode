@@ -28,12 +28,17 @@ public class CombinationWithCases {
         
         for (int i = start; i < s.length(); i++) {
             char c = s.charAt(i);
+            /*
             if (Character.isLowerCase(c)) {
                 sb.append(Character.toUpperCase(c));
                 combinerLetters(s, result, sb, i+1);
                 sb.deleteCharAt(sb.length()-1);
-            }
+            }*/
            
+            sb.append(Character.isLowerCase(c) ? Character.toUpperCase(c) : Character.toLowerCase(c));
+            combinerLetters(s, result, sb, i+1);
+            sb.deleteCharAt(sb.length()-1);
+            
             sb.append(c);
             combinerLetters(s, result, sb, i+1);
             sb.deleteCharAt(sb.length()-1);

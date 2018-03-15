@@ -165,6 +165,7 @@ public class AutocompleteSystem {
         }
 
         private void traverse(String prefix, Node node) {
+            System.out.println("collect " + prefix);
             if (node.times > 0) {
                 updatePriorityQueue(new SentenceWithCount(prefix, node.times));
             }

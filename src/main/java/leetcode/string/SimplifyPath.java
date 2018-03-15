@@ -7,14 +7,20 @@ import java.util.Queue;
 import java.util.Stack;
 
 /*
+ * LEETCODE 71
  * Given an absolute path for a file (Unix-style), simplify it. 
  * For example, 
  * 	path = "/home/", => "/home"
  * 	path = "/a/./b/../../c/", => "/c"
  * Corner Cases:
- * 	Did you consider the case where path = "/../"? In this case, you should return "/".
- * 	Another corner case is the path might contain multiple slashes '/' together, such as "/home//foo/".
- * 	In this case, you should ignore redundant slashes and return "/home/foo".
+ * - Did you consider the case where path = "/../"? 
+ * In this case, you should return "/".
+ * - Another corner case is the path might contain multiple slashes 
+ * '/' together, such as "/home//foo/".
+ * In this case, you should ignore redundant slashes and return "/home/foo".
+ * 
+ * Company: Facebook, Microsoft
+ * Difficulty: medium
  */
 public class SimplifyPath {
     public String simplifyPath_withStack(String path) {
@@ -24,6 +30,8 @@ public class SimplifyPath {
         String[] dirs = path.split("/");
         Stack<String> stack = new Stack<>();
         for (String dir : dirs) {
+            // need to skip empty string as the array may contains empty string
+            // e.g. path = "/..."
             if (dir.isEmpty() || ".".equals(dir)) {
                 continue;
             }
@@ -36,6 +44,7 @@ public class SimplifyPath {
             }
         }
 
+        // should prepend "/" to path, "///" -> "/"
         return "/" + String.join("/", stack);
     }
 

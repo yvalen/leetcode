@@ -22,6 +22,7 @@ import java.util.Map;
  * 
  * https://github.com/google/guava/blob/master/guava/src/com/google/common/cache/LocalCache.java
  * http://highscalability.com/blog/2016/1/25/design-of-a-modern-cache.html
+ * https://github.com/ben-manes/caffeine/wiki/Design
  * Concurrency:
  * 1. single lock, low throughput
  * 2. separate read and write lock, read can be fast

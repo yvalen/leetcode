@@ -16,6 +16,7 @@ package leetcode.dp;
  * Similar Questions: 85(MaximumRectangle), 764(LargestPlusSign)
  */
 public class MaximumSquare {
+    // Time complexity: O(n^2), Space complexity: O(n^2)
     public int maximalSquare(char[][] matrix) {
         if (matrix == null || matrix.length == 0)
             return 0;

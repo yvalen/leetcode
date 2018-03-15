@@ -66,6 +66,7 @@ public class TaskScheduler {
         return Math.max(tasks.length, (taskCount[25] - 1) * (n + 1) + (25 - i));
     }
 
+    // Time complexity: O(n), Space complexity: O(26) ~ O(1)
     public int leastInterval_priorityQueue(char[] tasks, int n) {
         int[] taskCount = new int[26];
         for (char c : tasks) {

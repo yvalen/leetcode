@@ -13,7 +13,7 @@ package leetcode.dp;
  * 
  * Company: Palantir
  * Difficulty: easy
- * Similar Questions: 307(RangeSumQueryMutable)
+ * Similar Questions: 304(RangeSumQuery2DImmutable), 307(RangeSumQueryMutable)
  */
 public class RangeSumQueryImmutable {
     private int[] sum;

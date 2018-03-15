@@ -74,7 +74,6 @@ public class WildcardMatching {
     // since we don't know where the right match for * ends, we need to take a
     // guess (one branch in DFS),
     // and store the information(starj and last_match) so we can always backup
-    
     // to the last correct place and take another guess.
     // Complexity O(m*n): s=aaaab p=*ab
     public boolean isMatch_dfsGreedy(String s, String p) {

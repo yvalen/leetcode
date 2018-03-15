@@ -3,6 +3,7 @@ package leetcode.tree;
 import java.util.Stack;
 
 /*
+ * LEETCODE 404
  * Find the sum of all left leaves in a given binary tree.
  * Example:
  * 		3
@@ -10,7 +11,11 @@ import java.util.Stack;
  *    9  20
  *      /  \
  *     15   7
- * There are two left leaves in the binary tree, with values 9 and 15 respectively. Return 24.
+ * There are two left leaves in the binary tree, with values 
+ * 9 and 15 respectively. Return 24.
+ * 
+ * Company: Facebook
+ * Difficulty: easy
 */
 public class SumOfLeftLeaves {
 
@@ -33,7 +38,7 @@ public class SumOfLeftLeaves {
         return sumOfLeftLeaves_helper(root.left, root) + sumOfLeftLeaves_helper(root.right, root);
     }
 
-    // inorder
+    // pre-order
     public int sumOfLeftLeaves_iterative(TreeNode root) {
         if (root == null)
             return 0;

@@ -48,7 +48,7 @@ public class NumberOfCornerRectangles {
     // Time complexity: O(m*n^2)  Space complexity: O(n^2)
     public int countCornerRectangles_dp(int[][] grid) {
         int m = grid.length, n = grid[0].length;
-        int[][] dp = new int[m][n];
+        int[][] dp = new int[n][n];
         int result = 0;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {

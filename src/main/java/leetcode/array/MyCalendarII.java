@@ -54,7 +54,7 @@ public class MyCalendarII {
     // new event [start, end), if it conflicts with a double booking, it will have 
     // a triple booking and be invalid. Otherwise, parts that overlap the calendar 
     // will be a double booking.
-    // Time complexity: O(n^2)
+    // Time complexity: O(n^2) Space O(n)
     public boolean book_bruteforce(int start, int end) {
         for (int i = 0; i < doubleBookings.size(); i++) {
             int[] event = doubleBookings.get(i);

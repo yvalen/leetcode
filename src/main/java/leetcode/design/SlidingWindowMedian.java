@@ -30,6 +30,7 @@ import leetcode.array.ArrayUtil;
  * 
  * Company: Google
  * Difficulty: hard
+ * Similar Questions: 295(FindMedianFromDataStream)
  */
 public class SlidingWindowMedian {
     public double[] medianSlidingWindow(int[] nums, int k) {

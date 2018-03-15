@@ -23,7 +23,8 @@ import java.util.Queue;
  * 
  * Company: Facebook
  * Difficulty: easy
- * Similar Questions: 102(Binary Tree Level Order Traversal), 107(Binary Tree Level Order Traversal II)
+ * Similar Questions: 102(Binary Tree Level Order Traversal), 
+ * 107(Binary Tree Level Order Traversal II)
  */
 public class AverageOfLevels {
     public List<Double> averageOfLevels(TreeNode root) {

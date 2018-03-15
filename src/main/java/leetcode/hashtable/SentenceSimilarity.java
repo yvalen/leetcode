@@ -60,8 +60,14 @@ public class SentenceSimilarity {
 	 * Extension of 734(Sentence Similarity), the similarity relation is transitive. For example, 
 	 * if "great" and "good" are similar, and "fine" and "good" are similar, then "great" and "fine" 
 	 * are similar. 
+	 * 
+	 * Company: Google
+	 * Difficulty: medium
+	 * Similar Questions: 
 	 */
-	public static boolean areSentencesSimilarTwo(String[] words1, String[] words2, String[][] pairs) {
+	// Time complexity: O(np) n is the max length of words1 and words2, p is the length of pairs
+	// Space complexity: O(p)
+	public static boolean areSentencesSimilarTwo_dfs(String[] words1, String[] words2, String[][] pairs) {
 		Map<String, Set<String>> map = new HashMap<>();
         for (String[] pair : pairs) {
             map.putIfAbsent(pair[0], new HashSet<>());
@@ -97,11 +103,64 @@ public class SentenceSimilarity {
 		return false;
 	}
 	
+	// similarity relation is transitive means graph is undirected,
+	// we can apply union find
+	// Time complexity: O(nlogp)
+	public static boolean areSentencesSimilarTwo_unionfind(String[] words1, String[] words2, String[][] pairs) {
+	    int id = 0;
+	    Map<String, Integer> idMap = new HashMap<>();
+	    UnionFind uf = new UnionFind(pairs.length*2);
+	    for (String[] pair : pairs) {
+	        // map all words in pairs to an id
+	        for (String word : pair) {
+	            if (!idMap.containsKey(word)) {
+                    idMap.put(word, id++);
+                }
+	        }
+	        uf.union(idMap.get(pair[0]), idMap.get(pair[1]));
+	    }
+	    System.out.println(idMap);
+	    
+	    for (int i = 0; i < words1.length; i++) {
+	        String w1 = words1[i], w2 = words2[i];
+	        // need to check if w1 equals to w2 first
+	        // as w1 and w2 may not be defined in pairs
+	        if (w1.equals(w2)) continue;
+	        if (!idMap.containsKey(w1) || !idMap.containsKey(w2) ||
+	                uf.find(idMap.get(w1)) != uf.find(idMap.get(w2))) {
+	            return false;
+	        }
+	    }
+	    return true;
+	}
+	
+	private static class UnionFind {
+	    private int[] ids;
+	    UnionFind(int n) {
+	        ids = new int[n];
+	        for (int i = 0; i < n; i++) ids[i] = i;
+	    }
+	    
+	    int find(int p) {
+	        while (p != ids[p]) {
+	            p = ids[p];
+	        }
+	        return p;
+	    }
+	    
+	    void union(int p, int q) {
+	        int i = find(p), j = find(q);
+	        if (i == j) return;
+	        ids[i] = j;
+	    }
+	}
+	
+	
 	public static void main(String[] args) {
 		String[] words1 = {"great","acting","skills"};
 		String[] words2 = {"fine","drama","talent"};
 		String[][] pairs = {{"great","good"},{"fine","good"},{"drama","acting"},{"skills","talent"}};
 		
-		System.out.println(areSentencesSimilarTwo(words1, words2, pairs));
+		System.out.println(areSentencesSimilarTwo_unionfind(words1, words2, pairs));
 	}
 }

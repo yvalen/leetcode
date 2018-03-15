@@ -16,6 +16,7 @@ import leetcode.list.ListNode;
  */
 
 /*
+ * LEETCODE 382
  * Given a singly linked list, return a random node's value from the linked
  * list. Each node must have the same probability of being chosen. Follow up:
  * What if the linked list is extremely large and its length is unknown to you?
@@ -27,7 +28,9 @@ import leetcode.list.ListNode;
  * // getRandom() should return either 1, 2, or 3 randomly. Each element should
  * have equal probability of returning. solution.getRandom();
  * 
- * Company: Google Difficulty: medium
+ * Company: Google 
+ * Difficulty: medium
+ * Similar Questions: 398(RandomPickIndex)
  */
 public class LinkedListRandomNode {
     private ListNode head;
@@ -60,16 +63,19 @@ public class LinkedListRandomNode {
      * sequence. If we know the total number of items (n), then the solution is
      * easy: select an index i between 1 and n with equal probability, and keep
      * the i-th element. The problem is that we do not always know n in advance.
-     * A possible solution is the following: Keep the first item in memory. When
-     * the i-th item arrives (for i > 1): - with probability 1 / i, keep the new
-     * item (discard the old one) - with probability 1 − 1 / i, keep the old
-     * item (ignore the new one) So: - when there is only one item, it is kept
-     * with probability 1; - when there are 2 items, each of them is kept with
-     * probability 1/2; - when there are 3 items, the third item is kept with
-     * probability 1/3, and each of the previous 2 items are also kept with
-     * probability (1/2)(1-1/3) = (1/2)(2/3) = 1/3; - by induction, it is easy
-     * to prove that when there are n items, each item is kept with probability
-     * 1/n.
+     * A possible solution is the following: 
+     * 1. Keep the first item in memory.
+     * 2. When the i-th item arrives (for i > 1): 
+     * - with probability 1 / i, keep the new item (discard the old one) 
+     * - with probability 1 − 1 / i, keep the old item (ignore the new one) 
+     * 3. So: 
+     * - when there is only one item, it is kept with probability 1; 
+     * - when there are 2 items, each of them is kept with probability 1/2; 
+     * - when there are 3 items, the third item is kept with probability 1/3, and 
+     * each of the previous 2 items are also kept with probability 
+     * (1/2)(1-1/3) = (1/2)(2/3) = 1/3; 
+     * - by induction, it is easy to prove that when there are n items, each item 
+     * is kept with probability 1/n.
      */
     public int getRandom() {
         int result = head.val;

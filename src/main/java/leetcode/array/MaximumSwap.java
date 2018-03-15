@@ -2,7 +2,8 @@ package leetcode.array;
 
 /*
  * LEETCODE 670
- * Given a non-negative integer, you could swap two digits at most once to get the maximum valued number. Return the maximum valued number you could get.
+ * Given a non-negative integer, you could swap two digits at most once to get the 
+ * maximum valued number. Return the maximum valued number you could get.
  * Example 1: Input: 2736  Output: 7236
  * Explanation: Swap the number 2 and the number 7.
  * Example 2: Input: 9973  Output: 9973 
@@ -19,8 +20,7 @@ public class MaximumSwap {
     // check whether there exists a larger digit in this num (start from 9 to
     // current digit).
     // We also need to make sure the position of this larger digit is behind the
-    // current one.
-    // If we find it, simply swap these two digits and return the result.
+    // current one. If we find it, simply swap these two digits and return the result.
     // Time complexity: O(n) where n is the number of digits in num
     public int maximumSwap(int num) {
         char[] digits = Integer.toString(num).toCharArray();

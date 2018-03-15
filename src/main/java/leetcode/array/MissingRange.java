@@ -6,9 +6,14 @@ import java.util.List;
 
 /*
  * LEETCODE 163 
- * Given a sorted integer array where the range of elements are in the inclusive range [lower, upper], 
- * return its missing ranges.
- * For example, given [0, 1, 3, 50, 75], lower = 0 and upper = 99, return ["2", "4->49", "51->74", "76->99"]. 
+ * Given a sorted integer array where the range of elements are in the 
+ * inclusive range [lower, upper], return its missing ranges.
+ * For example, given [0, 1, 3, 50, 75], lower = 0 and upper = 99, 
+ * return ["2", "4->49", "51->74", "76->99"]. 
+ * 
+ * Company: Google
+ * Difficulty: medium
+ * Similar Questions: 228(SummaryRanges)
  */
 public class MissingRange {
 
@@ -61,12 +66,17 @@ public class MissingRange {
                 lower = num + 1;
                 continue;
             }
-            if (lower == num - 1)
+            if (lower == num - 1) {
                 result.add(String.valueOf(lower));
-            else if (lower < num - 1)
+            }
+            else if (lower < num - 1) {
                 result.add(String.valueOf(lower) + "->" + String.valueOf(num - 1));
-            if (num == Integer.MAX_VALUE)
+            }
+            // need to check for Integer.MAX_VALUE after checking lower, to handle case
+            // [2147483647] 0 2147483647
+            if (num == Integer.MAX_VALUE) {
                 return result; // result when reaching max value
+            }
             lower = num + 1; // make lower bigger than num
         }
 

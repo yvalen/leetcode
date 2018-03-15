@@ -8,8 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 /*
- * A strobogrammatic number is a number that looks the same when rotated 180 degrees (looked at upside down).
- * 0, 1, 8 are symmetrical around the horizontal axis, and 6 and 9 are the same as each other when rotated 180 degrees. 
+ * A strobogrammatic number is a number that looks the same when rotated 180 degrees 
+ * (looked at upside down). 0, 1, 8 are symmetrical around the horizontal axis, and 
+ * 6 and 9 are the same as each other when rotated 180 degrees. 
  * https://en.wikipedia.org/wiki/Strobogrammatic_number
  */
 public class StrobogrammaticNumber {
@@ -23,11 +24,17 @@ public class StrobogrammaticNumber {
     }
 
     /*
-     * Write a function to determine if a number is strobogrammatic. The number
-     * is represented as a string. For example, the numbers "69", "88", and
-     * "818" are all strobogrammatic.
+     * LEETCODE 246
+     * Write a function to determine if a number is strobogrammatic. 
+     * The number is represented as a string. 
+     * For example, the numbers "69", "88", and "818" are all strobogrammatic.
+     * 
+     * Company: Google
+     * Difficulty: easy
+     * Similar Questions: 247(Strobogrammatic Number II), 248(Strobogrammatic Number III)
      */
     public boolean isStrobogrammatic(String num) {
+        // need to check for i<=j as we need to validate single digit
         for (int i = 0, j = num.length() - 1; i <= j; i++, j--) {
             if (!"00 11 88 696".contains(num.charAt(i) + "" + num.charAt(j)))
                 return false;
@@ -41,8 +48,13 @@ public class StrobogrammaticNumber {
     }
 
     /*
+     * LEETCODE 247
      * Find all strobogrammatic numbers that are of length = n. For example,
      * Given n = 2, return ["11","69","88","96"].
+     * 
+     * Company: Google
+     * Difficulty: medium
+     * Similar Questions: 246(Strobogrammatic Number), 248(Strobogrammatic Number III)
      */
     public List<String> findStrobogrammatic(int n) {
         return findStrobogrammaticHelper(n, n);
@@ -73,11 +85,16 @@ public class StrobogrammaticNumber {
     }
 
     /*
+     * LEETCODE 248
      * Write a function to count the total strobogrammatic numbers that exist in
      * the range of low <= num <= high. For example, Given low = "50", high =
      * "100", return 3. Because 69, 88, and 96 are three strobogrammatic
-     * numbers. Note: Because the range might be a large number, the low and
-     * high numbers are represented as string.
+     * numbers. 
+     * Note: Because the range might be a large number, the low and high numbers 
+     * are represented as string.
+     * 
+     * Difficult: hard
+     * Similar Questions: 246(Strobogrammatic Number), 247(Strobogrammatic Number II)
      */
     public int strobogrammaticInRange(String low, String high) {
         // if (low == null || high == null || low.compareTo(high) > 0) return 0;

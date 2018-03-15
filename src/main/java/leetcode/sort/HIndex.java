@@ -4,17 +4,26 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.IntStream;
 
-/*
- * Given an array of citations (each citation is a non-negative integer) of a researcher, write a function to compute the researcher's h-index.
- * According to the definition of h-index on Wikipedia: "A scientist has index h if h of his/her N papers have at least h citations each, and 
- * the other N − h papers have no more than h citations each." For example, given citations = [3, 0, 6, 1, 5], which means the researcher has 5 
- * papers in total and each of them had received 3, 0, 6, 1, 5 citations respectively. Since the researcher has 3 papers with at least 3 citations 
- * each and the remaining two with no more than 3 citations each, his h-index is 3.
- * Note: If there are several possible values for h, the maximum one is taken as the h-index. 
- * 
- * Comapny: Bloomberg, Google, Facebook
- */
+
 public class HIndex {
+    /*
+     * LEETCODE 274
+     * Given an array of citations (each citation is a non-negative integer) 
+     * of a researcher, write a function to compute the researcher's h-index.
+     * According to the definition of h-index on Wikipedia: "A scientist has 
+     * index h if h of his/her N papers have at least h citations each, and 
+     * the other N − h papers have no more than h citations each." 
+     * For example, given citations = [3, 0, 6, 1, 5], which means the researcher 
+     * has 5 papers in total and each of them had received 3, 0, 6, 1, 5 citations 
+     * respectively. Since the researcher has 3 papers with at least 3 citations 
+     * each and the remaining two with no more than 3 citations each, his h-index is 3.
+     * Note: If there are several possible values for h, the maximum one is taken as 
+     * the h-index. 
+     * 
+     * Company: Bloomberg, Google, Facebook
+     * Difficulty: medium
+     * Similar Questions: 275(H-Index II)
+     */
     // Time Complexity: O(nlogn)
     public int hIndex_sortDescending(int[] citations) {
         if (citations == null || citations.length == 0)
@@ -74,6 +83,7 @@ public class HIndex {
 
         int k = n; // sum at k is the sum of all counts with citation >= k, or
                    // the number of papers have at least k citations
+        // The first k from right to left that has k <= sum the h-index
         for (int sum = papers[n]; k > sum; sum += papers[k]) {
             k--;
         }
@@ -82,11 +92,14 @@ public class HIndex {
     }
 
     /*
+     * LEETCODE 275
      * Follow up for H-Index: What if the citations array is sorted in ascending
-     * order? Could you optimize your algorithm? Hint: Expected runtime
-     * complexity is in O(log n) and the input is sorted.
+     * order? Could you optimize your algorithm? 
+     * Hint: Expected runtime complexity is in O(log n) and the input is sorted.
      * 
      * Company: Facebook
+     * Difficulty: medium
+     * Similar Questions: 274(H-Index)
      */
     // Binary search, Time complexity: O(logN)
     public int hIndexII(int[] citations) {
@@ -104,12 +117,12 @@ public class HIndex {
         // case 3: citations[mid] < len-mid, we should continue searching in the
         // right side
         // After iteration, it is guaranteed that right+1 is the one we need to
-        // find (i.e. len-(right+1) papars have at least len-(righ+1) citations)
+        // find (i.e. len-(right+1) papers have at least len-(righ+1) citations)
 
         if (citations == null || citations.length == 0)
             return 0;
 
-        int n = citations.length, lo = 0, hi = n - 1;
+        int n = citations.length, lo = 0, hi = n - 1;               
         while (lo <= hi) { // use lo <= hi to handle {0, 0}
             int mid = lo + (hi - lo) / 2;
             if (citations[mid] == n - mid)

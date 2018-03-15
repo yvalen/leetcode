@@ -7,17 +7,21 @@ import java.util.stream.Stream;
 
 public class WiggleSort {
     /*
-     * Given an unsorted array nums, reorder it in-place such that nums[0] <=
-     * nums[1] >= nums[2] <= nums[3].... For example, given nums = [3, 5, 2, 1,
-     * 6, 4], one possible answer is [1, 6, 2, 5, 3, 4].
+     * LEETCODE 280
+     * Given an unsorted array nums, reorder it in-place such that 
+     * nums[0] <= nums[1] >= nums[2] <= nums[3].... 
+     * For example, given nums = [3, 5, 2, 1, 6, 4], one possible 
+     * answer is [1, 6, 2, 5, 3, 4].
      * 
-     * Company: Google Difficulty: Medium
+     * Company: Google 
+     * Difficulty: Medium
+     * Similar Questions: 75(SortColors), 324(Wiggle Sort II)
      */
     // The final sorted nums needs to satisfy two conditions:
     // - If i is odd, then nums[i] >= nums[i - 1];
     // - If i is even, then nums[i] <= nums[i - 1].
-    // The code is just to fix the orderings of nums that do not satisfy 1 and
-    // 2.
+    // The code is just to fix the orderings of nums that do not satisfy 
+    // 1 and 2.
     // proof:
     // if i is odd, we already have, nums[i - 2] >= nums[i - 1],
     // if nums[i - 1] <= nums[i], then we does not need to do anything, its
@@ -29,8 +33,8 @@ public class WiggleSort {
     // similarly,
     // if i is even, we already have nums[i - 2] <= nums[i - 1],
     // if nums[i - 1] >= nums[i], pass
-    // if nums[i - 1] < nums[i], after swap, we are sure to have wiggled nums[i
-    // - 2] < nums[i - 1] > nums[i].
+    // if nums[i - 1] < nums[i], after swap, we are sure to have wiggled 
+    // nums[i- 2] < nums[i - 1] > nums[i].
     public void wiggleSort(int[] nums) {
         if (nums == null || nums.length <= 1)
             return;
@@ -47,16 +51,22 @@ public class WiggleSort {
     }
 
     /*
-     * Given an unsorted array nums, reorder it such that nums[0] < nums[1] >
-     * nums[2] < nums[3].... Example: (1) Given nums = [1, 5, 1, 1, 6, 4], one
-     * possible answer is [1, 4, 1, 5, 1, 6]. (2) Given nums = [1, 3, 2, 2, 3,
-     * 1], one possible answer is [2, 3, 1, 3, 1, 2]. Note: You may assume all
-     * input has valid answer. Follow Up: Can you do it in O(n) time and/or
-     * in-place with O(1) extra space?
+     * LEETCODE 324
+     * Given an unsorted array nums, reorder it such that 
+     * nums[0] < nums[1] > nums[2] < nums[3].... 
+     * Example: 
+     * (1) Given nums = [1, 5, 1, 1, 6, 4], one possible answer is 
+     * [1, 4, 1, 5, 1, 6]. 
+     * (2) Given nums = [1, 3, 2, 2, 3, 1], one possible answer is 
+     * [2, 3, 1, 3, 1, 2]. 
+     * Note: You may assume all input has valid answer. 
+     * Follow Up: Can you do it in O(n) time and/or in-place with O(1) extra space?
      * https://discuss.leetcode.com/topic/71990/summary-of-the-various-solutions
      * -to-wiggle-sort-for-your-reference
      * 
-     * Company: Google Difficulty: Medium
+     * Company: Google 
+     * Difficulty: Medium
+     * Similar Questions: 75(SortColors), 280(Wiggle Sort), 215(KthLargestElement)
      */
     // http://buttercola.blogspot.com/2016/01/leetcode-wiggle-sort-ii.html
     // https://discuss.leetcode.com/topic/32861/3-lines-python-with-explanation-proof

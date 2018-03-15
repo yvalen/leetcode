@@ -4,10 +4,10 @@ public class DecodeWays {
     /*
      * LEETCODE 91
      * A message containing letters from A-Z is being encoded to numbers using
-     * the following mapping: 'A' -> 1 'B' -> 2 ... 'Z' -> 26 Given an encoded
-     * message containing digits, determine the total number of ways to decode
-     * it. For example, given encoded message "12", it could be decoded as "AB"
-     * (1 2) or "L" (12). The number of ways decoding "12" is 2.
+     * the following mapping: 'A' -> 1 'B' -> 2 ... 'Z' -> 26. Given an encoded 
+     * message containing digits, determine the total number of ways to decode it. 
+     * For example, given encoded message "12", it could be decoded as "AB" (1 2) 
+     * or "L" (12). The number of ways decoding "12" is 2.
      * 
      * Company: Microsoft, Uber, Facebook 
      * Difficulty: medium
@@ -123,11 +123,11 @@ public class DecodeWays {
             int val = Character.getNumericValue(c1)*10 + Character.getNumericValue(c2);
             return val >= 10 && val <= 26 ? 1 : 0;
         } else if (c1 == '*' && c2 == '*') {
-            return 15; // 11-19, 21-26
+            return 15; // 11-19, 21-26, * cannot be used as 0
         }
         else if (c1 == '*') {
             if (c2 >= '0' && c2 <= '6') return 2;
-            else return 1;
+            else return 1; //11-19
         } else {
             if (c1 == '1') return 9;
             else if (c1 == '2') return 6;

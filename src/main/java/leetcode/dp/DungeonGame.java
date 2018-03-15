@@ -1,6 +1,6 @@
 package leetcode.dp;
 
-/**
+/* LEETCODE 174
  * The demons had captured the princess (P) and imprisoned her in the
  * bottom-right corner of a dungeon. The dungeon consists of M x N rooms laid
  * out in a 2D grid. Our valiant knight (K) was initially positioned in the
@@ -14,6 +14,9 @@ package leetcode.dp;
  * decides to move only rightward or downward in each step. Write a function to
  * determine the knight's minimum initial health so that he is able to rescue
  * the princess.
+ * 
+ * Company: Microsoft
+ * Difficulty: hard
  */
 public class DungeonGame {
     public int calculateMinimumHP(int[][] dungeon) {

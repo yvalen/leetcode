@@ -23,6 +23,41 @@ import java.util.Set;
  * Similar Questions: 20(ValidParentheses)
  */
 public class RemoveInvalidParentheses {
+    // Time complexity: O(n^2)
+    public List<String> removeInvalidParentheses(String s) {
+        if (s == null) return Collections.emptyList(); 
+        List<String> result = new ArrayList<>();
+        remove(s, result, 0, 0,  new char[] {'(', ')'});
+        return result;
+    }
+    
+    private void remove(String s, List<String> result, int lasti, int lastj, char[] param) {
+        for (int count = 0, i = lasti; i < s.length(); i++) {
+            if (s.charAt(i) == param[0]) count++;
+            else if (s.charAt(i) == param[1]) count--;
+            if (count >= 0) continue;
+            // count is negative, meaning  there are unmatched pairs
+            // remove the first redundant one from the prefix
+            for (int j = lastj; j <= i; j++) {
+                
+                if (s.charAt(j) == param[1] && 
+                        // for consecutive )), remove the first to avoid duplicate
+                        (j == lastj || s.charAt(j-1) != param[1])) {
+                    remove(s.substring(0, j)+s.substring(j+1), result, i, j, param);
+                }
+            }
+            return; // return here as if s is valid we won't reach here
+        }
+        
+        String reversed = new StringBuilder(s).reverse().toString();
+        if (param[0] == '(') { // finished left to right
+            remove(reversed, result, 0, 0, new char[] {')', '('});
+        }
+        else {
+            result.add(reversed);
+        }
+    }
+    
 
     // BFS
     // generate all possible states by removing one ( or ), check if they are
@@ -62,7 +97,7 @@ public class RemoveInvalidParentheses {
             // need to remove char from the rest of entries in queue
             // this is because once an answer is found we don't need to check
             // strings shorter than that
-            if (found)
+            if (found)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
                 continue;
 
             for (int i = 0; i < curr.length(); i++) {
@@ -152,7 +187,8 @@ public class RemoveInvalidParentheses {
 
     public static void main(String[] args) {
         RemoveInvalidParentheses rip = new RemoveInvalidParentheses();
+        //String s = "()())()";
         String s = "()())()";
-        System.out.println(rip.removeInvalidParentheses_dfs(s));
+        System.out.println(rip.removeInvalidParentheses(s));
     }
 }

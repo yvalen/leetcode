@@ -7,9 +7,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 /*
- * Given a set of words (without duplicates), find all word squares you can build from them. A sequence of words forms a valid word square 
- * if the kth row and column read the exact same string, where 0 ≤ k < max(numRows, numColumns). For example, the word sequence 
- * ["ball","area","lead","lady"] forms a word square because each word reads the same both horizontally and vertically.
+ * LEETCODE 425
+ * Given a set of words (without duplicates), find all word squares you can build 
+ * from them. A sequence of words forms a valid word square if the kth row and column 
+ * read the exact same string, where 0 ≤ k < max(numRows, numColumns). 
+ * For example, the word sequence ["ball","area","lead","lady"] forms a word square 
+ * because each word reads the same both horizontally and vertically.
  * 	b a l l
  * 	a r e a
  * 	l e a d
@@ -18,7 +21,7 @@ import java.util.List;
  * - There are at least 1 and at most 1000 words.
  * - All words will have the exact same length.
  * - Word length is at least 1 and at most 5.
- * - Each word contains only lowercase English alphabet a-z.
+ * - Each word contains only lower case English alphabet a-z.
  * Example 1:
  * Input: ["area","lead","wall","lady","ball"]
  * Output:
@@ -34,7 +37,8 @@ import java.util.List;
  * 		 "lady"
  * 		]
  * 	]
- * Explanation: the output consists of two word squares. The order of output does not matter (just the order of words in each word square matters).
+ * Explanation: the output consists of two word squares. The order of 
+ * output does not matter (just the order of words in each word square matters).
  * Example 2:
  * Input: ["abat","baba","atan","atal"]
  * Output:
@@ -50,7 +54,12 @@ import java.util.List;
  * 		 "atal"
  * 		]
  * ]
- * Explanation: The output consists of two word squares. The order of output does not matter (just the order of words in each word square matters).
+ * Explanation: The output consists of two word squares. The order of output does 
+ * not matter (just the order of words in each word square matters).
+ * 
+ * Company: Google
+ * Difficulty: hard
+ * Similar Questions: 422(ValidWordSquare)
  */
 public class WordSquare {
 
@@ -62,6 +71,7 @@ public class WordSquare {
     private class Trie {
         private TrieNode root;
 
+        // O(nl) n - number of words, l - word length
         Trie(String[] words) {
             root = new TrieNode();
             for (String word : words) {

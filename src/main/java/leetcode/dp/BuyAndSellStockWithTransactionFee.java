@@ -36,12 +36,21 @@ public class BuyAndSellStockWithTransactionFee {
 
     public int maxProfit(int[] prices, int fee) {
         int buy = -prices[0], sell = 0;
+        for (int price : prices) {
+            int tmp = buy;
+            buy = Math.max(buy, sell - price);
+            sell = Math.max(sell, tmp+price-fee);
+        }
+        return sell;
+        /*
+        int buy = -prices[0], sell = 0;
         for (int i = 1; i < prices.length; i++) {
             int tmp = buy;
             buy = Math.max(buy, sell - prices[i]);
             sell = Math.max(sell, tmp + prices[i] - fee);
         }
         return sell;
+        */
     }
 
     public static void main(String[] args) {

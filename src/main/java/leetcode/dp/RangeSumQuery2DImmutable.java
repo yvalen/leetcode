@@ -1,6 +1,7 @@
 package leetcode.dp;
 
 /*
+ * LEETCODE 304
  * Given a 2D matrix matrix, find the sum of the elements inside the rectangle defined by 
  * its upper left corner (row1, col1) and lower right corner (row2, col2).
  * Given matrix = [
@@ -13,12 +14,15 @@ package leetcode.dp;
  * 	sumRegion(2, 1, 4, 3) -> 8
  * 	sumRegion(1, 1, 2, 2) -> 11
  * 	sumRegion(1, 2, 2, 4) -> 12 
+ * 
+ * Difficulty: Medium
+ * Similar Questions: 303(RangeSumQueryImmutable)
  */
-public class RangeSumQuery2D {
+public class RangeSumQuery2DImmutable {
     private int[][] sum;
     private int m, n;
 
-    public RangeSumQuery2D(int[][] matrix) {
+    public RangeSumQuery2DImmutable(int[][] matrix) {
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
             return;
         }
@@ -46,7 +50,7 @@ public class RangeSumQuery2D {
     public static void main(String[] args) {
         int[][] matrix = { { 1 }, { -7 } };
 
-        RangeSumQuery2D r = new RangeSumQuery2D(matrix);
+        RangeSumQuery2DImmutable r = new RangeSumQuery2DImmutable(matrix);
         System.out.println(r.sumRegion(0, 0, 0, 0));
         System.out.println(r.sumRegion(1, 0, 1, 0));
         System.out.println(r.sumRegion(0, 0, 1, 0));

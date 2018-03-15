@@ -18,6 +18,10 @@ import java.util.regex.Pattern;
  */
 public class Roman {
     // https://stackoverflow.com/questions/267399/how-do-you-match-only-valid-roman-numerals-with-a-regular-expression
+    // ^ - start
+    // $ - end
+    // () - group
+    // ? - 0 or one occurrence
     private static final Pattern PATTERN = Pattern.compile("^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$");
 
     /*

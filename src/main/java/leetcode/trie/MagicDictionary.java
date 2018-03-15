@@ -53,10 +53,10 @@ public class MagicDictionary {
                     System.out.println(s);
                     return true;
                 }
-                // need to do backtrack inside this loop
-                // as it needs to compare the original char
-                chars[i] = word.charAt(i);
-            }     
+            }    
+            // need to do backtrack inside this loop
+            // as it needs to compare the original char
+            chars[i] = word.charAt(i);
         }
         return false;
     }

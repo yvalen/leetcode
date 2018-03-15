@@ -11,21 +11,30 @@ import java.util.TreeSet;
 
 /*
  * LEETCODE 721
- * Given a list accounts, each element accounts[i] is a list of strings, where the first element accounts[i][0] is a name, 
- * and the rest of the elements are emails representing emails of the account. Now, we would like to merge these accounts. 
- * Two accounts definitely belong to the same person if there is some email that is common to both accounts. Note that even 
- * if two accounts have the same name, they may belong to different people as people could have the same name. A person can 
- * have any number of accounts initially, but all of their accounts definitely have the same name. After merging the accounts, 
- * return the accounts in the following format: the first element of each account is the name, and the rest of the elements 
+ * Given a list accounts, each element accounts[i] is a list of strings, 
+ * where the first element accounts[i][0] is a name, and the rest of the 
+ * elements are emails representing emails of the account. Now, we would 
+ * like to merge these accounts. Two accounts definitely belong to the same 
+ * person if there is some email that is common to both accounts. Note that 
+ * even if two accounts have the same name, they may belong to different people 
+ * as people could have the same name. A person can have any number of accounts 
+ * initially, but all of their accounts definitely have the same name. After 
+ * merging the accounts, return the accounts in the following format: 
+ * the first element of each account is the name, and the rest of the elements 
  * are emails in sorted order. The accounts themselves can be returned in any order.
  * Example 1:
  * Input: 
- * accounts = [["John", "johnsmith@mail.com", "john00@mail.com"], ["John", "johnnybravo@mail.com"], ["John", "johnsmith@mail.com", "john_newyork@mail.com"], ["Mary", "mary@mail.com"]]
- * Output: [["John", 'john00@mail.com', 'john_newyork@mail.com', 'johnsmith@mail.com'],  ["John", "johnnybravo@mail.com"], ["Mary", "mary@mail.com"]]
- * Explanation: The first and third John's are the same person as they have the common email "johnsmith@mail.com". The second 
- * John and Mary are different people as none of their email addresses are used by other accounts. We could return these lists 
- * in any order, for example the answer [['Mary', 'mary@mail.com'], ['John', 'johnnybravo@mail.com'], 
- * ['John', 'john00@mail.com', 'john_newyork@mail.com', 'johnsmith@mail.com']] would still be accepted.
+ * accounts = [["John", "johnsmith@mail.com", "john00@mail.com"], 
+ * ["John", "johnnybravo@mail.com"], ["John", "johnsmith@mail.com", "john_newyork@mail.com"], 
+ * ["Mary", "mary@mail.com"]]
+ * Output: [["John", 'john00@mail.com', 'john_newyork@mail.com', 'johnsmith@mail.com'],  
+ * ["John", "johnnybravo@mail.com"], ["Mary", "mary@mail.com"]]
+ * Explanation: The first and third John's are the same person as they have the common 
+ * email "johnsmith@mail.com". The second John and Mary are different people as none of 
+ * their email addresses are used by other accounts. We could return these lists in any order, 
+ * for example the answer [['Mary', 'mary@mail.com'], ['John', 'johnnybravo@mail.com'], 
+ * ['John', 'john00@mail.com', 'john_newyork@mail.com', 'johnsmith@mail.com']] would 
+ * still be accepted.
  * Note:
  * - The length of accounts will be in the range [1, 1000].
  * - The length of accounts[i] will be in the range [1, 10].
@@ -38,10 +47,12 @@ import java.util.TreeSet;
 public class AccountMerge {
     //
     // DFS
+    // Time complexity: O(∑a​i​​loga​i​​), where ai​​ is the length of accounts[i].
+    // The log factor is for sorting each component at the end.
+    // Space complexity: O(∑a​i​​​​)
     public List<List<String>> accountsMerge_dfs(List<List<String>> accounts) {
         // build the graph, a map that maps email to a list of accounts (use
-        // index as account id)
-        // this tracks which email links to which accounts
+        // index as account id). this tracks which email links to which accounts
         Map<String, List<Integer>> emailAccountMap = new HashMap<>();
         for (int i = 0; i < accounts.size(); i++) {
             List<String> account = accounts.get(i);
@@ -58,14 +69,12 @@ public class AccountMerge {
         boolean[] visited = new boolean[accounts.size()];
         List<List<String>> result = new ArrayList<>();
         for (int i = 0; i < accounts.size(); i++) {
-            Set<String> accountEmails = new TreeSet<>(); // collects all emails
-                                                         // that are linked to
-                                                         // this account
+            // collect all emails that are linked to thos account
+            Set<String> accountEmails = new TreeSet<>();
             dfs(accounts, emailAccountMap, i, visited, accountEmails);
-            if (!accountEmails.isEmpty()) { // need to check for empty here,
-                                            // otherwise linked account will
-                                            // appear in the result wih empty
-                                            // email list
+            if (!accountEmails.isEmpty()) { 
+                // need to check for empty here, otherwise linked account will
+                // appear in the result with empty email list
                 List<String> r = new ArrayList<>(accountEmails.size() + 1);
                 r.add(accounts.get(i).get(0));
                 r.addAll(accountEmails);
@@ -83,7 +92,7 @@ public class AccountMerge {
 
         visited[account] = true;
         List<String> currentEmails = accounts.get(account);
-        for (int i = 1; i < currentEmails.size(); i++) {
+        for (int i = 1; i < currentEmails.size(); i++) { // start from 1 as element 0 is the name
             String email = currentEmails.get(i);
             accountEmails.add(email);
             for (Integer a : emailAccountMap.get(email)) {
@@ -95,6 +104,8 @@ public class AccountMerge {
     //
     // Union Find
     //
+    // Time complexity: O(∑a​i​​loga​i​​)
+    // Space complexity: O(∑a​i​​​​)
     private static class UnionFind {
         private int[] ids; // account ids
 
@@ -123,11 +134,8 @@ public class AccountMerge {
         int n = accounts.size();
         UnionFind uf = new UnionFind(n);
 
-        Map<String, Integer> emailAccountMap = new HashMap<>(); // store the
-                                                                // email to
-                                                                // parent
-                                                                // account
-                                                                // mapping
+        // store the email to parent account mapping
+        Map<String, Integer> emailAccountMap = new HashMap<>(); 
         Map<Integer, Set<String>> accountEmailMap = new HashMap<>();
         // build the map and perform union
         for (int i = 0; i < n; i++) {
@@ -135,12 +143,9 @@ public class AccountMerge {
             List<String> emails = accounts.get(i);
             for (int j = 1; j < emails.size(); j++) {
                 String email = emails.get(j);
-                if (emailAccountMap.containsKey(email)) { // if this email
-                                                          // belongs to an
-                                                          // account already,
-                                                          // union the current
-                                                          // account with that
-                                                          // account
+                if (emailAccountMap.containsKey(email)) { 
+                    // if this email belongs to an account already,
+                    // union the current account with that account
                     uf.union(i, emailAccountMap.get(email));
                 } else {
                     emailAccountMap.put(email, i);
@@ -154,16 +159,11 @@ public class AccountMerge {
         for (int i = 0; i < n; i++) {
             // get the parent account for the current account
             int parent = uf.find(i);
-            resultMap.putIfAbsent(parent, new TreeSet<>()); // use tree set for
-                                                            // sortimg
-            resultMap.get(parent).addAll(accountEmailMap.get(i)); // add all
-                                                                  // emails
-                                                                  // associated
-                                                                  // with
-                                                                  // current
-                                                                  // account to
-                                                                  // parent's
-                                                                  // email set
+            // use tree set for sorting
+            resultMap.putIfAbsent(parent, new TreeSet<>()); 
+            // add all emails associated with current account to
+            // parent's email set
+            resultMap.get(parent).addAll(accountEmailMap.get(i)); 
         }
 
         List<List<String>> result = new ArrayList<>();

@@ -52,7 +52,7 @@ public class InOrderSuccessorInBST {
     }
 
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
-        if (root == null)
+        if (root == null || p == null)
             return null;
 
         if (root.val <= p.val) {

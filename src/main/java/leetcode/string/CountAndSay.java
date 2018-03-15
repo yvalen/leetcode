@@ -2,7 +2,6 @@ package leetcode.string;
 
 /*
  * LEETCODE 38
- * 
  * The count-and-say sequence is the sequence of integers with the first five terms as following:
  * 1.     1
  * 2.     11

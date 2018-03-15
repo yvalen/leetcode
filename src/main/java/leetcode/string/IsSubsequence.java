@@ -81,18 +81,18 @@ public class IsSubsequence {
             */
             prev = binarySearch(prev, list);
             if (prev == -1) return false;
-            prev++;
+            prev++; // need to increment prev by one here 
         }
         return true;
     }
     
     
-    // find the first element of list that is greater than or equal to prev
-    private int binarySearch(int prev, List<Integer> list) {
+    // find the first element of list that is greater than or equal to target
+    private int binarySearch(int target, List<Integer> list) {
         int lo = 0, hi = list.size()-1;
         while (lo <= hi) {
             int mid = lo + (hi-lo)/2;
-            if (list.get(mid) < prev) lo = mid + 1;
+            if (list.get(mid) < target) lo = mid + 1;
             else hi = mid-1;
         }
         return lo == list.size() ? -1 : list.get(lo);

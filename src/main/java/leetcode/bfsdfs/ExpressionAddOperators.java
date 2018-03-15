@@ -21,52 +21,60 @@ import java.util.List;
  */
 public class ExpressionAddOperators {
     // Use DFS for output all possible solutions
-    // Time complexity:
+    // Time complexity: O(4^n)
+    // Each digit has four different options: +, -, *, nothing.
+    // T(n) = 3 * T(n-1) + 3 * T(n-2) + 3 * T(n-3) + ... + 3 *T(1);
+    // T(n-1) = 3 * T(n-2) + 3 * T(n-3) + ... 3 * T(1);
+    // Thus T(n) = 4T(n-1);
     public List<String> addOperators(String num, int target) {
         if (num == null || num.length() == 0)
             return Collections.emptyList();
 
         List<String> result = new ArrayList<>();
-        dfs(num, target, result, "", 0, 0, 0);
-
+        dfs(num, target, result, 0, new StringBuilder(), 0, 0);
         return result;
     }
 
     // use long for currentResult to prevent overflow
-    public void dfs(String num, int target, List<String> result, String path, 
-            int position, long currentResult, long prev) { 
-        if (position == num.length()) { // all chars in num have been processed
+    private void dfs(String num, int target, List<String> result, int start, StringBuilder sb, long currentResult, long prev) {
+        if (start == num.length()) { // all chars in num have been processed
             if (target == currentResult) {
-                result.add(new String(path));
+                result.add(sb.toString());
             }
             return;
         }
-
-        for (int i = position; i < num.length(); i++) {
-            if (i != position && num.charAt(position) == '0') { 
+        
+        for (int i = start; i < num.length(); i++) {
+            if (i != start && num.charAt(start) == '0') {
                 // handle 0 sequence, we cannot have multiple digits
-                // starting with 0
+                // starting with 0, e.g. 01, 02
                 break;
             }
+            
             // get the current number to process,
-            // combination of digits after position (inclusive)
-            long currentNum = Long.parseLong(num.substring(position, i + 1)); 
-            if (position == 0) { // don't prepend operator for the first digit
-                dfs(num, target, result, path + currentNum, i + 1, currentNum, currentNum);
-            } else {
+            // combination of digits after start (inclusive)
+            long currentNum = Long.parseLong(num.substring(start, i+1));
+            int len = sb.length();
+            if (start == 0) { // don't prepend operator for the first digit
+                dfs(num, target, result, i+1, sb.append(currentNum), currentNum, currentNum);
+                sb.setLength(len);
+            }
+            else {
                 // add op
-                dfs(num, target, result, path + "+" + currentNum, i + 1, currentResult + currentNum, currentNum);
+                dfs(num, target, result, i+1, sb.append("+").append(currentNum), currentResult+currentNum, currentNum);
+                sb.setLength(len);
                 
                 // subtract op
-                dfs(num, target, result, path + "-" + currentNum, i + 1, currentResult - currentNum, -currentNum);
-
+                dfs(num, target, result, i+1, sb.append("-").append(currentNum), currentResult-currentNum, -currentNum);
+                sb.setLength(len);
+                
                 // multiply op
-                dfs(num, target, result, path + "*" + currentNum, i + 1, currentResult - prev + prev * currentNum,
-                        prev * currentNum);
+                dfs(num, target, result, i+1, sb.append("*").append(currentNum), currentResult-prev+prev*currentNum, prev*currentNum);
+                sb.setLength(len);
             }
         }
     }
-
+    
     public static void main(String[] args) {
         ExpressionAddOperators eao = new ExpressionAddOperators();
         // String num = "123";

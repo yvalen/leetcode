@@ -1,13 +1,59 @@
 package leetcode.dp;
 
 public class UniquePaths {
-    /**
+    /*
+     * LEETCODE 62
      * A robot is located at the top-left corner of a m x n grid. The robot can
      * only move either down or right at any point in time. The robot is trying
      * to reach the bottom-right corner of the grid. How many possible unique
      * paths are there?
+     * 
+     * Company: Bloomberg
+     * Difficulty: medium
+     * Similar Questuons: 63(Unique Paths II), 64(MinimumPathSum), 174(DungeonGame)
      */
+    public int uniquePaths_oneDDP(int m, int n) {
+        if (m <= 0 || n <= 0)
+            return 0;
+        
+        int[] dp = new int[n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == 0 || j == 0) {
+                    dp[j] = 1;
+                }
+                else {
+                    dp[j] = dp[j] + dp[j-1];
+                }
+            }
+        }
+        return dp[n-1];
+    }
+    
+    public int uniquePaths_twoDDP(int m, int n) {
+        if (m <= 0 || n <= 0)
+            return 0;
 
+        // stores the unique paths to get to point m,n
+        int[][] paths = new int[m][n];
+
+        // populate the edges
+        for (int i = 0; i < m; i++) {
+            paths[i][0] = 1;
+        }
+        for (int j = 0; j < n; j++) {
+            paths[0][j] = 1;
+        }
+
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                paths[i][j] = paths[i - 1][j] + paths[i][j - 1];
+            }
+        }
+
+        return paths[m - 1][n - 1];
+    }
+    
     public int uniquePaths_topDown(int m, int n) {
         if (m <= 0 || n <= 0)
             return 0;
@@ -33,34 +79,17 @@ public class UniquePaths {
         return paths[startM][startN];
     }
 
-    public int uniquePaths_bottomUp(int m, int n) {
-        if (m <= 0 || n <= 0)
-            return 0;
+    
 
-        // stores the unique paths to get to point m,n
-        int[][] paths = new int[m][n];
-
-        // populate the edges
-        for (int i = 0; i < m; i++) {
-            paths[i][0] = 1;
-        }
-        for (int j = 0; j < n; j++) {
-            paths[0][j] = 1;
-        }
-
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
-                paths[i][j] = paths[i - 1][j] + paths[i][j - 1];
-            }
-        }
-
-        return paths[m - 1][n - 1];
-    }
-
-    /**
+    /*
+     * LEETCODE 63
      * Follow up for "Unique Paths" Now consider if some obstacles are added to
      * the grids. How many unique paths would there be? An obstacle and empty
      * space is marked as 1 and 0 respectively in the grid.
+     * 
+     * Company: Bloomberg
+     * Difficulty: medium
+     * Similar Questions: 62(Unique Paths)
      */
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
         int m = obstacleGrid.length, n = obstacleGrid[0].length;
@@ -90,36 +119,6 @@ public class UniquePaths {
         return paths[m - 1][n - 1];
     }
 
-    /**
-     * Given a m x n grid filled with non-negative numbers, find a path from top
-     * left to bottom right which minimizes the sum of all numbers along its
-     * path. Note: You can only move either down or right at any point in time.
-     */
-    public int minPathSum(int[][] grid) {
-        if (grid.length == 0 || grid[0].length == 0)
-            return 0;
-
-        int m = grid.length, n = grid[0].length;
-        int[][] sum = new int[m][n];
-
-        sum[0][0] = grid[0][0];
-        for (int i = 1; i < m; i++) {
-            sum[i][0] = grid[i][0] + sum[i - 1][0];
-        }
-
-        for (int j = 1; j < n; j++) {
-            sum[0][j] = grid[0][j] + sum[0][j - 1];
-        }
-
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
-                sum[i][j] = Math.min(sum[i - 1][j], sum[i][j - 1]) + grid[i][j];
-            }
-        }
-
-        return sum[m - 1][n - 1];
-    }
-
     public static void main(String[] args) {
         UniquePaths u = new UniquePaths();
         /*
@@ -127,8 +126,5 @@ public class UniquePaths {
          * System.out.println(paths);
          */
 
-        int[][] grid = { { 1, 2 }, { 1, 1 } };
-        int s = u.minPathSum(grid);
-        System.out.println(s);
     }
 }

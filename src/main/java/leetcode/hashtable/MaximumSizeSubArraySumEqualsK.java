@@ -17,6 +17,7 @@ import java.util.Map;
  * 
  * Company: Palantir, Facebook
  * Difficulty: medium
+ * Similar Questions: 209(MinimumSizeSubarraySum)
  */
 public class MaximumSizeSubArraySumEqualsK {
 

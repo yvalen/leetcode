@@ -1,6 +1,7 @@
 package leetcode.array;
 
 /*
+ * LEETCODE 209
  * Given an array of n positive integers and a positive integer s, 
  * find the minimal length of a subarray of which the sum ≥ s. 
  * If there isn't one, return 0 instead.
@@ -9,6 +10,7 @@ package leetcode.array;
  * 
  * Company: Facebook
  * Difficulty: medium
+ * Similar Questions: 76(MinimumWindowSubstring), 325(MaximumSizeSubArraySumEqualsK)
  */
 public class MinimumSizeSubarraySum {
     public int minSubArrayLen(int s, int[] nums) {
@@ -18,7 +20,7 @@ public class MinimumSizeSubarraySum {
         int sum = 0, min = Integer.MAX_VALUE;
         for (int left = 0, right = 0; right < nums.length; right++) {
             sum += nums[right];
-            while (sum >= s) {
+            while (sum >= s) { // need to use while to keep checking until sum is less than s
                 min = Math.min(min, right - left + 1);
                 sum -= nums[left++];
             }

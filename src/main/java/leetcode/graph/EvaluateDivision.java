@@ -57,7 +57,7 @@ public class EvaluateDivision {
 
     private double dfs(String start, String end, Map<String, List<String>> graph, 
             Map<String, List<Double>> valueMap, Set<String> visited, double value) {
-        if (!graph.containsKey(start)) return 0.0;
+        if (!graph.containsKey(start)) return -1.0;
 
         if (start.equals(end)) return value;
 
@@ -66,10 +66,12 @@ public class EvaluateDivision {
         List<Double> valueList = valueMap.get(start);
         for (int i = 0; i < adjList.size(); i++) {
             // this is undirected graph, we need to use visited to track the nodes that has been processed
-            // and only process unvisited nodes to avoid infite loop
+            // and only process unvisited nodes to avoid infinite loop
             if (!visited.contains(adjList.get(i))) {
                 double val = dfs(adjList.get(i), end, graph, valueMap, visited, value * valueList.get(i));
-                if (val != -1.0) break; // find path
+                if (val != -1.0) { // find path
+                    return val;
+                }
             }
         }
         return -1.0;
@@ -79,7 +81,8 @@ public class EvaluateDivision {
         EvaluateDivision evalDiv = new EvaluateDivision();
         String[][] equations = { { "a", "b" }, { "b", "c" } };
         double[] values = { 2.0, 3.0 };
-        String[][] queries = { { "a", "c" }, { "b", "c" }, { "a", "e" }, { "a", "a" }, { "x", "x" } };
+        //String[][] queries = { { "a", "c" }, { "b", "c" }, { "a", "e" }, { "a", "a" }, { "x", "x" } };
+        String[][] queries = {  { "x", "x" } };
         double[] result = evalDiv.calcEquation(equations, values, queries);
         for (double r : result) {
             System.out.print(r + ", ");

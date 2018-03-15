@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import leetcode.dp.NumberOfLongestIncreasingSubsequence;
+
 public class CombinationSum {
     /*
      * LEETCODE 39 
@@ -69,11 +71,14 @@ public class CombinationSum {
     				// special case when current target is equal to current candidate
     				if (i == candidates[j]) {
     					combos.add(Arrays.asList(candidates[j]));
+    					//System.out.println("- i=" + i + " numsj=" + candidates[j]+  " combos:"+ combos);
     				}
-    				else if (candidates[j] <= i) {
+    				else {
     					List<List<Integer>> combo = map.get(i-candidates[j]);
+    					System.out.println("* i=" + i + " numsj=" + candidates[j]+  " combos:"+ combo);
     					for (List<Integer> list : combo) {
     						if (candidates[j] <= list.get(0)) { // de-dup
+    						    System.out.println("add " + candidates[j]);
     							List<Integer> l = new ArrayList<>();
     							l.add(candidates[j]);
     							l.addAll(list);
@@ -83,6 +88,7 @@ public class CombinationSum {
     				}
     			}
     			map.put(i, combos);
+    			System.out.println("- i=" + i +  " combos:"+ combos);
     		}
     		return map.get(target);
     }

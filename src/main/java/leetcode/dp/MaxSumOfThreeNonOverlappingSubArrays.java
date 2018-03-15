@@ -43,7 +43,7 @@ public class MaxSumOfThreeNonOverlappingSubArrays {
                                                                  // [0,k],
                                                                  // slides
                                                                  // right, i is
-                                                                 // the end
+                                                                 // the end 
                                                                  // position of
                                                                  // the interval
             if (sum[i + 1] - sum[i + 1 - k] > maxLeft) { // find a bigger

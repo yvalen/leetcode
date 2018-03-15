@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /*
- * Given a binary array, find the maximum length of a contiguous subarray with equal number of 0 and 1.
+ * LEETCODE 525
+ * Given a binary array, find the maximum length of a contiguous subarray 
+ * with equal number of 0 and 1.
  * Example 1: Input: [0,1] Output: 2
  * Explanation: [0, 1] is the longest contiguous subarray with equal number of 0 and 1.
  * Example 2: Input: [0,1,0] Output: 2
@@ -13,6 +15,7 @@ import java.util.Map;
  * 
  * Company: Facebook
  * Difficulty: medium
+ * Similar Questions: 325(MaximumSizeSubArraySumEqualsK)
  */
 public class ContiguousArray {
 
@@ -21,17 +24,21 @@ public class ContiguousArray {
     // increment count by 1 for every one encountered, decrement it by 1 for
     // every zero encountered
     // If at any moment count becomes zero it means we have encountered equal
-    // number of zeroes and ones from
-    // the beginning till the current index. If we have encounter the same count
-    // twice , it means that the number
+    // number of zeroes and ones from the beginning till the current index. 
+    // If we have encounter the same count twice , it means that the number
     // of zeros and ones are equal between the indices corresponding to the
     // equal count values
     // Time complexity: O(n), Space complexity: O(n)
     public int findMaxLength(int[] nums) {
         int maxLen = 0, count = 0;
-        Map<Integer, Integer> map = new HashMap<>(); // store the count and the
-                                                     // first index
-        map.put(0, -1); // [0, 1], count is 0 before processing
+        // map store the count and the first index
+        Map<Integer, Integer> map = new HashMap<>();
+        // handle the case where entire array has equal number of 0s and 1s. 
+        // Only in that case the sum equals 0. From this we can get the answer as follows
+        // => max(i) - sumToIndex[0] = N
+        // => N - 1 - sumToIndex[0]  = N
+        // => sumToIndex[0] = -1rMaxi
+        map.put(0, -1); // [0, 1], count is 0 before process
         for (int i = 0; i < nums.length; i++) {
             count += nums[i] == 0 ? -1 : 1;
             if (map.containsKey(count)) {

@@ -119,15 +119,21 @@ public class MaximumRectangle {
 
     public static void main(String[] args) {
         MaximumRectangle r = new MaximumRectangle();
+      
+        char[][] matrix = { 
+                {'1', '0', '1', '0', '0'}, 
+                {'1', '0', '1', '1', '1'}, 
+                {'1', '1', '1', '1', '1'}, 
+                {'1', '0', '0', '1', '0'}
+                };
+        
         /*
-         * char[][] matrix = { {'1', '0', '1', '0', '0'}, {'1', '0', '1', '1',
-         * '1'}, {'1', '1', '1', '1', '1'}, {'1', '0', '0', '1', '0'}, };
-         */
         char[][] matrix = { 
                 { '0', '0', '0', '1', '0', '0', '0' }, 
                 { '0', '0', '1', '1', '1', '0', '0' },
                 { '0', '1', '1', '1', '1', '1', '0' } 
                 };
+                */
         System.out.println(r.maximalRectangle_dp(matrix));
     }
 

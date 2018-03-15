@@ -37,6 +37,7 @@ public class KthLargestElement {
     }
 
     // O(n) quick select algorithm
+    // Space complexity: O(1)
     public int findKthLargest(int[] nums, int k) {
         if (nums == null || nums.length == 0 || k < 1 || k > nums.length) {
             throw new IllegalArgumentException("invalid input");

@@ -197,12 +197,16 @@ public class Reverse {
     }
 
     /**
-     * LEETCODE 345 Write a function that takes a string as input and reverse
-     * only the vowels of a string. Example 1: Given s = "hello", return
-     * "holle". Example 2: Given s = "leetcode", return "leotcede". Note: The
-     * vowels does not include the letter "y".
+     * LEETCODE 345 
+     * Write a function that takes a string as input and reverse only the 
+     * vowels of a string. 
+     * Example 1: Given s = "hello", return "holle". 
+     * Example 2: Given s = "leetcode", return "leotcede". 
+     * Note: The vowels does not include the letter "y".
      * 
-     * Company: Google Difficulty: easy Similar Questions: 344(Reverse String)
+     * Company: Google 
+     * Difficulty: easy 
+     * Similar Questions: 344(Reverse String)
      */
     public String reverseVowels(String s) {
         if (s == null)

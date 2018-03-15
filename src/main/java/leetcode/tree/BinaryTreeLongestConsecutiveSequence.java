@@ -130,4 +130,12 @@ public class BinaryTreeLongestConsecutiveSequence {
         maxLen = Math.max(maxLen, incr + decr - 1);
         return new int[] { incr, decr };
     }
+    
+    public static void main(String[] args) {
+        BinaryTreeLongestConsecutiveSequence  btlic = new BinaryTreeLongestConsecutiveSequence();
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        System.out.println(btlic.longestConsecutiveII(root));
+    }
 }

@@ -1,12 +1,41 @@
 package leetcode.binarysearch;
 
 /**
+ * LEETCODE 34
  * Given a sorted array of integers, find the starting and ending position of a
  * given target value. Your algorithm's runtime complexity must be in the order
  * of O(log n). If the target is not found in the array, return [-1, -1]. For
  * example, given [5, 7, 7, 8, 8, 10] and target value 8, return [3, 4].
+ * 
+ * Company: LinkedIn
+ * Difficulty: medium
+ * Similar Questions: 278(FirstBadVersion)
+ * 
+ * http://blog.csdn.net/yefengzhichen/article/details/52372407
  */
 public class SearchRange {
+    public int[] searchRange(int[] nums, int target) {
+        if (nums == null || nums.length == 0) return new int[] {-1, -1};
+        return new int[] {findPosition(nums, target, true), findPosition(nums, target, false)};
+    }
+    
+    private int findPosition(int[] nums, int target, boolean first) {
+        int pos = -1;
+        int lo = 0, hi = nums.length-1;
+        while (lo <= hi) {
+            int mid = lo + (hi-lo)/2;
+            if (nums[mid] == target) {
+                pos = mid;
+                if (first) hi = mid-1;
+                else lo = mid+1;
+            }
+            else if (nums[mid] < target) lo = mid + 1;
+            else hi = mid - 1;
+        }
+        return pos;
+    }
+    
+    /*
     public int[] searchRange(int[] nums, int target) {
         int[] result = { -1, -1 };
 
@@ -33,7 +62,7 @@ public class SearchRange {
 
         return result;
 
-    }
+    }*/
 
     // https://discuss.leetcode.com/topic/16486/9-11-lines-o-log-n?show=51947
     // https://discuss.leetcode.com/topic/5891/clean-iterative-solution-with-two-binary-searches-with-explanation
@@ -72,23 +101,7 @@ public class SearchRange {
 
         //return new int[] {findPosition(nums, target, true), findPosition(nums, target, false)};
     }
-    
-    private int findPosition(int[] nums, int target, boolean first) {
-        int pos = -1;
-        int lo = 0, hi = nums.length-1;
-        while (lo <= hi) {
-            int mid = lo + (hi-lo)/2;
-            if (nums[mid] == target) {
-                pos = mid;
-                if (first) hi = mid-1;
-                else lo = mid+1;
-            }
-            else if (nums[mid] < target) lo = mid + 1;
-            else hi = mid - 1;
-        }
-        return pos;
-    }
-
+   
     public int[] searchRange_divideAndConquer(int[] nums, int target) {
         return searchRangeHelper(nums, target, 0, nums.length - 1);
     }
@@ -112,6 +125,8 @@ public class SearchRange {
             return left;
         return new int[] { left[0], right[1] };
     }
+    
+    
 
     public static void main(String[] args) {
         SearchRange r = new SearchRange();

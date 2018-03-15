@@ -1,9 +1,7 @@
 package leetcode.trie;
 
-import com.sun.corba.se.impl.orbutil.graph.Node;
-
 /*
- * LEETCODE 746
+ * LEETCODE 745
  * Given many words, words[i] has weight i. Design a class WordFilter that supports one function, 
  * WordFilter.f(String prefix, String suffix). It will return the word with given prefix and suffix 
  * with maximum weight. If no word exists, return -1.
@@ -21,6 +19,7 @@ import com.sun.corba.se.impl.orbutil.graph.Node;
  * 
  * Company: Facebook
  * Difficulty: hard
+ * Similar Questions: 211(WordDictionary)
  */
 public class WordFilter {
     // For each suffix of the word, we could insert that suffix, followed by '#', 
@@ -70,7 +69,9 @@ public class WordFilter {
             if (node.next[index] == null) {
                 node.next[index] = new TrieNode();
             }
-            node.next[index].weight = weight;
+            // weight needs to be populated along the path
+            // as the prefix search should return proper weight
+            node.next[index].weight = weight; 
             node = node.next[index];
         }
     }

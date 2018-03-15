@@ -6,12 +6,15 @@ import java.util.Queue;
 import leetcode.matrix.MatrixUtil;
 
 /*
+ * LEETCODE 286
  * You are given a m x n 2D grid initialized with these three possible values.
  * -1 - A wall or an obstacle.
  * 0 - A gate.
- * INF - Infinity means an empty room. We use the value 2^31 - 1 = 2147483647 to represent INF as you may assume 
- * that the distance to a gate is less than 2147483647.
- * Fill each empty room with the distance to its nearest gate. If it is impossible to reach a gate, it should be filled with INF.
+ * INF - Infinity means an empty room. We use the value 2^31 - 1 = 2147483647 
+ * to represent INF as you may assume that the distance to a gate is less than 
+ * 2147483647.
+ * Fill each empty room with the distance to its nearest gate. If it is impossible 
+ * to reach a gate, it should be filled with INF.
  * For example, given the 2D grid:
  * INF  -1  0  INF
  * INF INF INF  -1
@@ -39,7 +42,7 @@ public class WallsAndGates {
             return;
 
         int m = rooms.length, n = rooms[0].length;
-        // find all gates
+        // enqueue all gates. this will make sure all gates will be visited first
         Queue<int[]> queue = new LinkedList<>();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
@@ -54,28 +57,7 @@ public class WallsAndGates {
             int row = position[0], col = position[1];
             for (int[] direction : DIRECTIONS) {
                 int x = row + direction[0], y = col + direction[1];
-                if (x < 0 || x >= m || y < 0 || y >= n || rooms[x][y] != Integer.MAX_VALUE) { // if
-                                                                                              // the
-                                                                                              // value
-                                                                                              // is
-                                                                                              // set
-                                                                                              // the
-                                                                                              // room
-                                                                                              // has
-                                                                                              // been
-                                                                                              // reached
-                                                                                              // quicker
-                                                                                              // via
-                                                                                              // other
-                                                                                              // gate.
-                                                                                              // gates
-                                                                                              // are
-                                                                                              // in
-                                                                                              // the
-                                                                                              // from
-                                                                                              // of
-                                                                                              // the
-                                                                                              // queue
+                if (x < 0 || x >= m || y < 0 || y >= n || rooms[x][y] != Integer.MAX_VALUE) { 
                     continue;
                 }
                 rooms[x][y] = rooms[row][col] + 1;

@@ -64,11 +64,11 @@ public class LargestPlusSign {
     // minimum length of 1's out of the four directions as the order of the largest 
     // axis-aligned plus sign centered at position (i, j).
     
-    // Time complexity: O(n^2)  Space complexity: O(n)
+    // Time complexity: O(n^2)  Space complexity: O(n^2)
     public int orderOfLargestPlusSign(int N, int[][] mines) {
         int[][] matrix = new int[N][N];
         for (int i = 0; i < N; i++) {
-            Arrays.fill(matrix[i], 5);
+            Arrays.fill(matrix[i], N);
         }
         for (int[] mine : mines) {
             matrix[mine[0]][mine[1]] = 0;
@@ -79,7 +79,8 @@ public class LargestPlusSign {
                 // j is a column index, iterate from left to right
                 // every time check how far left it can reach.
                 // if grid[i][j] is 0, l needs to start over from 0 again, otherwise increment
-                matrix[i][j] = Math.min(matrix[i][j], l = (matrix[i][j] == 0 ? 0 : l+1));
+                l = (matrix[i][j] == 0 ? 0 : l+1);
+                matrix[i][j] = Math.min(matrix[i][j], l);
             }
             for (int k = N-1, r = 0; k >= 0; k--) {
                 // k is a column index, iterate from right to left

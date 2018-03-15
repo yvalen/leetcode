@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+// http://www.1point3acres.com/bbs/thread-117602-1-1.html
 public class Subset {
     /*
      * LEETCODE 78
@@ -17,6 +18,7 @@ public class Subset {
      * Difficulty: medium
      * Similar Questions: 
      */
+    // Time complexity: O(n2^n)
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         subsets_helper(nums, result, new LinkedList<>(), 0);
@@ -49,13 +51,15 @@ public class Subset {
                 list.add(nums[i]);
                 result.add(list);
             }
+            System.out.println(result);
         }
         return result;
     }
 
     /*
      * LEETCODE 90
-     * Given a collection of integers that might contain duplicates, return all possible subsets. 
+     * Given a collection of integers that might contain duplicates, 
+     * return all possible subsets. 
      * Note: The solution set must not contain duplicate subsets. 
      * For example, if nums = [1,2,2], a solution is: 
      * [ [2], [1], [1,2,2], [2,2], [1,2], [] ]
@@ -91,15 +95,18 @@ public class Subset {
         Arrays.sort(nums);
         result.add(new ArrayList<>());
         for (int i = 0, size = 0; i < nums.length; i++) {
-            // for duplicate elements, only insert it after the newly inserted elements from last step
-            // need to get the size from last iteration
+            // for duplicate elements, only insert it after the newly inserted 
+            // elements from last step, need to get the size from last iteration
             int start = (i > 0 && nums[i] == nums[i-1])  ? size : 0;
+            System.out.println("start="+start+" size="+size);
             size = result.size();
+            System.out.println("result size="+size);
             for (int j = start; j < size; j++) {
                 List<Integer> list = new ArrayList<>(result.get(j));
                 list.add(nums[i]);
                 result.add(list);
             }
+            System.out.println(result);
         }
         
         return result;

@@ -29,7 +29,7 @@ import java.util.LinkedList;
  * https://stackoverflow.com/questions/12054415/get-min-max-in-o1-time-from-a-queue/14130234#14130234
  */
 public class SlidingWindowMaximum {
-    // Time complexity O(n)
+    // Time complexity O(n), Space complexity:O(1)
     public int[] maxSlidingWindow(int[] nums, int k) {
         if (nums == null || nums.length == 0)
             return new int[0];

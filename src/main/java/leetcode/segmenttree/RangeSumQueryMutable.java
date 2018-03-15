@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
  * - You may assume the number of calls to update and sumRange function is distributed evenly.
  * 
  * Difficulty: medium
- * Similar Questions: 303(RangeSumQuery)
+ * Similar Questions: 303(RangeSumQuery), 308(RangeSum2DMutable)
  */
 public class RangeSumQueryMutable {
     /*
@@ -173,6 +173,7 @@ public class RangeSumQueryMutable {
         }
     }
 
+    // Time complexity: O(logn) worst case, n - size of the array
     public void update(int i, int val) {
         int delta = val - nums[i];
         nums[i] = val; // need to update nums with the new value
@@ -181,7 +182,9 @@ public class RangeSumQueryMutable {
         }
     }
 
+    // Time complexity: O(logn) 
     public int sumRange(int i, int j) {
+        // need to use i-1 here
         return getSum(j) - getSum(i - 1);
     }
 

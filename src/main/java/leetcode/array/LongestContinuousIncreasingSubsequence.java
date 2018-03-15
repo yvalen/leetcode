@@ -12,7 +12,7 @@ package leetcode.array;
  * 
  * Company: Facebook
  * Difficulty: easy
- * 
+ * Similar Questions: 673(NumberOfLongestIncreasingSubsequence)
  */
 public class LongestContinuousIncreasingSubsequence {
     public int findLengthOfLCIS_twoPointer(int[] nums) {
@@ -39,13 +39,14 @@ public class LongestContinuousIncreasingSubsequence {
     public int findLengthOfLCIS(int[] nums) {
         if (nums == null)
             return 0;
-        int maxLen = 0, len = 1;
+        int maxLen = 0, len = 0;
         for (int i = 0; i < nums.length; i++) {
             if (i == 0 || nums[i - 1] < nums[i]) {
                 len++;
                 maxLen = Math.max(maxLen, len);
-            } else
+            } else {
                 len = 1;
+            }
         }
         return maxLen;
     }

@@ -23,6 +23,7 @@ import java.util.PriorityQueue;
  * 
  * Company: Google
  * Difficulty: hard
+ * Similar Questions: 480(SlidingWindowMedian)
  */
 public class FindMedianFromDataStream {
     // store the larger half
@@ -35,6 +36,8 @@ public class FindMedianFromDataStream {
         maxHeap = new PriorityQueue<>(Collections.reverseOrder());
     }
 
+    // Time complexity: O(logn) Space complexity: O(n)
+    // In the worst case there are three heap insertions and two heap deletions from the top.
     public void addNum(int num) {
         maxHeap.add(num); // always add to maxHeap
 
@@ -49,17 +52,7 @@ public class FindMedianFromDataStream {
 
     }
 
-    /*
-     * public void addNum(int num) { if (maxHeap.isEmpty()) maxHeap.add(num);
-     * else if (minHeap.isEmpty()) { if (num < maxHeap.peek()) {
-     * minHeap.add(maxHeap.poll()); maxHeap.add(num); } else { minHeap.add(num);
-     * } } else { int left = maxHeap.peek(), right = minHeap.peek(); boolean
-     * sameSize = maxHeap.size() == minHeap.size(); if (num > right) { if
-     * (sameSize) { maxHeap.add(minHeap.poll()); } minHeap.add(num); } else if
-     * (num < left) { if (!sameSize) { minHeap.add(maxHeap.poll()); }
-     * maxHeap.add(num); } else { if (sameSize) { maxHeap.add(num); } else {
-     * minHeap.add(num); } } } }
-     */
+    // Time complexity: O(1)
     public double findMedian() {
         if (maxHeap.size() > minHeap.size())
             return Double.valueOf(maxHeap.peek());

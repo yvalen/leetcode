@@ -30,6 +30,7 @@ import java.util.stream.Stream;
 public class WordSearch {
     private static final int[][] OFFSETS = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
    
+    // Time complexity: O(mn4^k) - k is the word length
     public boolean exist(char[][] board, String word) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
@@ -40,6 +41,8 @@ public class WordSearch {
         return false;
     }
 
+    // dfs method goes only as deep as the word length we have 
+    // T(k)=4(T(k-1))=4*4T(k-2)=…=… which will be 4^k.
     private boolean dfs(char[][] board, String word, int row, int col, int index) {
         if (index == word.length())
             return true;

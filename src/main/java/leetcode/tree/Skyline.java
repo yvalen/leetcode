@@ -160,6 +160,13 @@ public class Skyline {
                 }
             }
         };
+
+        @Override
+        public String toString() {
+            return "Wall [position=" + position + ", height=" + height + ", start=" + start + "]";
+        }
+        
+        
     }
 
     public List<int[]> getSkyline(int[][] buildings) {
@@ -201,6 +208,7 @@ public class Skyline {
     
     public static void main(String[] args) {
         Skyline skyline = new Skyline();
+        // [[1,2,1],[1,2,2],[1,2,3]]
         /*
         int[][] buildings = {
                 {0,2,3},

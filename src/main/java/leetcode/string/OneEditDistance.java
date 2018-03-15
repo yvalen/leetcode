@@ -112,7 +112,8 @@ public class OneEditDistance {
         // String s = "", t = "";
         // String s = "a", t = "";
         // String s = "ab", t = "cab";
-        String s = "ab", t = "ac";
-        System.out.println(d.isOneEditDistance_withSubstring(s, t));
+       // String s = "ab", t = "ac";
+        String s = "aa", t = "abb";
+        System.out.println(d.isOneEditDistance_withCharArray(s, t));
     }
 }

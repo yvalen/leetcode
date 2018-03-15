@@ -6,19 +6,24 @@ import java.util.Queue;
 import leetcode.matrix.MatrixUtil;
 
 /*
- * You want to build a house on an empty land which reaches all buildings in the shortest amount of distance. 
- * You can only move up, down, left and right. You are given a 2D grid of values 0, 1 or 2, where:
+ * LEETCODE 317
+ * You want to build a house on an empty land which reaches all buildings 
+ * in the shortest amount of distance. You can only move up, down, left and 
+ * right. You are given a 2D grid of values 0, 1 or 2, where:
  * - Each 0 marks an empty land which you can pass by freely.
  * - Each 1 marks a building which you cannot pass through.
  * - Each 2 marks an obstacle which you cannot pass through.
- * For example, given three buildings at (0,0), (0,4), (2,2), and an obstacle at (0,2):
+ * For example, given three buildings at (0,0), (0,4), (2,2), and an obstacle 
+ * at (0,2):
  * 1 - 0 - 2 - 0 - 1
  * |   |   |   |   |
  * 0 - 0 - 0 - 0 - 0
  * |   |   |   |   |
  * 0 - 0 - 1 - 0 - 0
- * The point (1,2) is an ideal empty land to build a house, as the total travel distance of 3+3+1=7 is minimal. So return 7.
- * Note: There will be at least one building. If it is not possible to build such house according to the above rules, return -1.
+ * The point (1,2) is an ideal empty land to build a house, as the total travel 
+ * distance of 3+3+1=7 is minimal. So return 7.
+ * Note: There will be at least one building. If it is not possible to build such 
+ * house according to the above rules, return -1.
  * 
  * Company: Google, Zenefits
  * Difficulty: hard
@@ -26,6 +31,8 @@ import leetcode.matrix.MatrixUtil;
 public class ShortesDistanceFromAllBuildings {
     private static final int[][] DIRECTIONS = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
 
+    // Time complexity: O(kmn), k is the number of buildings, 
+    // worst case O(m^n^2) when every vertex is a building
     public int shortestDistance(int[][] grid) {
         if (grid == null || grid.length == 0)
             return -1;
@@ -66,18 +73,11 @@ public class ShortesDistanceFromAllBuildings {
         return minDistance == Integer.MAX_VALUE ? -1 : minDistance;
     }
 
-    // BFS/DFS complexity: O(V + E) - O(mn)
+    // BFS/DFS complexity: O(V + E) -> O(v+4v) -> O(v) ~  O(mn)
     // number of vertex: m*n, number of edges: each vertex has 4 edges E~4V
     private void bfs(int[][] grid, int row, int col, int[][] distances, int[][] reachableBuildings) {
-        boolean[][] visited = new boolean[grid.length][grid[0].length]; // whether
-                                                                        // the
-                                                                        // cell
-                                                                        // has
-                                                                        // been
-                                                                        // visited
-                                                                        // in
-                                                                        // this
-                                                                        // traversal
+        // whether the cell has been visited in this traversal
+        boolean[][] visited = new boolean[grid.length][grid[0].length]; 
         Queue<int[]> queue = new LinkedList<>();
         queue.offer(new int[] { row, col });
         int level = 1;
@@ -115,8 +115,8 @@ public class ShortesDistanceFromAllBuildings {
     // them -1.
     // From the second building only walk onto cells where grid is -1, and make
     // them -2. And so on.
-    // Time complexity: O(kmn), k is the number of buildings. Space comlexity:
-    // O(mn)
+    // Time complexity: O(kmn), k is the number of buildings. 
+    // Space comlexity: O(mn)
     public int shortestDistance_spaceOptimized(int[][] grid) {
         if (grid == null || grid.length == 0)
             return -1;
@@ -130,8 +130,8 @@ public class ShortesDistanceFromAllBuildings {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 1) {
-                    minDistance = -1; // need to reset minDistance for each
-                                      // building
+                    // need to reset minDistance for each building
+                    minDistance = -1; 
                     int depth = 0;
                     queue.offer(new int[] { i, j });
                     while (!queue.isEmpty()) {
@@ -151,6 +151,7 @@ public class ShortesDistanceFromAllBuildings {
                                 }
                                 queue.offer(new int[] { x, y });
                             }
+                            System.out.println(minDistance);
                         }
                     }
                     walk--; // decrement walk inside if

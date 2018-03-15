@@ -5,8 +5,9 @@ import java.util.Map;
 
 /*
  * LEETCODE 523
- * Given a list of non-negative numbers and a target integer k, write a function to check if the array has a continuous 
- * subarray of size at least 2 that sums up to the multiple of k, that is, sums up to n*k where n is also an integer.
+ * Given a list of non-negative numbers and a target integer k, write a function 
+ * to check if the array has a continuous subarray of size at least 2 that sums up 
+ * to the multiple of k, that is, sums up to n*k where n is also an integer.
  * Example 1: Input: [23, 2, 4, 6, 7],  k=6 Output: True
  * Explanation: Because [2, 4] is a continuous subarray of size 2 and sums up to 6.
  * Example 2: Input: [23, 2, 6, 4, 7],  k=6 Output: True
@@ -45,8 +46,11 @@ public class ContinuousSubarraySum {
 
     // (a+(n*x))%x is same as (a%x)
     // a = cumulative sum at ith element, a+n*x = cumulative sum at jth element
-    // Time complexity: O(n), Space complexity: O(min(n, k)), hash map contains
-    // min(n, k) pairs
+    // Time complexity: O(n)
+    // Space complexity: O(min(n, k)), hash map contains min(n, k) pairs
+    // T(i, j) = n × k, 1≤ i < j ≤ n.
+    // -> S(j) = n × k , 1 = i < j, S(j) - S(i - 1) = n × k, 1 < i < j.
+    // https://leetcode.com/problems/continuous-subarray-sum/discuss/99545/Share-my-O(n)-C++-accumulation-modulo-solution-with-thinking-process-and-explanation
     public boolean checkSubarraySum_modularMap(int[] nums, int k) {
         if (nums == null || nums.length == 0)
             return false;
@@ -59,6 +63,7 @@ public class ContinuousSubarraySum {
             if (k != 0)
                 sum %= k;
             System.out.println(sum);
+            System.out.println(map);
             if (map.containsKey(sum)) {
                 if (i - map.get(sum) > 1)
                     return true; // ensure subarray has at least 2 elements
@@ -75,9 +80,9 @@ public class ContinuousSubarraySum {
         // int[] nums = {23, 2, 6, 4, 7};
         // int k = 6;
         // int[] nums = {0, 1, 0};
-        // int[] nums = {0, 0};
+         int[] nums = {0, 0};
         // int k = 0;
-        int[] nums = { 2, 5, 33, 6, 7, 25, 15 };
+        //int[] nums = { 2, 5, 33, 6, 7, 25, 15 };
         int k = 13;
         System.out.println(css.checkSubarraySum_modularMap(nums, k));
     }

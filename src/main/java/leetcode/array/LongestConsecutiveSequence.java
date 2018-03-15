@@ -8,14 +8,19 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /*
- * Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
- * For example, given [100, 4, 200, 1, 3, 2], the longest consecutive elements sequence is [1, 2, 3, 4]. 
- * Return its length: 4. Your algorithm should run in O(n) complexity. 
+ * LEETCODE 128
+ * Given an unsorted array of integers, find the length of the longest 
+ * consecutive elements sequence.
+ * For example, given [100, 4, 200, 1, 3, 2], the longest consecutive 
+ * elements sequence is [1, 2, 3, 4]. Return its length: 4. 
+ * Your algorithm should run in O(n) complexity. 
  * 
  * Company: Google, Facebook
  * Difficulty: hard
  */
 public class LongestConsecutiveSequence {
+    // Time complexity: O(n+n) ~ O(n)
+    // Space complexity: O(1)
     public int longestConsecutive_withSet(int[] nums) {
         // store all numbers in a set
         // Set<Integer> numSet =
@@ -26,14 +31,12 @@ public class LongestConsecutiveSequence {
         }
 
         int len = 0;
-        for (Integer num : numSet) { // loop through set instead of nums to
-                                     // avoid checking duplicate start number
-                                     // multiple times
-            // check if num is the start of the streak
-            if (!numSet.contains(num - 1)) { // num is the start of a streak,
-                                             // i.e., num-1 is not in set. only
-                                             // check element in descending
-                                             // order
+        // loop through set instead of nums to avoid checking duplicate 
+        // start number multiple times
+        for (Integer num : numSet) { 
+            // check if num is the start of the streak, i.e.
+            // num-1 is not in set. only check element in descending order
+            if (!numSet.contains(num - 1)) { 
                 int m = num + 1;
                 while (numSet.contains(m))
                     m++; // check if num+1, num+2,... are in set, stop at the
